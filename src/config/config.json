@@ -29,8 +29,8 @@
 
   "navigation_button": {
     "enable": true,
-    "label": "Get Started",
-    "link": "https://github.com/noams24/Kef-Code"
+    "label": "כניסה",
+    "link": "/sign-in"
   },
 
   "disqus": {
