@@ -1,14 +1,12 @@
-"use client";
-
 import Logo from "@/components/Logo";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import config from "@/config/config.json";
 import menu from "@/config/menu.json";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React, { useEffect } from "react";
-import { IoSearch } from "react-icons/io5/index.js";
-
+import React from "react";
+import { authOptions } from '@/lib/auth'
+import { getServerSession } from 'next-auth'
+import { UserAccountNav } from '@/components/UserAccountNav'
 //  child navigation link interface
 export interface IChildNavigationLink {
   name: string;
@@ -23,54 +21,23 @@ export interface INavigationLink {
   children?: IChildNavigationLink[];
 }
 
-const Header = () => {
+const Header = async () => {
+
+
+  const session = await getServerSession(authOptions)
   // distructuring the main menu from menu object
   const { main }: { main: INavigationLink[] } = menu;
   const { navigation_button, settings } = config;
-  // get current path
-  const pathname = usePathname();
-
-  // scroll to top on route change
-  useEffect(() => {
-    window.scroll(0, 0);
-  }, [pathname]);
 
   return (
     <header
-      className={`header z-30 ${settings.sticky_header && "sticky top-0"}`}
+      className={`header z-30 ${settings.sticky_header && "sticky top-0 border-b border-gray-400"}`}
     >
       <nav className="navbar container">
         {/* logo */}
-        <div className="order-0">
+        <div className="order-2">
           <Logo />
         </div>
-        {/* navbar toggler */}
-        <input id="nav-toggle" type="checkbox" className="hidden" />
-        <label
-          id="show-button"
-          htmlFor="nav-toggle"
-          className="order-3 flex cursor-pointer items-center text-dark dark:text-white lg:order-1 lg:hidden"
-        >
-          <svg className="h-6 fill-current" viewBox="0 0 20 20">
-            <title>Menu Open</title>
-            <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
-          </svg>
-        </label>
-        <label
-          id="hide-button"
-          htmlFor="nav-toggle"
-          className="order-3 hidden cursor-pointer items-center text-dark dark:text-white lg:order-1"
-        >
-          <svg className="h-6 fill-current" viewBox="0 0 20 20">
-            <title>Menu Close</title>
-            <polygon
-              points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
-              transform="rotate(45 10 10)"
-            ></polygon>
-          </svg>
-        </label>
-        {/* /navbar toggler */}
-
         <ul
           id="nav-menu"
           className="navbar-nav order-3 hidden w-full pb-6 lg:order-1 lg:flex lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8"
@@ -80,14 +47,10 @@ const Header = () => {
               {menu.hasChildren ? (
                 <li className="nav-item nav-dropdown group relative">
                   <span
-                    className={`nav-link inline-flex items-center ${
-                      menu.children?.map(({ url }) => url).includes(pathname) ||
+                    className={`nav-link inline-flex items-center active ${menu.children?.map(({ url }) => url) ||
                       menu.children
                         ?.map(({ url }) => `${url}/`)
-                        .includes(pathname)
-                        ? "active"
-                        : ""
-                    }`}
+                      }`}
                   >
                     {menu.name}
                     <svg className="h-4 w-4 fill-current" viewBox="0 0 20 20">
@@ -99,11 +62,7 @@ const Header = () => {
                       <li className="nav-dropdown-item" key={`children-${i}`}>
                         <Link
                           href={child.url}
-                          className={`nav-dropdown-link block ${
-                            (pathname === `${child.url}/` ||
-                              pathname === child.url) &&
-                            "active"
-                          }`}
+                          className={`nav-dropdown-link block`}
                         >
                           {child.name}
                         </Link>
@@ -115,10 +74,7 @@ const Header = () => {
                 <li className="nav-item">
                   <Link
                     href={menu.url}
-                    className={`nav-link block ${
-                      (pathname === `${menu.url}/` || pathname === menu.url) &&
-                      "active"
-                    }`}
+                    className={`nav-link block`}
                   >
                     {menu.name}
                   </Link>
@@ -137,25 +93,20 @@ const Header = () => {
             </li>
           )}
         </ul>
-        <div className="order-1 ml-auto flex items-center md:order-2 lg:ml-0">
-          {settings.search && (
+        {/*Left side of the navbar */}
+        <div className="order-0 ml-auto mr-10 flex items-center md:order-0 lg:ml-0">
+          {/*Source Code button*/}
+          {session?.user ? (
+          <UserAccountNav user={session.user} />
+        ) : (
             <Link
-              className="mr-5 inline-block border-r border-border pr-5 text-xl text-dark hover:text-primary dark:border-darkmode-border dark:text-white"
-              href="/search"
-              aria-label="search"
-            >
-              <IoSearch />
-            </Link>
-          )}
-          <ThemeSwitcher className="mr-5" />
-          {navigation_button.enable && (
-            <Link
-              className="btn btn-outline-primary btn-sm hidden lg:inline-block"
-              href={navigation_button.link}
-            >
-              {navigation_button.label}
-            </Link>
-          )}
+            className="btn btn-outline-primary btn-sm hidden lg:inline-block"
+            href={navigation_button.link}
+          >
+            {navigation_button.label}
+          </Link>
+        )}           
+          <ThemeSwitcher className="ml-5" />
         </div>
       </nav>
     </header>
