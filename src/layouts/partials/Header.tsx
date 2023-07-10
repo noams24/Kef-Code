@@ -96,7 +96,7 @@ const Header = async () => {
         {/*Left side of the navbar */}
         <div className="order-0 ml-auto mr-10 flex items-center md:order-0 lg:ml-0">
           {/*Source Code button*/}
-                
+
           <ThemeSwitcher className="ml-5" />
         </div>
       </nav>
