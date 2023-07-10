@@ -1,26 +1,24 @@
 ---
 # Banner
 banner:
-  title: "The Ultimate Starter Template You Need To Start Your Next Project"
-  content: "Nextplate is a free starter template built with Next and TailwindCSS, providing everything you need to jumpstart your Next project and save valuable time."
+  title: "כיף קוד"
+  content: "כיף קוד הוא פלטפורמה לתרגול בעיות במדעי המחשב באוניברסיטה הפתוחה שעוזר להתכונן למבחנים בצורה היעילה ביותר.
+          בחר בעיה מתוך מגוון רחב של בעיות ושפר את יכולות פתרון הבעיות שלך"
   image: "/images/banner.png"
   button:
     enable: true
-    label: "Get Started For Free"
-    link: "https://github.com/zeon-studio/nextplate"
+    label: "התחלה"
+    link: "/courses"
 
 # Features
 features:
-  - title: "What's Included in Nextplate"
+  - title: "מה כלול בכיף קוד"
     image: "/images/service-1.png"
-    content: "Nextplate is a comprehensive starter template that includes everything you need to get started with your Next project. What's Included in Nextplate"
+    content: "בעיות ופתרונות ממגוון קורסים"
     bulletpoints:
-      - "10+ Pre-build pages"
-      - "95+ Google Pagespeed Score"
-      - "Build with Next and TailwindCSS for easy and customizable styling"
-      - "Fully responsive on all devices"
-      - "SEO-optimized for better search engine rankings"
-      - "**Open-source and free** for personal and commercial use"
+      - " מעל 20 קורסים שונים"
+      - "תמיכה מהקהילה"
+      - "בלוג עם מדריכים שונים"
     button:
       enable: false
       label: "Get Started Now"

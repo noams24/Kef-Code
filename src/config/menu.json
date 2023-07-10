@@ -1,54 +1,50 @@
 {
   "main": [
     {
-      "name": "Home",
-      "url": "/"
-    },
-    {
-      "name": "About",
-      "url": "/about"
-    },
-    {
-      "name": "Elements",
-      "url": "/elements"
-    },
-    {
-      "name": "Pages",
+      "name": "דפים",
       "url": "",
       "hasChildren": true,
       "children": [
         {
-          "name": "Contact",
+          "name": "מידע נוסף",
+          "url": "/about"
+        },
+        {
+          "name": "יצירת קשר",
           "url": "/contact"
         },
         {
-          "name": "Blog",
+          "name": "בלוג",
           "url": "/blog"
         },
         {
-          "name": "Authors",
+          "name": "יוצרים",
           "url": "/authors"
         },
         {
-          "name": "Categories",
+          "name": "קטגוריות",
           "url": "/categories"
         },
         {
-          "name": "Search",
+          "name": "חיפוש",
           "url": "/search"
         },
         {
-          "name": "404 Page",
+          "name": "דף לא קיים",
           "url": "/404"
+        },
+        {
+          "name": "דוגמא",
+          "url": "/elements"
         }
       ]
+    },
+    {
+      "name": "קורסים",
+      "url": "/courses"
     }
   ],
   "footer": [
-    {
-      "name": "Elements",
-      "url": "/elements"
-    },
     {
       "name": "Privacy Policy",
       "url": "/privacy-policy"
