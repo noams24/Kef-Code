@@ -22,8 +22,7 @@ export interface INavigationLink {
 }
 
 const Header = async () => {
-  const session = await getServerSession(authOptions)
-  console.log(session)
+  //const session = await getServerSession(authOptions)
   // distructuring the main menu from menu object
   const { main }: { main: INavigationLink[] } = menu;
   const { navigation_button, settings } = config;

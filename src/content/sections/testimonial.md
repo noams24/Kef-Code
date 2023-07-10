@@ -1,27 +1,27 @@
 ---
 enable: true
-title: "What Users Are Saying About Nextplate"
-description: "Don't just take our word for it - hear from some of our satisfied users!  Check out some of our testimonials below to see what others are saying about Nextplate."
+title: "מה אנשים אומרים על כיף קוד"
+description: "אל תספקו במילה שלנו, תשמע מהמשתמשים המרוצים שלנו! עיין בכמה מההמלצות שלנו למטה כדי לראות מה אחרים אומרים על כיף קוד"
 
 # Testimonials
 testimonials:
-  - name: "Marvin McKinney"
-    designation: "Web Designer"
+  - name: "הייזנברג"
+    designation: "כלב"
     avatar: "/images/avatar-sm.png"
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui iusto illo molestias, assumenda expedita commodi inventore non itaque molestiae voluptatum dolore, facilis sapiente, repellat veniam."
+    content: "האתר הזה הוא כמו לוח הודעות ענק של צחוק! איפה אני הייתי בלעדיו? מה שכן, יש לו תוקף מצחיק שמחזיר לי את החיוך לפנים בכל פעם שאני מתעכב בו. אני ממליץ על האתר הזה לכל אדם שצריך פיזור מחשבות ורגעי קומדיה. אני חי בתודה עמוקה ליוצרי האתר הגאוניים האלה!"
 
-  - name: "Marvin McKinney"
-    designation: "Web Designer"
+  - name: "משה זוכמיר"
+    designation: "אנונימי"
     avatar: "/images/avatar-sm.png"
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui iusto illo molestias, assumenda expedita commodi inventore non itaque molestiae voluptatum dolore, facilis sapiente, repellat veniam."
+    content: "מה אפשר להגיד? האתר הזה הפך את חיי! עכשיו אני מבין למה אף אחד לא מבקר בקיץ או מתחיל תואר אקדמי. אני פשוט נלף לעולם האתר הזה ולא מצליח להפסיק! המשפחה שלי מתקרבת למעגל רחב של אתרי רשת, והכי כיף שכולם פתאום מוצאים את עצמם תופסים את אותו האתר ומצחקים יחד. איזה חסד!"
 
-  - name: "Marvin McKinney"
+  - name: "שמוליק"
     designation: "Web Designer"
     avatar: "/images/avatar-sm.png"
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui iusto illo molestias, assumenda expedita commodi inventore non itaque molestiae voluptatum dolore, facilis sapiente, repellat veniam."
+    content: "מתי אני ישנתי לאחרונה? האתר הזה פשוט שם סוף לכל שנתון של שינה. אני נמצא במרכז הכוכב המוליך של קפה וגולדה, ביד אחת מחזיק בתונה של אספרסו וביד השנייה מזלזל באתר המטורף הזה. אז אומרים שהחיים זה תפקיד, אבל אני אומר שהאתר הזה הוא תיאטרון של פרפורמנס ממומן!"
 
-  - name: "Marvin McKinney"
-    designation: "Web Designer"
+  - name: "מארקו"
+    designation: "תותח"
     avatar: "/images/avatar-sm.png"
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui iusto illo molestias, assumenda expedita commodi inventore non itaque molestiae voluptatum dolore, facilis sapiente, repellat veniam."
+    content: "הייתי חייב להיכנס לאתר הזה כדי לכתוב לו תזכורת על איך הוא שינה לי את החיים. מאז שאני משתמש באתר הזה, כל הזמן נמצא לי יותר זמן בידיים. יש לי פתאום זמן לעשות את כל הדברים החשובים בחיים, כמו למשל לסדר את המראה בשיש ולטפס על הר איברסט. אולי זה רק זמני, אבל ממש נפלא להיות זמן חופשי!"
 ---
