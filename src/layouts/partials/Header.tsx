@@ -4,9 +4,9 @@ import config from "@/config/config.json";
 import menu from "@/config/menu.json";
 import Link from "next/link";
 import React from "react";
-import { authOptions } from '@/lib/auth'
-import { getServerSession } from 'next-auth'
-import { UserAccountNav } from '@/components/UserAccountNav'
+//import { authOptions } from '@/lib/auth'
+//import { getServerSession } from 'next-auth'
+//import { UserAccountNav } from '@/components/UserAccountNav'
 //  child navigation link interface
 export interface IChildNavigationLink {
   name: string;
@@ -24,7 +24,7 @@ export interface INavigationLink {
 const Header = async () => {
 
 
-  const session = await getServerSession(authOptions)
+  //const session = await getServerSession(authOptions)
   // distructuring the main menu from menu object
   const { main }: { main: INavigationLink[] } = menu;
   const { navigation_button, settings } = config;
