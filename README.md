@@ -24,7 +24,7 @@
 
 ## 📌 Key Features
 
-- Written in modern React
+- Writen in modern languages: React, Typescript, Tailwinds CSS
 - Uses Next js 13.4 app directory structure
 - Explores basic React Server Components
 - Full user authentication lifecycle with prisma and next-auth
