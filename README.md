@@ -1,10 +1,10 @@
-<h1 align=center>Nextjs + Tailwind CSS + TypeScript Starter and Boilerplate</h1>
+<h1 align=center>Kef-Code</h1>
 
-<p align=center>Nextplate is a free starter template built with Nextjs, TailwindCSS & TypeScript, providing everything you need to jumpstart your Next project and save valuable time.</p>
+<p align=center>Kef Code is an educational website with modern technologies that will help student get 100 in their grades.</p>
 
-<p align=center>Made with ♥ by<a href="https://zeon.studio/">Zeon Studio</a></p>
+<p align=center>Made with ♥ by<a href="https://github.com/noams24/">Noam</a></p>
 
-<h2 align="center"> <a target="_blank" href="https://nextplate.netlify.app/" rel="nofollow">👀 Demo</a> | <a  target="_blank" href="https://pagespeed.web.dev/analysis/https-nextplate-netlify-app/zttnq0z42d?form_factor=desktop">Page Speed (100%)🚀</a>
+<h2 align="center"> <a target="_blank" href="kef-code.vercel.app" rel="nofollow">👀 Demo</a> | <a  target="_blank" href="https://pagespeed.web.dev/analysis/https-nextplate-netlify-app/zttnq0z42d?form_factor=desktop">Page Speed (100%)🚀</a>
 </h2>
 
 <p align=center>
@@ -24,17 +24,12 @@
 
 ## 📌 Key Features
 
-- 👥 Multi-Authors
-- 🎯 Similar Posts Suggestion
-- 🔍 Search Functionality
-- 🌑 Dark Mode
-- 🏷️ Tags & Categories
-- 🔗 Netlify setting pre-configured
-- 📞 Support contact form
-- 📱 Fully responsive
-- 📝 Write and update content in Markdown / MDX
-- 💬 Disqus Comment
-- 🔳 Syntax Highlighting
+- Written in modern React
+- Uses Next js 13.4 app directory structure
+- Explores basic React Server Components
+- Full user authentication lifecycle with prisma and next-auth
+- Rich text: Text formatting, Copy + Paste Preformatted text, Code syntax highlighting, Insert Images, Tables and Sticky notes
+- Rich text cool features: Math, graphs, sketch
 
 ### 📄 15+ Pre-designed Pages
 
@@ -73,25 +68,15 @@ npm run dev
 
 ```
 npm run build
+npm start
 ```
-
-<!-- reporting issue -->
-
-## 🐞 Reporting Issues
-
-We use GitHub Issues as the official bug tracker for this Template. Please Search [existing issues](https://github.com/zeon-studio/nextplate/issues). It’s possible someone has already reported the same problem.
-If your problem or idea has not been addressed yet, feel free to [open a new issue](https://github.com/zeon-studio/nextplate/issues).
 
 <!-- licence -->
 
 ## 📝 License
 
-Copyright (c) 2023 - Present, Designed & Developed by [Zeon Studio](https://zeon.studio/)
+Copyright (c) 2023 - Present, Designed & Developed by [Noam](https://github.com/noams24)
 
 **Code License:** Released under the [MIT](https://github.comzeon-studio/nextplate/blob/main/LICENSE) license.
 
 **Image license:** The images are only for demonstration purposes. They have their license, we don't have permission to share those images.
-
-## 💻 Need Custom Development Services?
-
-If you need a custom theme, theme customization, or complete website development services from scratch you can [Hire Us](https://zeon.studio/).
