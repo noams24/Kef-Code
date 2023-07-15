@@ -6,7 +6,7 @@
 
 <p align=center>Made with ♥ by <a href="https://github.com/noams24/">Noam</a></p>
 
-<h2 align="center"> <a target="_blank" href="kef-code.vercel.app" rel="nofollow">👀 Demo</a> | <a  target="_blank" href="https://pagespeed.web.dev/analysis/https-nextplate-netlify-app/zttnq0z42d?form_factor=desktop">Page Speed (100%)🚀</a>
+<h2 align="center"> <a target="_blank" href="kef-code.vercel.app" rel="nofollow">👀 Demo</a> | <a  target="_blank" href="https://pagespeed.web.dev/analysis/https-kef-code-vercel-app/vc8mnzs3zo?form_factor=desktop">Page Speed (97%)🚀</a>
 </h2>
 
 <p align=center>
