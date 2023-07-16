@@ -1,10 +1,8 @@
 <h1 align=center>Kef-Code</h1>
 
-<p align=center>Kef Code is an educational website with modern technologies that will help students get 100 in their tests.</p>
-                
-  <p align=center>The main idea is that the user will practice problems like in <a href="https://leetcode.com">LeetCode</a>, but the questions will be computer science questions.</p>
-
-  <p align=center>The user can easly write the solutions using a <a href="https://github.com/IBastawisi/matheditor">Math Editor</a></p>
+<p align=center>Kef Code is an educational website with modern technologies that will help students get 100 in their tests.<br />
+                The main idea is that the user will practice problems like in <a href="https://leetcode.com">LeetCode</a>, but the questions will be computer science questions.<br />
+                The user can easly write the solutions using a <a href="https://github.com/IBastawisi/matheditor">Math Editor</a></p>
 
 <p align=center>Made with ♥ by <a href="https://github.com/noams24/">Noam</a></p>
 
