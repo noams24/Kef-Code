@@ -1,6 +1,6 @@
 {
   "site": {
-    "title": "Nextplate",
+    "title": "כיף קוד",
     "base_url": "https://kef-code.vercel.app/",
     "base_path": "/",
     "trailing_slash": false,
@@ -9,7 +9,7 @@
     "logo_darkmode": "/images/logo-darkmode.png",
     "logo_width": "150",
     "logo_height": "27",
-    "logo_text": "Nextplate"
+    "logo_text": "כיף קוד"
   },
 
   "settings": {
