@@ -4,8 +4,8 @@ import config from "@/config/config.json";
 import menu from "@/config/menu.json";
 import Link from "next/link";
 import React from "react";
-import { authOptions } from '@/lib/auth'
-import { getServerSession } from 'next-auth'
+//import { authOptions } from '@/lib/auth'
+//import { getServerSession } from 'next-auth'
 //import { UserAccountNav } from '@/components/UserAccountNav'
 //  child navigation link interface
 export interface IChildNavigationLink {
