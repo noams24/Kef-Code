@@ -12,7 +12,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "../registry/new-york/ui/dropdown-menu"
-
+import './styles.css';
 interface DataTableViewOptionsProps<TData> {
   table: Table<TData>
 }
@@ -32,7 +32,7 @@ export function DataTableViewOptions<TData>({
           View
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[150px]">
+      <DropdownMenuContent align="end" className="dropDownMenuClass">
         <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {table
