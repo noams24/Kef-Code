@@ -1,8 +1,8 @@
 <h1 align=center>Kef-Code</h1>
 
 <p align=center>Kef Code is an educational website with modern technologies that will help students get 100 in their tests.<br />
-                The main idea is that the user will practice problems like in <a href="https://leetcode.com">LeetCode</a>, but the questions will be computer science questions.<br />
-                The user can easly write the solutions using a <a href="https://github.com/IBastawisi/matheditor">Math Editor</a></p>
+                The main idea is that the user will practice problems like in <a href="https://leetcode.com">LeetCode</a>, but the questions will be computer science or math questions.<br />
+                The user can easily write the solutions using a <a href="https://github.com/IBastawisi/matheditor">Math Editor</a></p>
 
 <p align=center>Made with ♥ by <a href="https://github.com/noams24/">Noam</a></p>
 
@@ -26,8 +26,8 @@
 
 ## 📌 Key Features
 
-- Writen in modern languages: React, Typescript, Tailwinds CSS
-- Uses Next js 13.4 app directory structure
+- Written in modern languages: React, Typescript, Tailwind CSS
+- Uses Next.js 13.4 app directory structure
 - Explores basic React Server Components
 - Full user authentication lifecycle with prisma and next-auth
 - Rich text: Text formatting, Copy + Paste Preformatted text, Code syntax highlighting, Insert Images, Tables and Sticky notes
@@ -55,10 +55,8 @@
 
 ### 📦 Dependencies
 
-- next 13.4+
 - node v18+
 - npm v9.5+
-- tailwind v3.3+
 
 ### 👉 Development Command
 
