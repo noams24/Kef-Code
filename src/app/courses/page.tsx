@@ -1,6 +1,6 @@
 import { getListPage } from "@/lib/contentParser";
 import Testimonials from "@/partials/Testimonials";
-import { getAuthSession } from "@/lib/auth";
+//import { getAuthSession } from "@/lib/auth";
 import { UserAccountNav } from '@/components/UserAccountNav'
 import { buttonVariants } from '@/components/ui/button'
 import Link from 'next/link'
