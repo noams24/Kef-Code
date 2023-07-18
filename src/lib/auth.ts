@@ -1,9 +1,10 @@
+{/*  
 import { db } from '@/lib/db'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { nanoid } from 'nanoid'
 //import { NextAuthOptions, getServerSession } from 'next-auth'
-import { NextAuthOptions } from 'next-auth'
-import { getServerSession } from 'next-auth/next'
+//import { NextAuthOptions } from 'next-auth'
+//import { getServerSession } from 'next-auth/next'
 import GoogleProvider from 'next-auth/providers/google'
 
 export const authOptions: NextAuthOptions = {
@@ -72,3 +73,4 @@ export const authOptions: NextAuthOptions = {
 }
 
 export const getAuthSession = () => getServerSession(authOptions)
+*/}
