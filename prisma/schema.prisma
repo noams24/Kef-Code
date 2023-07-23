@@ -8,26 +8,42 @@ datasource db {
   relationMode = "prisma"
 }
 
-enum VoteType {
-  UP
-  DOWN
+enum Type {
+  Problem
+  POST
+  COMMENT
 }
 
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  @@unique([provider, providerAccountId])
+enum voteType {
+  LIKE
+  DISLIKE
+}
+
+enum Status {
+  BEGIN
+  ONGOING
+  FINISH
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id            String          @id @default(cuid())
+  name          String?
+  email         String?         @unique
+  emailVerified DateTime?
+  username      String?         @unique
+  image         String?
+  posts         Post[]
+  sessions      Session[]
+  Comment       Comment[]
+  votes         Vote[]
+  bookmarks     Bookmark[]
+  submissions   Submissions[]
+  problemStatus problemStatus[]
 }
 
 model Session {
@@ -36,88 +52,105 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
 
-model User {
-  id                String         @id @default(cuid())
-  name              String?
-  email             String?        @unique
-  emailVerified     DateTime?
-  createdSubreddits Subreddit[]    @relation("CreatedBy")
-  subscriptions     Subscription[]
-  votes             Vote[]
-  username String? @unique
-  image       String?
-  accounts    Account[]
-  sessions    Session[]
-  Post        Post[]
-  Comment     Comment[]
-  CommentVote CommentVote[]
-}
-
-model Subreddit {
-  id        String   @id @default(cuid())
-  name      String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  posts     Post[]
-  creatorId   String?
-  Creator     User?          @relation("CreatedBy", fields: [creatorId], references: [id])
-  subscribers Subscription[]
-  @@index([name])
-}
-
-model Subscription {
-  user        User      @relation(fields: [userId], references: [id])
-  userId      String
-  subreddit   Subreddit @relation(fields: [subredditId], references: [id])
-  subredditId String
-  @@id([userId, subredditId])
+  @@index([userId])
 }
 
 model Post {
-  id          String    @id @default(cuid())
-  title       String
-  content     Json?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  author      User      @relation(fields: [authorId], references: [id])
-  authorId    String
-  subreddit   Subreddit @relation(fields: [subredditId], references: [id])
-  subredditId String
-  comments    Comment[] 
-  votes       Vote[]
+  id        String    @id @default(cuid())
+  title     String
+  content   Json?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  authorId  String
+  author    User      @relation(fields: [authorId], references: [id])
+  course    String
+  comments  Comment[]
+  Vote      Vote[]
+
+  @@index([authorId])
 }
 
 model Comment {
-  id        String   @id @default(cuid())
-  text      String
-  createdAt DateTime @default(now())
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  String
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId    String
-  replyToId String?
+  id        String    @id @default(cuid())
+  content   Json
+  createdAt DateTime  @default(now())
+  author    User      @relation(fields: [authorId], references: [id])
+  authorId  String    @unique
+  type      Type
+  post      Post?     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String?   @unique
+  problem   Problem?  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  problemId String?   @unique
+  replyToId String?   @unique
   replyTo   Comment?  @relation("ReplyTo", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   replies   Comment[] @relation("ReplyTo")
-  votes     CommentVote[]
   commentId String?
+  votes     Vote[]
+}
+
+model Problem {
+  id            String          @id @default(cuid())
+  course        String
+  chapter       String
+  title         String
+  content       Json
+  difficulty    String
+  solution      Solution?
+  comments      Comment[]
+  Submissions   Submissions[]
+  problemStatus problemStatus[]
+  vote          Vote[]
+  bookmarks     Bookmark[]
+}
+
+model Solution {
+  id        String   @id @default(cuid())
+  problemId String   @unique
+  problem   Problem  @relation(fields: [problemId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  videoUrl  String?
+  content   Json
+}
+
+model Submissions {
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  problemId String   @unique
+  problem   Problem  @relation(fields: [problemId], references: [id])
+  content   Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isPublic  Boolean
 }
 
 model Vote {
-  user   User     @relation(fields: [userId], references: [id])
-  userId String
-  post   Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId String
-  type   VoteType
-  @@id([userId, postId])
+  id        String   @id @default(cuid())
+  type      voteType
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  problemId String?  @unique
+  problem   Problem? @relation(fields: [problemId], references: [id])
+  postId    String   @unique
+  post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  Comment   Comment? @relation(fields: [commentId], references: [id])
+  commentId String?  @unique
 }
 
-model CommentVote {
+model Bookmark {
+  id        String   @id @default(cuid())
+  type      Type
+  userId    String   @unique
   user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  comment   Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
-  commentId String
-  type      VoteType
-  @@id([userId, commentId])
+  problemId String?  @unique
+  problem   Problem? @relation(fields: [problemId], references: [id])
+}
+
+model problemStatus {
+  problemId String  @unique
+  problem   Problem @relation(fields: [problemId], references: [id])
+  userId    String  @unique
+  user      User    @relation(fields: [userId], references: [id])
+  status    Status
 }

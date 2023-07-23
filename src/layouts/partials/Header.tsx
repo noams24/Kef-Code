@@ -22,7 +22,7 @@ export interface INavigationLink {
 }
 
 const Header = async () => {
-  // const session = await getServerSession(authOptions)
+  //const session = await getServerSession(authOptions)
   // distructuring the main menu from menu object
   const { main }: { main: INavigationLink[] } = menu;
   const { navigation_button, settings } = config;
@@ -94,7 +94,17 @@ const Header = async () => {
         {/*Left side of the navbar */}
         <div className="order-0 ml-auto mr-10 flex items-center md:order-0 lg:ml-0">
           {/*Source Code button*/}
-
+          {/* 
+          {session?.user ? (
+          <UserAccountNav user={session.user} />
+        ) : (
+            <Link
+            className="btn btn-outline-primary btn-sm hidden lg:inline-block"
+            href={navigation_button.link}
+          >
+            {navigation_button.label}
+          </Link>
+        )}        */}
           <ThemeSwitcher className="ml-5" />
         </div>
       </nav>
