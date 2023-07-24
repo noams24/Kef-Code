@@ -19,7 +19,6 @@ const parseFrontmatter = (frontmatter: any) => {
 // get list page data, ex: _index.md
 export const getListPage = (filePath: string) => {
   const pageDataPath = path.join(contentPath, filePath);
-  console.log(pageDataPath)
   if (!fs.existsSync(pageDataPath)) {
     //notFound();
   }
@@ -36,7 +35,6 @@ export const getListPage = (filePath: string) => {
 // get all single pages, ex: blog/post.md
 export const getSinglePage = (folder: string) => {
   const folderPath = path.join(contentPath, folder);
-  console.log(folderPath)
   if (!fs.existsSync(folderPath) || !fs.lstatSync(folderPath).isDirectory()) {
     //notFound();
   }
