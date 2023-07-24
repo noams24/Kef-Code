@@ -73,8 +73,3 @@ export type Button = {
   label: string;
   link: string;
 };
-
-declare module "*.anyextension" {
-  const content: string;
-  export default content;
-}
