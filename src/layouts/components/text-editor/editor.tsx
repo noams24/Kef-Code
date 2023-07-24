@@ -76,17 +76,13 @@ export const Editor: React.FC<{
       <div className="my-3 flex gap-x-2">
         <Button
           onClick={() => onSave && onSave(jsonState)}
-          customColors
-          customPadding
-          className="bg-inprogress px-2.5 py-1.5 text-sm font-medium text-white hover:brightness-110"
+          className="bg-white"
         >
           שמירה
         </Button>
         <Button
           onClick={onCancel}
-          customColors
-          customPadding
-          className="px-2.5 py-1.5 text-sm font-medium hover:bg-gray-200"
+          className="bg-white"
         >
           ביטול
         </Button>
