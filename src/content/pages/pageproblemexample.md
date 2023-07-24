@@ -16,9 +16,14 @@ draft: false
 
 <Tab name="פתרון רשמי">
 
-#### פתרון רשמי
+#### סרטון הסבר
+---
+
 <Video width="100%" src="https://joy1.videvo.net/videvo_files/video/free/video0467/large_watermarked/_import_61516692993d77.04238324_preview.mp4" />
-# בנוסף לסרטון יופיע פה פתרון רשמי
+
+#### פתרון
+---
+...
 </Tab>
 
 <Tab name="תיאור">

@@ -6,7 +6,7 @@ function Video({
   ...rest
 }: {
   title: string;
-  width: number;
+  width: number | "auto";
   height: number | "auto";
   src: string;
   [key: string]: any;

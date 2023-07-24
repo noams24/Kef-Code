@@ -432,7 +432,7 @@ export default function ToolbarPlugin(): JSX.Element {
   );
 
   return (
-    <div className="relative flex items-center justify-between border-b bg-white p-2">
+    <div className="relative flex items-center justify-between border-b  p-2">
       <button
         disabled={!canUndo || !isEditable}
         onClick={() => {

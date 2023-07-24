@@ -44,7 +44,7 @@ export const Editor: React.FC<{
     <Fragment>
       <div
         className={clsx(
-          "w-full rounded-[3px] border border-gray-200 bg-white shadow-sm",
+          "w-full rounded-[3px] border border-gray-200  shadow-sm",
           className
         )}
       >
@@ -57,7 +57,7 @@ export const Editor: React.FC<{
                 <ContentEditable className="min-h-[100px] w-full resize-none overflow-hidden text-ellipsis px-2.5 py-4 outline-none" />
               }
               placeholder={
-                <div className="text-right pointer-events-none absolute right-5 top-6 select-none px-3 text-sm text-gray-500">
+                <div className="text-right pointer-events-none absolute right-5 top-6 select-none px-3 text-sm ">
                   כתוב את ה{action} שלך כאן
                 </div>
               }
