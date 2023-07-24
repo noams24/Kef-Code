@@ -13,7 +13,6 @@ const singleProblem = () => {
                 <MDXContent content={content} />
               </div>
             </div>
-      
     </>
   );
 };
