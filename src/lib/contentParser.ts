@@ -21,7 +21,7 @@ export const getListPage = (filePath: string) => {
   const pageDataPath = path.join(contentPath, filePath);
 
   if (!fs.existsSync(pageDataPath)) {
-    notFound();
+    //notFound();
   }
 
   const pageData = readFile(pageDataPath);
@@ -38,7 +38,7 @@ export const getSinglePage = (folder: string) => {
   const folderPath = path.join(contentPath, folder);
 
   if (!fs.existsSync(folderPath) || !fs.lstatSync(folderPath).isDirectory()) {
-    notFound();
+    //notFound();
   }
 
   const filesPath = fs.readdirSync(folderPath);
