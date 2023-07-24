@@ -78,13 +78,13 @@ export const Editor: React.FC<{
           onClick={() => onSave && onSave(jsonState)}
           className="bg-white"
         >
-          שמירה
+          פרסום
         </Button>
         <Button
           onClick={onCancel}
           className="bg-white"
         >
-          ביטול
+          שמירה
         </Button>
       </div>
     </Fragment>
