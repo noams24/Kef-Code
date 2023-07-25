@@ -76,13 +76,13 @@ export const Editor: React.FC<{
       <div className="my-3 flex gap-x-2">
         <Button
           onClick={() => onSave && onSave(jsonState)}
-          className="bg-white"
+          className="btn btn-outline-primary btn-sm hidden lg:inline-block"
         >
           פרסום
         </Button>
         <Button
           onClick={onCancel}
-          className="bg-white"
+          className="btn btn-outline-primary btn-sm hidden lg:inline-block"
         >
           שמירה
         </Button>
