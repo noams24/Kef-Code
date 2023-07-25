@@ -6,9 +6,10 @@ import { authOptions } from '@/lib/auth'
 import { getServerSession } from 'next-auth'
 import { UserAccountNav } from '@/components/UserAccountNav'
 import Link from "next/link";
+import Login from "@/components/Login"
 const singleProblem = async () => {
   //const data: RegularPage = getListPage("pages/pageproblemexample.md");
-  const session = await getServerSession(authOptions);
+  //const session = await getServerSession(authOptions);
   const data: RegularPage = getListPage("pages/about.md");
   //const { frontmatter, content } = data;
   
@@ -16,7 +17,7 @@ const singleProblem = async () => {
     <>
              
           
-           
+           <Login/>
             {/*<div className="text-right flex mt-4">
               <div className="content">
                 <MDXContent content={content} />
