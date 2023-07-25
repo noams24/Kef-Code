@@ -1,14 +1,14 @@
-import MDXContent from "@/helpers/MDXContent";
-import { getListPage } from "@/lib/contentParser";
-import { RegularPage } from "@/types";
-import { Editor } from "@/components/text-editor/editor";
+//import MDXContent from "@/helpers/MDXContent";
+//import { getListPage } from "@/lib/contentParser";
+//import { RegularPage } from "@/types";
+//import { Editor } from "@/components/text-editor/editor";
 import { authOptions } from '@/lib/auth'
 import { getServerSession } from 'next-auth'
 import { UserAccountNav } from '@/components/UserAccountNav'
 import Link from "next/link";
 const singleProblem = async () => {
-  const data: RegularPage = getListPage("pages/pageproblemexample.md");
-  const { frontmatter, content } = data;
+  //const data: RegularPage = getListPage("pages/pageproblemexample.md");
+  //const { frontmatter, content } = data;
   const session = await getServerSession(authOptions);
   return (
     <>
@@ -24,7 +24,7 @@ const singleProblem = async () => {
             כניסה
           </Link>
         )}        
-            <div className="text-right flex mt-4">
+            {/*<div className="text-right flex mt-4">
               <div className="content">
                 <MDXContent content={content} />
               </div>
@@ -33,8 +33,8 @@ const singleProblem = async () => {
             action="פתרון"
             content={undefined}
           />
-              </div>
-            </div>
+        </div>
+            </div> */}
     </>
   );
 };
