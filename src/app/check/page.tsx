@@ -8,7 +8,7 @@ import { UserAccountNav } from '@/components/UserAccountNav'
 import Link from "next/link";
 const singleProblem = async () => {
   //const data: RegularPage = getListPage("pages/pageproblemexample.md");
-  const data: RegularPage = getListPage("pages/about.md");
+  const data: RegularPage = await getListPage("pages/about.md");
   //const { frontmatter, content } = data;
   const session = await getServerSession(authOptions);
   return (

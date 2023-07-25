@@ -4,16 +4,13 @@ import { getListPage } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
 import SeoMeta from "@/partials/SeoMeta";
 import { RegularPage } from "@/types";
-import { authOptions } from '@/lib/auth'
-import { getServerSession } from 'next-auth'
-import { UserAccountNav } from '@/components/UserAccountNav'
-import Link from "next/link";
+
 
 const About = async () => {
   const data: RegularPage = getListPage("pages/about.md");
   const { frontmatter, content } = data;
   const { title, meta_title, description, image } = frontmatter;
-  const session = await getServerSession(authOptions);
+  
   return (
     <>
       <SeoMeta
@@ -22,16 +19,6 @@ const About = async () => {
         description={description}
         image={image}
       />
-      {session?.user ? (
-          <UserAccountNav user={session.user} />
-        ) : (
-            <Link
-            className="btn btn-outline-primary btn-sm hidden lg:inline-block"
-            href="/sign-in"
-          >
-            כניסה
-          </Link>
-        )}     
       <section className="section-sm">
         <div className="container">
           <div className="row justify-center">
