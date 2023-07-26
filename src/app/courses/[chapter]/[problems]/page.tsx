@@ -8,7 +8,7 @@ import { columns } from "@/components/table/components/columns"
 import { DataTable } from "@/components/table/components/data-table"
 import { UserNav } from "@/components/table/components/user-nav"
 import { taskSchema } from "@/components/table/data/schema"
-
+import PageHeader from "@/partials/PageHeader";
 export const metadata: Metadata = {
   title: "Tasks",
   description: "A task and issue tracker build using Tanstack Table.",
@@ -36,8 +36,9 @@ export default async function TaskPage({ params }: PageProps) {
   return (
     <>
     <div className="p-10">
-            <h2 className="text-center text-2xl font-bold tracking-tight"> {params.chapter} - שאלות מהקורס </h2>
-            <h2 className="text-center text-2xl font-bold tracking-tight">{params.problems} - ומפרק</h2>
+            <PageHeader title={params.problems}/>
+            {/*<h2 className="text-center text-2xl font-bold tracking-tight"> {params.chapter} - שאלות מהקורס </h2>
+            <h2 className="text-center text-2xl font-bold tracking-tight">{params.problems} - ומפרק</h2> */}
         <DataTable data={tasks} columns={columns} />
         </div>
     </>

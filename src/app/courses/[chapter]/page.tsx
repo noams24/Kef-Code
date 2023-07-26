@@ -1,3 +1,5 @@
+import PageHeader from "@/partials/PageHeader";
+
 interface PageProps {
   params: {
     chapter: string
@@ -7,7 +9,7 @@ interface PageProps {
 const Chapter = ({ params }: PageProps) => {
   return (
     <>
-    <h2 className="text-center">{params.chapter}</h2>
+    <PageHeader title={params.chapter}/>
     </>
   );
 };
