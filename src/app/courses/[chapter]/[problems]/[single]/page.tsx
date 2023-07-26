@@ -3,23 +3,23 @@ import { getListPage } from "@/lib/contentParser";
 import { RegularPage } from "@/types";
 import { Editor } from "@/components/text-editor/editor";
 import Login from "@/components/Login"
-const singleProblem = async () => {
+const singleProblem = () => {
   const data: RegularPage = getListPage("pages/pageproblemexample.md");
   const { frontmatter, content } = data;
   return (
     <>
-      <Login />
-      <div className="text-right flex mt-4">
-        <div className="content">
-          <MDXContent content={content} />
-        </div>
-        <div>
-          <Editor
+           <Login/>
+            <div className="text-right flex mt-4">
+              <div className="content">
+                <MDXContent content={content} />
+              </div>
+              <div>
+              <Editor
             action="פתרון"
             content={undefined}
           />
         </div>
-      </div>
+            </div> 
     </>
   );
 };
