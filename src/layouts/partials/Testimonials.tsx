@@ -1,5 +1,6 @@
 "use client";
 
+import CourseCard from "@/components/CourseCard";
 import ImageFallback from "@/helpers/ImageFallback";
 import { markdownify } from "@/lib/utils/textConverter";
 import { Testimonial } from "@/types";
@@ -21,6 +22,7 @@ interface PageData {
 const Testimonials = ({ data }: { data: PageData }) => {
   return (
     <>
+      <CourseCard />
       {data.frontmatter.enable && (
         <section className="section">
           <div className="container">
