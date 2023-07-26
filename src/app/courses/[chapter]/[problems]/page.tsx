@@ -14,6 +14,13 @@ export const metadata: Metadata = {
   description: "A task and issue tracker build using Tanstack Table.",
 }
 
+interface PageProps {
+  params: {
+    chapter: string,
+    problems: string
+  }
+}
+
 // Simulate a database read for tasks.
 async function getTasks() {
   const data = await fs.readFile(
@@ -24,41 +31,32 @@ async function getTasks() {
   return z.array(taskSchema).parse(tasks)
 }
 
-export default async function TaskPage() {
+export default async function TaskPage({ params }: PageProps) {
   const tasks = await getTasks()
-
   return (
     <>
-      <div className="md:hidden">
-        <Image
-          src="/examples/tasks-light.png"
-          width={1280}
-          height={998}
-          alt="Playground"
-          className="block dark:hidden"
-        />
-        <Image
-          src="/examples/tasks-dark.png"
-          width={1280}
-          height={998}
-          alt="Playground"
-          className="hidden dark:block"
-        />
-      </div>
+    <div className="p-10">
+            <h2 className="text-center text-2xl font-bold tracking-tight"> {params.chapter} - שאלות מהקורס </h2>
+            <h2 className="text-center text-2xl font-bold tracking-tight">{params.problems} - ומפרק</h2>
+        <DataTable data={tasks} columns={columns} />
+        </div>
+    </>
+  )
+}
+
+{/* 
+
+    <>
       <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
         <div className="flex items-center justify-between space-y-2">
           <div>
-            <h2 className="text-right text-2xl font-bold tracking-tight">שאלות מהפרק</h2>
-            <p className="text-muted-foreground">
-              .
-            </p>
-          </div>
-          <div className="flex items-center space-x-2">
-            <UserNav />
+            <h2 className="text-right text-2xl font-bold tracking-tight"> {params.chapter}שאלות מהקורס </h2>
+            <h2 className="text-right text-2xl font-bold tracking-tight">{params.problems}ומפרק</h2>
           </div>
         </div>
         <DataTable data={tasks} columns={columns} />
       </div>
     </>
-  )
-}
+
+
+*/}

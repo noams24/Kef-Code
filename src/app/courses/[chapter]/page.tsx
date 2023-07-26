@@ -1,8 +1,13 @@
-const Chapter = () => {
+interface PageProps {
+  params: {
+    chapter: string
+  }
+}
 
+const Chapter = ({ params }: PageProps) => {
   return (
     <>
-    פה יופיעו מספרי הפרקים עם תיאור
+    <h2 className="text-center">{params.chapter}</h2>
     </>
   );
 };
