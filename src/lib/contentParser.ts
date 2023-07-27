@@ -5,7 +5,6 @@ import path from "path";
 
 //const contentPath = "src/content";
 const contentPath = (process.cwd(),"src/content")
-
 // Helper function to read file content
 const readFile = (filePath: string) => {
   return fs.readFileSync(filePath, "utf-8");
@@ -37,6 +36,8 @@ export const getListPage = (filePath: string) => {
 export const getSinglePage = (folder: string) => {
   const folderPath = path.join(contentPath, folder);
   if (!fs.existsSync(folderPath) || !fs.lstatSync(folderPath).isDirectory()) {
+    console.log(folderPath);
+    console.log("not exist");
     //notFound();
   }
 
