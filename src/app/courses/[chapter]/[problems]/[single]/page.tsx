@@ -4,6 +4,7 @@ import { RegularPage } from "@/types";
 import { Editor } from "@/components/text-editor/editor";
 import { authOptions } from '@/lib/auth'
 import { getServerSession } from 'next-auth'
+import { getSinglePage } from "@/lib/contentParser";
 
 interface PageProps {
     params: {
@@ -12,6 +13,17 @@ interface PageProps {
         single: string
     }
 }
+
+// generate static params
+export const generateStaticParams: () => { single?: string }[] = () => {
+    const problems: any = getSinglePage("problemss");
+  
+    const paths = problems.map((problem:any) => ({
+      single: problem.slug,
+    }));
+  
+    return paths;
+  };
 
 const singleProblem = async ({ params }: PageProps) => {
     const data: RegularPage = getListPage("pages/pageproblemexample.md");
