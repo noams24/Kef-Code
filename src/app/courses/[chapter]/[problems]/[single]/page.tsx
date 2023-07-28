@@ -28,7 +28,7 @@ export const generateStaticParams: () => { single?: string }[] = () => {
 const singleProblem = async ({ params }: PageProps) => {
     const data: RegularPage = getListPage("pages/pageproblemexample.md");
     const { frontmatter, content } = data;
-    const session = await getServerSession(authOptions);
+    //const session = await getServerSession(authOptions);
     return (
         <>
             <h2 className="text-center">{params.single}</h2>
@@ -40,7 +40,7 @@ const singleProblem = async ({ params }: PageProps) => {
                     <Editor
                         action="פתרון"
                         content={undefined}
-                        session={session}
+                        session={undefined}
                     />
                 </div>
             </div>
