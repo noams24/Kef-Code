@@ -43,7 +43,8 @@ model Account {
   scope             String?
   id_token          String? @db.Text
   session_state     String?
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@unique([provider, providerAccountId])
   @@index([userId])
 }
@@ -62,7 +63,7 @@ model User {
   bookmarks     Bookmark[]
   submissions   Submissions[]
   problemStatus problemStatus[]
-  accounts    Account[]
+  accounts      Account[]
 }
 
 model Session {
@@ -134,14 +135,18 @@ model Solution {
 }
 
 model Submissions {
-  userId    String   @unique
+  id        String   @id @default(cuid())
+  userId    String
   user      User     @relation(fields: [userId], references: [id])
-  problemId String   @unique
+  problemId String
   problem   Problem  @relation(fields: [problemId], references: [id])
   content   Json
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   isPublic  Boolean
+
+  @@index([userId])
+  @@index([problemId])
 }
 
 model Vote {

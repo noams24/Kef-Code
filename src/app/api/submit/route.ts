@@ -1,15 +1,15 @@
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
-import { submitValidator } from '@/lib/validators/submit'
+//import { submitValidator } from '@/lib/validators/submit'
 import { z } from 'zod'
 
 export async function POST(req: Request) {
   try {
     const body = await req.json()
-    console.log(body)
-    const {problemId, content } = submitValidator.parse(body)
+    //const { problemId, content } = submitValidator.parse(body)
+    const problemId = body.problemId
+    const content = body.jsonState
     const session = await getAuthSession()
-
     if (!session?.user) {
       return new Response('Unauthorized', { status: 401 })
     }
@@ -28,7 +28,6 @@ export async function POST(req: Request) {
     if (error instanceof z.ZodError) {
       return new Response(error.message, { status: 400 })
     }
-
     return new Response(
       'Could not submit solution. Please try later',
       { status: 500 }

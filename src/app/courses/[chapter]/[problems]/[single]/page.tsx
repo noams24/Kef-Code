@@ -31,17 +31,6 @@ const singleProblem = async ({ params }: PageProps) => {
   return (
     <>
       <h2 className="text-center">{params.single}</h2>
-      {/*<Login/> */}
-      {session?.user ? (
-        <UserAccountNav user={session.user} />
-      ) : (
-        <Link
-          className="btn btn-outline-primary btn-sm hidden lg:inline-block"
-          href="/sign-in"
-        >
-          כניסה
-        </Link>
-      )}
       <div className="text-right flex mt-4">
         <div className="content">
           <MDXContent content={content} />

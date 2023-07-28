@@ -54,11 +54,11 @@ export const Editor: React.FC<{
 
   const { mutate: handleSubmit } = useMutation({
     mutationFn: async ({
-      jsonState,
       problemId,
+      jsonState,
       session
     }: any) => {
-      const payload: any = { jsonState, problemId, session }
+      const payload: any = { problemId , jsonState }
       const { data } = await axios.post('/api/submit', payload)
       return data
     },
@@ -87,8 +87,8 @@ export const Editor: React.FC<{
                 <ContentEditable className="min-h-[100px] w-full resize-none overflow-hidden text-ellipsis px-2.5 py-4 outline-none" />
               }
               placeholder={
-                <div className="pointer-events-none absolute top-6 select-none px-3 text-sm text-gray-500">
-                  Add your {action} here...
+                <div className="pointer-events-none absolute top-6 right-6 select-none px-1 text-right text-sm text-gray-500">
+                   כתוב את ה{action} שלך כאן 
                 </div>
               }
             />
@@ -105,7 +105,7 @@ export const Editor: React.FC<{
       </div>
       <div className="my-3 flex gap-x-2">
       <Button
-          onClick={() => handleSubmit({jsonState, problemId: '1234', session})}
+          onClick={() => handleSubmit({problemId: '1234', jsonState, session})}
           className="btn btn-outline-primary btn-sm lg:inline-block"
         >
           פרסום
