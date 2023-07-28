@@ -17,6 +17,7 @@ const singleProblem = () => {
               <Editor
             action="פתרון"
             content={undefined}
+            session={undefined}
           />
               </div>
             </div>
