@@ -14,6 +14,8 @@ import { useSharedHistoryContext } from "./context/shared-history";
 import CodeHighlightPlugin from "./plugins/code-highlight-plugin";
 import { EditorComposer } from "./context/lexical-composer";
 import clsx from "clsx";
+import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
 
 export type EditorContentType = SerializedEditorState | undefined;
 
@@ -30,21 +32,49 @@ function onChange(
   });
 }
 
+function handleSave(jsonState:any, session:any){
+  if(!session){
+    console.log("not logged")
+    return;
+  }
+  console.log("logged");
+  console.log(jsonState);
+  console.log(session)
+}
+
 export const Editor: React.FC<{
   action: "description" | "comment" | any;
   content: EditorContentType;
-  onSave?: (state: EditorContentType) => void;
-  onCancel?: () => void;
   className?: string;
-}> = ({ action, onSave, onCancel, content, className }) => {
+  session: any;
+}> = ({ action, content, className, session}) => {
+
   const { historyState } = useSharedHistoryContext();
   const [jsonState, setJsonState] = useState<EditorContentType>(content);
+
+  const { mutate: handleSubmit } = useMutation({
+    mutationFn: async ({
+      jsonState,
+      problemId,
+      session
+    }: any) => {
+      const payload: any = { jsonState, problemId, session }
+      const { data } = await axios.post('/api/submit', payload)
+      return data
+    },
+    onError: () => {
+      console.log("error")
+    },
+    onSuccess: () => {
+      console.log("success")
+    },
+  })
 
   return (
     <Fragment>
       <div
         className={clsx(
-          "w-full rounded-[3px] border border-gray-200  shadow-sm",
+          "w-full rounded-[3px] border border-gray-200 shadow-sm",
           className
         )}
       >
@@ -57,8 +87,8 @@ export const Editor: React.FC<{
                 <ContentEditable className="min-h-[100px] w-full resize-none overflow-hidden text-ellipsis px-2.5 py-4 outline-none" />
               }
               placeholder={
-                <div className="text-right pointer-events-none absolute right-5 top-6 select-none px-3 text-sm ">
-                  כתוב את ה{action} שלך כאן
+                <div className="pointer-events-none absolute top-6 select-none px-3 text-sm text-gray-500">
+                  Add your {action} here...
                 </div>
               }
             />
@@ -74,15 +104,15 @@ export const Editor: React.FC<{
         </EditorComposer>
       </div>
       <div className="my-3 flex gap-x-2">
-        <Button
-          onClick={() => onSave && onSave(jsonState)}
-          className="btn btn-outline-primary btn-sm hidden lg:inline-block"
+      <Button
+          onClick={() => handleSubmit({jsonState, problemId: '1234', session})}
+          className="btn btn-outline-primary btn-sm lg:inline-block"
         >
           פרסום
         </Button>
         <Button
-          onClick={onCancel}
-          className="btn btn-outline-primary btn-sm hidden lg:inline-block"
+          onClick={() => handleSave(jsonState, session)}
+          className="btn btn-outline-primary btn-sm  lg:inline-block"
         >
           שמירה
         </Button>

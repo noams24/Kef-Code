@@ -43,7 +43,7 @@ export const getSinglePage = (folder: string) => {
 
   const filesPath = fs.readdirSync(folderPath);
   const sanitizeFiles = filesPath.filter((file) => file.endsWith(".md"));
-  const filterSingleFiles = sanitizeFiles.filter((file) =>
+  const filterSingleFiles =  sanitizeFiles.filter((file) =>
     file.match(/^(?!_)/)
   );
 

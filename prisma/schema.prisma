@@ -113,7 +113,7 @@ model Problem {
   course        String
   chapter       String
   title         String
-  content       Json
+  img           String
   difficulty    String
   solution      Solution?
   comments      Comment[]
