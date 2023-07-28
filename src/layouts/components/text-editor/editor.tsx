@@ -84,7 +84,7 @@ export const Editor: React.FC<{
             <RichTextPlugin
               ErrorBoundary={LexicalErrorBoundary}
               contentEditable={
-                <ContentEditable className="min-h-[100px] w-full resize-none overflow-hidden text-ellipsis px-2.5 py-4 outline-none" />
+                <ContentEditable className="min-h-[400px] w-full resize-none overflow-hidden text-ellipsis px-2.5 py-4 outline-none" />
               }
               placeholder={
                 <div className="pointer-events-none absolute top-6 right-6 select-none px-1 text-right text-sm text-gray-500">
@@ -120,3 +120,4 @@ export const Editor: React.FC<{
     </Fragment>
   );
 };
+//<ContentEditable className="min-h-[100px] w-full resize-none overflow-hidden text-ellipsis px-2.5 py-4 outline-none" />
