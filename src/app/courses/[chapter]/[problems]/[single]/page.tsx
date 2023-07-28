@@ -14,17 +14,6 @@ interface PageProps {
     }
 }
 
-// generate static params
-export const generateStaticParams: () => { single?: string }[] = () => {
-    const problems: any = getSinglePage("problemss");
-  
-    const paths = problems.map((problem:any) => ({
-      single: problem.slug,
-    }));
-  
-    return paths;
-  };
-
 const singleProblem = async ({ params }: PageProps) => {
     const data: RegularPage = getListPage("pages/pageproblemexample.md");
     const { frontmatter, content } = data;
