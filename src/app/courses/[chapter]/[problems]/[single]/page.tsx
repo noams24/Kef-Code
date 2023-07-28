@@ -5,6 +5,7 @@ import { Editor } from "@/components/text-editor/editor";
 import { authOptions } from '@/lib/auth'
 import { getServerSession } from 'next-auth'
 import { getSinglePage } from "@/lib/contentParser";
+import PageHeader from "@/partials/PageHeaderr";
 
 interface PageProps {
     params: {
@@ -20,7 +21,7 @@ const singleProblem = async ({ params }: PageProps) => {
     //const session = await getServerSession(authOptions);
     return (
         <>
-            <h2 className="text-center">{params.single}</h2>
+            <PageHeader title={params.single}/>
             <div className="text-right flex mt-4">
                 <div className="content">
                     <MDXContent content={content} />
