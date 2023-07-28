@@ -84,7 +84,7 @@ export const Editor: React.FC<{
             <RichTextPlugin
               ErrorBoundary={LexicalErrorBoundary}
               contentEditable={
-                <ContentEditable className="min-h-[400px] w-full resize-none overflow-hidden text-ellipsis px-2.5 py-4 outline-none" />
+                <ContentEditable className="min-h-[300px] w-full resize-none overflow-hidden text-ellipsis px-2.5 py-4 outline-none" />
               }
               placeholder={
                 <div className="pointer-events-none absolute top-6 right-6 select-none px-1 text-right text-sm text-gray-500">
@@ -103,7 +103,7 @@ export const Editor: React.FC<{
           <HistoryPlugin externalHistoryState={historyState} />
         </EditorComposer>
       </div>
-      <div className="my-3 flex gap-x-2">
+      <div className="my-3 ml-5 flex gap-x-2">
       <Button
           onClick={() => handleSubmit({problemId: '1234', jsonState, session})}
           className="btn btn-outline-primary btn-sm lg:inline-block"

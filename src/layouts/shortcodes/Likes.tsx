@@ -8,7 +8,7 @@ const Likes = () => {
 
     <div className='flex items-center mt-3'>
       <div
-        className={`bg-green-800 text-olive inline-block rounded-[21px] bg-opacity-[.15] px-2.5 py-1 text-xs font-medium capitalize `}
+        className={`bg-green-800 text-green-500 inline-block rounded-[21px] bg-opacity-[.15] px-2.5 py-1 text-xs font-medium capitalize `}
       >
         קל
       </div>
