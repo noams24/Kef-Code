@@ -13,6 +13,7 @@ import { type SerializedEditorState } from "lexical";
 import axios from 'axios'
 import { submitCreationRequest, submitValidator } from '@/lib/validators/submit'
 //import { toast } from '@/hooks/use-toast'
+import { getSinglePage } from "@/lib/contentParser";
 
 interface PageProps {
   params: {
@@ -22,9 +23,21 @@ interface PageProps {
   }
 }
 
+export const generateStaticParams: () => { single?: string }[] = () => {
+  const problems: any = getSinglePage("problemss");
+
+  const paths = problems.map((problem:any) => ({
+    single: problem.slug,
+  }));
+
+  return paths;
+};
+
 const singleProblem = async ({ params }: PageProps) => {
-  const data: RegularPage = getListPage("pages/pageproblemexample.md");
-  const { frontmatter, content } = data;
+  //const data: RegularPage = getListPage("pages/pageproblemexample.md");
+  const problems: any = getSinglePage("problemss");
+  const problem = problems.filter((page:any) => page.slug === params.single)[0];
+  const { frontmatter, content } = problem;
   const session = await getServerSession(authOptions);
   //const [isWritingComment, setIsWritingComment] = useState(false);
 
