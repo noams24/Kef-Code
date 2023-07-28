@@ -156,7 +156,7 @@ model Vote {
   user      User     @relation(fields: [userId], references: [id])
   problemId String?  @unique
   problem   Problem? @relation(fields: [problemId], references: [id])
-  postId    String   @unique
+  postId    String?   @unique
   post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
   Comment   Comment? @relation(fields: [commentId], references: [id])
   commentId String?  @unique
