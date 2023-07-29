@@ -22,8 +22,8 @@ interface PageProps {
 }
 
 const singleProblem = async ({ params }: PageProps) => {
-    const data: RegularPage = getListPage("pages/pageproblemexample.md");
-    const { frontmatter, content } = data;
+    //const data: RegularPage = getListPage("pages/pageproblemexample.md");
+    //const { frontmatter, content } = data;
     //const session = await getServerSession(authOptions);
     const imageUrl = "https://i.ibb.co/Gdz4BTg/problem1.png";
     return (
