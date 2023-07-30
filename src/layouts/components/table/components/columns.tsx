@@ -8,6 +8,8 @@ import { labels, priorities, statuses } from "../data/data"
 import { Task } from "../data/schema"
 import { DataTableColumnHeader } from "./data-table-column-header"
 import { DataTableRowActions } from "./data-table-row-actions"
+import Link from "next/link";
+
 
 export const columns: ColumnDef<Task>[] = [
   {
@@ -51,9 +53,15 @@ export const columns: ColumnDef<Task>[] = [
 
       return (
         <div className="flex justify-end space-x-2">
-          
+
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("title")}
+            <Link
+              href="/courses/Algebra/Chapter-1/Question-1"
+              className={``}
+            >
+              {row.getValue("title")}
+            </Link>
+            
           </span>
         </div>
       )
@@ -74,11 +82,11 @@ export const columns: ColumnDef<Task>[] = [
       }
 
       return (
-        <div className="flex justify-end w-[100px] items-center">
+        <div className="flex justify-center w-[80px] items-center">
           {status.icon && (
             <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
           )}
-          
+
         </div>
       )
     },
