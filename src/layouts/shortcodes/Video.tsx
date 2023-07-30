@@ -12,6 +12,7 @@ function Video({
   [key: string]: any;
 }) {
   return (
+    <div className="flex justify-center">
     <video
       className="overflow-hidden rounded-lg"
       width={width}
@@ -25,6 +26,7 @@ function Video({
       />
       {title}
     </video>
+    </div>
   );
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ImageDisplay = ({ imageUrl } : any) => {
-  return <img src={imageUrl} alt="Image" />;
+  return <div className="flex justify-center"> <img src={imageUrl} alt="Image" /> </div>;
 };
 
 export default ImageDisplay;
