@@ -4,9 +4,7 @@
 }
 
 .gutter {
-	background-color: rgb(26, 26, 26);
-	background-repeat: no-repeat;
-	background-position: 50%;
+	@apply bg-gray-100 dark:bg-gray-700 bg-no-repeat bg-center;
 }
 .gutter:hover {
 	background-color: #0a84ff;

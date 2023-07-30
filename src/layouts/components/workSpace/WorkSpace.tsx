@@ -42,12 +42,12 @@ const Workspace: React.FC<any> = () => {
         </Split>
         <div className="my-3 ml-12 flex justify-center gap-x-2"> 
       <Button
-          className="btn btn-outline-primary btn-sm lg:inline-block"
+          className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
         >
           פרסום
         </Button>
         <Button
-          className="btn btn-outline-primary btn-sm  lg:inline-block"
+          className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
         >
           שמירה
         </Button> 
