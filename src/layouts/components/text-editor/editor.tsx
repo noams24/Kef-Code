@@ -32,8 +32,8 @@ function onChange(
   });
 }
 
-function handleSave(jsonState:any, session:any){
-  if(!session){
+function handleSave(jsonState: any, session: any) {
+  if (!session) {
     console.log("not logged")
     return;
   }
@@ -47,7 +47,7 @@ export const Editor: React.FC<{
   content: EditorContentType;
   className?: string;
   session: any;
-}> = ({ action, content, className, session}) => {
+}> = ({ action, content, className, session }) => {
 
   const { historyState } = useSharedHistoryContext();
   const [jsonState, setJsonState] = useState<EditorContentType>(content);
@@ -58,7 +58,7 @@ export const Editor: React.FC<{
       jsonState,
       session
     }: any) => {
-      const payload: any = { problemId , jsonState }
+      const payload: any = { problemId, jsonState }
       const { data } = await axios.post('/api/submit', payload)
       return data
     },
@@ -71,39 +71,49 @@ export const Editor: React.FC<{
   })
 
   return (
-    <Fragment>
-      <div
-        className={clsx(
-          "w-full rounded-[3px] border border-gray-200 shadow-sm",
-          className
-        )}
-      >
-        <EditorComposer readonly={false} jsonState={jsonState}>
-          <ToolbarPlugin />
-          <div className="relative">
-            <RichTextPlugin
-              ErrorBoundary={LexicalErrorBoundary}
-              contentEditable={
-                <ContentEditable className="min-h-[300px] w-full resize-none overflow-hidden text-ellipsis px-2.5 py-4 outline-none" />
-              }
-              placeholder={
-                <div className="pointer-events-none absolute top-6 right-6 select-none px-1 text-right text-sm text-gray-500">
-                   כתוב את ה{action} שלך כאן 
-                </div>
-              }
-            />
-          </div>
+    <>
+      <Fragment>
+        <div
+          className={clsx(
+            "w-full rounded-[3px] border border-gray-200 shadow-sm",
+            className
+          )}
+        >
+          <EditorComposer readonly={false} jsonState={jsonState}>
+            <ToolbarPlugin />
+            <div className="relative">
+              <RichTextPlugin
+                ErrorBoundary={LexicalErrorBoundary}
+                contentEditable={
+                  <ContentEditable className="min-h-[300px] w-full resize-none overflow-hidden text-ellipsis px-2.5 py-4 outline-none" />
+                }
+                placeholder={
+                  <div className="pointer-events-none select-none px-1 absolute top-4 right-4 text-sm text-gray-500">
+                    כתוב את ה{action} שלך כאן
+                  </div>
+                }
+              />
+            </div>
 
-          <CodeHighlightPlugin />
-          <ListPlugin />
-          <AutoFocusPlugin />
-          <OnChangePlugin
-            onChange={(editor) => onChange(editor, setJsonState)}
-          />
-          <HistoryPlugin externalHistoryState={historyState} />
-        </EditorComposer>
-      </div>
-      <div className="my-3 ml-5 flex gap-x-2">
+            <CodeHighlightPlugin />
+            <ListPlugin />
+            <AutoFocusPlugin />
+            <OnChangePlugin
+              onChange={(editor) => onChange(editor, setJsonState)}
+            />
+            <HistoryPlugin externalHistoryState={historyState} />
+          </EditorComposer>
+        </div>
+
+
+      </Fragment>
+    </>
+  );
+};
+//<ContentEditable className="min-h-[100px] w-full resize-none overflow-hidden text-ellipsis px-2.5 py-4 outline-none" />
+
+{/* 
+  <div className="my-3 ml-5 flex gap-x-2"> 
       <Button
           onClick={() => handleSubmit({problemId: '1234', jsonState, session})}
           className="btn btn-outline-primary btn-sm lg:inline-block"
@@ -115,9 +125,7 @@ export const Editor: React.FC<{
           className="btn btn-outline-primary btn-sm  lg:inline-block"
         >
           שמירה
-        </Button>
+        </Button> 
       </div>
-    </Fragment>
-  );
-};
-//<ContentEditable className="min-h-[100px] w-full resize-none overflow-hidden text-ellipsis px-2.5 py-4 outline-none" />
+
+*/}
