@@ -6,6 +6,7 @@ import Link from "next/link";
 import React from "react";
 import { authOptions } from '@/lib/auth'
 import { getServerSession } from 'next-auth'
+import Login from "@/components/Login";
 //import { UserAccountNav } from '@/components/UserAccountNav'
 //  child navigation link interface
 export interface IChildNavigationLink {
@@ -94,6 +95,7 @@ const Header = async () => {
         {/*Left side of the navbar */}
         <div className="order-0 ml-auto mr-10 flex items-center md:order-0 lg:ml-0">
           {/*Source Code button*/}
+          <Login/>
           {/* 
           {session?.user ? (
           <UserAccountNav user={session.user} />
