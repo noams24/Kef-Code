@@ -33,14 +33,14 @@ export function DataTableToolbar<TData>({
         {table.getColumn("status") && (
           <DataTableFacetedFilter
             column={table.getColumn("status")}
-            title="Status"
+            title="סטטוס"
             options={statuses}
           />
         )}
         {table.getColumn("priority") && (
           <DataTableFacetedFilter
             column={table.getColumn("priority")}
-            title="Priority"
+            title="רמת קושי"
             options={priorities}
           />
         )}
@@ -50,7 +50,7 @@ export function DataTableToolbar<TData>({
             onClick={() => table.resetColumnFilters()}
             className="h-8 px-2 lg:px-3"
           >
-            Reset
+            איפוס
             <Cross2Icon className="ml-2 h-4 w-4" />
           </Button>
         )}
