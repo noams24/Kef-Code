@@ -46,7 +46,7 @@ const singleProblem = async ({ params }: PageProps) => {
 */}
     return (
         <>
-            {/*<Login /> */}
+            <Login />
             <PageHeader title={params.single} />
             <Workspace/>
         </>
