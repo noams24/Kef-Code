@@ -29,7 +29,7 @@ export const columns: ColumnDef<Task>[] = [
       }
 
       return (
-        <div className="flex items-center">
+        <div className="flex justify-center items-center">
           {priority.icon && (
             <priority.icon className="mr-2 h-4 w-4 text-muted-foreground" />
           )}
@@ -51,7 +51,7 @@ export const columns: ColumnDef<Task>[] = [
 
       return (
         <div className="flex justify-end space-x-2">
-          {label && <Badge variant="outline">{label.label}</Badge>}
+          
           <span className="max-w-[500px] truncate font-medium">
             {row.getValue("title")}
           </span>
@@ -78,7 +78,7 @@ export const columns: ColumnDef<Task>[] = [
           {status.icon && (
             <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
           )}
-          <span>{status.label}</span>
+          
         </div>
       )
     },

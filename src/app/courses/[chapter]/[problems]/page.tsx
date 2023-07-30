@@ -10,7 +10,7 @@ import { UserNav } from "@/components/table/components/user-nav"
 import { taskSchema } from "@/components/table/data/schema"
 import PageHeader from "@/partials/PageHeader";
 export const metadata: Metadata = {
-  title: "Tasks",
+  title: "שאלות - כיף קוד",
   description: "A task and issue tracker build using Tanstack Table.",
 }
 
@@ -35,8 +35,8 @@ export default async function TaskPage({ params }: PageProps) {
   const tasks = await getTasks()
   return (
     <>
-    <div className="p-10">
-            <PageHeader title={params.problems}/>
+    <PageHeader title={params.problems}/>
+    <div className="p-10 w-auto flex justify-center">
             {/*<h2 className="text-center text-2xl font-bold tracking-tight"> {params.chapter} - שאלות מהקורס </h2>
             <h2 className="text-center text-2xl font-bold tracking-tight">{params.problems} - ומפרק</h2> */}
         <DataTable data={tasks} columns={columns} />
