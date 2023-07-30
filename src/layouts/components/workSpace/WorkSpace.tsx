@@ -10,7 +10,7 @@ import Video from "@/shortcodes/Video";
 import Likes from "@/shortcodes/Likes";
 import Accordion from "@/shortcodes/Accordion";
 import ImageDisplay from "@/components/ImageDisplay"
-
+import "./split.css"
 const Workspace: React.FC<any> = () => {
     const imageUrl = "https://i.ibb.co/Gdz4BTg/problem1.png";
 

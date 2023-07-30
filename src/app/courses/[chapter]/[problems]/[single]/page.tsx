@@ -15,7 +15,7 @@ import ImageDisplay from "@/components/ImageDisplay"
 import Login from "@/components/Login";
 import { db } from '@/lib/db'
 //import ProblemDescription from "@/components/problemDescription";
-import Workspace from "@/components/WorkSpace";
+import Workspace from "@/components/workSpace/WorkSpace";
 
 interface PageProps {
     params: {
