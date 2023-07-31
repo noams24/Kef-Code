@@ -42,7 +42,7 @@ const Courses = () => {
       <CourseCard
         title="אלגוריתמים"
         explanation="קורס אלגוריתמים"
-        link=""
+        link="Algorithms"
       />
       <CourseCard
         title="מבני נתונים"
