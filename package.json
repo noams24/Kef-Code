@@ -59,6 +59,7 @@
     "next-mdx-remote": "^4.4.1",
     "next-themes": "^0.2.1",
     "prisma": "^5.0.0",
+    "prismjs": "^1.29.0",
     "prop-types": "^15.5.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
