@@ -80,6 +80,7 @@
     "@tailwindcss/typography": "^0.5.9",
     "@types/marked": "^5.0.0",
     "@types/node": "20.4.0",
+    "@types/prismjs": "^1.26.0",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
     "@types/uuid": "^9.0.2",
