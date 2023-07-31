@@ -365,10 +365,10 @@ function updateAndRetainSelection(
 
   // Calculating previous text offset (all text node prior to anchor + anchor own text offset)
   if (!isNewLineAnchor) {
-    const anchorNode: ElementNode = anchor.getNode();
+    const anchorNode: any = anchor.getNode();
     textOffset =
       anchorOffset +
-      anchorNode.getPreviousSiblings().reduce((offset, _node) => {
+      anchorNode.getPreviousSiblings().reduce((offset:any, _node:any) => {
         return offset + _node.getTextContentSize();
       }, 0);
   }
