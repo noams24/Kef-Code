@@ -1,0 +1,69 @@
+math-field {
+  display: inline-block;
+  white-space: initial;
+  word-break: initial;
+  outline: none;
+  border: none;
+  background: transparent;
+  color: inherit;
+  width: 100%;
+  user-select: none;
+  pointer-events: all;
+  --selection-color: #nope;
+}
+
+math-field::part(virtual-keyboard-toggle) {
+  display: none;
+}
+
+[theme=dark] math-field {
+  --contains-highlight-background-color: rgba(255,255,255,0.1);
+  --selection-background-color: rgb(95 183 255 / 50%);
+}
+
+math-field.selection-active {
+  background-color: rgb(95 183 255 / 50%);
+}
+
+
+[theme=light] #mathlive-environment-popover {
+  --environment-panel-background: #fff;
+  --accent-color: #cacfd7;
+}
+
+[theme=dark] #mathlive-environment-popover {
+  --environment-panel-background: #1f2022;
+  --accent-color: #151515;
+}
+
+.ML__keyboard {
+  --keycap-height: 52px !important;
+  --_keyboard-height: 295px !important;
+  --keyboard-zindex: 9999;
+}
+
+.MLK__plate, .MLK__layer {
+  height: 100%;
+}
+
+.MLK__rows {
+  margin: auto 0 !important;
+}
+
+.MLK__rows>.row div {
+  height: var(--keycap-height) !important;
+}
+
+.MLK__plate .MLK__layer:nth-of-type(3) .MLK__rows .row:first-child {
+  display: none !important;
+}
+
+.MLK__variant-panel {
+  user-select: none;
+}
+
+@media print {
+  .ML__keyboard {
+    display: none !important;
+  }
+}
