@@ -23,6 +23,7 @@
     "@emotion/styled": "^11.11.0",
     "@excalidraw/excalidraw": "^0.15.2",
     "@faker-js/faker": "^8.0.2",
+    "@lexical/headless": "^0.11.3",
     "@lexical/react": "^0.11.3",
     "@mui/icons-material": "^5.14.1",
     "@mui/material": "^5.14.2",
