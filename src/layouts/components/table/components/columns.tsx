@@ -53,7 +53,6 @@ export const columns: ColumnDef<Task>[] = [
 
       return (
         <div className="flex justify-end space-x-2">
-
           <span className="max-w-[500px] truncate font-medium">
             <Link
               href="/courses/Algebra/Chapter-1/Question-1"
