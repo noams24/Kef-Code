@@ -50,11 +50,7 @@
 }
 
 .toolbar {
-  background-color: #fff;
-}
-
-[theme="dark"] .toolbar {
-  background-color: #121212;
+  @apply bg-white dark:bg-gray-600
 }
 
 @media print {
