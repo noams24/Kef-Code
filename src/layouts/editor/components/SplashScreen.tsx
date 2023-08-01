@@ -8,8 +8,8 @@
 const SplashScreen: React.FC<{ title?: string, loading?: boolean }> = ({ title = "Loading", loading = true }) => {
   return (
     <div className='splash-screen'>
-      <div className='splash-screen-content'>
-        Loading
+      <div className='splash-screen-content text-center'>
+        ..טוען
        {/*  <Image src={logo} alt="Logo" width={192} height={192} priority />
         
         <Box sx={{ textAlign: 'center' }}>

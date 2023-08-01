@@ -8,7 +8,7 @@
 //import { db } from '@/lib/db'
 //import ProblemDescription from "@/components/problemDescription";
 
-import Workspace from "@/components/workSpace/tempWorkSpace";
+import Workspace from "@/components/workSpace/WorkSpace";
 import PageHeader from "@/partials/PageHeaderr";
 import Login from "@/components/Login";
 
