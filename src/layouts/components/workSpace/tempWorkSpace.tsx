@@ -34,7 +34,11 @@ const Workspace: React.FC<any> = () => {
                     שאלה3
                 </Accordion>
             </div>
+            <div className="p-8">
             <Editor document={document} />
+            </div>
+            
+           
         </Split>
         <div className="my-3 ml-12 flex justify-center gap-x-2"> 
       <Button
