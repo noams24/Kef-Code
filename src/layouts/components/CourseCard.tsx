@@ -18,7 +18,7 @@ const CourseCard = ({ title, image, chapters, items, completed }: Props) => {
           alt="Sunset in the mountains"
         />
         <div className="absolute top-5 left-5">
-          <h2 className="text-2xl text-white mb-24 w-90">{title}</h2>
+          <h2 className="text-2xl text-white mb-24 w-64 ">{title}</h2>
           <Pi completed={completed} />
         </div>
       </div>

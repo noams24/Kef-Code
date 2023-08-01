@@ -16,47 +16,53 @@ interface PageData {
 }
 
 const Testimonials = ({ data }: { data: PageData }) => {
+  const idSelector = `slider-${data.frontmatter.title}`;
+
   const slideLeft = () => {
-    let slider: any = document.getElementById("slider");
+    let slider: any = document.getElementById(idSelector);
     slider.scrollLeft = slider.scrollLeft - 500;
   };
 
   const slideRight = () => {
-    let slider: any = document.getElementById("slider");
+    let slider: any = document.getElementById(idSelector);
     slider.scrollLeft = slider.scrollLeft + 500;
   };
 
-  const courses = [1, 2, 3, 4, 5, 6, 7, 8];
-
   return (
-    <div className="relative flex items-center">
-      <MdChevronLeft
-        size={40}
-        onClick={slideLeft}
-        className="opacity-50 cursor-pointer hover:opacity-100"
-      />
-      <div
-        id="slider"
-        className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide"
-      >
-        {data.frontmatter.courses.map(
-          ({ title, image, chapters, items, completed }) => (
-            <CourseCard
-              title={title}
-              image={image}
-              chapters={chapters}
-              items={items}
-              completed={completed}
-            />
-          ),
-        )}
+    <>
+      <div className="flex flex-row justify-center items-center">
+        <p className="text-3xl font-medium p-2">{data.frontmatter.title}</p>
       </div>
-      <MdChevronRight
-        size={40}
-        onClick={slideRight}
-        className="opacity-50 cursor-pointer hover:opacity-100"
-      />
-    </div>
+      <div className="relative flex items-center">
+        <MdChevronLeft
+          size={40}
+          onClick={slideLeft}
+          className="opacity-50 cursor-pointer hover:opacity-100"
+        />
+        <div
+          id={idSelector}
+          className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide"
+        >
+          {data.frontmatter.courses.map(
+            ({ title, image, chapters, items, completed }) => (
+              <CourseCard
+                key={title}
+                title={title}
+                image={image}
+                chapters={chapters}
+                items={items}
+                completed={completed}
+              />
+            ),
+          )}
+        </div>
+        <MdChevronRight
+          size={40}
+          onClick={slideRight}
+          className="opacity-50 cursor-pointer hover:opacity-100"
+        />
+      </div>
+    </>
   );
 };
 

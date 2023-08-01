@@ -3,25 +3,65 @@ enable: true
 title: "קורסים במתמטיקה"
 description: ""
 
-# Testimonials
-testimonials:
-  - name: "מתמטיקה בדידה"
-    designation: ""
-    avatar: ""
-    content: ""
+# Courses
+courses:
+  - title: "קריפטוגרפיה"
+    image: "https://picsum.photos/280/200"
+    chapters: "17"
+    items: "5"
+    completed: "70"
 
-  - name: "אינפי 1"
-    designation: ""
-    avatar: ""
-    content: ""
+  - title: "אלגברה לינארית"
+    image: "https://picsum.photos/280/200"
+    chapters: "14"
+    items: "10"
+    completed: "20"
 
-  - name: "אלגברה לינארית 1"
-    designation: ""
-    avatar: ""
-    content: ""
+  - title: "מתמטיקה בדידה"
+    image: "https://picsum.photos/280/200"
+    chapters: "20"
+    items: "48"
+    completed: "5"
 
-  - name: "לוגיקה"
-    designation: ""
-    avatar: ""
-    content: ""
+  - title: "מבוא להסתברות"
+    image: "https://picsum.photos/280/200"
+    chapters: "4"
+    items: "17"
+    completed: "60"
+
+  - title: "סטטיסטיקה"
+    image: "https://picsum.photos/280/200"
+    chapters: "6"
+    items: "55"
+    completed: "0"
+
+  - title: "אנליזה נומרית 1"
+    image: "https://picsum.photos/280/200"
+    chapters: "8"
+    items: "40"
+    completed: "9"
+
+  - title: "אנליזה נומרית 2"
+    image: "https://picsum.photos/280/200"
+    chapters: "10"
+    items: "75"
+    completed: "0"
+
+  - title: "מודלים חישוביים"
+    image: "https://picsum.photos/280/200"
+    chapters: "12"
+    items: "30"
+    completed: "50"
+
+  - title: "לוגיקה למדעי המחשב"
+    image: "https://picsum.photos/280/200"
+    chapters: "8"
+    items: "10"
+    completed: "85"
+
+  - title: "תורת המספרים"
+    image: "https://picsum.photos/280/200"
+    chapters: "14"
+    items: "60"
+    completed: "30"
 ---
