@@ -54,17 +54,17 @@ import {
   
   export const priorities = [
     {
-      label: "Low",
+      label: "קל",
       value: "low",
       icon: ArrowDownIcon,
     },
     {
-      label: "Medium",
+      label: "בינוני",
       value: "medium",
       icon: ArrowRightIcon,
     },
     {
-      label: "High",
+      label: "קשה",
       value: "high",
       icon: ArrowUpIcon,
     },

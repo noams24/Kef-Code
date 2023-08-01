@@ -33,7 +33,7 @@ import {
     }
   
     return (
-      <div className={cn("flex items-center space-x-2", className)}>
+      <div className={cn("flex justify-end items-center space-x-2", className)}>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -54,16 +54,16 @@ import {
           <DropdownMenuContent align="start">
             <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
               <ArrowUpIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
-              Asc
+              סדר עולה
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
               <ArrowDownIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
-              Desc
+              סדר יורד
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
               <EyeNoneIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
-              Hide
+              הסתר
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

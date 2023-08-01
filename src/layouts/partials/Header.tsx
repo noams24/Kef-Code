@@ -4,8 +4,9 @@ import config from "@/config/config.json";
 import menu from "@/config/menu.json";
 import Link from "next/link";
 import React from "react";
-//import { authOptions } from '@/lib/auth'
-//import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth'
+import { getServerSession } from 'next-auth'
+import Login from "@/components/Login";
 //import { UserAccountNav } from '@/components/UserAccountNav'
 //  child navigation link interface
 export interface IChildNavigationLink {
@@ -22,7 +23,7 @@ export interface INavigationLink {
 }
 
 const Header = async () => {
-  // const session = await getServerSession(authOptions)
+  //const session = await getServerSession(authOptions);
   // distructuring the main menu from menu object
   const { main }: { main: INavigationLink[] } = menu;
   const { navigation_button, settings } = config;
@@ -94,7 +95,18 @@ const Header = async () => {
         {/*Left side of the navbar */}
         <div className="order-0 ml-auto mr-10 flex items-center md:order-0 lg:ml-0">
           {/*Source Code button*/}
-
+          {/*<Login/>*/}
+          {/* 
+          {session?.user ? (
+          <UserAccountNav user={session.user} />
+        ) : (
+            <Link
+            className="btn btn-outline-primary btn-sm hidden lg:inline-block"
+            href={navigation_button.link}
+          >
+            {navigation_button.label}
+          </Link>
+        )}        */}
           <ThemeSwitcher className="ml-5" />
         </div>
       </nav>
