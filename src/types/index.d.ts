@@ -38,7 +38,7 @@ export type Author = {
         name: string;
         icon: string;
         link: string;
-      }
+      },
     ];
   };
   content?: string;
@@ -58,6 +58,14 @@ export type Testimonial = {
   designation: string;
   avatar: string;
   content: string;
+};
+
+export type Course = {
+  title: string;
+  image: string;
+  chapters?: number;
+  items: number;
+  completed: string;
 };
 
 export type Call_to_action = {

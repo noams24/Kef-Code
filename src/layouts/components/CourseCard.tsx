@@ -3,33 +3,33 @@ import Pi from "./Pi";
 interface Props {
   title: string;
   image: string;
-  chapters: number;
-  items: number;
+  chapters?: number;
+  items?: number;
   completed: string;
 }
 
-const CourseCard = () => {
+const CourseCard = ({ title, image, chapters, items, completed }: Props) => {
   return (
-    <div className="max-w-xs rounded overflow-hidden shadow-lg cursor-pointer p-2 inline-block">
+    <div className="max-w-xs cursor-pointer rounded border mx-2 my-2 inline-block hover:shadow-lg">
       <div className="relative w-full">
         <img
-          className="w-full object-cover"
-          src="https://picsum.photos/280/200"
+          className="w-full object-cover rounded"
+          src={image}
           alt="Sunset in the mountains"
         />
-        <div className="absolute top-10 left-10">
-          <h2 className="text-3xl text-white mb-24 w-64">מבוא למדעי המחשב</h2>
-          <Pi completed="90" />
+        <div className="absolute top-5 left-5">
+          <h2 className="text-2xl text-white mb-24 w-90">{title}</h2>
+          <Pi completed={completed} />
         </div>
       </div>
 
       <div className="flex px-6 py-4 justify-end items-center gap-x-4">
         <div className="flex-col text-center">
-          <p className="text-2xl">17</p>
+          <p className="text-2xl">{items}</p>
           <p className="text-xs text-gray-500">פריטים</p>
         </div>
         <div className="flex-col text-center">
-          <p className="text-2xl">4</p>
+          <p className="text-2xl">{chapters}</p>
           <p className="text-xs text-gray-500">פרקים</p>
         </div>
       </div>

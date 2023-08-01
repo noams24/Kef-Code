@@ -6,7 +6,7 @@ import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 const Courses = async () => {
   //const session = await getAuthSession()
-  const testimonial1 = getListPage("sections/ComputerScience.md");
+  const testimonial1 = getListPage("sections/ComputerScience2.md");
   const testimonial2 = getListPage("sections/Math.md");
   const testimonial3 = getListPage("sections/Other.md");
   return (

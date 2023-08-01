@@ -1,7 +1,7 @@
 "use client";
 
 import CourseCard from "@/components/CourseCard";
-import { Testimonial } from "@/types";
+import { Course, Testimonial } from "@/types";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 interface PageData {
@@ -11,7 +11,7 @@ interface PageData {
     enable?: boolean;
     title: string;
     description?: string;
-    testimonials: Array<Testimonial>;
+    courses: Array<Course>;
   };
 }
 
@@ -39,9 +39,17 @@ const Testimonials = ({ data }: { data: PageData }) => {
         id="slider"
         className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide"
       >
-        {courses.map((course) => (
-          <CourseCard />
-        ))}
+        {data.frontmatter.courses.map(
+          ({ title, image, chapters, items, completed }) => (
+            <CourseCard
+              title={title}
+              image={image}
+              chapters={chapters}
+              items={items}
+              completed={completed}
+            />
+          ),
+        )}
       </div>
       <MdChevronRight
         size={40}
