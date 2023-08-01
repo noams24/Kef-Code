@@ -1,21 +1,16 @@
 //import MDXContent from "@/helpers/MDXContent";
-import { getListPage } from "@/lib/contentParser";
-import { RegularPage } from "@/types";
-import { Editor } from "@/components/text-editor/editor";
+//import { getListPage } from "@/lib/contentParser";
+//import { RegularPage } from "@/types";
+//import { Editor } from "@/components/text-editor/editor";
 //import { authOptions } from '@/lib/auth'
 //import { getServerSession } from 'next-auth'
 //import { getSinglePage } from "@/lib/contentParser";
-import PageHeader from "@/partials/PageHeaderr";
-import Tab from "@/shortcodes/Tab";
-import Tabs from "@/shortcodes/Tabs";
-import Video from "@/shortcodes/Video";
-import Likes from "@/shortcodes/Likes";
-import Accordion from "@/shortcodes/Accordion";
-import ImageDisplay from "@/components/ImageDisplay"
-import Login from "@/components/Login";
-import { db } from '@/lib/db'
+//import { db } from '@/lib/db'
 //import ProblemDescription from "@/components/problemDescription";
-import Workspace from "@/components/workSpace/WorkSpace";
+
+import Workspace from "@/components/workSpace/tempWorkSpace";
+import PageHeader from "@/partials/PageHeaderr";
+import Login from "@/components/Login";
 
 interface PageProps {
     params: {

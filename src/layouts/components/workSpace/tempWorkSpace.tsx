@@ -2,7 +2,7 @@
 import Split from 'react-split'
 import { Button } from "@/components/ui/button";
 import Editor from "@/layouts/editor/components/Editor"
-import playgroundTemplate from './Playground.json';
+import playgroundTemplate from './example.json';
 import type { EditorDocument } from './types';
 import Tab from "@/shortcodes/Tab";
 import Tabs from "@/shortcodes/Tabs";
