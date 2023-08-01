@@ -3,7 +3,7 @@ import React from 'react';
 import { memo } from 'react';
 import { validate } from 'uuid';
 import isEqual from 'fast-deep-equal'
-import { EditorDocument } from '@/app/edit/types';
+import { EditorDocument } from './types';
 import type { EditorState } from '@/layouts/editor/types'
 import dynamic from "next/dynamic";
 import SplashScreen from './SplashScreen';
