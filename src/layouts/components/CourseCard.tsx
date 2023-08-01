@@ -10,7 +10,7 @@ interface Props {
 
 const CourseCard = () => {
   return (
-    <div className="relative max-w-xs rounded overflow-hidden shadow-lg cursor-pointer ">
+    <div className="max-w-xs rounded overflow-hidden shadow-lg cursor-pointer p-2 inline-block">
       <div className="relative w-full">
         <img
           className="w-full object-cover"
