@@ -16,7 +16,7 @@ export const Editor: React.FC<{ initialConfig: Partial<InitialConfigType>; onCha
       <>
         <ToolbarPlugin />
         <EditorPlugins contentEditable={<ContentEditable className="editor-input" onContextMenu={disableContextMenu} />} onChange={onChange} />
-        {process.env.NODE_ENV === "development" && <TreeViewPlugin />}
+        {/*{process.env.NODE_ENV === "development" && <TreeViewPlugin />}*/}
       </>
     </LexicalComposer>
   );
