@@ -36,7 +36,7 @@ const Workspace: React.FC<any> = () => {
             </Accordion>
           </div>
 
-          <div className="p-8 w-full overflow-y-auto h-screen">
+          <div className="p-8 w-full overflow-y-auto max-h-screen">
             <Editor document={document} />
           </div>
 
