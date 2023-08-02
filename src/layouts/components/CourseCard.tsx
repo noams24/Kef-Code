@@ -10,13 +10,16 @@ interface Props {
 
 const CourseCard = ({ title, image, chapters, items, completed }: Props) => {
   return (
+    <a href="/courses/algebra">
     <div className="max-w-xs cursor-pointer rounded border mx-2 my-2 inline-block hover:shadow-lg">
       <div className="relative w-full">
+        
         <img
           className="w-full object-cover rounded"
           src={image}
           alt="Sunset in the mountains"
         />
+        
         <div className="absolute top-5 left-5">
           <h2 className="text-2xl text-white mb-24 w-64 ">{title}</h2>
           <Pi completed={completed} />
@@ -34,6 +37,7 @@ const CourseCard = ({ title, image, chapters, items, completed }: Props) => {
         </div>
       </div>
     </div>
+    </a>
   );
 };
 
