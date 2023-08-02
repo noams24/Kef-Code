@@ -43,7 +43,7 @@ const Testimonials = ({ data }: { data: PageData }) => {
           id={idSelector}
           className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide"
         >
-          {data.frontmatter.courses.map(
+          {data.frontmatter.courses?.map(
             ({ title, image, chapters, items, completed }) => (
               <CourseCard
                 key={title}
