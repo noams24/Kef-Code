@@ -7,21 +7,21 @@ description: ""
 testimonials:
   - name: "מבוא למדעי המחשב"
     designation: ""
-    avatar: ""
+    avatar: "https://picsum.photos/280/200"
     content: ""
 
   - name: "מבני נתונים"
     designation: ""
-    avatar: ""
+    avatar: "https://picsum.photos/280/200"
     content: ""
 
   - name: "אלגוריתמים"
     designation: ""
-    avatar: ""
+    avatar: "https://picsum.photos/280/200"
     content: ""
 
   - name: "ארגון המחשב"
     designation: ""
-    avatar: ""
+    avatar: "https://picsum.photos/280/200"
     content: ""
 ---

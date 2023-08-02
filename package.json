@@ -74,6 +74,7 @@
     "split.js": "^1.6.0",
     "swiper": "^10.0.3",
     "tailwind-merge": "^1.13.2",
+    "tailwind-scrollbar-hide": "^1.1.7",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

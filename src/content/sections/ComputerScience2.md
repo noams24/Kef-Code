@@ -1,35 +1,35 @@
 ---
 enable: true
-title: "קורסים במתמטיקה"
+title: "קורסים במדעי המחשב"
 description: ""
 
 # Courses
 courses:
-  - title: "קריפטוגרפיה"
+  - title: "מבוא למדעי המחשב"
     image: "https://picsum.photos/280/200"
     chapters: "17"
     items: "5"
     completed: "70"
 
-  - title: "אלגברה לינארית"
+  - title: "מבני נתונים"
     image: "https://picsum.photos/280/200"
     chapters: "14"
     items: "10"
     completed: "20"
 
-  - title: "מתמטיקה בדידה"
+  - title: "אלגוריתמים"
     image: "https://picsum.photos/280/200"
     chapters: "20"
     items: "48"
     completed: "5"
 
-  - title: "מבוא להסתברות"
+  - title: "ארגון המחשב"
     image: "https://picsum.photos/280/200"
     chapters: "4"
     items: "17"
     completed: "60"
 
-  - title: "סטטיסטיקה"
+  - title: "אוטומטים ושפות פורמליות"
     image: "https://picsum.photos/280/200"
     chapters: "6"
     items: "55"
@@ -47,7 +47,7 @@ courses:
     items: "75"
     completed: "0"
 
-  - title: "מודלים חישוביים"
+  - title: "מבוא לבינה מלאכותית"
     image: "https://picsum.photos/280/200"
     chapters: "12"
     items: "30"
@@ -59,7 +59,7 @@ courses:
     items: "10"
     completed: "85"
 
-  - title: "תורת המספרים"
+  - title: "מערכות הפעלה"
     image: "https://picsum.photos/280/200"
     chapters: "14"
     items: "60"
