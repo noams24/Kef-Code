@@ -59,7 +59,7 @@ export default function RootLayout({
         <Providers>
           <Header/>
           <main>{children}</main>
-          <Footer/>
+          {/* <Footer/> */}
         </Providers>
       </body>
     </html>
