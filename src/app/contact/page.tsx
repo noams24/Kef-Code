@@ -9,7 +9,6 @@ const Contact = async () => {
   const { frontmatter } = data;
   const { title, description, meta_title, image } = frontmatter;
   const { contact_form_action } = config.params;
-
   return (
     <>
       <SeoMeta

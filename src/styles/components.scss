@@ -90,7 +90,7 @@
 .tab {
   @apply overflow-hidden rounded-lg border border-border dark:border-darkmode-border;
   &-nav {
-    @apply flex border-b border-border bg-theme-light dark:border-darkmode-border dark:bg-darkmode-theme-light;
+    @apply flex justify-center border-b border-border bg-theme-light dark:border-darkmode-border dark:bg-darkmode-theme-light;
     @apply m-0 #{!important};
     @apply list-none #{!important};
 

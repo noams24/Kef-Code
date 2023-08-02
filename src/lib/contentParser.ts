@@ -3,8 +3,8 @@ import matter from "gray-matter";
 import { notFound } from "next/navigation";
 import path from "path";
 
-const contentPath = "src/content";
-
+//const contentPath = "src/content";
+const contentPath = (process.cwd(),"src/content")
 // Helper function to read file content
 const readFile = (filePath: string) => {
   return fs.readFileSync(filePath, "utf-8");
@@ -19,9 +19,8 @@ const parseFrontmatter = (frontmatter: any) => {
 // get list page data, ex: _index.md
 export const getListPage = (filePath: string) => {
   const pageDataPath = path.join(contentPath, filePath);
-
   if (!fs.existsSync(pageDataPath)) {
-    notFound();
+    //notFound();
   }
 
   const pageData = readFile(pageDataPath);
@@ -36,14 +35,15 @@ export const getListPage = (filePath: string) => {
 // get all single pages, ex: blog/post.md
 export const getSinglePage = (folder: string) => {
   const folderPath = path.join(contentPath, folder);
-
   if (!fs.existsSync(folderPath) || !fs.lstatSync(folderPath).isDirectory()) {
-    notFound();
+    console.log(folderPath);
+    console.log("not exist");
+    //notFound();
   }
 
   const filesPath = fs.readdirSync(folderPath);
   const sanitizeFiles = filesPath.filter((file) => file.endsWith(".md"));
-  const filterSingleFiles = sanitizeFiles.filter((file) =>
+  const filterSingleFiles =  sanitizeFiles.filter((file) =>
     file.match(/^(?!_)/)
   );
 
