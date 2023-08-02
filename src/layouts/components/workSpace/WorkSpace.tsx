@@ -16,7 +16,7 @@ const Workspace: React.FC<any> = () => {
   const document = playgroundTemplate as unknown as EditorDocument;
   return (
     <>
-      <div className="mr-5">
+      <div className="mr-2">
         <Split className="split" minSize={0}>
           <div className="content">
             <Tabs>
@@ -42,7 +42,7 @@ const Workspace: React.FC<any> = () => {
 
 
         </Split>
-        <div className="my-3 flex fixed right-64 gap-x-2">
+        <div className="my-3 flex justify-center gap-x-2">
           <Button
             className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
           >
