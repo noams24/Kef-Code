@@ -40,7 +40,7 @@ const Workspace: React.FC<any> = () => {
   const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
 
 
-  const { mutate: handleSave } = useMutation({
+  const { mutate: handleSave, isLoading } = useMutation({
     mutationFn: async ({
       problemId,
       jsonState,
@@ -107,6 +107,7 @@ const Workspace: React.FC<any> = () => {
           </Button>
           <Button
             onClick={() => handleSave({ problemId: '1234', jsonState })}
+            disabled={isLoading}
             className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
           >
             שמירה
