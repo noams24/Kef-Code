@@ -13,8 +13,9 @@ import ImageDisplay from "@/components/ImageDisplay"
 import { type EditorState, type SerializedEditorState } from "lexical";
 import React, { useState } from "react";
 import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
-
+import axios, { AxiosError } from 'axios'
+import { useCustomToasts } from '@/hooks/use-custom-toast'
+import { toast } from '@/hooks/use-toast'
 import "./split.css"
 
 export type EditorContentType = SerializedEditorState | undefined;
@@ -32,33 +33,60 @@ function onChange(
   });
 }
 
+const Workspace: React.FC<any> = () => {
+  const { loginToast } = useCustomToasts()
+  const imageUrl = "https://i.ibb.co/Gdz4BTg/problem1.png";
+  const document = playgroundTemplate as unknown as EditorDocument;
+  const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
 
-
-const Workspace: React.FC<any> = (session) => {
 
   const { mutate: handleSave } = useMutation({
     mutationFn: async ({
       problemId,
       jsonState,
-      session
     }: any) => {
       const payload: any = { problemId, jsonState }
       const { data } = await axios.post('/api/submit', payload)
       return data
     },
-    onError: () => {
-      console.log("error")
+    onError: (err) => {
+      if (err instanceof AxiosError) {
+        if (err.response?.status === 409) {
+          return toast({
+            title: 'Subreddit already exists.',
+            description: 'Please choose a different name.',
+            variant: 'destructive',
+          })
+        }
+
+        if (err.response?.status === 422) {
+          return toast({
+            title: 'Invalid subreddit name.',
+            description: 'Please choose a name between 3 and 21 letters.',
+            variant: 'destructive',
+          })
+        }
+
+        if (err.response?.status === 401) {
+          return loginToast()
+        }
+      }
+      toast({
+        title: 'There was an error.',
+        description: 'Could not create subreddit.',
+        variant: 'destructive',
+      })
     },
     onSuccess: () => {
-      console.log("success")
+      toast({
+        title: 'נשמר',
+        description: 'התשובה נשמרה בהצלחה.',
+        variant: 'destructive',
+      })
     },
   })
 
 
-
-  const imageUrl = "https://i.ibb.co/Gdz4BTg/problem1.png";
-  const document = playgroundTemplate as unknown as EditorDocument;
-  const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
   return (
     <>
       <div className="mr-2">
@@ -94,7 +122,7 @@ const Workspace: React.FC<any> = (session) => {
             פרסום
           </Button>
           <Button
-          onClick={() => handleSave({problemId: '1234', jsonState, session})}
+            onClick={() => handleSave({ problemId: '1234', jsonState })}
             className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
           >
             שמירה
