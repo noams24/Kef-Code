@@ -51,22 +51,6 @@ const Workspace: React.FC<any> = () => {
     },
     onError: (err) => {
       if (err instanceof AxiosError) {
-        if (err.response?.status === 409) {
-          return toast({
-            title: 'Subreddit already exists.',
-            description: 'Please choose a different name.',
-            variant: 'destructive',
-          })
-        }
-
-        if (err.response?.status === 422) {
-          return toast({
-            title: 'Invalid subreddit name.',
-            description: 'Please choose a name between 3 and 21 letters.',
-            variant: 'destructive',
-          })
-        }
-
         if (err.response?.status === 401) {
           return loginToast()
         }
