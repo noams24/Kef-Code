@@ -42,20 +42,20 @@ const Login = () => {
         <div className="flex flex-col space-y-2 text-center">
           <Icons.logo className="mx-auto h-6 w-6" />
           <h1 className="text-2xl font-semibold tracking-tight">
-            Welcome back
+            !ברוך הבא
           </h1>
           <p className="text-sm text-muted-foreground">
-            By signing in you are agreeing to our Terms and Conditions
+            בהתחברות לאתר אני מאשר לתנאי השימוש
           </p>
         </div>
         <UserAuthForm />
         <p className="px-8 text-center text-sm text-muted-foreground">
-          <Link
+          {/* <Link
             href="/register"
             className="hover:text-brand underline underline-offset-4"
           >
             Don&apos;t have an account? Sign Up
-          </Link>
+          </Link> */}
         </p>
       </div>
               </div>
