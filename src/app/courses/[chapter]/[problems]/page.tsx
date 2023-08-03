@@ -35,12 +35,12 @@ export default async function TaskPage({ params }: PageProps) {
   const tasks = await getTasks()
   return (
     <>
-    <PageHeader title={params.problems}/>
-    <div className="p-10 w-auto flex justify-center">
-            {/*<h2 className="text-center text-2xl font-bold tracking-tight"> {params.chapter} - שאלות מהקורס </h2>
+      <PageHeader title={params.problems} />
+      <div className="p-10 w-auto flex justify-center">
+        {/*<h2 className="text-center text-2xl font-bold tracking-tight"> {params.chapter} - שאלות מהקורס </h2>
             <h2 className="text-center text-2xl font-bold tracking-tight">{params.problems} - ומפרק</h2> */}
         <DataTable data={tasks} columns={columns} />
-        </div>
+      </div>
     </>
   )
 }
