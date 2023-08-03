@@ -5,7 +5,7 @@ import Timer from "./Timer";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { BsList } from "react-icons/bs";
 
-const ProblemTopBar = ({ title }: { title: string }) => {
+const TopBar = ({ title }: { title: string }) => {
   return (
     <section>
       <div className="text-center mx-auto rounded px-12">
@@ -23,4 +23,4 @@ const ProblemTopBar = ({ title }: { title: string }) => {
   );
 };
 
-export default ProblemTopBar;
+export default TopBar;
