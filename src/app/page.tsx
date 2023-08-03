@@ -2,6 +2,7 @@ import ImageFallback from "@/helpers/ImageFallback";
 import { getListPage } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
 import CallToAction from "@/partials/CallToAction";
+import Footer from "@/partials/Footer";
 import SeoMeta from "@/partials/SeoMeta";
 import Testimonials from "@/partials/Testimonials";
 import { Button, Feature } from "@/types";
@@ -111,7 +112,7 @@ const Home = () => {
         </section>
       ))}
 
-      <Testimonials data={testimonial} />
+      <Footer/>
       <CallToAction data={callToAction} />
     </>
   );
