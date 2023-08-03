@@ -19,7 +19,7 @@ banner:
 features:
   - title: "מה כלול בכיף קוד"
     image: "/images/service-1.png"
-    content: "בעיות ופתרונות ממגוון קורסים"
+    content: ""
     bulletpoints:
       - " מעל 20 קורסים שונים"
       - "מעל 1000 שאלות עם פתרונות ממבחנים"
@@ -33,11 +33,11 @@ features:
 
   - title: "פיצ'רים"
     image: "/images/service-2.png"
-    content: "בעיות ופתרונות ממגוון קורסים"
+    content: ""
     bulletpoints:
       - "על מנת לכתוב נוסחאות מתמטיות [MathLive](https://cortexjs.io/mathlive/) מתמטיקה: אינטרקציה עם"
       - "על מנת לשרטט גרפים וצורות [Geogebra](https://www.geogebra.org/) גרפים: אינטרקציה עם"
-      - "על מנת לצייר כמו בכתב יד [Excalidraw](https://excalidraw.com/) ציור: אינטרקציה עם"
+      - "על מנת לאייר כמו כתב יד [Excalidraw](https://excalidraw.com/) איור: אינטרקציה עם"
 
     button:
       enable: true

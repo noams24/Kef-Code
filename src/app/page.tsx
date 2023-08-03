@@ -83,7 +83,7 @@ const Home = () => {
                 }`}
               >
                 <h2
-                  className="mb-4"
+                  className="mb-4 text-center"
                   dangerouslySetInnerHTML={markdownify(feature.title)}
                 />
                 <p
@@ -92,19 +92,21 @@ const Home = () => {
                 />
                 <ul>
                   {feature.bulletpoints.map((bullet: string) => (
-                    <li className="relative mb-4 pl-6" key={bullet}>
-                      <FaCheck className={"absolute left-0 top-1.5"} />
+                    <li className="relative mb-4 pr-6 text-right" key={bullet}>
+                      <FaCheck className={"absolute right-0 top-1.5"} />
                       <span dangerouslySetInnerHTML={markdownify(bullet)} />
                     </li>
                   ))}
                 </ul>
                 {feature.button.enable && (
+                  <div className="flex justify-center">
                   <a
-                    className="btn btn-primary mt-5"
+                    className="btn inline-block btn-primary mt-5"
                     href={feature.button.link}
                   >
                     {feature.button.label}
                   </a>
+                  </div>
                 )}
               </div>
             </div>
