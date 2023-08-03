@@ -4,8 +4,11 @@ import Breadcrumbs from "../Breadcrumbs";
 import Timer from "./Timer";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { BsList } from "react-icons/bs";
+import FullScreen from "./FullScreen";
+
 
 const TopBar = ({ title }: { title: string }) => {
+
     return (
         <section>
             <div className="text-center mx-auto rounded px-12">
@@ -21,8 +24,11 @@ const TopBar = ({ title }: { title: string }) => {
                             <FaChevronRight />
                         </div>
                     </div>
-                    <Breadcrumbs className="mb-7" />
-                    <Timer />
+                    <Breadcrumbs/>
+                    <div className="flex items-center gap-4">
+                        <Timer />
+                        <FullScreen />
+                    </div>
                 </div>
             </div>
         </section>
