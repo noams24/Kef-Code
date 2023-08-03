@@ -31,7 +31,7 @@ import EmojiPickerPlugin from './EmojiPickerPlugin';
 
 export const EditorPlugins: React.FC<{
   contentEditable: React.ReactElement;
-  placeholder?: JSX.Element | ((isEditable: boolean) => JSX.Element | null) | null;
+  placeholder?: JSX.Element | ((isEditable: boolean) => JSX.Element | null) | null| any;
   onChange: (editorState: EditorState, editor: LexicalEditor) => void;
 }> = ({ contentEditable, placeholder = null, onChange }) => {
   const { historyState } = useSharedHistoryContext();
