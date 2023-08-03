@@ -1,5 +1,4 @@
 import Pi from "./Pi";
-import Image from "next/image";
 
 interface Props {
   title: string;
@@ -15,7 +14,7 @@ const CourseCard = ({ title, image, chapters, items, completed }: Props) => {
     <div className="max-w-xs cursor-pointer rounded border mx-2 my-2 inline-block hover:shadow-lg">
       <div className="relative w-full">
         
-        <Image
+        <img
           className="w-full object-cover rounded"
           src={image}
           alt="Sunset in the mountains"
