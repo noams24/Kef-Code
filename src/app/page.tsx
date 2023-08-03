@@ -111,9 +111,8 @@ const Home = () => {
           </div>
         </section>
       ))}
-
-      <Footer/>
       <CallToAction data={callToAction} />
+      <Footer/>
     </>
   );
 };
