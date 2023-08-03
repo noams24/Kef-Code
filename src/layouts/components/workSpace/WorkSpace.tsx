@@ -10,10 +10,31 @@ import Video from "@/shortcodes/Video";
 import Likes from "@/shortcodes/Likes";
 import Accordion from "@/shortcodes/Accordion";
 import ImageDisplay from "@/components/ImageDisplay"
+import { type EditorState, type SerializedEditorState } from "lexical";
+import React, { useState } from "react";
 import "./split.css"
+
+export type EditorContentType = SerializedEditorState | undefined;
+
+function onChange(
+  state: EditorState,
+  setJsonState: React.Dispatch<React.SetStateAction<EditorContentType>>
+) {
+  state.read(() => {
+    if (state.isEmpty()) {
+      setJsonState(undefined);
+      return;
+    }
+    setJsonState(state.toJSON());
+  });
+}
+
+
+
 const Workspace: React.FC<any> = () => {
   const imageUrl = "https://i.ibb.co/Gdz4BTg/problem1.png";
   const document = playgroundTemplate as unknown as EditorDocument;
+  const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
   return (
     <>
       <div className="mr-2">
@@ -37,7 +58,7 @@ const Workspace: React.FC<any> = () => {
           </div>
 
           <div className="p-8 w-full overflow-y-auto h-[70vh]">
-            <Editor document={document} />
+            <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} />
           </div>
 
 
