@@ -58,11 +58,10 @@ export default function RootLayout({
       <body suppressHydrationWarning={true}>
         <TwSizeIndicator />
         <Providers>
-          {/* @ts-expect-error Server Component */}
+           {/* @ts-expect-error Server Component */}
           <Header/>
           <main>{children}</main>
           {/* <Footer/> */}
-        <
         </Providers>
       </body>
     </html>
