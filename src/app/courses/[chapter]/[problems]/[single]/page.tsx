@@ -7,10 +7,12 @@
 //import { getSinglePage } from "@/lib/contentParser";
 //import { db } from '@/lib/db'
 //import ProblemDescription from "@/components/problemDescription";
-
 import Workspace from "@/components/workSpace/WorkSpace";
 import PageHeader from "@/partials/PageHeaderr";
 import Login from "@/components/Login";
+import ProblemTopBar from "@/components/problemTopBar/ProblemTopBar";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { BsList } from "react-icons/bs";
 
 interface PageProps {
     params: {
@@ -42,7 +44,8 @@ const singleProblem = async ({ params }: PageProps) => {
     return (
         <>
             <Login />
-            <PageHeader title={params.single} />
+            {/* <PageHeader title={params.single} /> */}
+            <ProblemTopBar title={params.single} />
             <Workspace/>
         </>
     );
