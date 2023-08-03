@@ -12,6 +12,9 @@ import Accordion from "@/shortcodes/Accordion";
 import ImageDisplay from "@/components/ImageDisplay"
 import { type EditorState, type SerializedEditorState } from "lexical";
 import React, { useState } from "react";
+import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
+
 import "./split.css"
 
 export type EditorContentType = SerializedEditorState | undefined;
@@ -31,7 +34,28 @@ function onChange(
 
 
 
-const Workspace: React.FC<any> = () => {
+const Workspace: React.FC<any> = (session) => {
+
+  const { mutate: handleSave } = useMutation({
+    mutationFn: async ({
+      problemId,
+      jsonState,
+      session
+    }: any) => {
+      const payload: any = { problemId, jsonState }
+      const { data } = await axios.post('/api/submit', payload)
+      return data
+    },
+    onError: () => {
+      console.log("error")
+    },
+    onSuccess: () => {
+      console.log("success")
+    },
+  })
+
+
+
   const imageUrl = "https://i.ibb.co/Gdz4BTg/problem1.png";
   const document = playgroundTemplate as unknown as EditorDocument;
   const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
@@ -70,6 +94,7 @@ const Workspace: React.FC<any> = () => {
             פרסום
           </Button>
           <Button
+          onClick={() => handleSave({problemId: '1234', jsonState, session})}
             className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
           >
             שמירה

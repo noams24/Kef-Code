@@ -11,6 +11,8 @@ import Workspace from "@/components/workSpace/WorkSpace";
 // import PageHeader from "@/partials/PageHeaderr";
 import Login from "@/components/Login";
 import TopBar from "@/components/topBar/TopBar";
+import { authOptions } from '@/lib/auth'
+import { getServerSession } from 'next-auth'
 
 interface PageProps {
     params: {
@@ -25,6 +27,7 @@ const singleProblem = async ({ params }: PageProps) => {
     //const { frontmatter, content } = data;
     //const session = await getServerSession(authOptions);
     const imageUrl = "https://i.ibb.co/Gdz4BTg/problem1.png";
+    const session = await getServerSession(authOptions);
     {/* 
     try {
         // Fetch all records from the "Problem" table
@@ -44,7 +47,7 @@ const singleProblem = async ({ params }: PageProps) => {
             <Login />
             {/* <PageHeader title={params.single} /> */}
             <TopBar title={params.single} />
-            <Workspace/>
+            <Workspace session={session}/>
         </>
     );
 };
