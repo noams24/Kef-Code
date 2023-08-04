@@ -12,7 +12,7 @@ const parseFrontmatter = (frontmatter: any) => {
 async function getPage(folder: string) {
 
   const pageData = await fs.readFile(
-    path.join(process.cwd(), folder)
+    path.join(process.cwd(), "src/content/sections/CS.md")
   )
   const { content, data: frontmatter } = matter(pageData);
   return {
@@ -23,7 +23,7 @@ async function getPage(folder: string) {
 
 const Courses = async () => {
 
-  // const testimonial1 = await getPage("src/content/sections/CS.md");
+  const testimonial1 = await getPage("src/content/sections/CS.md");
   const testimonial2 = await getPage("src/content/sections/Math.md");
   const testimonial3 = await getPage("src/content/sections/Other.md");
 
