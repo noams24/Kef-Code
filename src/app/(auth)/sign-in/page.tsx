@@ -8,18 +8,18 @@ import { Icons } from "@/components/icons"
 import UserAuthForm from "@/components/UserAuthForm"
 
 const Login = () => {
-  const data: RegularPage = getListPage("pages/about.md");
-  const { frontmatter, content } = data;
-  const { title, meta_title, description, image } = frontmatter;
+  // const data: RegularPage = getListPage("pages/about.md");
+  // const { frontmatter, content } = data;
+  // const { title, meta_title, description, image } = frontmatter;
 
   return (
     <>
-      <SeoMeta
+      {/* <SeoMeta
         title={title}
         meta_title={meta_title}
         description={description}
         image={image}
-      />
+      /> */}
       <section className="section-sm">
         <div className="container">
           <div className="row justify-center">

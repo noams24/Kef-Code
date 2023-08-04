@@ -4,15 +4,28 @@ import { markdownify } from "@/lib/utils/textConverter";
 import CallToAction from "@/partials/CallToAction";
 import Footer from "@/partials/Footer";
 import SeoMeta from "@/partials/SeoMeta";
-import Testimonials from "@/partials/Testimonials";
+// import Testimonials from "@/partials/Testimonials";
 import { Button, Feature } from "@/types";
 import { FaCheck } from "react-icons/fa/index.js";
+import { promises as fs } from "fs";
+import path from "path";
 
-const Home = () => {
+// async function getPage() {
+//   const data = await fs.readFile(
+//     path.join(process.cwd(), "src/content/_index.md")
+//   )
+//   const pageData = readFile(pageDataPath);
+
+//   return z.array(taskSchema).parse(tasks)
+// }
+
+
+const Home = async () => {
   const homepage = getListPage("_index.md");
-  const testimonial = getListPage("sections/testimonial.md");
-  const callToAction = getListPage("sections/call-to-action.md");
-  const { frontmatter } = homepage;
+  // const testimonial = getListPage("sections/testimonial.md");
+  // const callToAction = getListPage("sections/call-to-action.md");
+  // const homepage = getPage()
+  const  { frontmatter } =  homepage;
   const {
     banner,
     features,
@@ -113,7 +126,7 @@ const Home = () => {
           </div>
         </section>
       ))}
-      <CallToAction data={callToAction} />
+      {/* <CallToAction data={callToAction} /> */}
       <Footer/>
     </>
   );
