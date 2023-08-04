@@ -17,7 +17,7 @@ const parseFrontmatter = (frontmatter: any) => {
 };
 
 // get list page data, ex: _index.md
-export const getListPage =  async (filePath: string) => {
+export const getListPage = (filePath: string) => {
   const pageDataPath = path.join(contentPath, filePath);
   if (!fs.existsSync(pageDataPath)) {
     //notFound();
@@ -33,7 +33,7 @@ export const getListPage =  async (filePath: string) => {
 };
 
 // get all single pages, ex: blog/post.md
-export  const getSinglePage = async (folder: string) => {
+export const getSinglePage = (folder: string) => {
   const folderPath = path.join(contentPath, folder);
   if (!fs.existsSync(folderPath) || !fs.lstatSync(folderPath).isDirectory()) {
     console.log(folderPath);
