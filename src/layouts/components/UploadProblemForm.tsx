@@ -1,12 +1,18 @@
 "use client"
 
 import { UploadDropzone } from "@/lib/uploadthing";
-import { useState } from 'react'
+import { useState ,useEffect } from 'react'
 import "@uploadthing/react/styles.css";
 
 const UploadProblemForm = () => {
 
   const [url, setUrl] = useState<string>("");
+  const [inputValue, setInputValue] = useState(''); // Initial input value
+
+  useEffect(() => {
+    // Update the input value when the 'url' changes
+    setInputValue(url);
+  }, [url]);
 
   return (
     <>
@@ -66,16 +72,15 @@ const UploadProblemForm = () => {
                     id="url"
                     className="form-input"
                     type="url"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
                   />
                 </div>
                 <UploadDropzone
                   endpoint="imageUploader"
                   onClientUploadComplete={(res) => {
                     if (res) {
-                      // const json = JSON.stringify(res[0].fileUrl)
                       setUrl(res[0].fileUrl);
-                      console.log(url)
-                      // console.log("Files: ", res[0].fileUrl);
                     }
                   }}
                   onUploadError={(error: Error) => {
