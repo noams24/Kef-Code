@@ -10,9 +10,31 @@ const parseFrontmatter = (frontmatter: any) => {
 };
 
 async function getPage(folder: string) {
-  console.log(folder)
+  // console.log(folder)
   const pageData = await fs.readFile(
     path.join(process.cwd(), "src/content/sections/CS.md")
+  )
+  const { content, data: frontmatter } = matter(pageData);
+  return {
+    frontmatter: parseFrontmatter(frontmatter),
+    content,
+  };
+}
+async function getPage2(folder: string) {
+  // console.log(folder)
+  const pageData = await fs.readFile(
+    path.join(process.cwd(), "src/content/sections/Math.md")
+  )
+  const { content, data: frontmatter } = matter(pageData);
+  return {
+    frontmatter: parseFrontmatter(frontmatter),
+    content,
+  };
+}
+async function getPage3(folder: string) {
+  // console.log(folder)
+  const pageData = await fs.readFile(
+    path.join(process.cwd(), "src/content/sections/Other.md")
   )
   const { content, data: frontmatter } = matter(pageData);
   return {
@@ -24,8 +46,8 @@ async function getPage(folder: string) {
 const Courses = async () => {
 
   const testimonial1 = await getPage("src/content/sections/CS.md");
-  const testimonial2 = await getPage("src/content/sections/Math.md");
-  const testimonial3 = await getPage("src/content/sections/Other.md");
+  const testimonial2 = await getPage2("src/content/sections/Math.md");
+  const testimonial3 = await getPage3("src/content/sections/Other.md");
 
   return (
     <div className="flex flex-col gap-y-5 p-3">
