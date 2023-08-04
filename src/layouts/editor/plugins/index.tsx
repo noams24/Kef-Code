@@ -38,7 +38,7 @@ export const EditorPlugins: React.FC<{
 
   return (
     <>
-      <RichTextPlugin contentEditable={contentEditable} ErrorBoundary={LexicalErrorBoundary} placeholder={placeholder} />
+      <RichTextPlugin contentEditable={contentEditable} ErrorBoundary={LexicalErrorBoundary} placeholder={<div className="pointer-events-none select-none px-1 text-center relative  text-gray-500">כתוב את הפתרון שלך כאן</div>} />
       <HistoryPlugin externalHistoryState={historyState} />
       <OnChangePlugin ignoreHistoryMergeTagChange ignoreSelectionChange onChange={onChange} />
       <ListPlugin />
