@@ -34,6 +34,7 @@ import { $isGraphNode } from '../../nodes/GraphNode';
 import { $patchStyle } from '../../nodes/utils';
 import { ImageDialog, GraphDialog, SketchDialog, TableDialog } from './Dialogs';
 import { $isStickyNode } from '../../nodes/StickyNode';
+import { wrap } from 'module';
 
 type EditorDialogs = {
   image: {
@@ -348,7 +349,7 @@ function ToolbarPlugin() {
               <RedoIcon />
             </IconButton>
           </Box>
-          <Box sx={{ display: "flex", gap: 0.5 }}>
+          <Box sx={{ display: "flex", gap: 0.5, flexWrap: "wrap"}}>
             {showMathTools && <MathTools editor={activeEditor} node={selectedNode} />}
             {showImageTools && <ImageTools editor={activeEditor} node={selectedNode} />}
             {showTextTools && <>
@@ -359,10 +360,10 @@ function ToolbarPlugin() {
                 </Select>
               ) : (
                 <>
-                  <Select size='small' sx={{ width: 68 }} onChange={onFontFamilySelect} value={fontFamily}>
+                  <Select size='small' sx={{ width: 50 }} onChange={onFontFamilySelect} value={fontFamily}>
                     {FONT_FAMILY_OPTIONS.map(([option, text]) => <MenuItem key={option} value={option}>  {text}</MenuItem>)}
                   </Select>
-                  <Select size='small' sx={{ width: 68 }} onChange={onFontSizeSelect} value={fontSize}>
+                  <Select size='small' sx={{ width: 50 }} onChange={onFontSizeSelect} value={fontSize}>
                     {FONT_SIZE_OPTIONS.map(([option, text]) => <MenuItem key={option} value={option}>  {text}</MenuItem>)}
                   </Select>
                   <TextFormatToggles editor={activeEditor} sx={{ display: { xs: "none", sm: "none", md: "none", lg: "flex" } }} />
