@@ -23,13 +23,13 @@ async function getPage(folder: string) {
 
 const Courses = async () => {
 
-  const testimonial1 = await getPage("src/content/sections/CS.md");
+  // const testimonial1 = await getPage("src/content/sections/CS.md");
   const testimonial2 = await getPage("src/content/sections/Math.md");
   const testimonial3 = await getPage("src/content/sections/Other.md");
 
   return (
     <div className="flex flex-col gap-y-5 p-3">
-      <Testimonials data={testimonial1} />
+      {/* <Testimonials data={testimonial1} /> */}
       <Testimonials data={testimonial2} />
       <Testimonials data={testimonial3} />
     </div>
