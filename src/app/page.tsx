@@ -21,7 +21,7 @@ import path from "path";
 
 
 const Home = async () => {
-  const homepage = getListPage("_index.md");
+  const homepage = await getListPage("_index.md");
   // const testimonial = getListPage("sections/testimonial.md");
   // const callToAction = getListPage("sections/call-to-action.md");
   // const homepage = getPage()
