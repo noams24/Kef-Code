@@ -35,6 +35,7 @@ import { $patchStyle } from '../../nodes/utils';
 import { ImageDialog, GraphDialog, SketchDialog, TableDialog } from './Dialogs';
 import { $isStickyNode } from '../../nodes/StickyNode';
 import { wrap } from 'module';
+import { Grid } from '@mui/material';
 
 type EditorDialogs = {
   image: {
@@ -353,6 +354,7 @@ function ToolbarPlugin() {
             {showMathTools && <MathTools editor={activeEditor} node={selectedNode} />}
             {showImageTools && <ImageTools editor={activeEditor} node={selectedNode} />}
             {showTextTools && <>
+              <Grid container justifyContent="center" alignItems="center">
               {blockType in blockTypeToBlockName && <BlockFormatSelect blockType={blockType} editor={activeEditor} />}
               {blockType === 'code' ? (
                 <Select size='small' onChange={onCodeLanguageSelect} value={codeLanguage}>
@@ -360,15 +362,16 @@ function ToolbarPlugin() {
                 </Select>
               ) : (
                 <>
-                  <Select size='small' sx={{ width: 50 }} onChange={onFontFamilySelect} value={fontFamily}>
+                  <Select size='small' sx={{ width: 100 }} onChange={onFontFamilySelect} value={fontFamily}>
                     {FONT_FAMILY_OPTIONS.map(([option, text]) => <MenuItem key={option} value={option}>  {text}</MenuItem>)}
                   </Select>
-                  <Select size='small' sx={{ width: 50 }} onChange={onFontSizeSelect} value={fontSize}>
+                  <Select size='small' sx={{ width:65,  }} onChange={onFontSizeSelect} value={fontSize}>
                     {FONT_SIZE_OPTIONS.map(([option, text]) => <MenuItem key={option} value={option}>  {text}</MenuItem>)}
                   </Select>
                   <TextFormatToggles editor={activeEditor} sx={{ display: { xs: "none", sm: "none", md: "none", lg: "flex" } }} />
                 </>
               )}
+              </Grid>
             </>
             }
           </Box>
