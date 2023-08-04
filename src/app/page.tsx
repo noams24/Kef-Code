@@ -24,8 +24,10 @@ async function getPage() {
   // const pageDataPath = await fs.readFile(
   //   path.join(process.cwd(), "src/content/_index.md")
   // )
-
-  const pageData = await readFile("src/content/_index.md");
+  const pageData = await fs.readFile(
+    path.join(process.cwd(), "src/content/_index.md")
+  )
+  // const pageData = await readFile("src/content/_index.md");
   const { content, data: frontmatter } = matter(pageData);
   return {
     frontmatter: parseFrontmatter(frontmatter),
