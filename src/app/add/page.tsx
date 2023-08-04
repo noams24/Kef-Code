@@ -1,3 +1,4 @@
+
 import config from "@/config/config.json";
 import { getListPage } from "@/lib/contentParser";
 import PageHeader from "@/partials/PageHeader";
@@ -5,13 +6,14 @@ import SeoMeta from "@/partials/SeoMeta";
 import { RegularPage } from "@/types";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
+import UploadImage from "@/components/UploadImage";
 
 
 const Add = async () => {
-  // const session = await getServerSession(authOptions)
-  // if (session?.user.role !== 'ADMIN') {
-  //    throw new Error('Unauthorized')
-  // }
+  const session = await getServerSession(authOptions)
+  if (session?.user.role !== 'ADMIN') {
+     throw new Error('Unauthorized')
+  }
 
   const data: RegularPage = getListPage("pages/contact.md");
   const { frontmatter } = data;
@@ -73,9 +75,8 @@ const Add = async () => {
                   />
                 </div>
 
-                <h3 className="mb-10">העלאת תמונה</h3>
-                
-
+                <h3 className="mb-10">העלאת תמונה של השאלה</h3>
+                <UploadImage/>
                 <button type="submit" className="btn btn-primary">
                   העלאה
                 </button>
