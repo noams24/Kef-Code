@@ -11,23 +11,16 @@ import { promises as fs } from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-const readFile = (filePath: string) => {
-  return fs.readFile(filePath, "utf-8");
-};
-
 const parseFrontmatter = (frontmatter: any) => {
   const frontmatterString = JSON.stringify(frontmatter);
   return JSON.parse(frontmatterString);
 };
 
 async function getPage() {
-  // const pageDataPath = await fs.readFile(
-  //   path.join(process.cwd(), "src/content/_index.md")
-  // )
+
   const pageData = await fs.readFile(
     path.join(process.cwd(), "src/content/_index.md")
   )
-  // const pageData = await readFile("src/content/_index.md");
   const { content, data: frontmatter } = matter(pageData);
   return {
     frontmatter: parseFrontmatter(frontmatter),
