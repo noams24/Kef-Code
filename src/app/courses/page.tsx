@@ -10,7 +10,7 @@ const parseFrontmatter = (frontmatter: any) => {
 };
 
 async function getPage(folder: string) {
-
+  console.log(folder)
   const pageData = await fs.readFile(
     path.join(process.cwd(), "src/content/sections/CS.md")
   )
@@ -29,7 +29,7 @@ const Courses = async () => {
 
   return (
     <div className="flex flex-col gap-y-5 p-3">
-      {/* <Testimonials data={testimonial1} /> */}
+      <Testimonials data={testimonial1} />
       <Testimonials data={testimonial2} />
       <Testimonials data={testimonial3} />
     </div>
