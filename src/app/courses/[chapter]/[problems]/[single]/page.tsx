@@ -29,7 +29,9 @@ const singleProblem = async ({ params }: PageProps) => {
     return (
         <>
             {/* <PageHeader title={params.single} /> */}
+            <div className="my-5">
             <TopBar title={params.single} />
+            </div>
             <Workspace/>
         </>
     );

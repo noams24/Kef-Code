@@ -93,7 +93,7 @@ const Workspace: React.FC<any> = () => {
             </Accordion>
           </div>
 
-          <div className="p-8 w-full overflow-y-auto h-[70vh]">
+          <div className="p-8 w-full overflow-y-auto h-[72vh]">
             <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} />
           </div>
 
