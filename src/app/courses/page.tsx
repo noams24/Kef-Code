@@ -12,7 +12,8 @@ const parseFrontmatter = (frontmatter: any) => {
 async function getPage(folder: string) {
 
   const pageData = await fs.readFile(
-    path.join(process.cwd(), folder)
+    // path.join(process.cwd(), folder)
+    path.join(process.cwd(), "src/content/sections/Math.md")
   )
   const { content, data: frontmatter } = matter(pageData);
   return {
