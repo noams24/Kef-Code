@@ -1,11 +1,56 @@
 "use client"
 
 import { UploadDropzone } from "@/lib/uploadthing";
-import { useState ,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import "@uploadthing/react/styles.css";
+import * as React from "react"
+import * as z from "zod"
+import { useFieldArray, useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/Select"
+
+
+const uploadFormSchema = z.object({
+  username: z
+    .string()
+    .min(2, {
+      message: "Username must be at least 2 characters.",
+    })
+    .max(30, {
+      message: "Username must not be longer than 30 characters.",
+    }),
+  email: z
+    .string({
+      required_error: "Please select an email to display.",
+    })
+    .email(),
+  bio: z.string().max(160).min(4),
+  urls: z
+    .array(
+      z.object({
+        value: z.string().url({ message: "Please enter a valid URL." }),
+      })
+    )
+    .optional(),
+})
+
+type ProfileFormValues = z.infer<typeof uploadFormSchema>
+
 
 const UploadProblemForm = () => {
 
+  const form = useForm<ProfileFormValues>({
+    resolver: zodResolver(uploadFormSchema),
+  })
   const [url, setUrl] = useState<string>("");
   const [inputValue, setInputValue] = useState(''); // Initial input value
 
@@ -14,13 +59,37 @@ const UploadProblemForm = () => {
     setInputValue(url);
   }, [url]);
 
+
+  function onSubmit(data: z.infer<typeof uploadFormSchema>) {
+    console.log(data);
+  }
+
+
   return (
     <>
       <section className="section-sm">
         <div className="container">
           <div className="row">
             <div className="mx-auto md:col-10 lg:col-6 text-center">
-              <form action={""} method="POST">
+              <form onSubmit={form.handleSubmit(onSubmit)}>
+
+                <Select >
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Select a fruit" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Fruits</SelectLabel>
+                      <SelectItem value="apple">Apple</SelectItem>
+                      <SelectItem value="banana">Banana</SelectItem>
+                      <SelectItem value="blueberry">Blueberry</SelectItem>
+                      <SelectItem value="grapes">Grapes</SelectItem>
+                      <SelectItem value="pineapple">Pineapple</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+
+
                 <div className="mb-6">
                   <label htmlFor="title" className="form-label">
                     שם השאלה

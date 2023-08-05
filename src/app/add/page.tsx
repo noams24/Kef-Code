@@ -1,12 +1,13 @@
 
-import config from "@/config/config.json";
-import { getListPage } from "@/lib/contentParser";
-import PageHeader from "@/partials/PageHeader";
+// import config from "@/config/config.json";
+// import { getListPage } from "@/lib/contentParser";
+// import PageHeader from "@/partials/PageHeader";
 import SeoMeta from "@/partials/SeoMeta";
-import { RegularPage } from "@/types";
+// import { RegularPage } from "@/types";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
-import UploadProblemForm from "@/components/UploadProblemForm";
+// import UploadProblemForm from "@/components/UploadProblemForm";
+import { UploadProblem } from "@/components/UploadProblem";
 
 
 const Add = async () => {
@@ -21,7 +22,8 @@ const Add = async () => {
         meta_title="add problem"
         description="add problem"
       />
-      <UploadProblemForm/>
+      <UploadProblem/>
+      {/* <UploadProblemForm/> */}
     </>
   );
 };
