@@ -2,15 +2,16 @@ import Pi from "./Pi";
 
 interface Props {
   title: string;
+  link: string;
   image: string;
   chapters?: number;
   items?: number;
   completed: string;
 }
 
-const CourseCard = ({ title, image, chapters, items, completed }: Props) => {
+const CourseCard = ({ title, link, image, chapters, items, completed }: Props) => {
   return (
-    <a href="/courses/algebra">
+    <a href={`courses/${link}`}>
     <div className="max-w-xs cursor-pointer rounded border mx-2 my-2 inline-block hover:shadow-lg">
       <div className="relative w-full">
         
