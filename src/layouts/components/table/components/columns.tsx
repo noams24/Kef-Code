@@ -9,7 +9,14 @@ import { Task } from "../data/schema"
 import { DataTableColumnHeader } from "./data-table-column-header"
 import { DataTableRowActions } from "./data-table-row-actions"
 import Link from "next/link";
+import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
 
+interface Data {
+  title: string
+  difficulty: string
+  //TODO: problemstatus: string
+}
 
 export const columns: ColumnDef<Task>[] = [
   {
@@ -30,8 +37,20 @@ export const columns: ColumnDef<Task>[] = [
         return null
       }
 
+      // const { data, isLoading }
+      // = useQuery({
+      //   queryFn: async () => {
+      //     // const { data } = await axios.get('/api/getproblems?q=')
+      //     const course = "algebra1"
+      //     const chapter = "1"
+      //     const { data } = await axios.get(`/api/getproblems?course=${course}&chapter=${chapter}`)
+      //     return data as Data
+      //   },
+      // })
+
       return (
         <div className="flex justify-center items-center">
+          {/* <div>{isLoading ? 'Content is loading' : JSON.stringify(data)}</div> */}
           {priority.icon && (
             <priority.icon className="mr-2 h-4 w-4 text-muted-foreground" />
           )}
@@ -60,7 +79,7 @@ export const columns: ColumnDef<Task>[] = [
             >
               {row.getValue("title")}
             </Link>
-            
+
           </span>
         </div>
       )

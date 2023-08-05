@@ -22,6 +22,7 @@ enum voteType {
 enum Status {
   BEGIN
   ONGOING
+  STUCK
   FINISH
 }
 
@@ -179,5 +180,5 @@ model problemStatus {
   problem   Problem @relation(fields: [problemId], references: [id])
   userId    String  @unique
   user      User    @relation(fields: [userId], references: [id])
-  status    Status
+  status    Status  @default(BEGIN)
 }
