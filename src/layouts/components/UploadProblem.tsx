@@ -29,6 +29,9 @@ import { UploadDropzone } from "@/lib/uploadthing";
 import { useState, useEffect } from 'react'
 import "@uploadthing/react/styles.css";
 import { toast } from "@/components/table/registry/new-york/ui/use-toast"
+import { useMutation } from '@tanstack/react-query'
+import axios, { AxiosError } from 'axios'
+import { useCustomToasts } from '@/hooks/use-custom-toast'
 
 const profileFormSchema = z.object({
   title: z
@@ -58,7 +61,7 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>
 
 
 export function UploadProblem() {
-
+  const { loginToast } = useCustomToasts()
   const [url, setUrl] = useState<string>("");
   const [inputValue, setInputValue] = useState(''); // Initial input value
 
@@ -73,8 +76,8 @@ export function UploadProblem() {
   }, [url]);
 
 
-  function onSubmit(data: ProfileFormValues) {
-    console.log(data)
+  // function onSubmit(data: ProfileFormValues) {
+  //   console.log(data)
     // toast({
     //   title: "You submitted the following values:",
     //   description: (
@@ -83,7 +86,38 @@ export function UploadProblem() {
     //     </pre>
     //   ),
     // })
+  // }
+
+  function onSubmit(data: ProfileFormValues) {
+    Submit(data)
   }
+
+  const { mutate: Submit, isLoading } = useMutation({
+    mutationFn: async (values: ProfileFormValues) => {
+      // const payload: any = { problemId, jsonState }
+      const { data } = await axios.post('/api/uploadproblem', values)
+      return data
+    },
+    onError: (err) => {
+      if (err instanceof AxiosError) {
+        if (err.response?.status === 401) {
+          return loginToast()
+        }
+      }
+      toast({
+        title: 'There was an error.',
+        description: 'Could not create subreddit.',
+        variant: 'destructive',
+      })
+    },
+    onSuccess: () => {
+      toast({
+        title: 'נשמר',
+        description: 'התשובה נשמרה בהצלחה.',
+        variant: 'destructive',
+      })
+    },
+  })
 
   return (
     <>
@@ -188,7 +222,7 @@ export function UploadProblem() {
             )}
           />
 
-          <Button type="submit">העלאת שאלה</Button>
+          <Button type="submit" disabled={isLoading}>העלאת שאלה </Button>
         </form>
       </Form>
       <div className="mb-6">
