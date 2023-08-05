@@ -34,14 +34,14 @@ courses:
     completed: "60"
 
   - title: "תורת הקודים"
-    link: coding-theory"
+    link: "coding-theory"
     image: "https://picsum.photos/280/200"
     chapters: "6"
     items: "55"
     completed: "0"
 
   - title: "עיבוד תמונה"
-    link: image-proccesing"
+    link: "image-proccesing"
     image: "https://picsum.photos/280/200"
     chapters: "10"
     items: "75"
