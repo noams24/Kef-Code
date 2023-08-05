@@ -28,7 +28,7 @@ import { Textarea } from "@/components/table/registry/new-york/ui/textarea"
 import { UploadDropzone } from "@/lib/uploadthing";
 import { useState, useEffect } from 'react'
 import "@uploadthing/react/styles.css";
-import { toast } from "@/components/table/registry/new-york/ui/use-toast"
+import { toast } from '@/hooks/use-toast'
 import { useMutation } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 import { useCustomToasts } from '@/hooks/use-custom-toast'
@@ -113,7 +113,7 @@ export function UploadProblem() {
     onSuccess: () => {
       toast({
         title: 'נשמר',
-        description: 'התשובה נשמרה בהצלחה.',
+        description: 'השאלה נשמרה בהצלחה',
         variant: 'destructive',
       })
     },
