@@ -25,17 +25,25 @@ export type EditorContentType = SerializedEditorState | undefined;
 
 interface Data {
   document: EditorDocument | undefined;
-  likes: number;
-  dislikes: number;
-  difficulty: String;
-  isBookmarked: boolean;
   imageUrl: String;
+  // likes: number;
+  // dislikes: number;
+  // difficulty: String;
+  // isBookmarked: boolean;
+
   //TODO: discussion, similarquestions?
-  solutionVideoUrl?: String
-  solutionArticle?: String
-  //TODO: solutions?: EditorDocument[]
+  // solutionVideoUrl?: String
+  // solutionArticle?: String
+  //TODO: solutions?: solutions[]
 }
 
+
+type WorkSpaceProps = {
+  userId?: any;
+  course: string;
+  chapter: string;
+  title: string;
+};
 
 function onChange(
   state: EditorState,
@@ -50,13 +58,13 @@ function onChange(
   });
 }
 
-const Workspace: React.FC<any> = (userId?) => {
+const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, course, chapter, title }) => {
   const { loginToast } = useCustomToasts()
   const imageUrl = "https://i.ibb.co/Gdz4BTg/problem1.png";
   const document = playgroundTemplate as unknown as EditorDocument;
   const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
 
-
+  //save solution to db
   const { mutate: handleSave, isLoading } = useMutation({
     mutationFn: async ({
       problemId,
@@ -87,15 +95,19 @@ const Workspace: React.FC<any> = (userId?) => {
     },
   })
 
-  const { data }
-    = useQuery({
-      queryFn: async () => {
-        const problemId = "1"
-        const { data } = await axios.get(`/api/getWorkSpace?problemId=${problemId}&userId=${userId}`)
-        return data as Data
-      },
-    })
-    console.log(data)
+  //get data from the db
+  // if (process.env.NODE_ENV !== "development") {
+  // const { data }
+  //   = useQuery({
+  //     queryFn: async () => {
+  //       const query = `/api/getWorkSpace?course=${course}&chapter=${chapter}&title=${title}&userId=${userId.session}`
+  //       const { data } = await axios.get(query)
+  //       return data as Data
+  //     },
+  //   })
+
+  // console.log(data)
+  // }
 
 
   return (

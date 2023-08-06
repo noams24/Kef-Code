@@ -35,7 +35,7 @@ const singleProblem = async ({ params }: PageProps) => {
             <div className="my-5">
             <TopBar title={params.single} />
             </div>
-            <Workspace session={session?.user.id}/>
+            <Workspace userId={session?.user.id} course={params.chapter} chapter={params.problems} title={params.single}/>
         </>
     );
 };

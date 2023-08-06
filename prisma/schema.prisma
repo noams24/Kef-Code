@@ -125,7 +125,7 @@ model Problem {
   problemStatus problemStatus[]
   vote          Vote[]
   bookmarks     Bookmark[]
-  @@unique([course,chapter,title,img])
+  @@unique([course,chapter,title])
 }
 
 model Solution {
