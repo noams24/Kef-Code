@@ -18,6 +18,7 @@ import { useCustomToasts } from '@/hooks/use-custom-toast'
 import { toast } from '@/hooks/use-toast'
 import { useQuery } from '@tanstack/react-query'
 import "./split.css"
+import { notFound } from 'next/navigation';
 
 
 export type EditorContentType = SerializedEditorState | undefined;
@@ -105,6 +106,9 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
   //     return data as Data
   //   },
   // })
+  // if (!isFetching && !data?.content){
+  //   notFound()
+  // }
   // console.log(data?.imageUrl.img)
   // if (loadedData?.hasOwnProperty('content')) {
   //     console.log(loadedData)
@@ -140,7 +144,7 @@ return (
             <Tab name="פתרון רשמי"><Video title="solution" height={500} width={500} src="https://joy1.videvo.net/videvo_files/video/free/video0467/large_watermarked/_import_61516692993d77.04238324_preview.mp4" /></Tab>
             <Tab name="תיאור"> <Likes /> 
               <ImageDisplay imageUrl={imageUrl} />
-              {/* {isFetching? (<div>Loading</div>) : <ImageDisplay imageUrl={data?.imageUrl.img} />}  */}
+              {/* {(isFetched && !data?.imageUrl) ? (<div>Loading</div>) : <ImageDisplay imageUrl={data?.imageUrl.img}/>}  */}
             </Tab>
           </Tabs>
           <Accordion title="דיון">
