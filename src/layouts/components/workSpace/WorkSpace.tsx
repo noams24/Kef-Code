@@ -25,7 +25,7 @@ export type EditorContentType = SerializedEditorState | undefined;
 
 interface Data {
   content: EditorDocument | undefined;
-  imageUrl: String;
+  imageUrl: any;
   // likes: number;
   // dislikes: number;
   // difficulty: String;
@@ -98,16 +98,16 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
   // const document = playgroundTemplate as unknown as EditorDocument;
   
 
-  // const loadedData = useQuery({
+  // const { isFetching, data, refetch, isFetched } = useQuery({
   //   queryFn: async () => {
   //     const query = `/api/getWorkSpace?problemId=${problemId}&userId=${userId}`
   //     const { data } = await axios.get(query)
   //     return data as Data
   //   },
   // })
-  // const [jsonState, setJsonState] = useState<EditorContentType>(undefined)
+  // console.log(data?.imageUrl.img)
   // if (loadedData?.hasOwnProperty('content')) {
-  
+  //     console.log(loadedData)
   // }
   // else {
 
@@ -138,7 +138,10 @@ return (
           <Tabs>
             <Tab name="פתרונות">כאן יופיעו פתרונות של אנשים</Tab>
             <Tab name="פתרון רשמי"><Video title="solution" height={500} width={500} src="https://joy1.videvo.net/videvo_files/video/free/video0467/large_watermarked/_import_61516692993d77.04238324_preview.mp4" /></Tab>
-            <Tab name="תיאור"> <Likes /> <ImageDisplay imageUrl={imageUrl} /></Tab>
+            <Tab name="תיאור"> <Likes /> 
+              <ImageDisplay imageUrl={imageUrl} />
+              {/* {isFetching? (<div>Loading</div>) : <ImageDisplay imageUrl={data?.imageUrl.img} />}  */}
+            </Tab>
           </Tabs>
           <Accordion title="דיון">
             תגובה1
