@@ -16,9 +16,26 @@ import { useMutation } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 import { useCustomToasts } from '@/hooks/use-custom-toast'
 import { toast } from '@/hooks/use-toast'
+import { useQuery } from '@tanstack/react-query'
 import "./split.css"
 
+
 export type EditorContentType = SerializedEditorState | undefined;
+
+
+interface Data {
+  document: EditorDocument | undefined;
+  likes: number;
+  dislikes: number;
+  difficulty: String;
+  isBookmarked: boolean;
+  imageUrl: String;
+  //TODO: discussion, similarquestions?
+  solutionVideoUrl?: String
+  solutionArticle?: String
+  //TODO: solutions?: EditorDocument[]
+}
+
 
 function onChange(
   state: EditorState,
@@ -33,7 +50,7 @@ function onChange(
   });
 }
 
-const Workspace: React.FC<any> = () => {
+const Workspace: React.FC<any> = (userId?) => {
   const { loginToast } = useCustomToasts()
   const imageUrl = "https://i.ibb.co/Gdz4BTg/problem1.png";
   const document = playgroundTemplate as unknown as EditorDocument;
@@ -69,6 +86,16 @@ const Workspace: React.FC<any> = () => {
       })
     },
   })
+
+  const { data }
+    = useQuery({
+      queryFn: async () => {
+        const problemId = "1"
+        const { data } = await axios.get(`/api/getWorkSpace?problemId=${problemId}&userId=${userId}`)
+        return data as Data
+      },
+    })
+    console.log(data)
 
 
   return (
