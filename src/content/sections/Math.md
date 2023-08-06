@@ -5,8 +5,8 @@ description: ""
 
 # Courses
 courses:
-  - title: "אלגברה לינארית"
-    link: "linear-algebra"
+  - title: "אלגברה לינארית 1"
+    link: "algebra1"
     image: "https://picsum.photos/280/200"
     chapters: "14"
     items: "10"
