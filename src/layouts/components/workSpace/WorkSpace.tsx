@@ -11,7 +11,7 @@ import Likes from "@/shortcodes/Likes";
 import Accordion from "@/shortcodes/Accordion";
 import ImageDisplay from "@/components/ImageDisplay"
 import { type EditorState, type SerializedEditorState } from "lexical";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMutation } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 import { useCustomToasts } from '@/hooks/use-custom-toast'
@@ -24,7 +24,7 @@ export type EditorContentType = SerializedEditorState | undefined;
 
 
 interface Data {
-  document: EditorDocument | undefined;
+  content: EditorDocument | undefined;
   imageUrl: String;
   // likes: number;
   // dislikes: number;
@@ -40,9 +40,7 @@ interface Data {
 
 type WorkSpaceProps = {
   userId?: any;
-  course: string;
-  chapter: string;
-  title: string;
+  problemId: string
 };
 
 function onChange(
@@ -58,7 +56,7 @@ function onChange(
   });
 }
 
-const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, course, chapter, title }) => {
+const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
   const { loginToast } = useCustomToasts()
   const imageUrl = "https://i.ibb.co/Gdz4BTg/problem1.png";
   const document = playgroundTemplate as unknown as EditorDocument;
@@ -67,7 +65,6 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, course, chapter, t
   //save solution to db
   const { mutate: handleSave, isLoading } = useMutation({
     mutationFn: async ({
-      problemId,
       jsonState,
     }: any) => {
       const payload: any = { problemId, jsonState }
@@ -96,64 +93,88 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, course, chapter, t
   })
 
   //get data from the db
-  // if (process.env.NODE_ENV !== "development") {
-  // const { data }
-  //   = useQuery({
-  //     queryFn: async () => {
-  //       const query = `/api/getWorkSpace?course=${course}&chapter=${chapter}&title=${title}&userId=${userId.session}`
-  //       const { data } = await axios.get(query)
-  //       return data as Data
-  //     },
-  //   })
+  //  if (process.env.NODE_ENV === "development") {
 
-  // console.log(data)
+  // const document = playgroundTemplate as unknown as EditorDocument;
+  
+
+  // const loadedData = useQuery({
+  //   queryFn: async () => {
+  //     const query = `/api/getWorkSpace?problemId=${problemId}&userId=${userId}`
+  //     const { data } = await axios.get(query)
+  //     return data as Data
+  //   },
+  // })
+  // const [jsonState, setJsonState] = useState<EditorContentType>(undefined)
+  // if (loadedData?.hasOwnProperty('content')) {
+  
+  // }
+  // else {
+
   // }
 
-
-  return (
-    <>
-      <div className="mr-2">
-        <Split className="split" minSize={0}>
-          <div className="content">
-            <Tabs>
-              <Tab name="פתרונות">כאן יופיעו פתרונות של אנשים</Tab>
-              <Tab name="פתרון רשמי"><Video title="solution" height={500} width={500} src="https://joy1.videvo.net/videvo_files/video/free/video0467/large_watermarked/_import_61516692993d77.04238324_preview.mp4" /></Tab>
-              <Tab name="תיאור"> <Likes /> <ImageDisplay imageUrl={imageUrl} /></Tab>
-            </Tabs>
-            <Accordion title="דיון">
-              תגובה1
-              תגובה2
-              תגובה3
-            </Accordion>
-            <Accordion title="שאלות דומות">
-              שאלה1
-              2שאלה
-              שאלה3
-            </Accordion>
-          </div>
-
-          <div className="p-8 w-full overflow-y-auto h-[72vh]">
-            <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} />
-          </div>
+//   if (loadedData?.hasOwnProperty('content')) {
+//     // setJsonState(loadedData.content as EditorDocument)
+//     setJsonState(playgroundTemplate as unknown as EditorDocument)
+//   }
+// }
 
 
-        </Split>
-        <div className="my-3 flex justify-center gap-x-2">
-          <Button
-            className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
-          >
-            פרסום
-          </Button>
-          <Button
-            onClick={() => handleSave({ problemId: '1234', jsonState })}
-            disabled={isLoading}
-            className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
-          >
-            שמירה
-          </Button>
+// let document = playgroundTemplate as unknown as EditorDocument;
+// const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
+
+// if (data?.hasOwnProperty('content')) {
+//   document = data.content as EditorDocument;
+// }
+// console.log(data)
+// 
+
+
+return (
+  <>
+    <div className="mr-2">
+      <Split className="split" minSize={0}>
+        <div className="content">
+          <Tabs>
+            <Tab name="פתרונות">כאן יופיעו פתרונות של אנשים</Tab>
+            <Tab name="פתרון רשמי"><Video title="solution" height={500} width={500} src="https://joy1.videvo.net/videvo_files/video/free/video0467/large_watermarked/_import_61516692993d77.04238324_preview.mp4" /></Tab>
+            <Tab name="תיאור"> <Likes /> <ImageDisplay imageUrl={imageUrl} /></Tab>
+          </Tabs>
+          <Accordion title="דיון">
+            תגובה1
+            תגובה2
+            תגובה3
+          </Accordion>
+          <Accordion title="שאלות דומות">
+            שאלה1
+            2שאלה
+            שאלה3
+          </Accordion>
         </div>
+
+        <div className="p-8 w-full overflow-y-auto h-[72vh]">
+          {/* <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> */}
+          <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} />
+        </div>
+
+
+      </Split>
+      <div className="my-3 flex justify-center gap-x-2">
+        <Button
+          className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
+        >
+          פרסום
+        </Button>
+        <Button
+          onClick={() => handleSave({ jsonState })}
+          disabled={isLoading}
+          className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
+        >
+          שמירה
+        </Button>
       </div>
-    </>
-  );
-};
+    </div>
+  </>
+);
+  };
 export default Workspace;

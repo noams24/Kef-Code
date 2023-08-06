@@ -4,30 +4,16 @@ const prisma = new PrismaClient()
 
 export async function GET(req: Request) {
     const url = new URL(req.url)
-    const course = url.searchParams.get('course')
-    const chapter = url.searchParams.get('chapter')
-    const title = url.searchParams.get('title')
+    const problemId = url.searchParams.get('problemId')
     const userId = url.searchParams.get('userId')
-    if (!course || !chapter || !title) return new Response('Invalid query', { status: 400 })
+    if (!problemId) return new Response('Invalid query', { status: 400 })
     try {
         let content = null
         if (userId) {
-            // result = await prisma.$queryRaw`SELECT * FROM User`
-            const problemId = await db.problem.findFirst({
-                where: {
-                    course: course,
-                    chapter: chapter,
-                    title: title,
-                },
-                select: {
-                    id: true,
-                },
-            })
-
             if (problemId) {
                 content = await db.submissions.findFirst({
                     where: {
-                        problemId: problemId.id,
+                        problemId: problemId,
                         userId: userId,
                     },
                     select: {
@@ -50,9 +36,7 @@ export async function GET(req: Request) {
 
         const imageUrl = await db.problem.findFirst({
             where: {
-                course: course,
-                chapter: chapter,
-                title: title,
+                id: problemId,
             },
             select: {
                 img: true,

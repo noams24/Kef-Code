@@ -151,7 +151,7 @@ export function UploadProblem() {
                   <SelectContent>
                     <SelectItem value="algebra1">אלגברה לינארית 1</SelectItem>
                     <SelectItem value="infi1">אינפי 1</SelectItem>
-                    <SelectItem value="intro">מבוא למדעי המחשב</SelectItem>
+                    <SelectItem value="intro-computer-science">מבוא למדעי המחשב</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
