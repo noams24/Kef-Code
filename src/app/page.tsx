@@ -136,8 +136,8 @@ const Home = async () => {
           </div>
         </section>
       ))}
-      {/ *<CallToAction data={callToAction} /> */}
-      <Reviews data={testimonial} />
+      {/* <CallToAction data={callToAction} />  */}
+      {/* <Reviews data={testimonial} /> */}
       <Footer/>
     </>
   );

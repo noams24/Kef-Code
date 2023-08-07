@@ -21,7 +21,7 @@ import "./split.css"
 import { notFound } from 'next/navigation';
 
 
-export type EditorContentType = SerializedEditorState | undefined;
+export type EditorContentType = SerializedEditorState | undefined | any;
 
 
 interface Data {
@@ -62,7 +62,8 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
   const imageUrl = "https://i.ibb.co/Gdz4BTg/problem1.png";
   const document = playgroundTemplate as unknown as EditorDocument;
   const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
-
+  // const [document, setDocument] = useState<EditorDocument>();
+  // const [jsonState, setJsonState] = useState<EditorContentType>(document);
   //save solution to db
   const { mutate: handleSave, isLoading } = useMutation({
     mutationFn: async ({
@@ -94,94 +95,82 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
   })
 
   //get data from the db
-  //  if (process.env.NODE_ENV === "development") {
-
-  // const document = playgroundTemplate as unknown as EditorDocument;
-  
-
-  // const { isFetching, data, refetch, isFetched } = useQuery({
+  //if (process.env.NODE_ENV === "development") {
+  // const { isFetching, data, refetch, isFetched, isLoading: isLoadingData } = useQuery({
   //   queryFn: async () => {
   //     const query = `/api/getWorkSpace?problemId=${problemId}&userId=${userId}`
   //     const { data } = await axios.get(query)
   //     return data as Data
   //   },
   // })
-  // if (!isFetching && !data?.content){
+  // if (!isFetching && !data?.imageUrl) {
   //   notFound()
   // }
-  // console.log(data?.imageUrl.img)
-  // if (loadedData?.hasOwnProperty('content')) {
-  //     console.log(loadedData)
-  // }
-  // else {
 
-  // }
-
-//   if (loadedData?.hasOwnProperty('content')) {
-//     // setJsonState(loadedData.content as EditorDocument)
-//     setJsonState(playgroundTemplate as unknown as EditorDocument)
-//   }
-// }
-
-
-// let document = playgroundTemplate as unknown as EditorDocument;
-// const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
-
-// if (data?.hasOwnProperty('content')) {
-//   document = data.content as EditorDocument;
-// }
-// console.log(data)
-// 
+  // useEffect(() => {
+    // if (data?.content) {
+    //   setDocument(data?.content)
+    // }
+    // else{
+    //   setDocument(undefined)
+    // }
+      // const document = playgroundTemplate as unknown as EditorDocument;
+      // const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
+      // setDocument(data.content.content.root)
+      // setJsonState(data.content.content.root)
+      // onChange(setJsonState)
+  // }, [data])
 
 
-return (
-  <>
-    <div className="mr-2">
-      <Split className="split" minSize={0}>
-        <div className="content">
-          <Tabs>
-            <Tab name="פתרונות">כאן יופיעו פתרונות של אנשים</Tab>
-            <Tab name="פתרון רשמי"><Video title="solution" height={500} width={500} src="https://joy1.videvo.net/videvo_files/video/free/video0467/large_watermarked/_import_61516692993d77.04238324_preview.mp4" /></Tab>
-            <Tab name="תיאור"> <Likes /> 
-              <ImageDisplay imageUrl={imageUrl} />
-              {/* {(isFetched && !data?.imageUrl) ? (<div>Loading</div>) : <ImageDisplay imageUrl={data?.imageUrl.img}/>}  */}
-            </Tab>
-          </Tabs>
-          <Accordion title="דיון">
-            תגובה1
-            תגובה2
-            תגובה3
-          </Accordion>
-          <Accordion title="שאלות דומות">
-            שאלה1
-            2שאלה
-            שאלה3
-          </Accordion>
+  return (
+    <>
+      <div className="mr-2">
+        <Split className="split" minSize={0}>
+          <div className="content">
+            <Tabs>
+              <Tab name="פתרונות">כאן יופיעו פתרונות של אנשים</Tab>
+              <Tab name="פתרון רשמי"><Video title="solution" height={500} width={500} src="https://joy1.videvo.net/videvo_files/video/free/video0467/large_watermarked/_import_61516692993d77.04238324_preview.mp4" /></Tab>
+              <Tab name="תיאור"> <Likes />
+                <ImageDisplay imageUrl={imageUrl} />
+                {/* {(isFetched && !data?.imageUrl) ? (<div>Loading</div>) : <ImageDisplay imageUrl={data?.imageUrl.img} />} */}
+              </Tab>
+            </Tabs>
+            <Accordion title="דיון">
+              תגובה1
+              תגובה2
+              תגובה3
+            </Accordion>
+            <Accordion title="שאלות דומות">
+              שאלה1
+              2שאלה
+              שאלה3
+            </Accordion>
+          </div>
+
+          <div className="p-8 w-full overflow-y-auto h-[72vh]">
+            <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} />
+            {/* { (!isLoadingData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)}/> : <div>Loading</div>} */}
+            {/* {data?.content ?  <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>} */}
+          </div>
+
+
+        </Split>
+        <div className="my-3 flex justify-center gap-x-2">
+          <Button
+            className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
+          >
+            פרסום
+          </Button>
+          <Button
+            onClick={() => handleSave({ jsonState })}
+            disabled={isLoading}
+            className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
+          >
+            שמירה
+          </Button>
         </div>
-
-        <div className="p-8 w-full overflow-y-auto h-[72vh]">
-          {/* <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> */}
-          <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} />
-        </div>
-
-
-      </Split>
-      <div className="my-3 flex justify-center gap-x-2">
-        <Button
-          className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
-        >
-          פרסום
-        </Button>
-        <Button
-          onClick={() => handleSave({ jsonState })}
-          disabled={isLoading}
-          className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
-        >
-          שמירה
-        </Button>
       </div>
-    </div>
-  </>
-);
-  };
+    </>
+  );
+};
 export default Workspace;

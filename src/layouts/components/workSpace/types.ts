@@ -25,6 +25,7 @@ export interface AppState {
 }
 
 export interface EditorDocument {
+  content?: any;
   id: string;
   name: string;
   data: SerializedEditorState;
