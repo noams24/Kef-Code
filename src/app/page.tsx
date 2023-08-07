@@ -1,3 +1,4 @@
+import Reviews from "@/components/Reviews";
 import ImageFallback from "@/helpers/ImageFallback";
 import { getListPage } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
@@ -111,8 +112,8 @@ const Home = () => {
         </section>
       ))}
 
-      <Testimonials data={testimonial} />
       <CallToAction data={callToAction} />
+      <Reviews data={testimonial} />
     </>
   );
 };
