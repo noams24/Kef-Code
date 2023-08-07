@@ -1,16 +1,9 @@
-//import MDXContent from "@/helpers/MDXContent";
-//import { getListPage } from "@/lib/contentParser";
-//import { RegularPage } from "@/types";
-//import { Editor } from "@/components/text-editor/editor";
-//import { authOptions } from '@/lib/auth'
-//import { getServerSession } from 'next-auth'
-//import { getSinglePage } from "@/lib/contentParser";
 //import { db } from '@/lib/db'
-//import ProblemDescription from "@/components/problemDescription";
 
 import Workspace from "@/components/workSpace/WorkSpace";
-import PageHeader from "@/partials/PageHeaderr";
-import Login from "@/components/Login";
+import TopBar from "@/components/topBar/TopBar";
+import { authOptions } from '@/lib/auth'
+import { getServerSession } from 'next-auth'
 
 interface PageProps {
     params: {
@@ -21,10 +14,7 @@ interface PageProps {
 }
 
 const singleProblem = async ({ params }: PageProps) => {
-    //const data: RegularPage = getListPage("pages/pageproblemexample.md");
-    //const { frontmatter, content } = data;
-    //const session = await getServerSession(authOptions);
-    const imageUrl = "https://i.ibb.co/Gdz4BTg/problem1.png";
+    const session = await getServerSession(authOptions);
     {/* 
     try {
         // Fetch all records from the "Problem" table
@@ -41,13 +31,12 @@ const singleProblem = async ({ params }: PageProps) => {
 */}
     return (
         <>
-            <Login />
-            <PageHeader title={params.single} />
-            <Workspace/>
+            {/* <PageHeader title={params.single} /> */}
+            <div className="my-5">
+            <TopBar title={params.single} />
+            </div>
+            <Workspace userId={session?.user.id} problemId={params.single}/>
         </>
     );
 };
-
 export default singleProblem;
-//<Tab name="תיאור"> <Likes/> <ImageDisplay imageUrl={imageUrl} /></Tab>
-//  <Tab name="תיאור"> <ProblemDescription problem={'1234'} /></Tab>

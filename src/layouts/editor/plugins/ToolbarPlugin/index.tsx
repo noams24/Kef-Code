@@ -34,6 +34,8 @@ import { $isGraphNode } from '../../nodes/GraphNode';
 import { $patchStyle } from '../../nodes/utils';
 import { ImageDialog, GraphDialog, SketchDialog, TableDialog } from './Dialogs';
 import { $isStickyNode } from '../../nodes/StickyNode';
+import { wrap } from 'module';
+import { Grid } from '@mui/material';
 
 type EditorDialogs = {
   image: {
@@ -335,9 +337,9 @@ function ToolbarPlugin() {
   const showTextTools = (!showMathTools && !showImageTools) || $isStickyNode(selectedNode);
   return (
     <>
-      {/*<AppBar className='toolbar-appbar top-20' elevation={trigger ? 4 : 0} position={'absolute'}>*/}
-      <AppBar className='toolbar-appbar' elevation={trigger ? 4 : 0} position={trigger ? 'fixed' : 'static'}> 
-        <Toolbar className="toolbar" sx={{ displayPrint: 'none', px: `${(trigger ? 1 : 0)}!important`, justifyContent: "space-between", alignItems: "center", gap: 0.5, minHeight: 64 }}>
+      <AppBar className='align-items-stretch overflow-x-hidden top-0' position={'sticky'}>
+        {/*<AppBar className='toolbar-appbar' elevation={trigger ? 4 : 0} position={trigger ? 'fixed' : 'static'}>*/}
+        <Toolbar className="toolbar" sx={{ displayPrint: 'none', px: `${(trigger ? 1 : 0)}!important`, justifyContent: "space-between", alignItems: "center", gap: 0.5, minHeight: 54 }}>
           <Box sx={{ display: "flex" }}>
             <IconButton title={IS_APPLE ? 'Undo (⌘Z)' : 'Undo (Ctrl+Z)'} aria-label="Undo" disabled={!canUndo}
               onClick={() => { activeEditor.dispatchCommand(UNDO_COMMAND, undefined); }}>
@@ -348,10 +350,11 @@ function ToolbarPlugin() {
               <RedoIcon />
             </IconButton>
           </Box>
-          <Box sx={{ display: "flex", gap: 0.5 }}>
+          <Box sx={{ display: "flex", gap: 0.5, flexWrap: "wrap"}}>
             {showMathTools && <MathTools editor={activeEditor} node={selectedNode} />}
             {showImageTools && <ImageTools editor={activeEditor} node={selectedNode} />}
             {showTextTools && <>
+              <Grid container justifyContent="center" alignItems="center">
               {blockType in blockTypeToBlockName && <BlockFormatSelect blockType={blockType} editor={activeEditor} />}
               {blockType === 'code' ? (
                 <Select size='small' onChange={onCodeLanguageSelect} value={codeLanguage}>
@@ -359,15 +362,16 @@ function ToolbarPlugin() {
                 </Select>
               ) : (
                 <>
-                  <Select size='small' sx={{ width: 68 }} onChange={onFontFamilySelect} value={fontFamily}>
+                  <Select size='small' sx={{ width: 100 }} onChange={onFontFamilySelect} value={fontFamily}>
                     {FONT_FAMILY_OPTIONS.map(([option, text]) => <MenuItem key={option} value={option}>  {text}</MenuItem>)}
                   </Select>
-                  <Select size='small' sx={{ width: 68 }} onChange={onFontSizeSelect} value={fontSize}>
+                  <Select size='small' sx={{ width:65,  }} onChange={onFontSizeSelect} value={fontSize}>
                     {FONT_SIZE_OPTIONS.map(([option, text]) => <MenuItem key={option} value={option}>  {text}</MenuItem>)}
                   </Select>
                   <TextFormatToggles editor={activeEditor} sx={{ display: { xs: "none", sm: "none", md: "none", lg: "flex" } }} />
                 </>
               )}
+              </Grid>
             </>
             }
           </Box>

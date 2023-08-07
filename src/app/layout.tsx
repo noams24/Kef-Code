@@ -4,6 +4,7 @@ import TwSizeIndicator from "@/helpers/TwSizeIndicator";
 import Footer from "@/partials/Footer";
 import Header from "@/partials/Header";
 import Providers from "@/partials/Providers";
+import { Toaster } from '@/components/ui/Toaster'
 import "@/styles/main.scss";
 
 export default function RootLayout({
@@ -59,7 +60,8 @@ export default function RootLayout({
         <Providers>
           <Header/>
           <main>{children}</main>
-          <Footer/>
+          {/* <Footer/> */}
+          <Toaster/>
         </Providers>
       </body>
     </html>

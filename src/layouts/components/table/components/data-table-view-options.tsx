@@ -33,7 +33,7 @@ export function DataTableViewOptions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="dropDownMenuClass">
-        <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
+        <DropdownMenuLabel>שינוי עמודות</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {table
           .getAllColumns()

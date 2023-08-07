@@ -26,7 +26,7 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
           className='h-8 w-8'
         />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='bg-white' align='end'>
+      <DropdownMenuContent className='bg-white dark:bg-black' align='end'>
         <div className='flex items-center justify-start gap-2 p-2'>
           <div className='flex flex-col space-y-1 leading-none'>
             {user.name && <p className='font-medium'>{user.name}</p>}
@@ -38,16 +38,9 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
           </div>
         </div>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <Link href='/'>Feed</Link>
-        </DropdownMenuItem>
 
         <DropdownMenuItem asChild>
-          <Link href='/r/create'>Create Community</Link>
-        </DropdownMenuItem>
-
-        <DropdownMenuItem asChild>
-          <Link href='/settings'>Settings</Link>
+          <Link href='/settings'>הגדרות</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
@@ -58,7 +51,7 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
               callbackUrl: `${window.location.origin}/sign-in`,
             })
           }}>
-          Sign out
+          יציאה
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

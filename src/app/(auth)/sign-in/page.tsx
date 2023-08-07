@@ -8,18 +8,18 @@ import { Icons } from "@/components/icons"
 import UserAuthForm from "@/components/UserAuthForm"
 
 const Login = () => {
-  const data: RegularPage = getListPage("pages/about.md");
-  const { frontmatter, content } = data;
-  const { title, meta_title, description, image } = frontmatter;
+  // const data: RegularPage = getListPage("pages/about.md");
+  // const { frontmatter, content } = data;
+  // const { title, meta_title, description, image } = frontmatter;
 
   return (
     <>
-      <SeoMeta
+      {/* <SeoMeta
         title={title}
         meta_title={meta_title}
         description={description}
         image={image}
-      />
+      /> */}
       <section className="section-sm">
         <div className="container">
           <div className="row justify-center">
@@ -38,25 +38,24 @@ const Login = () => {
           Back
         </>
       </Link>
-      <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+      <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[450px]">
         <div className="flex flex-col space-y-2 text-center">
           <Icons.logo className="mx-auto h-6 w-6" />
           <h1 className="text-2xl font-semibold tracking-tight">
-            Welcome back
+            !ברוך הבא
           </h1>
           <p className="text-sm text-muted-foreground">
-            Enter your email to sign in to your account
-            #TODO#
+            בהתחברות לאתר אני מאשר לתנאי השימוש
           </p>
         </div>
         <UserAuthForm />
         <p className="px-8 text-center text-sm text-muted-foreground">
-          <Link
+          {/* <Link
             href="/register"
             className="hover:text-brand underline underline-offset-4"
           >
             Don&apos;t have an account? Sign Up
-          </Link>
+          </Link> */}
         </p>
       </div>
               </div>

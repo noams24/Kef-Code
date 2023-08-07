@@ -3,16 +3,39 @@ import ImageFallback from "@/helpers/ImageFallback";
 import { getListPage } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
 import CallToAction from "@/partials/CallToAction";
+import Footer from "@/partials/Footer";
 import SeoMeta from "@/partials/SeoMeta";
-import Testimonials from "@/partials/Testimonials";
+// import Testimonials from "@/partials/Testimonials";
 import { Button, Feature } from "@/types";
 import { FaCheck } from "react-icons/fa/index.js";
+import { promises as fs } from "fs";
+import path from "path";
+import matter from "gray-matter";
 
-const Home = () => {
-  const homepage = getListPage("_index.md");
-  const testimonial = getListPage("sections/testimonial.md");
-  const callToAction = getListPage("sections/call-to-action.md");
-  const { frontmatter } = homepage;
+const parseFrontmatter = (frontmatter: any) => {
+  const frontmatterString = JSON.stringify(frontmatter);
+  return JSON.parse(frontmatterString);
+};
+
+async function getPage() {
+
+  const pageData = await fs.readFile(
+    path.join(process.cwd(), "src/content/_index.md")
+  )
+  const { content, data: frontmatter } = matter(pageData);
+  return {
+    frontmatter: parseFrontmatter(frontmatter),
+    content,
+  };
+}
+
+
+const Home = async () => {
+  // const homepage = getListPage("_index.md");
+  // const testimonial = getListPage("sections/testimonial.md");
+  // const callToAction = getListPage("sections/call-to-action.md");
+  const homepage = getPage()
+  const  { frontmatter } =  await homepage;
   const {
     banner,
     features,
@@ -83,7 +106,7 @@ const Home = () => {
                 }`}
               >
                 <h2
-                  className="mb-4"
+                  className="mb-4 text-center"
                   dangerouslySetInnerHTML={markdownify(feature.title)}
                 />
                 <p
@@ -92,28 +115,30 @@ const Home = () => {
                 />
                 <ul>
                   {feature.bulletpoints.map((bullet: string) => (
-                    <li className="relative mb-4 pl-6" key={bullet}>
-                      <FaCheck className={"absolute left-0 top-1.5"} />
+                    <li className="relative mb-4 pr-6 text-right" key={bullet}>
+                      <FaCheck className={"absolute right-0 top-1.5"} />
                       <span dangerouslySetInnerHTML={markdownify(bullet)} />
                     </li>
                   ))}
                 </ul>
                 {feature.button.enable && (
+                  <div className="flex justify-center">
                   <a
-                    className="btn btn-primary mt-5"
+                    className="btn inline-block btn-primary mt-5"
                     href={feature.button.link}
                   >
                     {feature.button.label}
                   </a>
+                  </div>
                 )}
               </div>
             </div>
           </div>
         </section>
       ))}
-
       <CallToAction data={callToAction} />
       <Reviews data={testimonial} />
+      <Footer/>
     </>
   );
 };

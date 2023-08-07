@@ -22,11 +22,13 @@ enum voteType {
 enum Status {
   BEGIN
   ONGOING
+  STUCK
   FINISH
 }
 
-enum Role {
+enum UserRole {
   USER
+  COADMIN
   ADMIN
 }
 
@@ -56,6 +58,7 @@ model User {
   emailVerified DateTime?
   username      String?         @unique
   image         String?
+  role          UserRole        @default(USER)
   posts         Post[]
   sessions      Session[]
   Comment       Comment[]
@@ -122,6 +125,7 @@ model Problem {
   problemStatus problemStatus[]
   vote          Vote[]
   bookmarks     Bookmark[]
+  @@unique([course,chapter,title])
 }
 
 model Solution {
@@ -156,7 +160,7 @@ model Vote {
   user      User     @relation(fields: [userId], references: [id])
   problemId String?  @unique
   problem   Problem? @relation(fields: [problemId], references: [id])
-  postId    String?   @unique
+  postId    String?  @unique
   post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
   Comment   Comment? @relation(fields: [commentId], references: [id])
   commentId String?  @unique
@@ -176,5 +180,5 @@ model problemStatus {
   problem   Problem @relation(fields: [problemId], references: [id])
   userId    String  @unique
   user      User    @relation(fields: [userId], references: [id])
-  status    Status
+  status    Status  @default(BEGIN)
 }

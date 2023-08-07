@@ -13,7 +13,26 @@ export async function POST(req: Request) {
     if (!session?.user) {
       return new Response('Unauthorized', { status: 401 })
     }
+    
+    const exists = await db.submissions.findFirst({
+      where: {
+        userId: session.user.id,
+        problemId: problemId
+      },
+    })
 
+    if (exists) {
+      await db.submissions.update({
+        where: {
+        id: exists.id
+      },
+        data: {
+          content,
+        },
+      })
+    }
+
+    else {
     await db.submissions.create({
       data: {
         userId: session.user.id,
@@ -22,6 +41,7 @@ export async function POST(req: Request) {
         isPublic: true
       },
     })
+  }
 
     return new Response('OK')
   } catch (error) {

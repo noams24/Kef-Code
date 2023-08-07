@@ -62,6 +62,7 @@ export type Testimonial = {
 
 export type Course = {
   title: string;
+  link: string;
   image: string;
   chapters?: number;
   items: number;
