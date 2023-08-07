@@ -1,3 +1,4 @@
+import Reviews from "@/components/Reviews";
 import ImageFallback from "@/helpers/ImageFallback";
 import { getListPage } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
@@ -135,7 +136,8 @@ const Home = async () => {
           </div>
         </section>
       ))}
-      {/* <CallToAction data={callToAction} /> */}
+      <CallToAction data={callToAction} />
+      <Reviews data={testimonial} />
       <Footer/>
     </>
   );
