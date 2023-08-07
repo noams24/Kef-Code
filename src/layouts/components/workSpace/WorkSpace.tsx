@@ -147,7 +147,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
             </Accordion>
           </div>
 
-          <div className="p-8 w-full overflow-y-auto h-[72vh]">
+          <div className="p-8 w-full overflow-y-auto h-[70vh]">
             <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} />
             {/* { (!isLoadingData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)}/> : <div>Loading</div>} */}
             {/* {data?.content ?  <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>} */}
