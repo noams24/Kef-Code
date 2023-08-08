@@ -1,13 +1,14 @@
 import { db } from '@/lib/db'
-import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient()
+// import { PrismaClient } from '@prisma/client'
+// const prisma = new PrismaClient()
 
 export async function GET(req: Request) {
-    const url = new URL(req.url)
-    const problemId = url.searchParams.get('problemId')
-    const userId = url.searchParams.get('userId')
-    if (!problemId) return new Response('Invalid query', { status: 400 })
     try {
+        const url = new URL(req.url)
+        const problemId: number = Number(url.searchParams.get('problemId'))
+        const userId = url.searchParams.get('userId')
+        if (!problemId) return new Response('Invalid query', { status: 400 })
+
         let content = null
         if (userId) {
             if (problemId) {
@@ -22,8 +23,6 @@ export async function GET(req: Request) {
                 })
             }
         }
-
-
         // if (userId) {
         // let query = `select content from Submissions where userId = ${userId} 
         //                and problemId = (select problemId from Problem 
