@@ -36,23 +36,23 @@ import { useCustomToasts } from '@/hooks/use-custom-toast'
 const profileFormSchema = z.object({
   title: z
     .string()
-    .min(2, {
-      message: "Username must be at least 2 characters.",
+    .min(1, {
+      message: "Title must be at least 1 characters.",
     })
     .max(30, {
-      message: "Username must not be longer than 30 characters.",
+      message: "Title must not be longer than 30 characters.",
     }),
   course: z
     .string({
-      required_error: "Please select an email to display.",
+      required_error: "Please select an course.",
     }),
   chapter: z
     .string({
-      required_error: "Please select an email to display.",
+      required_error: "Please select an chapter.",
     }),
   difficulty: z
     .string({
-      required_error: "Please select an email to display.",
+      required_error: "Please select difficulty.",
     }),
   url: z.string().max(160).min(4),
 })

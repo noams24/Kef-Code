@@ -104,7 +104,7 @@ model Comment {
   post      Post?     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    String?   @unique
   problem   Problem?  @relation(fields: [problemId], references: [id], onDelete: Cascade)
-  problemId String?   @unique
+  problemId Int?   @unique
   replyToId String?   @unique
   replyTo   Comment?  @relation("ReplyTo", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   replies   Comment[] @relation("ReplyTo")
@@ -113,7 +113,7 @@ model Comment {
 }
 
 model Problem {
-  id            String          @id @default(cuid())
+  id            Int             @id @default(autoincrement())
   course        String
   chapter       String
   title         String
@@ -125,12 +125,13 @@ model Problem {
   problemStatus problemStatus[]
   vote          Vote[]
   bookmarks     Bookmark[]
-  @@unique([course,chapter,title])
+
+  @@unique([course, chapter, title])
 }
 
 model Solution {
   id        String   @id @default(cuid())
-  problemId String   @unique
+  problemId Int      @unique
   problem   Problem  @relation(fields: [problemId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -142,7 +143,7 @@ model Submissions {
   id        String   @id @default(cuid())
   userId    String
   user      User     @relation(fields: [userId], references: [id])
-  problemId String
+  problemId Int
   problem   Problem  @relation(fields: [problemId], references: [id])
   content   Json
   createdAt DateTime @default(now())
@@ -158,7 +159,7 @@ model Vote {
   type      voteType
   userId    String   @unique
   user      User     @relation(fields: [userId], references: [id])
-  problemId String?  @unique
+  problemId Int?  @unique
   problem   Problem? @relation(fields: [problemId], references: [id])
   postId    String?  @unique
   post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
@@ -171,12 +172,12 @@ model Bookmark {
   type      Type
   userId    String   @unique
   user      User     @relation(fields: [userId], references: [id])
-  problemId String?  @unique
+  problemId Int?  @unique
   problem   Problem? @relation(fields: [problemId], references: [id])
 }
 
 model problemStatus {
-  problemId String  @unique
+  problemId Int  @unique
   problem   Problem @relation(fields: [problemId], references: [id])
   userId    String  @unique
   user      User    @relation(fields: [userId], references: [id])
