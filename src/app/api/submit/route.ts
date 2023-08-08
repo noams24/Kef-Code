@@ -7,7 +7,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json()
     //const { problemId, content } = submitValidator.parse(body)
-    const problemId = body.problemId
+    const problemId:number =  Number(body.problemId)
     const content = body.jsonState
     const session = await getAuthSession()
     if (!session?.user) {

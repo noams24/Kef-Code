@@ -105,8 +105,8 @@ export function UploadProblem() {
         }
       }
       toast({
-        title: 'There was an error.',
-        description: 'Could not create subreddit.',
+        title: 'שגיאה',
+        description: 'לא ניתן לשמור את התשובה כרגע',
         variant: 'destructive',
       })
     },
