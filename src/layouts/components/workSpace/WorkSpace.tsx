@@ -111,12 +111,14 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
   //   notFound()
   // }
 
-  //  useEffect(() => {
-    //  if (data?.content) {
+    // useEffect(() => {
+      
+    //   if (data?.content) {
+    //   setDocument(data.content.content)
       // console.log(data.content.content)
       // setDocument(data.content.content)
       // setJsonState(data.content.content)
-     //}
+     // }
     // else{
     //   setDocument(undefined)
     // }
@@ -125,7 +127,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
       // setDocument(data.content.content.root)
       // setJsonState(data.content.content.root)
       // onChange(setJsonState)
-  //  }, [data])
+    // }, [data])
 
 
   return (
@@ -148,7 +150,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
               <div>תגובה3</div>
             </Accordion>
           </div>
-          <div className="px-8 w-full overflow-y-auto ">
+          <div className="w-full overflow-y-auto ">
             <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} />
             {/* { (!isLoadingData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)}/> : <div>Loading</div>} */}
             {/* {data?.content ?  <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>} */}

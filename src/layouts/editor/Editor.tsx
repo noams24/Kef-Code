@@ -15,7 +15,7 @@ export const Editor: React.FC<{ initialConfig: Partial<InitialConfigType>; onCha
     <LexicalComposer initialConfig={{ ...editorConfig, ...initialConfig }}>
       <>
         <ToolbarPlugin />
-        <div className="mt-3">
+        <div className="mt-3 mx-8">
           <EditorPlugins contentEditable={<ContentEditable className="editor-input" onContextMenu={disableContextMenu} />}
             onChange={onChange} placeholder={"כתוב את הפתרון שלך כאן"} />
           {/*{process.env.NODE_ENV === "development" && <TreeViewPlugin />}*/}
