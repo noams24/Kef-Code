@@ -98,7 +98,6 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
   })
 
   //get data from the db
-  //if (process.env.NODE_ENV === "development") {
   const { isFetching, data, refetch, isFetched, isLoading: isLoadingData } = useQuery({
     queryFn: async () => {
       const query = `/api/getWorkSpace?problemId=${problemId}&userId=${userId}`
@@ -111,17 +110,12 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
   // }
 
   useEffect(() => {
-
     if (data?.content) {
-      // console.log("data", data)
-      // console.log("data.content", data.content)
-      console.log("data.content.content", data.content.content)
-      const newData = {"id":"1", "name":"1", "data": data.content.content }
+      const newData = { "id": "1", "name": "1", "data": data.content.content }
       setDocument(newData as EditorDocument)
       setJsonState(newData.data)
     }
   }, [data])
-
 
   return (
     <>
@@ -133,8 +127,6 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
               <Tab name="פתרון רשמי"><Video title="solution" height={500} width={500} src="https://joy1.videvo.net/videvo_files/video/free/video0467/large_watermarked/_import_61516692993d77.04238324_preview.mp4" /></Tab>
               <Tab name="תיאור"> <Likes />
                 {(!isLoadingData && !data?.imageUrl) ? <ImageDisplay imageUrl={imageUrl} /> : (data?.imageUrl) ? <ImageDisplay imageUrl={data?.imageUrl.img} /> : (<div>Loading</div>)}
-                {/* <ImageDisplay imageUrl={imageUrl} /> */}
-                {/* {(isFetched && !data?.imageUrl) ? (<div>Loading</div>) : <ImageDisplay imageUrl={data?.imageUrl.img} />} */}
               </Tab>
             </Tabs>
 
@@ -145,12 +137,8 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
             </Accordion>
           </div>
           <div className="w-full overflow-y-auto ">
-            {/* <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> */}
             {(!isLoadingData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>}
-            {/* {data?.content ?  <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>} */}
           </div>
-
-
         </Split>
         <div className="my-3 flex justify-center gap-x-2">
           <Button
