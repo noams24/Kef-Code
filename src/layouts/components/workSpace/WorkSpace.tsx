@@ -115,8 +115,8 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
     if (data?.content) {
       // console.log("data", data)
       // console.log("data.content", data.content)
-      // console.log("data.content.content", data.content.content)
-      const newData = { data: data.content.content }
+      console.log("data.content.content", data.content.content)
+      const newData = {"id":"1", "name":"1", "data": data.content.content }
       setDocument(newData as EditorDocument)
       setJsonState(newData.data)
     }
@@ -145,8 +145,8 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
             </Accordion>
           </div>
           <div className="w-full overflow-y-auto ">
-            <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} />
-            {/* {(!isLoadingData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>} */}
+            {/* <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> */}
+            {(!isLoadingData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>}
             {/* {data?.content ?  <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>} */}
           </div>
 
