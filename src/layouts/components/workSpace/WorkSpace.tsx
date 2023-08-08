@@ -143,9 +143,9 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
             </Tabs>
 
             <Accordion className="mt-8" title="דיון">
-              תגובה1
-              תגובה2
-              תגובה3
+              <div>תגובה1</div>
+              <div>תגובה2</div>
+              <div>תגובה3</div>
             </Accordion>
           </div>
           <div className="px-8 w-full overflow-y-auto ">
