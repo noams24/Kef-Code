@@ -30,7 +30,7 @@ const Header = async () => {
 
   return (
     <header
-      className={`header z-30 ${settings.sticky_header && "sticky top-0 border-b border-gray-400"}`}
+      className={`header z-30 h-[10vh] ${settings.sticky_header && "sticky top-0 border-b border-gray-400"}`}
     >
       <nav className="navbar container">
         {/* logo */}

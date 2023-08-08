@@ -1,7 +1,6 @@
 "use client"
 import Split from 'react-split'
 import { Button } from "@/components/ui/button";
-import Editor from "@/layouts/editor/components/Editor"
 import playgroundTemplate from './example.json';
 import type { EditorDocument } from './types';
 import Tab from "@/shortcodes/Tab";
@@ -19,8 +18,11 @@ import { toast } from '@/hooks/use-toast'
 import { useQuery } from '@tanstack/react-query'
 import "./split.css"
 import { notFound } from 'next/navigation';
+import dynamic from "next/dynamic";
 
+import Editor from "@/layouts/editor/components/Editor"
 
+// const Editor = dynamic(() => import("@/layouts/editor/components/Editor"), { ssr: false, loading: () => <div>Loadin</div> });
 export type EditorContentType = SerializedEditorState | undefined | any;
 
 
@@ -61,9 +63,11 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
   const { loginToast } = useCustomToasts()
   const imageUrl = "https://i.ibb.co/Gdz4BTg/problem1.png";
   const document = playgroundTemplate as unknown as EditorDocument;
+  
+  // const [document, setDocument] = useState<EditorDocument>(playgroundTemplate as unknown as EditorDocument);
   const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
-  // const [document, setDocument] = useState<EditorDocument>();
   // const [jsonState, setJsonState] = useState<EditorContentType>(document);
+
   //save solution to db
   const { mutate: handleSave, isLoading } = useMutation({
     mutationFn: async ({
@@ -107,10 +111,12 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
   //   notFound()
   // }
 
-  // useEffect(() => {
-    // if (data?.content) {
-    //   setDocument(data?.content)
-    // }
+  //  useEffect(() => {
+    //  if (data?.content) {
+      // console.log(data.content.content)
+      // setDocument(data.content.content)
+      // setJsonState(data.content.content)
+     //}
     // else{
     //   setDocument(undefined)
     // }
@@ -119,13 +125,13 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
       // setDocument(data.content.content.root)
       // setJsonState(data.content.content.root)
       // onChange(setJsonState)
-  // }, [data])
+  //  }, [data])
 
 
   return (
     <>
       <div className="mr-2">
-        <Split className="split" minSize={0}>
+        <Split className="split h-[70vh]" minSize={0} >
           <div className="content">
             <Tabs>
               <Tab name="פתרונות">כאן יופיעו פתרונות של אנשים</Tab>
@@ -135,19 +141,14 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
                 {/* {(isFetched && !data?.imageUrl) ? (<div>Loading</div>) : <ImageDisplay imageUrl={data?.imageUrl.img} />} */}
               </Tab>
             </Tabs>
-            <Accordion title="דיון">
+
+            <Accordion className="mt-8" title="דיון">
               תגובה1
               תגובה2
               תגובה3
             </Accordion>
-            <Accordion title="שאלות דומות">
-              שאלה1
-              2שאלה
-              שאלה3
-            </Accordion>
           </div>
-
-          <div className="p-8 w-full overflow-y-auto h-[70vh]">
+          <div className="px-8 w-full overflow-y-auto ">
             <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} />
             {/* { (!isLoadingData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)}/> : <div>Loading</div>} */}
             {/* {data?.content ?  <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>} */}
