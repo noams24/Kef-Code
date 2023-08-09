@@ -29,12 +29,13 @@ export type EditorContentType = SerializedEditorState | undefined | any;
 interface Data {
   content: EditorDocument | undefined;
   imageUrl: any;
-  // likes: number;
-  // dislikes: number;
-  // difficulty: String;
-  // isBookmarked: boolean;
+  likes: number;
+  dislikes: number;
+  difficulty: String;
+  bookmark: boolean | undefined;
+  likeStatus: any;
 
-  //TODO: discussion, similarquestions?
+  //TODO: discussion
   // solutionVideoUrl?: String
   // solutionArticle?: String
   //TODO: solutions?: solutions[]
@@ -115,6 +116,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
       setDocument(newData as EditorDocument)
       setJsonState(newData.data)
     }
+    // console.log(data)
   }, [data])
 
   return (
@@ -125,36 +127,38 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
             <Tabs>
               <Tab name="פתרונות">כאן יופיעו פתרונות של אנשים</Tab>
               <Tab name="פתרון רשמי"><Video title="solution" height={500} width={500} src="https://joy1.videvo.net/videvo_files/video/free/video0467/large_watermarked/_import_61516692993d77.04238324_preview.mp4" /></Tab>
-              <Tab name="תיאור"> <Likes />
-                {(!isLoadingData && !data?.imageUrl) ? <ImageDisplay imageUrl={imageUrl} /> : (data?.imageUrl) ? <ImageDisplay imageUrl={data?.imageUrl.img} /> : (<div>Loading</div>)}
-              </Tab>
-            </Tabs>
+              <Tab name="תיאור"> 
+              {!isLoadingData && <Likes difficulty={data?.difficulty} likes={Number(data?.likes)} dislikes={Number(data?.dislikes)} bookmark={data?.bookmark} likeStatus={data?.likeStatus.type}/> }
+              {isLoadingData ? <div>Loading</div> : <ImageDisplay imageUrl={data?.imageUrl}/>}
+              {/* {(!isLoadingData && !data?.imageUrl) ? <ImageDisplay imageUrl={imageUrl} /> : (data?.imageUrl) ? <ImageDisplay imageUrl={data?.imageUrl.img} /> : (<div>Loading</div>)} */}
+            </Tab>
+          </Tabs>
 
-            <Accordion className="mt-8" title="דיון">
-              <div>תגובה1</div>
-              <div>תגובה2</div>
-              <div>תגובה3</div>
-            </Accordion>
-          </div>
-          <div className="w-full overflow-y-auto ">
-            {(!isLoadingData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>}
-          </div>
-        </Split>
-        <div className="my-3 flex justify-center gap-x-2">
-          <Button
-            className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
-          >
-            פרסום
-          </Button>
-          <Button
-            onClick={() => handleSave({ jsonState })}
-            disabled={isLoading}
-            className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
-          >
-            שמירה
-          </Button>
-        </div>
+          <Accordion className="mt-8" title="דיון">
+            <div>תגובה1</div>
+            <div>תגובה2</div>
+            <div>תגובה3</div>
+          </Accordion>
       </div>
+      <div className="w-full overflow-y-auto ">
+        {(!isLoadingData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>}
+      </div>
+    </Split >
+      <div className="my-3 flex justify-center gap-x-2">
+        <Button
+          className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
+        >
+          פרסום
+        </Button>
+        <Button
+          onClick={() => handleSave({ jsonState })}
+          disabled={isLoading}
+          className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
+        >
+          שמירה
+        </Button>
+      </div>
+      </div >
     </>
   );
 };

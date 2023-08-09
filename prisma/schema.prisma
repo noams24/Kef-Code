@@ -8,12 +8,6 @@ datasource db {
   relationMode = "prisma"
 }
 
-enum Type {
-  Problem
-  POST
-  COMMENT
-}
-
 enum voteType {
   LIKE
   DISLIKE
@@ -100,7 +94,6 @@ model Comment {
   createdAt DateTime  @default(now())
   author    User      @relation(fields: [authorId], references: [id])
   authorId  String    @unique
-  type      Type
   post      Post?     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    String?   @unique
   problem   Problem?  @relation(fields: [problemId], references: [id], onDelete: Cascade)
@@ -169,7 +162,6 @@ model Vote {
 
 model Bookmark {
   id        String   @id @default(cuid())
-  type      Type
   userId    String   @unique
   user      User     @relation(fields: [userId], references: [id])
   problemId Int?  @unique
