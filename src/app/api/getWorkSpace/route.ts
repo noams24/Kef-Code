@@ -74,7 +74,7 @@ export async function GET(req: Request) {
             dislikes: dislikes,
             content: content,
             bookmark: bookmark,
-            likeStatus: likeStatus
+            likeStatus: likeStatus?.type
         }
         return new Response(JSON.stringify(result))
     }

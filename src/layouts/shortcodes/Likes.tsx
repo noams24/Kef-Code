@@ -42,13 +42,13 @@ else {
           <div
             className='flex items-center cursor-pointer hover:bg-gray-400 space-x-1 rounded p-[3px]  ml-4 text-lg transition-colors duration-200 text-dark-gray-6'
           >
-            {(likeStatus === 'LIKE') ? <AiFillLike className='text-blue-600'/> : <AiFillLike/>}
+            {(likeStatus === 'LIKE') ? <AiFillLike className='text-green-600'/> : <AiFillLike/>}
             <span className='text-xs'>{likes}</span>
           </div>
           <div
             className='flex items-center cursor-pointer hover:bg-gray-400 space-x-1 rounded p-[3px]  ml-4 text-lg transition-colors duration-200 text-green-s text-dark-gray-6'
           >
-            {(likeStatus === 'DISLIKE') ? <AiFillDislike className='text-blue-600'/> : <AiFillDislike/>}
+            {(likeStatus === 'DISLIKE') ? <AiFillDislike className='text-red-600'/> : <AiFillDislike/>}
 
             <span className='text-xs'>{dislikes}</span>
           </div>
