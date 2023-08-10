@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsCheck2Circle, BsBookmarkFill, BsBookmarksFill } from "react-icons/bs";
 import { AiFillLike, AiFillDislike, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useMutation } from "@tanstack/react-query";
@@ -145,13 +145,13 @@ const Likes = ({ problemId, difficulty, likes, dislikes, bookmark, likeStatus }:
           </div> */}
           {loadingLikes ? <AiOutlineLoading3Quarters className='rounded  ml-4 animate-spin' /> :
             <div className='flex items-center cursor-pointer hover:bg-gray-400 space-x-1 rounded p-[3px]  ml-4 text-lg transition-colors duration-200 text-dark-gray-6' onClick={() => handleVote('LIKE')}>
-              {(likeStatus === 'LIKE') ? <AiFillLike className='text-green-600' /> : <AiFillLike />}
+              {(currentLikeStatus === 'LIKE') ? <AiFillLike className='text-green-600' /> : <AiFillLike />}
               <span className='text-xs'>{currentLikes}</span>
             </div>
           }
           {loadingLikes ? <AiOutlineLoading3Quarters className='rounded  ml-4 animate-spin' /> :
             <div className='flex items-center cursor-pointer hover:bg-gray-400 space-x-1 rounded p-[3px]  ml-4 text-lg transition-colors duration-200 text-green-s text-dark-gray-6' onClick={() => handleVote('DISLIKE')}>
-              {(likeStatus === 'DISLIKE') ? <AiFillDislike className='text-red-600' /> : <AiFillDislike />}
+              {(currentLikeStatus === 'DISLIKE') ? <AiFillDislike className='text-red-600' /> : <AiFillDislike />}
               <span className='text-xs'>{currentDisLikes}</span>
             </div>
           }
