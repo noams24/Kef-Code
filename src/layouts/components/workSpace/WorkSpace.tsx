@@ -68,6 +68,8 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
   const [document, setDocument] = useState<EditorDocument>(playgroundTemplate as unknown as EditorDocument);
   const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
 
+  const development = (process.env.NODE_ENV === "development")
+
   //save solution to db
   const { mutate: handleSave, isLoading } = useMutation({
     mutationFn: async ({
@@ -128,8 +130,14 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
               <Tab name="פתרונות">כאן יופיעו פתרונות של אנשים</Tab>
               <Tab name="פתרון רשמי"><Video title="solution" height={500} width={500} src="https://joy1.videvo.net/videvo_files/video/free/video0467/large_watermarked/_import_61516692993d77.04238324_preview.mp4" /></Tab>
               <Tab name="תיאור"> 
+              {development ? <div>
+              <Likes problemId={problemId} difficulty={'קל'} likes={5} dislikes={2} bookmark={undefined} likeStatus={undefined}/> 
+              <ImageDisplay imageUrl={imageUrl}/> </div>
+              : 
+              <div>
               {!isLoadingData && data && <Likes problemId={problemId} difficulty={data?.difficulty} likes={Number(data?.likes)} dislikes={Number(data?.dislikes)} bookmark={data?.bookmark} likeStatus={data?.likeStatus}/> }
               {isLoadingData ? <div>Loading</div> : data && <ImageDisplay imageUrl={data?.imageUrl}/>}
+              </div>}
               {/* {(!isLoadingData && !data?.imageUrl) ? <ImageDisplay imageUrl={imageUrl} /> : (data?.imageUrl) ? <ImageDisplay imageUrl={data?.imageUrl.img} /> : (<div>Loading</div>)} */}
             </Tab>
           </Tabs>
@@ -141,7 +149,8 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
           </Accordion>
       </div>
       <div className="w-full overflow-y-auto ">
-        {(!isLoadingData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>}
+        {development ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> :
+        <div>{(!isLoadingData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>}</div>}
       </div>
     </Split >
       <div className="my-3 flex justify-center gap-x-2">

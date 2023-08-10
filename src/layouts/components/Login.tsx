@@ -4,8 +4,11 @@ import { UserAccountNav } from '@/components/UserAccountNav'
 import Link from "next/link";
 
 const Login: React.FC<{}> = async () => {
-    
-    const session = await getServerSession(authOptions);
+  let session = undefined
+  const develop = (process.env.NODE_ENV !== "development")
+  if (develop){
+    session = await getServerSession(authOptions);
+  }
     return (
       <>
       {session?.user ? (
