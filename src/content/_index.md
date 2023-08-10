@@ -42,7 +42,7 @@ features:
     button:
       enable: true
       label: "דוגמא"
-      link: "https://kef-code.vercel.app/courses/Algebra/Chapter-1/Question-1"
+      link: "https://kef-code.vercel.app/courses/Algebra/Chapter-1/1"
 ---
 
 
