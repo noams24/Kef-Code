@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import { BsCheck2Circle, BsBookmarkFill, BsBookmarksFill } from "react-icons/bs";
-import { AiFillLike, AiFillDislike } from "react-icons/ai";
+import { AiFillLike, AiFillDislike, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useMutation } from "@tanstack/react-query";
 import { voteType } from '@prisma/client'
 import axios, { AxiosError } from 'axios'
 import { useCustomToasts } from '@/hooks/use-custom-toast'
 import { toast } from '../../hooks/use-toast'
+// import CircleSkeleton from "@/components/skeletons/circleSkeleton";
 // import { BsBookmark } from "react-icons/bi";
 
 interface LikesProps {
@@ -39,7 +40,7 @@ const Likes = ({ problemId, difficulty, likes, dislikes, bookmark, likeStatus }:
     difficultyClass = 'bg-rose-600 text-rose-500'
   }
 
-  const { mutate: handleVote } = useMutation({
+  const { mutate: handleVote, isLoading: loadingLikes } = useMutation({
     mutationFn: async (type: voteType) => {
       const payload: any = {
         voteType: type,
@@ -71,34 +72,66 @@ const Likes = ({ problemId, difficulty, likes, dislikes, bookmark, likeStatus }:
     },
 
     onMutate: (type: voteType) => {
-      if (currentLikeStatus === type) {
-        // User is voting the same way again, so remove their vote
-        setLikeStatus(undefined)
-        if (type === 'LIKE') setLikes((prev) => prev - 1)
-        else if (type === 'DISLIKE') setDislikes((prev) => prev - 1)
-      }
-      else {
-        // User is voting in the opposite direction
+
+      //if there is not current vote
+      if (!currentLikeStatus) {
         if (type === 'LIKE') {
           setLikeStatus('LIKE')
-          setLikes((prev) => prev - 1)
+          setLikes((prev) => prev + 1)
         }
         else if (type === 'DISLIKE') {
           setLikeStatus('DISLIKE')
-          setDislikes((prev) => prev - 1)
+          setDislikes((prev) => prev + 1)
+        }
+      }
+
+      // if there is current vote
+      else {
+        //user is voting in the same direction
+        if (currentLikeStatus === type) {
+          setLikeStatus(undefined)
+          if (type === 'LIKE') setLikes((prev) => prev - 1)
+          else if (type === 'DISLIKE') setDislikes((prev) => prev - 1)
+        }
+        else {
+          // User is voting in the opposite direction
+          if (type === 'LIKE') {
+            setLikeStatus('LIKE')
+            setLikes((prev) => prev + 1)
+            setDislikes((prev) => prev - 1)
+          }
+          else if (type === 'DISLIKE') {
+            setLikeStatus('DISLIKE')
+            setLikes((prev) => prev - 1)
+            setDislikes((prev) => prev + 1)
+          }
         }
       }
     }
   })
 
-  const { mutate: handleBookmark } = useMutation({
-    mutationFn: async (type: voteType) => {
-      const payload: any = {
-        problemId: problemId,
+  const { mutate: handleBookmark, isLoading: loadingBookmark } = useMutation({
+    mutationFn: async () => {
+      const payload: String = problemId
+      await axios.patch('/api/bookmarkProblem', payload)
+    },
+    onError: (err) => {
+      if (err instanceof AxiosError) {
+        if (err.response?.status === 401) {
+          return loginToast()
+        }
       }
-    }
+      return toast({
+        title: 'שגיאה',
+        description: 'נסה שוב יותר מאוחר',
+        variant: 'destructive',
+      })
+    },
+    onMutate: () => {
+      if (currentBookmark) setBookmark(undefined)
+      else setBookmark(true)
+    },
   })
-
 
   return (
     <>
@@ -110,18 +143,23 @@ const Likes = ({ problemId, difficulty, likes, dislikes, bookmark, likeStatus }:
           {/* <div className='rounded p-[3px] ml-4 text-lg transition-colors duration-200 text-green-s text-dark-green-s'>
             <BsCheck2Circle />
           </div> */}
-
-          <div className='flex items-center cursor-pointer hover:bg-gray-400 space-x-1 rounded p-[3px]  ml-4 text-lg transition-colors duration-200 text-dark-gray-6' onClick={() => handleVote('LIKE')}>
-            {(likeStatus === 'LIKE') ? <AiFillLike className='text-green-600' /> : <AiFillLike />}
-            <span className='text-xs'>{likes}</span>
-          </div>
-          <div className='flex items-center cursor-pointer hover:bg-gray-400 space-x-1 rounded p-[3px]  ml-4 text-lg transition-colors duration-200 text-green-s text-dark-gray-6' onClick={() => handleVote('DISLIKE')}>
-            {(likeStatus === 'DISLIKE') ? <AiFillDislike className='text-red-600' /> : <AiFillDislike />}
-            <span className='text-xs'>{dislikes}</span>
-          </div>
-          <div className='cursor-pointer hover:bg-gray-400  rounded p-[3px]  ml-4 text-xl transition-colors duration-200 text-green-s text-dark-gray-6' onClick={() => handleBookmark}>
-            {bookmark ? <BsBookmarksFill className='text-blue-600' /> : <BsBookmarksFill />}
-          </div>
+          {loadingLikes ? <AiOutlineLoading3Quarters className='rounded  ml-4 animate-spin' /> :
+            <div className='flex items-center cursor-pointer hover:bg-gray-400 space-x-1 rounded p-[3px]  ml-4 text-lg transition-colors duration-200 text-dark-gray-6' onClick={() => handleVote('LIKE')}>
+              {(likeStatus === 'LIKE') ? <AiFillLike className='text-green-600' /> : <AiFillLike />}
+              <span className='text-xs'>{currentLikes}</span>
+            </div>
+          }
+          {loadingLikes ? <AiOutlineLoading3Quarters className='rounded  ml-4 animate-spin' /> :
+            <div className='flex items-center cursor-pointer hover:bg-gray-400 space-x-1 rounded p-[3px]  ml-4 text-lg transition-colors duration-200 text-green-s text-dark-gray-6' onClick={() => handleVote('DISLIKE')}>
+              {(likeStatus === 'DISLIKE') ? <AiFillDislike className='text-red-600' /> : <AiFillDislike />}
+              <span className='text-xs'>{currentDisLikes}</span>
+            </div>
+          }
+          {loadingBookmark ? <AiOutlineLoading3Quarters className='rounded  ml-4 animate-spin' /> :
+            <div className='cursor-pointer hover:bg-gray-400  rounded p-[3px]  ml-4 text-xl transition-colors duration-200 text-green-s text-dark-gray-6' onClick={() => handleBookmark()}>
+              {currentBookmark ? <BsBookmarksFill className='text-blue-600' /> : <BsBookmarksFill />}
+            </div>
+          }
         </div>
       </div>
     </>
