@@ -4,12 +4,9 @@ import { db } from '@/lib/db'
 export async function PATCH(req: Request) {
     try {
         const body = await req.json()
-
-        const problemId = body.problemId
+        const problemId = Number(body.problemId)
         const voteType = body.voteType
-
         const session = await getAuthSession()
-
         if (!session?.user) {
             return new Response('Unauthorized', { status: 401 })
         }
@@ -21,21 +18,9 @@ export async function PATCH(req: Request) {
         const existingVote = await db.vote.findFirst({
             where: {
                 userId: session.user.id,
-                problemId,
+                problemId: problemId,
             },
         })
-
-        const post = await db.problem.findUnique({
-            where: {
-                id: problemId,
-            },
-            include: {
-                vote: true,
-            },
-        })
-        if (!post) {
-            return new Response('problem not found', { status: 404 })
-        }
 
         if (existingVote) {
             // if vote type is the same as existing vote, delete the vote
@@ -43,16 +28,17 @@ export async function PATCH(req: Request) {
                 await db.vote.delete({
                     where: {
                         userId: session.user.id,
-                        problemId
+                        problemId: problemId
                     },
                 })
             }
+
             // if vote type is different than existing vote, update the vote
             else if (existingVote.type !== voteType) {
                 await db.vote.update({
                     where: {
                         userId: session.user.id,
-                        problemId
+                        problemId: problemId
                     },
                     data: {
                         type: voteType,
@@ -62,13 +48,16 @@ export async function PATCH(req: Request) {
         }
 
         // if no existing vote, create a new vote
-        await db.vote.create({
-            data: {
-                type: voteType,
-                userId: session.user.id,
-                problemId,
-            },
-        })
+        else {
+            await db.vote.create({
+                data: {
+                    type: voteType,
+                    userId: session.user.id,
+                    problemId: problemId
+                },
+            })
+        }
+        return new Response('OK')
     }
 
     catch (error) {
