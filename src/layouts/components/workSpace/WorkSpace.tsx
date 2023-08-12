@@ -16,6 +16,7 @@ import axios, { AxiosError } from 'axios'
 import { useCustomToasts } from '@/hooks/use-custom-toast'
 import { toast } from '@/hooks/use-toast'
 import { useQuery } from '@tanstack/react-query'
+import DisplaySolution from './DisplaySolution';
 import "./split.css"
 import { notFound } from 'next/navigation';
 import dynamic from "next/dynamic";
@@ -34,10 +35,10 @@ interface Data {
   difficulty: String;
   bookmark: boolean | undefined;
   likeStatus: any;
-
+  solutionArticle?: any
   //TODO: discussion
   // solutionVideoUrl?: String
-  // solutionArticle?: String
+  
   //TODO: solutions?: solutions[]
 }
 
@@ -118,7 +119,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
       setDocument(newData as EditorDocument)
       setJsonState(newData.data)
     }
-    // console.log(data)
+    console.log(data)
   }, [data])
 
   return (
@@ -128,7 +129,11 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
           <div className="content">
             <Tabs>
               <Tab name="פתרונות">כאן יופיעו פתרונות של אנשים</Tab>
-              <Tab name="פתרון רשמי"><Video title="solution" height={500} width={500} src="https://joy1.videvo.net/videvo_files/video/free/video0467/large_watermarked/_import_61516692993d77.04238324_preview.mp4" /></Tab>
+              <Tab name="פתרון רשמי">
+              <Video title="solution" height={500} width={500} src="https://joy1.videvo.net/videvo_files/video/free/video0467/large_watermarked/_import_61516692993d77.04238324_preview.mp4" />
+              {/* {data?.solutionArticle ? <DisplaySolution document={data.solutionArticle.content}/> : null}  */}
+              {/* <DisplaySolution/> */}
+              </Tab>
               <Tab name="תיאור"> 
               {development ? <div>
               <Likes problemId={problemId} difficulty={'קל'} likes={5} dislikes={2} bookmark={undefined} likeStatus={undefined}/> 

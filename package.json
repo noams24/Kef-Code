@@ -54,6 +54,8 @@
     "fuse.js": "^6.6.2",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.3",
+    "html-react-parser": "^4.2.1",
+    "jsdom": "^22.1.0",
     "lexical": "^0.11.3",
     "lucide-react": "^0.259.0",
     "marked": "^5.1.0",
@@ -86,6 +88,7 @@
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/typography": "^0.5.9",
+    "@types/jsdom": "^21.1.1",
     "@types/marked": "^5.0.0",
     "@types/node": "20.4.0",
     "@types/prismjs": "^1.26.0",

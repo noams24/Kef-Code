@@ -65,8 +65,17 @@ export async function GET(req: Request) {
                     }
                 })
             }
-    
-        
+
+            // get solution article:
+            const solutionArticle = await db.solution.findFirst({
+                where: {
+                    problemId: problemId,
+                },
+                select: {
+                    content: true
+                }
+            })
+
         const result = {
             imageUrl: problemData.img,
             difficulty: problemData.difficulty,
@@ -74,7 +83,8 @@ export async function GET(req: Request) {
             dislikes: dislikes,
             content: content,
             bookmark: bookmark,
-            likeStatus: likeStatus?.type
+            likeStatus: likeStatus?.type,
+            solutionArticle: solutionArticle
         }
         return new Response(JSON.stringify(result))
     }

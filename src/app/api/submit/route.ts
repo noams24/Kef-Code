@@ -7,13 +7,13 @@ export async function POST(req: Request) {
   try {
     const body = await req.json()
     //const { problemId, content } = submitValidator.parse(body)
-    const problemId:number =  Number(body.problemId)
+    const problemId: number = Number(body.problemId)
     const content = body.jsonState
     const session = await getAuthSession()
     if (!session?.user) {
       return new Response('Unauthorized', { status: 401 })
     }
-    
+
     const exists = await db.submissions.findFirst({
       where: {
         userId: session.user.id,
@@ -24,8 +24,8 @@ export async function POST(req: Request) {
     if (exists) {
       await db.submissions.update({
         where: {
-        id: exists.id
-      },
+          id: exists.id
+        },
         data: {
           content,
         },
@@ -33,15 +33,47 @@ export async function POST(req: Request) {
     }
 
     else {
-    await db.submissions.create({
-      data: {
-        userId: session.user.id,
-        problemId,
-        content,
-        isPublic: true
-      },
-    })
-  }
+      await db.submissions.create({
+        data: {
+          userId: session.user.id,
+          problemId,
+          content,
+          isPublic: true
+        },
+      })
+    }
+
+    //IF ADMIN, SAVE THE CONTENT AS A SOLUTION ARTICLE
+    if (session.user.role === 'ADMIN') {
+      //check if there is already a solution
+      const existSolution = await db.solution.findFirst({
+        where: {
+          problemId: problemId
+        },
+        select: {
+          content: true
+        }
+      })
+
+      if (!existSolution) {
+        await db.solution.create({
+          data: {
+            problemId,
+            content,
+          },
+        })
+      }
+      else {
+        await db.solution.update({
+          where: {
+            problemId
+          },
+          data: {
+            content,
+          },
+        })
+      }
+    }
 
     return new Response('OK')
   } catch (error) {

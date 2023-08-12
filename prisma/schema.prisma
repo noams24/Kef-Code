@@ -129,7 +129,7 @@ model Solution {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   videoUrl  String?
-  content   Json
+  content   Json?
 }
 
 model Submissions {
