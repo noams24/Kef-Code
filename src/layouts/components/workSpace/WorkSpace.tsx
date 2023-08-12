@@ -45,7 +45,8 @@ interface Data {
 
 type WorkSpaceProps = {
   userId?: any;
-  problemId: string
+  problemId: string,
+  solution: any
 };
 
 function onChange(
@@ -61,7 +62,7 @@ function onChange(
   });
 }
 
-const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
+const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solution }) => {
   const { loginToast } = useCustomToasts()
   const imageUrl = "https://i.ibb.co/Gdz4BTg/problem1.png";
   // const document = playgroundTemplate as unknown as EditorDocument;
@@ -126,13 +127,16 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId }) => {
     <>
       <div className="mr-2">
         <Split className="split h-[70vh]" minSize={0} >
-          <div className="content">
+          <div className="content overflow-y-auto">
             <Tabs>
               <Tab name="פתרונות">כאן יופיעו פתרונות של אנשים</Tab>
               <Tab name="פתרון רשמי">
               <Video title="solution" height={500} width={500} src="https://joy1.videvo.net/videvo_files/video/free/video0467/large_watermarked/_import_61516692993d77.04238324_preview.mp4" />
               {/* {data?.solutionArticle ? <DisplaySolution document={data.solutionArticle.content}/> : null}  */}
               {/* <DisplaySolution/> */}
+              <div className="px-5">
+              {solution}
+              </div>
               </Tab>
               <Tab name="תיאור"> 
               {development ? <div>
