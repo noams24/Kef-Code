@@ -175,8 +175,9 @@ model Bookmark {
   problemId Int
   problem   Problem? @relation(fields: [problemId], references: [id])
 
-  @@unique([problemId, userId])
+  @@id([problemId, userId])
   @@index([userId])
+  @@index([problemId])
 }
 
 model problemStatus {

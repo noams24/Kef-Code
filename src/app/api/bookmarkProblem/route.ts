@@ -19,8 +19,10 @@ export async function PATCH(req: Request) {
         if (bookmark) {
             await db.bookmark.delete({
                 where: {
-                    userId: session.user.id,
-                    problemId: problemId
+                    problemId_userId: {
+                        problemId: problemId,
+                        userId: session.user.id,
+                    },
                 },
             })
         }
