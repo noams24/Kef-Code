@@ -27,8 +27,10 @@ export async function PATCH(req: Request) {
             if (existingVote.type === voteType) {
                 await db.vote.delete({
                     where: {
-                        userId: session.user.id,
-                        problemId: problemId
+                        problemId_userId: {
+                            problemId: problemId,
+                            userId: session.user.id,
+                        },
                     },
                 })
             }
@@ -37,8 +39,10 @@ export async function PATCH(req: Request) {
             else if (existingVote.type !== voteType) {
                 await db.vote.update({
                     where: {
-                        userId: session.user.id,
-                        problemId: problemId
+                        problemId_userId: {
+                            problemId: problemId,
+                            userId: session.user.id,
+                        },
                     },
                     data: {
                         type: voteType,
@@ -53,7 +57,7 @@ export async function PATCH(req: Request) {
                 data: {
                     type: voteType,
                     userId: session.user.id,
-                    problemId: problemId
+                    problemId,
                 },
             })
         }
@@ -61,7 +65,7 @@ export async function PATCH(req: Request) {
     }
 
     catch (error) {
-        (error)
+        console.log(error)
         return new Response(
             'שגיאה',
             { status: 500 }
