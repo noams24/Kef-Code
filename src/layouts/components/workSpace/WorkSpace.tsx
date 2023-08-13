@@ -131,7 +131,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
             <Tabs>
               <Tab name="פתרונות">כאן יופיעו פתרונות של אנשים</Tab>
               <Tab name="פתרון רשמי">
-              <Video title="solution" height={500} width={500} src="https://joy1.videvo.net/videvo_files/video/free/video0467/large_watermarked/_import_61516692993d77.04238324_preview.mp4" />
+              <Video title="solution" height={700} width={700} src="https://joy1.videvo.net/videvo_files/video/free/video0467/large_watermarked/_import_61516692993d77.04238324_preview.mp4" />
               {/* {data?.solutionArticle ? <DisplaySolution document={data.solutionArticle.content}/> : null}  */}
               {/* <DisplaySolution/> */}
               <div className="px-5">
