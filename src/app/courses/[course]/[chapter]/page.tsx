@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 
 interface PageProps {
   params: {
-    chapter: string,
-    problems: string
+    course: string,
+    chapter: string
   }
 }
 
@@ -35,7 +35,8 @@ export default async function TaskPage({ params }: PageProps) {
   const tasks = await getTasks()
   return (
     <>
-      <PageHeader title={params.problems} />
+    
+      <PageHeader title={params.chapter} />
       <div className="p-10 w-auto flex justify-center">
         {/*<h2 className="text-center text-2xl font-bold tracking-tight"> {params.chapter} - שאלות מהקורס </h2>
             <h2 className="text-center text-2xl font-bold tracking-tight">{params.problems} - ומפרק</h2> */}
