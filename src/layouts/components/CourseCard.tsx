@@ -16,7 +16,7 @@ const CourseCard = ({ title, link, image, chapters, items, completed }: Props) =
       <div className="relative w-full">
         
         <img
-          className="w-full object-cover rounded"
+          className="w-64 h-64 object-cover rounded"
           src={image}
           alt="Sunset in the mountains"
         />
@@ -30,7 +30,7 @@ const CourseCard = ({ title, link, image, chapters, items, completed }: Props) =
       <div className="flex px-6 py-4 justify-end items-center gap-x-4">
         <div className="flex-col text-center">
           <p className="text-2xl">{items}</p>
-          <p className="text-xs text-gray-500">פריטים</p>
+          <p className="text-xs text-gray-500">שאלות</p>
         </div>
         <div className="flex-col text-center">
           <p className="text-2xl">{chapters}</p>
