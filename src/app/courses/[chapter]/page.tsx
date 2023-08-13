@@ -1,5 +1,6 @@
 import PageHeader from "@/partials/PageHeader";
 import ChapterCard from "@/components/ChapterCard";
+import coursesData from './chapters.json';
 
 interface PageProps {
   params: {
@@ -8,36 +9,21 @@ interface PageProps {
 }
 
 const Chapter = ({ params }: PageProps) => {
+  const course = coursesData.find(course => course.courseName === params.chapter);
+  if (!course) {
+    return <p>הקורס בפיתוח</p>;
+  }
   return (
     <>
       <PageHeader title={params.chapter} />
-      <div className="flex justify-center">
+      <div className="mx-96">
+      {course.chapters.map((chapter, chapterIndex) => (
         <ChapterCard
-          title="פרק 1"
-          explanation="תיאור פרק 1"
-          link={`/${params.chapter}/1`}
+          key={chapterIndex} // Use a unique key for each component in the list
+          title={chapter.title}
+          link={chapter.link}
         />
-      </div>
-      <div className="flex justify-center">
-        <ChapterCard
-          title="פרק 2"
-          explanation="תיאור פרק 2"
-          link={`/${params.chapter}/2`}
-        />
-      </div>
-      <div className="flex justify-center">
-        <ChapterCard
-          title="פרק 3"
-          explanation="תיאור פרק 3"
-          link={`/${params.chapter}/3`}
-        />
-      </div>
-      <div className="flex justify-center">
-        <ChapterCard
-          title="פורום"
-          explanation=""
-          link={`/${params.chapter}/discussion`}
-        />
+      ))}
       </div>
     </>
   );
