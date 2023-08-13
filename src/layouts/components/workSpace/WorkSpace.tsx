@@ -127,7 +127,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
     <>
       <div className="mr-2">
         <Split className="split h-[70vh]" minSize={0} >
-          <div className="content overflow-y-auto">
+          <div className="content overflow-y-auto scrollbar-hide">
             <Tabs>
               <Tab name="פתרונות">כאן יופיעו פתרונות של אנשים</Tab>
               <Tab name="פתרון רשמי">
