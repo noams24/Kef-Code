@@ -11,7 +11,6 @@ import { DataTableRowActions } from "./data-table-row-actions"
 import Link from "next/link";
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import { usePathname } from "next/navigation";
 
 interface Data {
   title: string
@@ -70,13 +69,12 @@ export const columns: ColumnDef<Task>[] = [
     ),
     cell: ({ row }) => {
       const label = labels.find((label) => label.value === row.original.label)
-      const pathname = usePathname();
-      const paths = pathname.split("/").filter((x) => x);
+
       return (
         <div className="flex justify-end space-x-2">
           <span className="max-w-[500px] truncate font-medium">
             <Link
-              href= {`/courses/${paths[1]}/${paths[2]}/2`}
+              href="/courses/Algebra/Chapter-1/1"
               className={``}
             >
               {row.getValue("title")}
