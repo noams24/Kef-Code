@@ -4,6 +4,7 @@ import { FaRegComment, FaRegUserCircle } from 'react-icons/fa';
 import { humanize, slugify } from "@/lib/utils/textConverter";
 import dateFormat from '@/lib/utils/dateFormat';
 import { AiOutlineCalendar } from 'react-icons/ai';
+import { useGenerationStore } from './WorkSpace';
 
 interface SolutionCardProps {
     author: string;
@@ -14,8 +15,10 @@ interface SolutionCardProps {
 
 const SolutionCard: React.FC<SolutionCardProps> = ({ author, date, upvotes, comments }) => {
     
+    const { setSolution } = useGenerationStore()
+
     const handleClick = () => {
-        console.log('Hello');
+        setSolution('1234')
       };
     
     return (
@@ -39,3 +42,4 @@ const SolutionCard: React.FC<SolutionCardProps> = ({ author, date, upvotes, comm
 };
 
 export default SolutionCard;
+

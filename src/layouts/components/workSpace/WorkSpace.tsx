@@ -25,10 +25,9 @@ import Editor from "@/layouts/editor/components/Editor"
 import useWindowSize from '@/hooks/useWindowSize';
 import Youtube from '@/shortcodes/Youtube';
 import SolutionCard from './SolutionCard';
-
+import create from "zustand";
 // const Editor = dynamic(() => import("@/layouts/editor/components/Editor"), { ssr: false, loading: () => <div>Loadin</div> });
 export type EditorContentType = SerializedEditorState | undefined | any;
-
 
 interface Data {
   content: EditorDocument | undefined;
@@ -41,9 +40,19 @@ interface Data {
   solutionArticle?: any
   //TODO: discussion
   // solutionVideoUrl?: String
-  
+
   //TODO: solutions?: solutions[]
 }
+
+interface GenerationState {
+  solutionState: String | null,
+  setSolution: (solutionState: String | null) => void
+}
+
+export const useGenerationStore = create<GenerationState>()((set) => ({
+  solutionState: null,
+  setSolution: (solutionState: any) => set({ solutionState })
+}))
 
 
 type WorkSpaceProps = {
@@ -69,15 +78,14 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
   const { loginToast } = useCustomToasts()
   const imageUrl = "https://i.ibb.co/Gdz4BTg/problem1.png";
   // const document = playgroundTemplate as unknown as EditorDocument;
-
+  const solutionState = useGenerationStore()
   const [document, setDocument] = useState<EditorDocument>(playgroundTemplate as unknown as EditorDocument);
   const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
 
   const [confetti, setConfetti] = useState(false);
   const { width, height } = useWindowSize();
-  
-  const development = (process.env.NODE_ENV === "development")
 
+  const development = (process.env.NODE_ENV === "development")
   //save solution to db
   const { mutate: handleSave, isLoading } = useMutation({
     mutationFn: async ({
@@ -150,56 +158,59 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
           <div className="content overflow-y-auto scrollbar-hide">
             <Tabs>
               <Tab name="פתרונות">
-                <SolutionCard author="John Doe" date="2023-08-14" upvotes={42} comments={7}/>
-                <SolutionCard author="Doe John" date="2023-08-20" upvotes={4} comments={2}/>
+                {solutionState.solutionState ? <div className="px-5">{solution}</div>
+                  : <div>
+                    <SolutionCard author="John Doe" date="2023-08-14" upvotes={42} comments={7} />
+                    <SolutionCard author="Doe John" date="2023-08-20" upvotes={4} comments={2} />
+                  </div>}
               </Tab>
               <Tab name="פתרון רשמי">
-              {/* <Video title="solution" height={700} width={700} src="https://joy1.videvo.net/videvo_files/video/free/video0467/large_watermarked/_import_61516692993d77.04238324_preview.mp4" /> */}
-              <Youtube id="B1J6Ou4q8vE" title={'פתרון'}/>
-              {/* {data?.solutionArticle ? <DisplaySolution document={data.solutionArticle.content}/> : null}  */}
-              {/* <DisplaySolution/> */}
-              <div className="px-5">
-              {solution}
-              </div>
+                {/* <Video title="solution" height={700} width={700} src="https://joy1.videvo.net/videvo_files/video/free/video0467/large_watermarked/_import_61516692993d77.04238324_preview.mp4" /> */}
+                <Youtube id="B1J6Ou4q8vE" title={'פתרון'} />
+                {/* {data?.solutionArticle ? <DisplaySolution document={data.solutionArticle.content}/> : null}  */}
+                {/* <DisplaySolution/> */}
+                <div className="px-5">
+                  {solution}
+                </div>
               </Tab>
-              <Tab name="תיאור"> 
-              {development ? <div>
-              <Likes problemId={problemId} difficulty={'קל'} likes={5} dislikes={2} bookmark={undefined} likeStatus={undefined}/> 
-              <ImageDisplay imageUrl={imageUrl}/> </div>
-              : 
-              <div>
-              {!isLoadingData && data && <Likes problemId={problemId} difficulty={data?.difficulty} likes={Number(data?.likes)} dislikes={Number(data?.dislikes)} bookmark={data?.bookmark} likeStatus={data?.likeStatus}/> }
-              {isLoadingData ? <div>Loading</div> : data && <ImageDisplay imageUrl={data?.imageUrl}/>}
-              </div>}
-              {/* {(!isLoadingData && !data?.imageUrl) ? <ImageDisplay imageUrl={imageUrl} /> : (data?.imageUrl) ? <ImageDisplay imageUrl={data?.imageUrl.img} /> : (<div>Loading</div>)} */}
-            </Tab>
-          </Tabs>
+              <Tab name="תיאור">
+                {development ? <div>
+                  <Likes problemId={problemId} difficulty={'קל'} likes={5} dislikes={2} bookmark={undefined} likeStatus={undefined} />
+                  <ImageDisplay imageUrl={imageUrl} /> </div>
+                  :
+                  <div>
+                    {!isLoadingData && data && <Likes problemId={problemId} difficulty={data?.difficulty} likes={Number(data?.likes)} dislikes={Number(data?.dislikes)} bookmark={data?.bookmark} likeStatus={data?.likeStatus} />}
+                    {isLoadingData ? <div>Loading</div> : data && <ImageDisplay imageUrl={data?.imageUrl} />}
+                  </div>}
+                {/* {(!isLoadingData && !data?.imageUrl) ? <ImageDisplay imageUrl={imageUrl} /> : (data?.imageUrl) ? <ImageDisplay imageUrl={data?.imageUrl.img} /> : (<div>Loading</div>)} */}
+              </Tab>
+            </Tabs>
 
-          <Accordion className="mt-8" title="דיון">
-            <div>תגובה1</div>
-            <div>תגובה2</div>
-            <div>תגובה3</div>
-          </Accordion>
-      </div>
-      <div className="w-full overflow-y-auto ">
-        {development ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> :
-        <div>{(!isLoadingData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>}</div>}
-      </div>
-    </Split >
-      <div className="my-3 flex justify-center gap-x-2">
-        <Button
-          className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
-        >
-          פרסום
-        </Button>
-        <Button
-          onClick={() => handleSave({ jsonState })}
-          disabled={isLoading}
-          className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
-        >
-          שמירה
-        </Button>
-      </div>
+            <Accordion className="mt-8" title="דיון">
+              <div>תגובה1</div>
+              <div>תגובה2</div>
+              <div>תגובה3</div>
+            </Accordion>
+          </div>
+          <div className="w-full overflow-y-auto ">
+            {development ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> :
+              <div>{(!isLoadingData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>}</div>}
+          </div>
+        </Split >
+        <div className="my-3 flex justify-center gap-x-2">
+          <Button
+            className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
+          >
+            פרסום
+          </Button>
+          <Button
+            onClick={() => handleSave({ jsonState })}
+            disabled={isLoading}
+            className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
+          >
+            שמירה
+          </Button>
+        </div>
       </div >
       {confetti && <Confetti gravity={0.3} width={width - 1} height={height - 1} />}
     </>
