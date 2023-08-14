@@ -81,13 +81,13 @@
 }
 
 .LexicalTheme__link {
-  color: rgb(33, 111, 219);
-  text-decoration: none;
+  @apply text-blue-500 dark:text-blue-500 no-underline
 }
 
 .LexicalTheme__link:hover {
-  text-decoration: underline;
-  cursor: pointer;
+  @apply text-blue-500 dark:text-blue-500 underline cursor-pointer
+  /* text-decoration: underline;
+  cursor: pointer; */
 }
 
 .LexicalTheme__code {
