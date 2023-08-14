@@ -24,6 +24,7 @@ import Confetti from 'react-confetti';
 import Editor from "@/layouts/editor/components/Editor"
 import useWindowSize from '@/hooks/useWindowSize';
 import Youtube from '@/shortcodes/Youtube';
+import SolutionCard from './SolutionCard';
 
 // const Editor = dynamic(() => import("@/layouts/editor/components/Editor"), { ssr: false, loading: () => <div>Loadin</div> });
 export type EditorContentType = SerializedEditorState | undefined | any;
@@ -148,7 +149,10 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
         <Split className="split h-[70vh]" minSize={0} >
           <div className="content overflow-y-auto scrollbar-hide">
             <Tabs>
-              <Tab name="פתרונות">כאן יופיעו פתרונות של אנשים</Tab>
+              <Tab name="פתרונות">
+                <SolutionCard author="John Doe" date="2023-08-14" upvotes={42} comments={7}/>
+                <SolutionCard author="Doe John" date="2023-08-20" upvotes={4} comments={2}/>
+              </Tab>
               <Tab name="פתרון רשמי">
               {/* <Video title="solution" height={700} width={700} src="https://joy1.videvo.net/videvo_files/video/free/video0467/large_watermarked/_import_61516692993d77.04238324_preview.mp4" /> */}
               <Youtube id="B1J6Ou4q8vE" title={'פתרון'}/>
