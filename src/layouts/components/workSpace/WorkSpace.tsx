@@ -25,7 +25,8 @@ import Editor from "@/layouts/editor/components/Editor"
 import useWindowSize from '@/hooks/useWindowSize';
 import Youtube from '@/shortcodes/Youtube';
 import SolutionCard from './SolutionCard';
-import create from "zustand";
+import { useGenerationStore } from '@/store/store';
+import { AiOutlineClose } from 'react-icons/ai';
 // const Editor = dynamic(() => import("@/layouts/editor/components/Editor"), { ssr: false, loading: () => <div>Loadin</div> });
 export type EditorContentType = SerializedEditorState | undefined | any;
 
@@ -43,17 +44,6 @@ interface Data {
 
   //TODO: solutions?: solutions[]
 }
-
-interface GenerationState {
-  solutionState: String | null,
-  setSolution: (solutionState: String | null) => void
-}
-
-export const useGenerationStore = create<GenerationState>()((set) => ({
-  solutionState: null,
-  setSolution: (solutionState: any) => set({ solutionState })
-}))
-
 
 type WorkSpaceProps = {
   userId?: any;
@@ -75,15 +65,15 @@ function onChange(
 }
 
 const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solution }) => {
+  // const document = playgroundTemplate as unknown as EditorDocument;
   const { loginToast } = useCustomToasts()
   const imageUrl = "https://i.ibb.co/Gdz4BTg/problem1.png";
-  // const document = playgroundTemplate as unknown as EditorDocument;
-  const solutionState = useGenerationStore()
   const [document, setDocument] = useState<EditorDocument>(playgroundTemplate as unknown as EditorDocument);
   const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
-
   const [confetti, setConfetti] = useState(false);
   const { width, height } = useWindowSize();
+  const { solutionState, setSolution } = useGenerationStore()
+
 
   const development = (process.env.NODE_ENV === "development")
   //save solution to db
@@ -150,7 +140,6 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
     };
   }, [confetti]);
 
-
   return (
     <>
       <div className="mr-2">
@@ -158,7 +147,12 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
           <div className="content overflow-y-auto scrollbar-hide">
             <Tabs>
               <Tab name="פתרונות">
-                {solutionState.solutionState ? <div className="px-5">{solution}</div>
+                {solutionState ?
+                  <div className="px-5"><button onClick={() => setSolution(null)} className="dark:text-white hover:bg-gray-400">
+                    <AiOutlineClose/>
+                    </button>
+                    {solution}
+                  </div>
                   : <div>
                     <SolutionCard author="John Doe" date="2023-08-14" upvotes={42} comments={7} />
                     <SolutionCard author="Doe John" date="2023-08-20" upvotes={4} comments={2} />

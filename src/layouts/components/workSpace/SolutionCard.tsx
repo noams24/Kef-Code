@@ -4,7 +4,7 @@ import { FaRegComment, FaRegUserCircle } from 'react-icons/fa';
 import { humanize, slugify } from "@/lib/utils/textConverter";
 import dateFormat from '@/lib/utils/dateFormat';
 import { AiOutlineCalendar } from 'react-icons/ai';
-import { useGenerationStore } from './WorkSpace';
+import { useGenerationStore } from '@/store/store';
 
 interface SolutionCardProps {
     author: string;
