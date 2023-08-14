@@ -148,9 +148,12 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
             <Tabs>
               <Tab name="פתרונות">
                 {solutionState ?
-                  <div className="px-5"><button onClick={() => setSolution(null)} className="dark:text-white hover:bg-gray-400">
+                  <div className="px-5">
+                    <div className="sticky top-0 border-b-2 border-gray-700">
+                      <button onClick={() => setSolution(null)} className="dark:text-white hover:bg-gray-400 ">
                     <AiOutlineClose/>
                     </button>
+                    </div>
                     {solution}
                   </div>
                   : <div>
