@@ -27,6 +27,7 @@ import Youtube from '@/shortcodes/Youtube';
 import SolutionCard from './SolutionCard';
 import { useGenerationStore } from '@/store/store';
 import { AiOutlineClose } from 'react-icons/ai';
+import SolutionsTop from './SolutionsTop';
 // const Editor = dynamic(() => import("@/layouts/editor/components/Editor"), { ssr: false, loading: () => <div>Loadin</div> });
 export type EditorContentType = SerializedEditorState | undefined | any;
 
@@ -149,16 +150,18 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
               <Tab name="פתרונות">
                 {solutionState ?
                   <div className="px-5">
-                    <div className="sticky top-0 border-b-2 border-gray-700">
+                    
+                    <div className="sticky top-0">
                       <button onClick={() => setSolution(null)} className="dark:text-white hover:bg-gray-400 ">
                     <AiOutlineClose/>
                     </button>
                     </div>
+                    <SolutionsTop author="John Doe" date="2023-08-14" likes={42}/>
                     {solution}
                   </div>
                   : <div>
-                    <SolutionCard author="John Doe" date="2023-08-14" upvotes={42} comments={7} />
-                    <SolutionCard author="Doe John" date="2023-08-20" upvotes={4} comments={2} />
+                    <SolutionCard author="John Doe" date="2023-08-14" likes={42} comments={7} />
+                    <SolutionCard author="Doe John" date="2023-08-20" likes={4} comments={2} />
                   </div>}
               </Tab>
               <Tab name="פתרון רשמי">

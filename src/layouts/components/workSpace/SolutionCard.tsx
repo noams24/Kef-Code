@@ -1,19 +1,18 @@
 import React from 'react';
-import { BiUpvote } from 'react-icons/bi';
 import { FaRegComment, FaRegUserCircle } from 'react-icons/fa';
 import { humanize, slugify } from "@/lib/utils/textConverter";
 import dateFormat from '@/lib/utils/dateFormat';
-import { AiOutlineCalendar } from 'react-icons/ai';
+import { AiOutlineCalendar, AiFillLike } from 'react-icons/ai';
 import { useGenerationStore } from '@/store/store';
 
 interface SolutionCardProps {
     author: string;
     date: string;
-    upvotes: number;
+    likes: number;
     comments: number;
 }
 
-const SolutionCard: React.FC<SolutionCardProps> = ({ author, date, upvotes, comments }) => {
+const SolutionCard: React.FC<SolutionCardProps> = ({ author, date, likes, comments }) => {
     
     const { setSolution } = useGenerationStore()
 
@@ -30,8 +29,8 @@ const SolutionCard: React.FC<SolutionCardProps> = ({ author, date, upvotes, comm
                 </a>
             </div>
             <div className="flex justify-center items-center text-sm mb-1">
-                <BiUpvote className="mr-1" />
-                <span className="mr-1">{upvotes}</span>
+                <AiFillLike className="mr-1" />
+                <span className="mr-1">{likes}</span>
                 <FaRegComment className="ml-4 mr-1" />
                 <span>{comments}</span>
                 <AiOutlineCalendar className="ml-4 mr-1" />
