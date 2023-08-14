@@ -157,14 +157,16 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
                         <AiOutlineClose />
                       </button>
                     </div>
-                    <SolutionsTop author="John Doe" date="2023-08-14" likes={42} />
+                    <SolutionsTop author="ישראל ישראלי" date="2023-08-14" likes={42} />
                     {solution}
                   </div>
-                  : <SolutionsSection problemId={'1'}/>}
+                  : <SolutionsSection problemId={'1'} />}
               </Tab>
               <Tab name="פתרון רשמי">
                 {/* <Video title="solution" height={700} width={700} src="https://joy1.videvo.net/videvo_files/video/free/video0467/large_watermarked/_import_61516692993d77.04238324_preview.mp4" /> */}
-                <Youtube id="B1J6Ou4q8vE" title={'פתרון'} />
+                <div className="mt-5">
+                  <Youtube id="B1J6Ou4q8vE" title={'פתרון'} />
+                </div>
                 {/* {data?.solutionArticle ? <DisplaySolution document={data.solutionArticle.content}/> : null}  */}
                 {/* <DisplaySolution/> */}
                 <div className="px-5">

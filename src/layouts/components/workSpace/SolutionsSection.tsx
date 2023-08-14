@@ -33,8 +33,9 @@ const SolutionsSection: React.FC<SolutionSectionProps> = ({ problemId }) => {
                 </SelectContent>
             </Select>
             </div>
-            <SolutionCard author="John Doe" date="2023-08-14" likes={42} comments={7} />
-            <SolutionCard author="Doe John" date="2023-08-20" likes={4} comments={2} />
+            <SolutionCard author="ישראל ישראלי" date="2023-08-14" likes={42} comments={7} />
+            <SolutionCard author="ג'ון סינה" date="2023-08-20" likes={9} comments={5} />
+            <SolutionCard author="משתמש1234" date="2023-08-20" likes={4} comments={2} />
         </>
     );
 };
