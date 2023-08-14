@@ -28,8 +28,8 @@ const SolutionsTop: React.FC<SolutionCardProps> = ({ author, date, likes }) => {
                     </div>
                 </div>
             </div>
-            <button className="flex rounded-lg border-2 border-gray-400 h-8 w-60 dark:text-white mt-2 ">
-                <AiFillLike className="text-xl mt-1.5 mr-1" />
+            <button className="flex rounded-lg border-2 border-gray-400 h-8 w-16 dark:text-white mt-2 ">
+                <AiFillLike className="text-xl mt-0.5 ml-1 mr-2" />
                 <span className="mr-1">{likes}</span>
             </button>
         </div>
