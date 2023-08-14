@@ -29,7 +29,7 @@ features:
     button:
       enable: true
       label: "דוגמא"
-      link: "https://kef-code.vercel.app/algebra/1/1"
+      link: "https://kef-code.vercel.app/courses/Algebra/Chapter-1/1"
       features:
 
   - title: "פיצ'רים"
