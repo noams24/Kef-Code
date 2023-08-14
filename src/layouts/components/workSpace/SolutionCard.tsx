@@ -2,7 +2,9 @@ import React from 'react';
 import Link from "next/link";
 import { BiUpvote } from 'react-icons/bi';
 import { FaRegComment, FaRegUserCircle } from 'react-icons/fa';
-import { humanize, plainify, slugify } from "@/lib/utils/textConverter";
+import { humanize, slugify } from "@/lib/utils/textConverter";
+import dateFormat from '@/lib/utils/dateFormat';
+import { AiOutlineCalendar } from 'react-icons/ai';
 
 interface SolutionCardProps {
     author: string;
@@ -25,7 +27,8 @@ const SolutionCard: React.FC<SolutionCardProps> = ({ author, date, upvotes, comm
                 <span className="mr-1">{upvotes}</span>
                 <FaRegComment className="ml-4 mr-1"/>
                 <span>{comments}</span>
-                <span className="ml-4">{date}</span>
+                <AiOutlineCalendar className="ml-4 mr-1"/>
+                <span >{dateFormat(date)}</span>
             </div>
         </div>
     );
