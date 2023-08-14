@@ -41,8 +41,8 @@ features:
 
     button:
       enable: true
-      label: "דוגמא"
-      link: "https://kef-code.vercel.app/courses/Algebra/Chapter-1/1"
+      label: "מדריך"
+      link: "https://kef-code.vercel.app/tutorial"
 ---
 
 
