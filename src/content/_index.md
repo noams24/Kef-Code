@@ -25,10 +25,11 @@ features:
       - "מעל 1000 שאלות עם פתרונות ממבחנים"
       - "תמיכה מהקהילה"
       - "בלוג עם מדריכים שונים"
+      - "השאלות לקוחות מה[מגה](https://mega.nz/folder/0Sg0iD4B#0OPF1JJgFjtYoJuStlsCtA) של האוניברסיטה הפתוחה"
     button:
-      enable: false
-      label: "Get Started Now"
-      link: "#"
+      enable: true
+      label: "דוגמא"
+      link: "https://kef-code.vercel.app/algebra/1/1"
       features:
 
   - title: "פיצ'רים"
