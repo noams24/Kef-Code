@@ -20,8 +20,9 @@ import DisplaySolution from './DisplaySolution';
 import "./split.css"
 import { notFound } from 'next/navigation';
 import dynamic from "next/dynamic";
-
+import Confetti from 'react-confetti';
 import Editor from "@/layouts/editor/components/Editor"
+import useWindowSize from '@/hooks/useWindowSize';
 
 // const Editor = dynamic(() => import("@/layouts/editor/components/Editor"), { ssr: false, loading: () => <div>Loadin</div> });
 export type EditorContentType = SerializedEditorState | undefined | any;
@@ -70,6 +71,9 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
   const [document, setDocument] = useState<EditorDocument>(playgroundTemplate as unknown as EditorDocument);
   const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
 
+  const [confetti, setConfetti] = useState(false);
+  const { width, height } = useWindowSize();
+  
   const development = (process.env.NODE_ENV === "development")
 
   //save solution to db
@@ -94,6 +98,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
       })
     },
     onSuccess: () => {
+      setConfetti(true)
       toast({
         title: 'נשמר',
         description: 'התשובה נשמרה בהצלחה.',
@@ -122,6 +127,19 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
     }
     console.log(data)
   }, [data])
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      // Do something after 3 seconds
+      setConfetti(false)
+    }, 8000);
+
+    // Clean up the timeout when the component unmounts or when the effect re-runs
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [confetti]);
+
 
   return (
     <>
@@ -177,6 +195,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
         </Button>
       </div>
       </div >
+      {confetti && <Confetti gravity={0.3} width={width - 1} height={height - 1} />}
     </>
   );
 };

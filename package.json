@@ -68,6 +68,7 @@
     "prismjs": "^1.29.0",
     "prop-types": "^15.5.7",
     "react": "18.2.0",
+    "react-confetti": "^6.1.0",
     "react-dom": "18.2.0",
     "react-dropzone": "^14.2.3",
     "react-gtm-module": "^2.0.11",
