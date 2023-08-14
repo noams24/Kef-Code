@@ -28,6 +28,7 @@ import SolutionCard from './SolutionCard';
 import { useGenerationStore } from '@/store/store';
 import { AiOutlineClose } from 'react-icons/ai';
 import SolutionsTop from './SolutionsTop';
+import SolutionsSection from './SolutionsSection';
 // const Editor = dynamic(() => import("@/layouts/editor/components/Editor"), { ssr: false, loading: () => <div>Loadin</div> });
 export type EditorContentType = SerializedEditorState | undefined | any;
 
@@ -150,19 +151,16 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
               <Tab name="פתרונות">
                 {solutionState ?
                   <div className="px-5">
-                    
+
                     <div className="sticky top-0">
                       <button onClick={() => setSolution(null)} className="dark:text-white hover:bg-gray-400 ">
-                    <AiOutlineClose/>
-                    </button>
+                        <AiOutlineClose />
+                      </button>
                     </div>
-                    <SolutionsTop author="John Doe" date="2023-08-14" likes={42}/>
+                    <SolutionsTop author="John Doe" date="2023-08-14" likes={42} />
                     {solution}
                   </div>
-                  : <div>
-                    <SolutionCard author="John Doe" date="2023-08-14" likes={42} comments={7} />
-                    <SolutionCard author="Doe John" date="2023-08-20" likes={4} comments={2} />
-                  </div>}
+                  : <SolutionsSection problemId={'1'}/>}
               </Tab>
               <Tab name="פתרון רשמי">
                 {/* <Video title="solution" height={700} width={700} src="https://joy1.videvo.net/videvo_files/video/free/video0467/large_watermarked/_import_61516692993d77.04238324_preview.mp4" /> */}
