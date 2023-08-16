@@ -5,10 +5,10 @@
     "base_path": "/",
     "trailing_slash": false,
     "favicon": "/images/favicon.png",
-    "logo": "/images/logo.png",
-    "logo_darkmode": "/images/logo-darkmode.png",
+    "logo": "/images/logoo.png",
+    "logo_darkmode": "/images/logoo-darkmode.png",
     "logo_width": "150",
-    "logo_height": "27",
+    "logo_height": "70",
     "logo_text": "כיף קוד"
   },
 
