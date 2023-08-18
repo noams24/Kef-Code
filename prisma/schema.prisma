@@ -89,25 +89,28 @@ model Post {
 }
 
 model Comment {
-  id        String    @id @default(cuid())
-  content   Json
-  createdAt DateTime  @default(now())
-  author    User      @relation(fields: [authorId], references: [id])
-  authorId  String
-  post      Post?     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId    String?
-  problem   Problem?  @relation(fields: [problemId], references: [id], onDelete: Cascade)
-  problemId Int?
-  replyToId String?
-  replyTo   Comment?  @relation("ReplyTo", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  replies   Comment[] @relation("ReplyTo")
-  commentId String?
-  votes     Vote[]
+  id            String       @id @default(cuid())
+  content       Json
+  createdAt     DateTime     @default(now())
+  author        User         @relation(fields: [authorId], references: [id])
+  authorId      String
+  post          Post?        @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId        String?
+  problem       Problem?     @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  problemId     Int?
+  replyToId     String?
+  replyTo       Comment?     @relation("ReplyTo", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies       Comment[]    @relation("ReplyTo")
+  commentId     String?
+  Submissions   Submissions? @relation(fields: [submissionsId], references: [id])
+  submissionsId String?
+  votes         Vote[]
 
   @@index([authorId])
   @@index([postId])
   @@index([problemId])
   @@index([replyToId])
+  @@index([submissionsId])
 }
 
 model Problem {
@@ -147,26 +150,32 @@ model Submissions {
   updatedAt DateTime @updatedAt
   isPublic  Boolean
 
+  comments Comment[]
+  votes    Vote[]
+
   @@index([userId])
   @@index([problemId])
 }
 
 model Vote {
-  type      voteType
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  problemId Int
-  problem   Problem @relation(fields: [problemId], references: [id])
-  postId    String?
-  post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
-  Comment   Comment? @relation(fields: [commentId], references: [id])
-  commentId String?
+  id           String      @id @default(cuid())
+  type         voteType
+  userId       String
+  user         User        @relation(fields: [userId], references: [id])
+  problemId    Int?
+  problem      Problem?     @relation(fields: [problemId], references: [id])
+  postId       String?
+  post         Post?       @relation(fields: [postId], references: [id], onDelete: Cascade)
+  Comment      Comment?    @relation(fields: [commentId], references: [id])
+  commentId    String?
+  SubmissionId String?
+  Submission   Submissions? @relation(fields: [SubmissionId], references: [id])
 
-  @@id([problemId, userId])
   @@index([userId])
   @@index([problemId])
   @@index([postId])
   @@index([commentId])
+  @@index([SubmissionId])
 }
 
 model Bookmark {

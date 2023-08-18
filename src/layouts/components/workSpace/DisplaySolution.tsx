@@ -1,7 +1,7 @@
 import { generateHtml } from "@/layouts/editor/utils/generateHtml"
 import parse from 'html-react-parser';
 import { JSDOM } from "jsdom";
-import playgroundTemplate from './Playground.json';
+import playgroundTemplate from './jsonFiles/Playground.json';
 import type { EditorDocument } from './types';
 // import "mathlive/static.css";
 // import '@/layouts/editor/theme.css';

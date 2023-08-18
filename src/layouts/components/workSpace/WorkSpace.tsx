@@ -1,11 +1,11 @@
 "use client"
 import Split from 'react-split'
 import { Button } from "@/components/ui/button";
-import playgroundTemplate from './empty.json';
+import playgroundTemplate from './jsonFiles/empty.json';
 import type { EditorDocument } from './types';
 import Tab from "@/shortcodes/Tab";
 import Tabs from "@/shortcodes/Tabs";
-import Video from "@/shortcodes/Video";
+// import Video from "@/shortcodes/Video";
 import Likes from "@/shortcodes/Likes";
 import Accordion from "@/shortcodes/Accordion";
 import ImageDisplay from "@/components/ImageDisplay"
@@ -16,19 +16,19 @@ import axios, { AxiosError } from 'axios'
 import { useCustomToasts } from '@/hooks/use-custom-toast'
 import { toast } from '@/hooks/use-toast'
 import { useQuery } from '@tanstack/react-query'
-import DisplaySolution from './DisplaySolution';
+// import DisplaySolution from './DisplaySolution';
 import "./split.css"
-import { notFound } from 'next/navigation';
-import dynamic from "next/dynamic";
+// import { notFound } from 'next/navigation';
+// import dynamic from "next/dynamic";
 import Confetti from 'react-confetti';
 import Editor from "@/layouts/editor/components/Editor"
 import useWindowSize from '@/hooks/useWindowSize';
 import Youtube from '@/shortcodes/Youtube';
-import SolutionCard from './SolutionCard';
+import SolutionCard from './solutionSection/SolutionCard';
 import { useGenerationStore } from '@/store/store';
 import { AiOutlineClose } from 'react-icons/ai';
-import SolutionsTop from './SolutionsTop';
-import SolutionsSection from './SolutionsSection';
+import SolutionsTop from './solutionSection/SolutionsTop';
+import SolutionsSection from './solutionSection/SolutionsSection';
 // const Editor = dynamic(() => import("@/layouts/editor/components/Editor"), { ssr: false, loading: () => <div>Loadin</div> });
 export type EditorContentType = SerializedEditorState | undefined | any;
 
