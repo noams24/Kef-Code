@@ -27,10 +27,7 @@ export async function PATCH(req: Request) {
             if (existingVote.type === voteType) {
                 await db.vote.delete({
                     where: {
-                        problemId_userId: {
-                            problemId: problemId,
-                            userId: session.user.id,
-                        },
+                        id: existingVote.id
                     },
                 })
             }
@@ -39,10 +36,7 @@ export async function PATCH(req: Request) {
             else if (existingVote.type !== voteType) {
                 await db.vote.update({
                     where: {
-                        problemId_userId: {
-                            problemId: problemId,
-                            userId: session.user.id,
-                        },
+                        id: existingVote.id
                     },
                     data: {
                         type: voteType,

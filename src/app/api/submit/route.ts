@@ -9,6 +9,7 @@ export async function POST(req: Request) {
     //const { problemId, content } = submitValidator.parse(body)
     const problemId: number = Number(body.problemId)
     const content = body.jsonState
+    const isPublic = body.isPublic
     const session = await getAuthSession()
     if (!session?.user) {
       return new Response('Unauthorized', { status: 401 })
@@ -38,7 +39,7 @@ export async function POST(req: Request) {
           userId: session.user.id,
           problemId,
           content,
-          isPublic: true
+          isPublic,
         },
       })
     }

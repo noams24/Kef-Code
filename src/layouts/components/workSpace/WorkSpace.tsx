@@ -80,10 +80,8 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
   const development = (process.env.NODE_ENV === "development")
   //save solution to db
   const { mutate: handleSave, isLoading } = useMutation({
-    mutationFn: async ({
-      jsonState,
-    }: any) => {
-      const payload: any = { problemId, jsonState }
+    mutationFn: async ({jsonState, isPublic}: any) => {
+      const payload: any = { problemId, jsonState, isPublic }
       const { data } = await axios.post('/api/submit', payload)
       return data
     },
@@ -199,12 +197,14 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
         </Split >
         <div className="my-3 flex justify-center gap-x-2">
           <Button
+            onClick={() => handleSave({ jsonState, isPublic:true})}
+            disabled={isLoading}
             className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
           >
             פרסום
           </Button>
           <Button
-            onClick={() => handleSave({ jsonState })}
+            onClick={() => handleSave({ jsonState, isPublic:false })}
             disabled={isLoading}
             className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
           >
