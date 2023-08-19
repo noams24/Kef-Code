@@ -27,8 +27,8 @@ import Youtube from '@/shortcodes/Youtube';
 import SolutionCard from './solutionSection/SolutionCard';
 import { useGenerationStore } from '@/store/store';
 import { AiOutlineClose } from 'react-icons/ai';
-import SolutionsTop from './solutionSection/SolutionsTop';
 import SolutionsSection from './solutionSection/SolutionsSection';
+import Solution from './solutionSection/Solution';
 // const Editor = dynamic(() => import("@/layouts/editor/components/Editor"), { ssr: false, loading: () => <div>Loadin</div> });
 export type EditorContentType = SerializedEditorState | undefined | any;
 
@@ -80,7 +80,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
   const development = (process.env.NODE_ENV === "development")
   //save solution to db
   const { mutate: handleSave, isLoading } = useMutation({
-    mutationFn: async ({jsonState, isPublic}: any) => {
+    mutationFn: async ({ jsonState, isPublic }: any) => {
       const payload: any = { problemId, jsonState, isPublic }
       const { data } = await axios.post('/api/submit', payload)
       return data
@@ -125,7 +125,6 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
       setDocument(newData as EditorDocument)
       setJsonState(newData.data)
     }
-    console.log(data)
   }, [data])
 
   useEffect(() => {
@@ -133,8 +132,6 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
       // Do something after 3 seconds
       setConfetti(false)
     }, 8000);
-
-    // Clean up the timeout when the component unmounts or when the effect re-runs
     return () => {
       clearTimeout(timeoutId);
     };
@@ -149,24 +146,19 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
               <Tab name="פתרונות">
                 {solutionState ?
                   <div className="px-5">
-
                     <div className="sticky top-0">
                       <button onClick={() => setSolution(null)} className="dark:text-white hover:bg-gray-400 ">
                         <AiOutlineClose />
                       </button>
                     </div>
-                    <SolutionsTop author="ישראל ישראלי" date="2023-08-14" likes={42} />
-                    {solution}
+                    <Solution author="ישראל ישראלי" date="2023-08-14" likes={42} comments={0} content={solution}/>
                   </div>
                   : <SolutionsSection problemId={'1'} />}
               </Tab>
               <Tab name="פתרון רשמי">
-                {/* <Video title="solution" height={700} width={700} src="https://joy1.videvo.net/videvo_files/video/free/video0467/large_watermarked/_import_61516692993d77.04238324_preview.mp4" /> */}
                 <div className="mt-5">
                   <Youtube id="B1J6Ou4q8vE" title={'פתרון'} />
                 </div>
-                {/* {data?.solutionArticle ? <DisplaySolution document={data.solutionArticle.content}/> : null}  */}
-                {/* <DisplaySolution/> */}
                 <div className="px-5">
                   {solution}
                 </div>
@@ -180,10 +172,8 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
                     {!isLoadingData && data && <Likes problemId={problemId} difficulty={data?.difficulty} likes={Number(data?.likes)} dislikes={Number(data?.dislikes)} bookmark={data?.bookmark} likeStatus={data?.likeStatus} />}
                     {isLoadingData ? <div>Loading</div> : data && <ImageDisplay imageUrl={data?.imageUrl} />}
                   </div>}
-                {/* {(!isLoadingData && !data?.imageUrl) ? <ImageDisplay imageUrl={imageUrl} /> : (data?.imageUrl) ? <ImageDisplay imageUrl={data?.imageUrl.img} /> : (<div>Loading</div>)} */}
               </Tab>
             </Tabs>
-
             <Accordion className="mt-8" title="דיון">
               <div>תגובה1</div>
               <div>תגובה2</div>
@@ -197,14 +187,14 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
         </Split >
         <div className="my-3 flex justify-center gap-x-2">
           <Button
-            onClick={() => handleSave({ jsonState, isPublic:true})}
+            onClick={() => handleSave({ jsonState, isPublic: true })}
             disabled={isLoading}
             className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
           >
             פרסום
           </Button>
           <Button
-            onClick={() => handleSave({ jsonState, isPublic:false })}
+            onClick={() => handleSave({ jsonState, isPublic: false })}
             disabled={isLoading}
             className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
           >

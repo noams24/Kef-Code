@@ -12,13 +12,15 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/Select"
-
+import axios, { AxiosError } from 'axios'
+import { useQuery } from '@tanstack/react-query'
+import { useGenerationStore } from '@/store/store';
 interface SolutionSectionProps {
     problemId: String
 }
 
 
-const data = [
+const Mockdata = [
     {author: "ישראל ישראלי", date: "2023-08-14", likes: 42, comments: 7},
     {author: "ג'ון סינה", date: "2023-08-14", likes: 18, comments: 4},
     {author: "מסי", date: "2023-08-14", likes: 9, comments: 2},
@@ -32,6 +34,7 @@ const data = [
     {author: "משתמש21", date: "2023-08-14", likes: 42, comments: 7}
   ]
 
+
   const SolutionsSection: React.FC<SolutionSectionProps> = ({ problemId }) => {
     const { page, setPage } = useGenerationStoree()
     const per_page = 5
@@ -39,8 +42,20 @@ const data = [
     // mocked, skipped and limited in the real app
     const start = (Number(page) - 1) * Number(per_page) // 0, 5, 10 ...
     const end = start + Number(per_page) // 5, 10, 15 ...
-  
-    const entries = data.slice(start, end)
+    const { solutionState, setSolution } = useGenerationStore()
+
+  //get data from the db
+//   const { isFetching, data, refetch, isFetched, isLoading: isLoadingData } = useQuery({
+//     queryFn: async () => {
+//       const query = `/api/getSolutions?problemId=${problemId}`
+//       const { data } = await axios.get(query)
+//       return data
+//     },
+//   })
+
+//   console.log(data)
+
+    const entries = Mockdata.slice(start, end)
     return (
         <>
         <div className="mt-3 dark:text-white text-center" dir="rtl">
@@ -64,9 +79,9 @@ const data = [
         // <p key={entry}>{entry}</p>
       ))}
       <PaginationControls
-        hasNextPage={end < data.length}
+        hasNextPage={end < Mockdata.length}
         hasPrevPage={start > 0}
-        numberOfItems= {data.length}
+        numberOfItems= {Mockdata.length}
       />
         </>
     );
