@@ -56,16 +56,13 @@ import {
     {
       label: "קל",
       value: "low",
-      icon: ArrowDownIcon,
     },
     {
       label: "בינוני",
       value: "medium",
-      icon: ArrowRightIcon,
     },
     {
       label: "קשה",
       value: "high",
-      icon: ArrowUpIcon,
     },
   ]
