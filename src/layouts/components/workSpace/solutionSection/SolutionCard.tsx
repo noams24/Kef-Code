@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react';
 import { FaRegComment, FaRegUserCircle } from 'react-icons/fa';
 import { humanize, slugify } from "@/lib/utils/textConverter";

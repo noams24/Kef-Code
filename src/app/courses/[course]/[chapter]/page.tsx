@@ -45,20 +45,3 @@ export default async function TaskPage({ params }: PageProps) {
     </>
   )
 }
-
-{/* 
-
-    <>
-      <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
-        <div className="flex items-center justify-between space-y-2">
-          <div>
-            <h2 className="text-right text-2xl font-bold tracking-tight"> {params.chapter}שאלות מהקורס </h2>
-            <h2 className="text-right text-2xl font-bold tracking-tight">{params.problems}ומפרק</h2>
-          </div>
-        </div>
-        <DataTable data={tasks} columns={columns} />
-      </div>
-    </>
-
-
-*/}
