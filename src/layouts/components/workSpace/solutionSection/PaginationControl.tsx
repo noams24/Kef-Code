@@ -26,6 +26,7 @@ const PaginationControls: FC<PaginationControlsProps> = (
             <Button
                 disabled={!hasPrevPage}
                 onClick={() => { setPage(Number(page) - 1)}}>
+                    
                 <ChevronLeftIcon className="h-4 w-4" />
             </Button>
 
