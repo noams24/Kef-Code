@@ -51,9 +51,6 @@ export const columns: ColumnDef<Task>[] = [
       return (
         <div className="flex justify-center items-center">
           {/* <div>{isLoading ? 'Content is loading' : JSON.stringify(data)}</div> */}
-          {priority.icon && (
-            <priority.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
           <span>{priority.label}</span>
         </div>
       )
