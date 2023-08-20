@@ -175,7 +175,8 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
                 :
                 <div className="my-2">
                   {!isLoadingData && data && <Likes problemId={problemId} difficulty={data?.difficulty} likes={Number(data?.likes)} dislikes={Number(data?.dislikes)} bookmark={data?.bookmark} likeStatus={data?.likeStatus} />}
-                  {isLoadingData ? <div>Loading</div> : data && <div className="mt-5"><ImageDisplay imageUrl={data?.imageUrl} /></div>}
+                  {isLoadingData ? <div>Loading</div> : data &&
+                   <div className="mt-5 flex justify-center"><ImageDisplay imageUrl={data?.imageUrl} /></div>}
                 </div>}
               <Accordion className="mt-8" title="דיון">
                 {children}
