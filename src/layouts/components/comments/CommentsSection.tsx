@@ -42,12 +42,11 @@ const CommentsSection = async ({ problemId }: CommentsSectionProps) => {
   })
 
   return (
-    <div className='flex flex-col gap-y-4 mt-4'>
-      <hr className='w-full h-px my-6' />
-
-      <CreateComment problemId={problemId} />
-
-      <div className='flex flex-col gap-y-6 mt-4'>
+    <div dir="rtl" className='flex flex-col text-right'>
+      <div className="mt-2">
+        <CreateComment problemId={problemId} />
+      </div>
+      <div className='flex flex-col gap-y-6 '>
         {comments
           .filter((comment) => !comment.replyToId)
           .map((topLevelComment) => {
@@ -92,7 +91,7 @@ const CommentsSection = async ({ problemId }: CommentsSectionProps) => {
                     return (
                       <div
                         key={reply.id}
-                        className='ml-2 py-2 pl-4 border-l-2 border-zinc-200'>
+                        className='mr-2 py-2 pr-4 border-r-2 border-zinc-200 dark:border-zinc-600'>
                         <PostComment
                           comment={reply}
                           currentVote={replyVote}

@@ -1,10 +1,12 @@
 import CommentsSection from "@/components/comments/CommentsSection";
+import Accordion from "@/shortcodes/Accordion";
 
 const page = () => {
-
   return (
     <>
-        <CommentsSection problemId={1} comments={[]}/>
+      <Accordion className="mt-8" title="דיון">
+        <CommentsSection problemId={1} comments={[]} />
+      </Accordion>
     </>
   );
 };

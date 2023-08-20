@@ -54,8 +54,8 @@ const CreateComment: FC<CreateCommentProps> = ({ problemId, replyToId }) => {
 
   return (
     <div className='grid w-full gap-1.5'>
-      <Label htmlFor='comment'>התגובה שלך</Label>
-      <div className='mt-2'>
+      {/* <Label htmlFor='comment'>התגובה שלך</Label> */}
+      <div>
         <TextArea
           id='comment'
           value={input}

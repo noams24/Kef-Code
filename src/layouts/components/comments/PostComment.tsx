@@ -78,8 +78,8 @@ const PostComment: FC<PostCommentProps> = ({
           }}
           className='h-6 w-6'
         />
-        <div className='ml-2 flex items-center gap-x-2'>
-          <p className='text-sm font-medium text-gray-900'>{comment.author.username}</p>
+        <div className='mr-2 flex items-center gap-x-2'>
+          <p className='text-sm font-medium'>{comment.author.username}</p>
 
           <p className='max-h-40 truncate text-xs text-zinc-500'>
             {formatTimeToNow(new Date(comment.createdAt))}
@@ -87,7 +87,7 @@ const PostComment: FC<PostCommentProps> = ({
         </div>
       </div>
 
-      <p className='text-sm text-zinc-900 mt-2'>{comment.text}</p>
+      <p className='text-sm mt-2'>{comment.text}</p>
 
       <div className='flex gap-2 items-center'>
         <CommentVotes
@@ -102,16 +102,17 @@ const PostComment: FC<PostCommentProps> = ({
             setIsReplying(true)
           }}
           variant='ghost'
-          size='xs'>
-          <MessageSquare className='h-4 w-4 mr-1.5' />
-          Reply
+          size='xs'
+          >
+          <MessageSquare className='h-4 w-4 ml-1.5' />
+          תגובה
         </Button>
       </div>
 
       {isReplying ? (
         <div className='grid w-full gap-1.5'>
-          <Label htmlFor='comment'>התגובה שלך</Label>
-          <div className='mt-2'>
+          {/* <Label htmlFor='comment'>התגובה שלך</Label> */}
+          <div className='mr-2'>
             <TextArea
               onFocus={(e) =>
                 e.currentTarget.setSelectionRange(
