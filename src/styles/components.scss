@@ -95,7 +95,7 @@
     @apply list-none #{!important};
 
     &-item {
-      @apply cursor-pointer border-b-[3px] border-border py-2 text-lg text-dark opacity-80 dark:border-light;
+      @apply cursor-pointer border-b-[3px] border-border py-2 text-lg text-dark dark:text-white opacity-80 dark:border-light;
       @apply my-0 #{!important};
       @apply px-8 #{!important};
 

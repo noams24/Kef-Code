@@ -145,69 +145,67 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
 
   return (
     <>
-      <div className="mr-2">
-        <Split className="split h-[70vh]" minSize={0} >
-          <div className="content overflow-y-auto scrollbar-hide">
-            <Tabs>
-              <Tab name="פתרונות">
-                {solutionState ?
-                  <div className="px-5">
-                    <div className="sticky top-0">
-                      <button onClick={() => setSolution(null)} className="dark:text-white hover:bg-gray-400 ">
-                        <AiOutlineClose />
-                      </button>
-                    </div>
-                    <Solution author="ישראל ישראלי" date="2023-08-14" likes={42} comments={0} content={solution} />
-                  </div>
-                  : <SolutionsSection problemId={'1'} />}
-              </Tab>
-              <Tab name="פתרון רשמי">
-                <div className="mt-5">
-                  <Youtube id="B1J6Ou4q8vE" title={'פתרון'} />
-                </div>
+      <Split className="split h-[70vh]" minSize={0} >
+        <div className="overflow-y-auto scrollbar-hide">
+          <Tabs>
+            <Tab name="פתרונות">
+              {solutionState ?
                 <div className="px-5">
-                  {solution}
+                  <div className="sticky top-0">
+                    <button onClick={() => setSolution(null)} className="dark:text-white hover:bg-gray-400 ">
+                      <AiOutlineClose />
+                    </button>
+                  </div>
+                  <Solution author="ישראל ישראלי" date="2023-08-14" likes={42} comments={0} content={solution} />
                 </div>
-              </Tab>
-              <Tab name="תיאור">
-                {development ? <div>
-                  <Likes problemId={problemId} difficulty={'קל'} likes={5} dislikes={2} bookmark={undefined} likeStatus={undefined} />
-                  <ImageDisplay imageUrl={imageUrl} /> </div>
-                  :
-                  <div>
-                    {!isLoadingData && data && <Likes problemId={problemId} difficulty={data?.difficulty} likes={Number(data?.likes)} dislikes={Number(data?.dislikes)} bookmark={data?.bookmark} likeStatus={data?.likeStatus} />}
-                    {isLoadingData ? <div>Loading</div> : data && <ImageDisplay imageUrl={data?.imageUrl} />}
-                  </div>}
-                <Accordion className="mt-8" title="דיון">
-                  {children}
-                </Accordion>
-              </Tab>
-            </Tabs>
+                : <SolutionsSection problemId={'1'} />}
+            </Tab>
+            <Tab name="פתרון רשמי">
+              <div className="mt-5">
+                <Youtube id="B1J6Ou4q8vE" title={'פתרון'} />
+              </div>
+              <div className="px-5">
+                {solution}
+              </div>
+            </Tab>
+            <Tab name="תיאור">
+              {development ? <div>
+                <Likes problemId={problemId} difficulty={'קל'} likes={5} dislikes={2} bookmark={undefined} likeStatus={undefined} />
+                <ImageDisplay imageUrl={imageUrl} /> </div>
+                :
+                <div className="my-2">
+                  {!isLoadingData && data && <Likes problemId={problemId} difficulty={data?.difficulty} likes={Number(data?.likes)} dislikes={Number(data?.dislikes)} bookmark={data?.bookmark} likeStatus={data?.likeStatus} />}
+                  {isLoadingData ? <div>Loading</div> : data && <div className="mt-5"><ImageDisplay imageUrl={data?.imageUrl} /></div>}
+                </div>}
+              <Accordion className="mt-8" title="דיון">
+                {children}
+              </Accordion>
+            </Tab>
+          </Tabs>
 
 
-          </div>
-          <div className="w-full overflow-y-auto ">
-            {development ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> :
-              <div>{(!isLoadingData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>}</div>}
-          </div>
-        </Split >
-        <div className="my-3 flex justify-center gap-x-2">
-          <Button
-            onClick={() => handleSave({ jsonState, isPublic: true })}
-            disabled={isLoading}
-            className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
-          >
-            פרסום
-          </Button>
-          <Button
-            onClick={() => handleSave({ jsonState, isPublic: false })}
-            disabled={isLoading}
-            className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
-          >
-            שמירה
-          </Button>
         </div>
-      </div >
+        <div className="w-full overflow-y-auto ">
+          {development ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> :
+            <div>{(!isLoadingData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>}</div>}
+        </div>
+      </Split >
+      <div className="my-3 flex justify-center gap-x-2">
+        <Button
+          onClick={() => handleSave({ jsonState, isPublic: true })}
+          disabled={isLoading}
+          className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
+        >
+          פרסום
+        </Button>
+        <Button
+          onClick={() => handleSave({ jsonState, isPublic: false })}
+          disabled={isLoading}
+          className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
+        >
+          שמירה
+        </Button>
+      </div>
       {confetti && <Confetti gravity={0.3} width={width - 1} height={height - 1} />}
     </>
   );
