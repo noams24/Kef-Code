@@ -81,7 +81,8 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
   const { solutionState, setSolution } = useGenerationStore()
 
 
-  const development = (process.env.NODE_ENV !== "development")
+  // const development = (process.env.NODE_ENV !== "development")
+  const development = process.env.DATABASE_URL !== undefined && process.env.DATABASE_URL !== null;
   //save solution to db
   const { mutate: handleSave, isLoading } = useMutation({
     mutationFn: async ({ jsonState, isPublic }: any) => {
