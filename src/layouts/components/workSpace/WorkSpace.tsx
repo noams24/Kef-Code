@@ -29,6 +29,10 @@ import { useGenerationStore } from '@/store/store';
 import { AiOutlineClose } from 'react-icons/ai';
 import SolutionsSection from './solutionSection/SolutionsSection';
 import Solution from './solutionSection/Solution';
+import { Suspense } from 'react'
+import { Loader2 } from 'lucide-react'
+import CommentsSection from '../comments/CommentsSection'
+// import CommentsSection from '../components/CommentsSection'
 // const Editor = dynamic(() => import("@/layouts/editor/components/Editor"), { ssr: false, loading: () => <div>Loadin</div> });
 export type EditorContentType = SerializedEditorState | undefined | any;
 
@@ -77,7 +81,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
   const { solutionState, setSolution } = useGenerationStore()
 
 
-  const development = (process.env.NODE_ENV === "development")
+  const development = (process.env.NODE_ENV !== "development")
   //save solution to db
   const { mutate: handleSave, isLoading } = useMutation({
     mutationFn: async ({ jsonState, isPublic }: any) => {
@@ -151,7 +155,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
                         <AiOutlineClose />
                       </button>
                     </div>
-                    <Solution author="ישראל ישראלי" date="2023-08-14" likes={42} comments={0} content={solution}/>
+                    <Solution author="ישראל ישראלי" date="2023-08-14" likes={42} comments={0} content={solution} />
                   </div>
                   : <SolutionsSection problemId={'1'} />}
               </Tab>
@@ -174,11 +178,11 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
                   </div>}
               </Tab>
             </Tabs>
-            <Accordion className="mt-8" title="דיון">
+            {/* <Accordion className="mt-8" title="דיון">
               <div>תגובה1</div>
               <div>תגובה2</div>
               <div>תגובה3</div>
-            </Accordion>
+            </Accordion> */}
           </div>
           <div className="w-full overflow-y-auto ">
             {development ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> :

@@ -89,15 +89,16 @@ model Post {
 }
 
 model Comment {
-  id            String       @id @default(cuid())
-  content       Json
-  createdAt     DateTime     @default(now())
-  author        User         @relation(fields: [authorId], references: [id])
-  authorId      String
-  post          Post?        @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId        String?
-  problem       Problem?     @relation(fields: [problemId], references: [id], onDelete: Cascade)
-  problemId     Int?
+  id        String   @id @default(cuid())
+  text      String
+  createdAt DateTime @default(now())
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String?
+  problem   Problem? @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  problemId Int?
+
   replyToId     String?
   replyTo       Comment?     @relation("ReplyTo", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   replies       Comment[]    @relation("ReplyTo")
@@ -158,15 +159,15 @@ model Submissions {
 }
 
 model Vote {
-  id           String      @id @default(cuid())
+  id           String       @id @default(cuid())
   type         voteType
   userId       String
-  user         User        @relation(fields: [userId], references: [id])
+  user         User         @relation(fields: [userId], references: [id])
   problemId    Int?
   problem      Problem?     @relation(fields: [problemId], references: [id])
   postId       String?
-  post         Post?       @relation(fields: [postId], references: [id], onDelete: Cascade)
-  Comment      Comment?    @relation(fields: [commentId], references: [id])
+  post         Post?        @relation(fields: [postId], references: [id], onDelete: Cascade)
+  Comment      Comment?     @relation(fields: [commentId], references: [id])
   commentId    String?
   SubmissionId String?
   Submission   Submissions? @relation(fields: [SubmissionId], references: [id])
