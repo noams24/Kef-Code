@@ -11,6 +11,7 @@ import type { EditorDocument } from './types';
 
 import "mathlive/static.css";
 import '@/layouts/editor/theme.css';
+import CommentsSection from "@/components/comments/CommentsSection";
 
 
 interface PageProps {
@@ -24,18 +25,18 @@ interface PageProps {
 const singleProblem = async ({ params }: PageProps) => {
     const session = await getServerSession(authOptions);
 
-      const dom = new JSDOM()
-  global.window = dom.window as unknown as Window & typeof globalThis
-  global.document = dom.window.document
-  global.DocumentFragment = dom.window.DocumentFragment
-  global.Element = dom.window.Element
-  global.navigator = dom.window.navigator
-  const document = playgroundTemplate as unknown as EditorDocument;
+    const dom = new JSDOM()
+    global.window = dom.window as unknown as Window & typeof globalThis
+    global.document = dom.window.document
+    global.DocumentFragment = dom.window.DocumentFragment
+    global.Element = dom.window.Element
+    global.navigator = dom.window.navigator
+    const document = playgroundTemplate as unknown as EditorDocument;
 
 
-  const html = await generateHtml(document.data);
- 
-  const children = parse(html);
+    const html = await generateHtml(document.data);
+
+    const children = parse(html);
 
 
     {/* 
@@ -56,9 +57,12 @@ const singleProblem = async ({ params }: PageProps) => {
         <>
             {/* <PageHeader title={params.single} /> */}
             <div className="my-5">
-            <TopBar title={params.single} />
+                <TopBar title={params.single} />
             </div>
-            <Workspace userId={session?.user.id} problemId={params.single} solution={children}/>
+
+            <Workspace userId={session?.user.id} problemId={params.single} solution={children}>
+                <CommentsSection problemId={1} comments={[]} />
+            </Workspace>
         </>
     );
 };

@@ -55,6 +55,7 @@ type WorkSpaceProps = {
   userId?: any;
   problemId: string,
   solution: any
+  children: any
 };
 
 function onChange(
@@ -70,7 +71,7 @@ function onChange(
   });
 }
 
-const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solution }) => {
+const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solution, children }) => {
   // const document = playgroundTemplate as unknown as EditorDocument;
   const { loginToast } = useCustomToasts()
   const imageUrl = "https://i.ibb.co/Gdz4BTg/problem1.png";
@@ -177,13 +178,13 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
                     {!isLoadingData && data && <Likes problemId={problemId} difficulty={data?.difficulty} likes={Number(data?.likes)} dislikes={Number(data?.dislikes)} bookmark={data?.bookmark} likeStatus={data?.likeStatus} />}
                     {isLoadingData ? <div>Loading</div> : data && <ImageDisplay imageUrl={data?.imageUrl} />}
                   </div>}
+                <Accordion className="mt-8" title="דיון">
+                  {children}
+                </Accordion>
               </Tab>
             </Tabs>
-            {/* <Accordion className="mt-8" title="דיון">
-              <div>תגובה1</div>
-              <div>תגובה2</div>
-              <div>תגובה3</div>
-            </Accordion> */}
+
+
           </div>
           <div className="w-full overflow-y-auto ">
             {development ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> :
