@@ -22,41 +22,41 @@ interface SolutionSectionProps {
 
 const SolutionsSection: React.FC<SolutionSectionProps> = ({ problemId }) => {
   const { page } = useGenerationStoree()
-  const per_page = 5
+  // const per_page = 5
 
   // mocked, skipped and limited in the real app
-  const start = (Number(page) - 1) * Number(per_page) // 0, 5, 10 ...
-  const end = start + Number(per_page) // 5, 10, 15 ...
+  // const start = (Number(page) - 1) * Number(per_page) // 0, 5, 10 ...
+  // const end = start + Number(per_page) // 5, 10, 15 ...
   // const { solutionState, setSolution } = useGenerationStore()
 
-  const Mockdata = [
-    { author: "ישראל ישראלי", date: "2023-08-14", likes: 42, comments: 7 },
-    { author: "ג'ון סינה", date: "2023-08-14", likes: 18, comments: 4 },
-    { author: "מסי", date: "2023-08-14", likes: 9, comments: 2 },
-    { author: "משתמש24", date: "2023-08-14", likes: 42, comments: 7 },
-    { author: "משה זוכמיר", date: "2023-08-14", likes: 42, comments: 7 },
-    { author: "יוני חטאים", date: "2023-08-14", likes: 42, comments: 7 },
-    { author: "אנונימי", date: "2023-08-14", likes: 42, comments: 7 },
-    { author: "אלון מאסק", date: "2023-08-14", likes: 42, comments: 7 },
-    { author: "סנופ דוג", date: "2023-08-14", likes: 42, comments: 7 },
-    { author: "משתמש5", date: "2023-08-14", likes: 42, comments: 7 },
-    { author: "משתמש21", date: "2023-08-14", likes: 42, comments: 7 }
-  ]
-  const slicedData = Mockdata.slice(start, end)
+  // const Mockdata = [
+  //   { author: "ישראל ישראלי", date: "2023-08-14", likes: 42, comments: 7 },
+  //   { author: "ג'ון סינה", date: "2023-08-14", likes: 18, comments: 4 },
+  //   { author: "מסי", date: "2023-08-14", likes: 9, comments: 2 },
+  //   { author: "משתמש24", date: "2023-08-14", likes: 42, comments: 7 },
+  //   { author: "משה זוכמיר", date: "2023-08-14", likes: 42, comments: 7 },
+  //   { author: "יוני חטאים", date: "2023-08-14", likes: 42, comments: 7 },
+  //   { author: "אנונימי", date: "2023-08-14", likes: 42, comments: 7 },
+  //   { author: "אלון מאסק", date: "2023-08-14", likes: 42, comments: 7 },
+  //   { author: "סנופ דוג", date: "2023-08-14", likes: 42, comments: 7 },
+  //   { author: "משתמש5", date: "2023-08-14", likes: 42, comments: 7 },
+  //   { author: "משתמש21", date: "2023-08-14", likes: 42, comments: 7 }
+  // ]
+  // const slicedData = Mockdata.slice(start, end)
 
   const develop = process.env.DATABASE_URL !== undefined && process.env.DATABASE_URL !== null;
   //get data from the db
-  
+
   // if (!develop) {
-    const { isFetching, data, refetch, isFetched, isLoading: isLoadingData } = useQuery({
-      queryKey: ['solutions', page],
-      queryFn: async () => {
-        const query = `/api/getSolutions?problemId=${problemId}&page=${page}`
-        const { data } = await axios.get(query)
-        return data
-      },
-      keepPreviousData: true
-    })
+  const { isFetching, data, refetch, isFetched, isLoading: isLoadingData, isPreviousData} = useQuery({
+    queryKey: ['solutions', page],
+    queryFn: async () => {
+      const query = `/api/getSolutions?problemId=${problemId}&page=${page}`
+      const { data } = await axios.get(query)
+      return data
+    },
+    keepPreviousData: true
+  })
   //}
  
   return (
@@ -81,23 +81,28 @@ const SolutionsSection: React.FC<SolutionSectionProps> = ({ problemId }) => {
         </div>
       ))} */}
 
-      {develop ? <div>{slicedData.map((item, index) => (
+      {/* {develop ? <div>{slicedData.map((item, index) => (
         <div key={index}>
           <SolutionCard author={item.author} date={item.date} likes={item.likes} comments={item.comments} />
         </div>
       ))} </div>
 
-        : <div>
-          {data?.map((item: any, index: any) => (
-            <div key={index}>
-              <SolutionCard author={item.user.username} date={item.createdAt} likes={item.votes.length} comments={item.comments.length} />
-            </div>
-          ))}</div>}
+        : <div> */}
+          {(!data) ? <p>אין פתרונות עדיין</p> :
+            <div>
+              {data?.map((item: any, index: any) => (
+                <div key={index}>
+                  <SolutionCard author={item.user.username} date={item.createdAt} likes={item.votes.length} comments={item.comments.length} />
+                </div>
+              ))}</div>
+          }
+        {/* </div>} */}
 
-      {data ?<PaginationControls
-        hasNextPage={end < data?.length}
-        hasPrevPage={start > 0}
-        numberOfItems={data?.length}
+      {data || isFetching ? <PaginationControls
+        hasNextPage={isPreviousData || !data?.hasMore}
+        hasPrevPage={ page!= 1}
+        // numberOfItems={data?.length}
+        numberOfItems={1}
       /> : null}
     </>
   );

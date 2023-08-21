@@ -31,7 +31,8 @@ const PaginationControls: FC<PaginationControlsProps> = (
             </Button>
 
             <div>
-                {page} / {Math.ceil(numberOfItems / Number(per_page))}
+                {/* {page} / {Math.ceil(numberOfItems / Number(per_page))} */}
+                {page}
             </div>
             <Button
                 disabled={!hasNextPage}
