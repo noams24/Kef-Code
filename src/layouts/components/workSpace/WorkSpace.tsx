@@ -117,7 +117,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
   })
 
   //get data from the db
-  const {  data: workSpaceData, isLoading: isLoadingData } = useQuery({
+  const { data: workSpaceData, isLoading: isLoadingData } = useQuery({
     queryFn: async () => {
       const query = `/api/getWorkSpace?problemId=${problemId}&userId=${userId}`
       const { data } = await axios.get(query)
@@ -147,7 +147,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
   }, [confetti]);
 
 
-  const { data: soltionSectionData, isPreviousData, isFetching} = useQuery({
+  const { data: soltionSectionData, isPreviousData, isFetching } = useQuery({
     queryKey: ['solutions', page],
     queryFn: async () => {
       const query = `/api/getSolutions?problemId=${problemId}&page=${page}`
@@ -156,7 +156,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
     },
     keepPreviousData: true
   })
-  
+
   return (
     <>
       <Split className="split h-[70vh]" minSize={0} >
@@ -170,11 +170,11 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
                       <AiOutlineClose />
                     </button>
                   </div>
-                  <Solution data={soltionSectionData[Number(solutionState)]}/>
+                  <Solution data={soltionSectionData[Number(solutionState)]} />
                   {/* <Solution author="ישראל ישראלי" date="2023-08-14" likes={42} comments={0} content={soltionSectionData[0].html} /> */}
                 </div>
                 : <div>
-                  <SolutionsSection data={soltionSectionData} />
+                  {isFetching ? <p>טוען..</p> : <SolutionsSection data={soltionSectionData} />}
                   {soltionSectionData ?
                     <PaginationControls hasNextPage={isPreviousData || !soltionSectionData?.hasMore} hasPrevPage={page != 1}
                       numberOfItems={1}
