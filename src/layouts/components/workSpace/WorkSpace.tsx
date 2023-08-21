@@ -156,25 +156,22 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
     },
     keepPreviousData: true
   })
-  if(!isFetching){
-    // console.log(parse(soltionSectionData[0].html))
-  // console.log(parse(JSON.stringify(soltionSectionData[0].content)))
-  // console.log(soltionSectionData[0].content)
-  }
+  
   return (
     <>
       <Split className="split h-[70vh]" minSize={0} >
         <div className="overflow-y-auto scrollbar-hide">
           <Tabs>
             <Tab name="פתרונות">
-              {solutionState ?
+              {(solutionState || solutionState === 0) ?
                 <div className="px-5">
                   <div className="sticky top-0">
                     <button onClick={() => setSolution(null)} className="dark:text-white hover:bg-gray-400 ">
                       <AiOutlineClose />
                     </button>
                   </div>
-                  <Solution author="ישראל ישראלי" date="2023-08-14" likes={42} comments={0} content={soltionSectionData[0].html} />
+                  <Solution data={soltionSectionData[Number(solutionState)]}/>
+                  {/* <Solution author="ישראל ישראלי" date="2023-08-14" likes={42} comments={0} content={soltionSectionData[0].html} /> */}
                 </div>
                 : <div>
                   <SolutionsSection data={soltionSectionData} />

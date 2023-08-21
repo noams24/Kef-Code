@@ -12,16 +12,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select"
-import axios from 'axios'
-import { useQuery } from '@tanstack/react-query'
+import { useGenerationStore } from '@/store/store';
+
+// import axios from 'axios'
+// import { useQuery } from '@tanstack/react-query'
 // import { useGenerationStore } from '@/store/store';
 // import { Item } from '@radix-ui/react-dropdown-menu';
 interface SolutionSectionProps {
   data: any
 }
 
+
+
 const SolutionsSection: React.FC<SolutionSectionProps> = ({ data }) => {
-  const { page } = useGenerationStoree()
+
+  const { setSolution } = useGenerationStore()
+
+  const handleClick = (id:String) => {
+    setSolution(id)
+  };
+
+  // const { page } = useGenerationStoree()
   // const per_page = 5
 
   // mocked, skipped and limited in the real app
@@ -76,15 +87,16 @@ const SolutionsSection: React.FC<SolutionSectionProps> = ({ data }) => {
       ))} </div>
 
         : <div> */}
-          {(!data) ? <p>אין פתרונות עדיין</p> :
-            <div>
-              {data?.map((item: any, index: any) => (
-                <div key={index}>
-                  <SolutionCard author={item.user.username} date={item.createdAt} likes={item.votes.length} comments={item.comments.length} />
-                </div>
-              ))}</div>
-          }
-        {/* </div>} */}
+      {(!data) ? <p>אין פתרונות עדיין</p> :
+        <div>
+          {data?.map((item: any, index: any) => (
+            
+            <div key={index} onClick={() => handleClick(index)}>
+              <SolutionCard author={item.user.username} date={item.createdAt} likes={item.votes.length} comments={item.comments.length} />
+            </div>
+          ))}</div>
+      }
+      {/* </div>} */}
     </>
   );
 };
