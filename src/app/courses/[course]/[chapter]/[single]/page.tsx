@@ -33,11 +33,9 @@ const singleProblem = async ({ params }: PageProps) => {
     global.navigator = dom.window.navigator
     const document = playgroundTemplate as unknown as EditorDocument;
 
-
     const html = await generateHtml(document.data);
 
     const children = parse(html);
-
 
     {/* 
     try {

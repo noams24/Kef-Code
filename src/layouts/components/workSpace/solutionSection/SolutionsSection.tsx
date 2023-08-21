@@ -1,7 +1,7 @@
 'use client'
 import SolutionCard from './SolutionCard';
 import * as React from "react"
-import PaginationControls from './PaginationControl'
+// import PaginationControls from './PaginationControl'
 import { useGenerationStoree } from '@/store/store';
 import {
   Select,
@@ -17,10 +17,10 @@ import { useQuery } from '@tanstack/react-query'
 // import { useGenerationStore } from '@/store/store';
 // import { Item } from '@radix-ui/react-dropdown-menu';
 interface SolutionSectionProps {
-  problemId: String
+  data: any
 }
 
-const SolutionsSection: React.FC<SolutionSectionProps> = ({ problemId }) => {
+const SolutionsSection: React.FC<SolutionSectionProps> = ({ data }) => {
   const { page } = useGenerationStoree()
   // const per_page = 5
 
@@ -44,21 +44,9 @@ const SolutionsSection: React.FC<SolutionSectionProps> = ({ problemId }) => {
   // ]
   // const slicedData = Mockdata.slice(start, end)
 
-  const develop = process.env.DATABASE_URL !== undefined && process.env.DATABASE_URL !== null;
+  // const develop = process.env.DATABASE_URL !== undefined && process.env.DATABASE_URL !== null;
   //get data from the db
 
-  // if (!develop) {
-  const { isFetching, data, refetch, isFetched, isLoading: isLoadingData, isPreviousData} = useQuery({
-    queryKey: ['solutions', page],
-    queryFn: async () => {
-      const query = `/api/getSolutions?problemId=${problemId}&page=${page}`
-      const { data } = await axios.get(query)
-      return data
-    },
-    keepPreviousData: true
-  })
-  //}
- 
   return (
     <>
       <div className="mt-3 dark:text-white text-center" dir="rtl">
@@ -97,13 +85,6 @@ const SolutionsSection: React.FC<SolutionSectionProps> = ({ problemId }) => {
               ))}</div>
           }
         {/* </div>} */}
-
-      {data || isFetching ? <PaginationControls
-        hasNextPage={isPreviousData || !data?.hasMore}
-        hasPrevPage={ page!= 1}
-        // numberOfItems={data?.length}
-        numberOfItems={1}
-      /> : null}
     </>
   );
 };

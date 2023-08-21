@@ -4,6 +4,10 @@ import { FaRegUserCircle } from 'react-icons/fa';
 import { humanize, slugify } from "@/lib/utils/textConverter";
 import dateFormat from '@/lib/utils/dateFormat';
 import { AiFillLike } from 'react-icons/ai';
+import parse from 'html-react-parser';
+
+import "mathlive/static.css";
+import '@/layouts/editor/theme.css';
 
 interface SolutionProps {
     author: string;
@@ -13,7 +17,7 @@ interface SolutionProps {
     content: any;
 }
 
-const SolutionCard: React.FC<SolutionProps> = ({ author, date, likes, comments, content }) => {
+const Solution: React.FC<SolutionProps> = ({ author, date, likes, comments, content }) => {
 
     return (
         <div>
@@ -34,10 +38,10 @@ const SolutionCard: React.FC<SolutionProps> = ({ author, date, likes, comments, 
                     <AiFillLike className="text-xl mt-0.5 ml-1 mr-2" />
                 </button>
             </div>
-            {content}
+            {parse(content)}
         </div>
     );
 };
 
-export default SolutionCard;
+export default Solution;
 

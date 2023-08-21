@@ -1,5 +1,13 @@
 import { db } from '@/lib/db'
+import { generateHtml } from "@/layouts/editor/utils/generateHtml"
+import parse from 'html-react-parser';
+import { JSDOM } from "jsdom";
+import type { EditorDocument } from './types';
 
+// import type { EditorDocument } from './types';
+
+import "mathlive/static.css";
+import '@/layouts/editor/theme.css';
 //TODO: handle problem status by user
 
 export async function GET(req: Request) {
@@ -21,13 +29,27 @@ export async function GET(req: Request) {
                 votes: true,
                 comments: true
             },
-            take:5,
+            take: 5,
             skip: (page - 1) * 5
         })
 
-        // console.log(results)
         if (!results) return new Response('No results', { status: 401 })
-        return new Response(JSON.stringify(results))
+
+        const dom = new JSDOM()
+        global.window = dom.window as unknown as Window & typeof globalThis
+        global.document = dom.window.document
+        global.DocumentFragment = dom.window.DocumentFragment
+        global.Element = dom.window.Element
+        global.navigator = dom.window.navigator
+
+        let newResults: { [key: string]: any } = results
+        for (let i = 0; i < results.length; i++) {
+            const document = results[i].content
+            const documentt = {id:'1', data:document} as unknown as EditorDocument
+            const htmlData = await generateHtml(documentt.data);
+            newResults[i].html = htmlData
+        }
+        return new Response(JSON.stringify(newResults))
     }
     catch (error) {
         return new Response('Could not fetch posts', { status: 500 })

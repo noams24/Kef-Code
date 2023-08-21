@@ -24,14 +24,17 @@ import Confetti from 'react-confetti';
 import Editor from "@/layouts/editor/components/Editor"
 import useWindowSize from '@/hooks/useWindowSize';
 import Youtube from '@/shortcodes/Youtube';
-import SolutionCard from './solutionSection/SolutionCard';
+// import SolutionCard from './solutionSection/SolutionCard';
 import { useGenerationStore } from '@/store/store';
 import { AiOutlineClose } from 'react-icons/ai';
 import SolutionsSection from './solutionSection/SolutionsSection';
 import Solution from './solutionSection/Solution';
-import { Suspense } from 'react'
-import { Loader2 } from 'lucide-react'
-import CommentsSection from '../comments/CommentsSection'
+// import { Suspense } from 'react'
+// import { Loader2 } from 'lucide-react'
+// import CommentsSection from '../comments/CommentsSection'
+import PaginationControls from './solutionSection/PaginationControl'
+import { useGenerationStoree } from '@/store/store';
+
 // import CommentsSection from '../components/CommentsSection'
 // const Editor = dynamic(() => import("@/layouts/editor/components/Editor"), { ssr: false, loading: () => <div>Loadin</div> });
 export type EditorContentType = SerializedEditorState | undefined | any;
@@ -80,7 +83,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
   const [confetti, setConfetti] = useState(false);
   const { width, height } = useWindowSize();
   const { solutionState, setSolution } = useGenerationStore()
-
+  const { page } = useGenerationStoree()
 
   // const development = (process.env.NODE_ENV !== "development")
   const development = process.env.DATABASE_URL !== undefined && process.env.DATABASE_URL !== null;
@@ -114,7 +117,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
   })
 
   //get data from the db
-  const { isFetching, data, refetch, isFetched, isLoading: isLoadingData } = useQuery({
+  const {  data: workSpaceData, isLoading: isLoadingData } = useQuery({
     queryFn: async () => {
       const query = `/api/getWorkSpace?problemId=${problemId}&userId=${userId}`
       const { data } = await axios.get(query)
@@ -126,12 +129,12 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
   // }
 
   useEffect(() => {
-    if (data?.content) {
-      const newData = { "id": "1", "name": "1", "data": data.content.content }
+    if (workSpaceData?.content) {
+      const newData = { "id": "1", "name": "1", "data": workSpaceData.content.content }
       setDocument(newData as EditorDocument)
       setJsonState(newData.data)
     }
-  }, [data])
+  }, [workSpaceData])
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -143,6 +146,21 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
     };
   }, [confetti]);
 
+
+  const { data: soltionSectionData, isPreviousData, isFetching} = useQuery({
+    queryKey: ['solutions', page],
+    queryFn: async () => {
+      const query = `/api/getSolutions?problemId=${problemId}&page=${page}`
+      const { data } = await axios.get(query)
+      return data
+    },
+    keepPreviousData: true
+  })
+  if(!isFetching){
+    // console.log(parse(soltionSectionData[0].html))
+  // console.log(parse(JSON.stringify(soltionSectionData[0].content)))
+  // console.log(soltionSectionData[0].content)
+  }
   return (
     <>
       <Split className="split h-[70vh]" minSize={0} >
@@ -156,9 +174,14 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
                       <AiOutlineClose />
                     </button>
                   </div>
-                  <Solution author="ישראל ישראלי" date="2023-08-14" likes={42} comments={0} content={solution} />
+                  <Solution author="ישראל ישראלי" date="2023-08-14" likes={42} comments={0} content={soltionSectionData[0].html} />
                 </div>
-                : <SolutionsSection problemId={'1'} />}
+                : <div>
+                  <SolutionsSection data={soltionSectionData} />
+                  {soltionSectionData ?
+                    <PaginationControls hasNextPage={isPreviousData || !soltionSectionData?.hasMore} hasPrevPage={page != 1}
+                      numberOfItems={1}
+                    /> : null}</div>}
             </Tab>
             <Tab name="פתרון רשמי">
               <div className="mt-5">
@@ -174,9 +197,9 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
                 <ImageDisplay imageUrl={imageUrl} /> </div>
                 :
                 <div className="my-2">
-                  {!isLoadingData && data && <Likes problemId={problemId} difficulty={data?.difficulty} likes={Number(data?.likes)} dislikes={Number(data?.dislikes)} bookmark={data?.bookmark} likeStatus={data?.likeStatus} />}
-                  {isLoadingData ? <div>Loading</div> : data &&
-                   <div className="mt-5 flex justify-center"><ImageDisplay imageUrl={data?.imageUrl} /></div>}
+                  {!isLoadingData && workSpaceData && <Likes problemId={problemId} difficulty={workSpaceData?.difficulty} likes={Number(workSpaceData?.likes)} dislikes={Number(workSpaceData?.dislikes)} bookmark={workSpaceData?.bookmark} likeStatus={workSpaceData?.likeStatus} />}
+                  {isLoadingData ? <div>Loading</div> : workSpaceData &&
+                    <div className="mt-5 flex justify-center"><ImageDisplay imageUrl={workSpaceData?.imageUrl} /></div>}
                 </div>}
               <Accordion className="mt-8" title="דיון">
                 {children}
