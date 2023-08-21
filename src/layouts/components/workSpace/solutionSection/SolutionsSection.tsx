@@ -12,20 +12,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select"
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
-import { useGenerationStore } from '@/store/store';
-import { Item } from '@radix-ui/react-dropdown-menu';
+// import { useGenerationStore } from '@/store/store';
+// import { Item } from '@radix-ui/react-dropdown-menu';
 interface SolutionSectionProps {
   problemId: String
 }
 
-
-
-
-
 const SolutionsSection: React.FC<SolutionSectionProps> = ({ problemId }) => {
-  const { page, setPage } = useGenerationStoree()
+  const { page } = useGenerationStoree()
   const per_page = 5
 
   // mocked, skipped and limited in the real app
@@ -98,11 +94,11 @@ const SolutionsSection: React.FC<SolutionSectionProps> = ({ problemId }) => {
             </div>
           ))}</div>}
 
-      <PaginationControls
-        hasNextPage={end < data.length}
+      {data ?<PaginationControls
+        hasNextPage={end < data?.length}
         hasPrevPage={start > 0}
-        numberOfItems={data.length}
-      />
+        numberOfItems={data?.length}
+      /> : null}
     </>
   );
 };
