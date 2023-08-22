@@ -35,7 +35,7 @@ export const getListPage = (filePath: string) => {
 
 // get all single pages, ex: blog/post.md
 export const getSinglePage = (folder: string) => {
-  const folderPath = path.join(process.cwd(), contentPath, folder);
+  const folderPath = path.join(contentPath, folder);
   if (!fs.existsSync(folderPath) || !fs.lstatSync(folderPath).isDirectory()) {
     notFound();
   }
@@ -48,7 +48,7 @@ export const getSinglePage = (folder: string) => {
 
   const singlePages = filterSingleFiles.map((filename) => {
     const slug = filename.replace(".md", "");
-    const filePath = path.join(process.cwd(), folderPath, filename);
+    const filePath = path.join(folderPath, filename);
     const pageData = readFile(filePath);
     const { content, data: frontmatter } = matter(pageData);
     const url = frontmatter.url ? frontmatter.url.replace("/", "") : slug;
