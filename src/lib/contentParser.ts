@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import path from "path";
 
 //const contentPath = "src/content";
-const contentPath = (process.cwd(),"src/content")
+const contentPath = (process.cwd(), "src/content")
 // Helper function to read file content
 const readFile = (filePath: string) => {
   return fs.readFileSync(filePath, "utf-8");
@@ -21,7 +21,7 @@ export const getListPage = (filePath: string) => {
   if (!fs.existsSync(pageDataPath)) {
     notFound();
   }
-  try {
+
   const pageData = readFile(pageDataPath);
   const { content, data: frontmatter } = matter(pageData);
 
@@ -29,26 +29,21 @@ export const getListPage = (filePath: string) => {
     frontmatter: parseFrontmatter(frontmatter),
     content,
   };
-}
-catch (error) {
-  notFound()
-}
 };
 
 // get all single pages, ex: blog/post.md
 export const getSinglePage = (folder: string) => {
-  try {
   const folderPath = path.join(contentPath, folder);
   if (!fs.existsSync(folderPath) || !fs.lstatSync(folderPath).isDirectory()) {
     notFound();
   }
-  
+
   const filesPath = fs.readdirSync(folderPath);
   const sanitizeFiles = filesPath.filter((file) => file.endsWith(".md"));
-  const filterSingleFiles =  sanitizeFiles.filter((file) =>
+  const filterSingleFiles = sanitizeFiles.filter((file) =>
     file.match(/^(?!_)/)
   );
-  
+
   const singlePages = filterSingleFiles.map((filename) => {
     const slug = filename.replace(".md", "");
     const filePath = path.join(folderPath, filename);
@@ -69,10 +64,5 @@ export const getSinglePage = (folder: string) => {
   const filterByDate = publishedPages.filter(
     (page) => new Date(page.frontmatter.date || new Date()) <= new Date()
   );
-
   return filterByDate;
-}
-catch (error){
-  notFound()
-}
 };
