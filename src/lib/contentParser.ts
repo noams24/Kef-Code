@@ -23,7 +23,7 @@ const parseFrontmatter = (frontmatter: any) => {
 // get list page data, ex: _index.md
 export const getListPage = (filePath: string) => {
   console.log('filePath2', filePath)
-  const pageDataPath = path.join(contentPath, filePath);
+  const pageDataPath = path.join(process.cwd(), contentPath, filePath);
   console.log('pageDataPath', pageDataPath)
   if (!fs.existsSync(pageDataPath)) {
     console.log('NOTFOUND')
