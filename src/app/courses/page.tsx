@@ -2,7 +2,7 @@ import Testimonials from "@/partials/Testimonials";
 import { getListPage } from "@/lib/contentParser";
 
 const Courses = async () => {
-  const testimonial1 = getListPage("sections/ComputerScience2.md");
+  const testimonial1 = getListPage("sections/CS.md");
   const testimonial2 = getListPage("sections/Math.md");
   const testimonial3 = getListPage("sections/Other.md");
 
