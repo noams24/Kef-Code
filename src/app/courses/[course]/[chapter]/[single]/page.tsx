@@ -36,7 +36,7 @@ const singleProblem = async ({ params }: PageProps) => {
     const html = await generateHtml(document.data);
 
     const children = parse(html);
-
+    const develop = process.env.DATABASE_URL === undefined || process.env.DATABASE_URL === null;
     {/* 
     try {
         // Fetch all records from the "Problem" table
@@ -59,7 +59,7 @@ const singleProblem = async ({ params }: PageProps) => {
             </div>
 
             <Workspace userId={session?.user.id} problemId={params.single} solution={children}>
-                <CommentsSection problemId={1} comments={[]} />
+                {develop ? null : <CommentsSection problemId={1} comments={[]} />}
             </Workspace>
         </>
     );
