@@ -5,10 +5,14 @@ import path from "path";
 
 //const contentPath = "src/content";
 const contentPath = (process.cwd(),"src/content")
+console.log('process.cwd', process.cwd())
+console.log('contentPath', contentPath)
 // Helper function to read file content
 const readFile = (filePath: string) => {
+  console.log('filePath', filePath)
   return fs.readFileSync(filePath, "utf-8");
 };
+console.log('readFile', readFile)
 
 // Helper function to parse frontmatter
 const parseFrontmatter = (frontmatter: any) => {
@@ -18,8 +22,11 @@ const parseFrontmatter = (frontmatter: any) => {
 
 // get list page data, ex: _index.md
 export const getListPage = (filePath: string) => {
+  console.log('filePath2', filePath)
   const pageDataPath = path.join(contentPath, filePath);
+  console.log('pageDataPath', pageDataPath)
   if (!fs.existsSync(pageDataPath)) {
+    console.log('NOTFOUND')
     //notFound();
   }
 
