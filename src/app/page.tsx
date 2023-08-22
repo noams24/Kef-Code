@@ -8,35 +8,10 @@ import SeoMeta from "@/partials/SeoMeta";
 // import Testimonials from "@/partials/Testimonials";
 import { Button, Feature } from "@/types";
 import { FaCheck } from "react-icons/fa/index.js";
-// import { promises as fs } from "fs";
-// import path from "path";
-// import matter from "gray-matter";
-
-// const parseFrontmatter = (frontmatter: any) => {
-//   const frontmatterString = JSON.stringify(frontmatter);
-//   return JSON.parse(frontmatterString);
-// };
-
-// async function getPage() {
-
-//   const pageData = await fs.readFile(
-//     path.join(process.cwd(), "src/content/_index.md")
-//   )
-//   const { content, data: frontmatter } = matter(pageData);
-//   return {
-//     frontmatter: parseFrontmatter(frontmatter),
-//     content,
-//   };
-// }
-
 
 const Home = () => {
   const homepage = getListPage("_index.md");
   const { frontmatter } = homepage;
-  // const testimonial = getListPage("sections/testimonial.md");
-  // const callToAction = getListPage("sections/call-to-action.md");
-  // const homepage = getPage()
-  // const  { frontmatter } =  await homepage;
   const {
     banner,
     features,

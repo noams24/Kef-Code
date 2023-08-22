@@ -17,13 +17,10 @@ const parseFrontmatter = (frontmatter: any) => {
 
 // get list page data, ex: _index.md
 export const getListPage = (filePath: string) => {
-
-  const pageDataPath = path.join(process.cwd(), contentPath, filePath);
-
+  const pageDataPath = path.join(contentPath, filePath);
   if (!fs.existsSync(pageDataPath)) {
     notFound();
   }
-
   const pageData = readFile(pageDataPath);
   const { content, data: frontmatter } = matter(pageData);
 

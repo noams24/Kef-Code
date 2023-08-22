@@ -6,7 +6,7 @@ import SeoMeta from "@/partials/SeoMeta";
 import { RegularPage } from "@/types";
 import Link from "next/link";
 
-const NotFound = async () => {
+const NotFound = () => {
   const data: RegularPage = getListPage("pages/404.md");
   const { image, title } = data.frontmatter;
   return (
