@@ -51,6 +51,7 @@ export function DataTableColumnHeader<TData, TValue>({
             )}
           </Button>
         </DropdownMenuTrigger>
+<<<<<<< HEAD
         <DropdownMenuContent
           align="end"
           className="dark:bg-black bg-white">
@@ -58,6 +59,11 @@ export function DataTableColumnHeader<TData, TValue>({
             onClick={() => column.toggleSorting(false)}
             className="flex justify-between">
             <ArrowUpIcon className="h-3.5 w-3.5 text-muted-foreground/70" />
+=======
+        <DropdownMenuContent align="start" className="dark:bg-dark bg-theme-light">
+          <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
+            <ArrowUpIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
+>>>>>>> fba8684 (style correction)
             סדר עולה
           </DropdownMenuItem>
           <DropdownMenuItem
