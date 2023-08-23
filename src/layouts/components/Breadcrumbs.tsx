@@ -27,7 +27,7 @@ const Breadcrumbs = ({ className }: { className?: string }) => {
 
   return (
     <nav aria-label="Breadcrumb" className={className}>
-      <ol className="inline-flex" role="list">
+      <ol className="inline-flex items-center " role="list">
         {parts.map(({ label, ...attrs }, index) => (
           <li className="mx-1 capitalize" role="listitem" key={index}>
             {index > 0 && <span className="inlin-block mr-1">/</span>}
