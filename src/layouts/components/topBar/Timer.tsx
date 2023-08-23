@@ -2,21 +2,22 @@
 
 import React, { useEffect, useState } from "react";
 import { FiRefreshCcw } from "react-icons/fi";
+import { HiOutlineStop } from 'react-icons/hi';
 
 type TimerProps = {};
 
 const Timer: React.FC<TimerProps> = () => {
 	const [showTimer, setShowTimer] = useState<boolean>(false);
 	const [time, setTime] = useState<number>(0);
+	const [stopTimer, setStopTimer] = useState<boolean>(false);
 
 	const formatTime = (time: number): string => {
 		const hours = Math.floor(time / 3600);
 		const minutes = Math.floor((time % 3600) / 60);
 		const seconds = time % 60;
 
-		return `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}:${
-			seconds < 10 ? "0" + seconds : seconds
-		}`;
+		return `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds
+			}`;
 	};
 
 	useEffect(() => {
@@ -24,12 +25,15 @@ const Timer: React.FC<TimerProps> = () => {
 
 		if (showTimer) {
 			intervalId = setInterval(() => {
+				if (stopTimer) {
+					return clearInterval(intervalId);
+				}
 				setTime((time) => time + 1);
 			}, 1000);
 		}
 
 		return () => clearInterval(intervalId);
-	}, [showTimer]);
+	}, [showTimer, stopTimer]);
 
 	return (
 		<div>
@@ -40,7 +44,11 @@ const Timer: React.FC<TimerProps> = () => {
 						onClick={() => {
 							setShowTimer(false);
 							setTime(0);
+							setStopTimer(false);
 						}}
+					/>
+					<HiOutlineStop
+						onClick={() => setStopTimer((prev => !prev))}
 					/>
 				</div>
 			) : (
