@@ -176,3 +176,10 @@
   @apply prose-tr:border-border prose-tr:dark:border-darkmode-border;
   @apply prose-td:relative prose-td:z-10 prose-td:px-3 prose-td:py-[18px] prose-td:dark:text-darkmode-text;
 }
+
+// container for timer and full screen icons 
+.container-right-top-bar {
+  @apply flex items-center justify-around rounded-lg h-6 cursor-pointer;
+
+  width: 4.5rem;
+}

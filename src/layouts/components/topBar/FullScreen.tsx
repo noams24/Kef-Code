@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { AiOutlineFullscreen, AiOutlineFullscreenExit, AiOutlineSetting } from "react-icons/ai";
+import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
 
 // type PreferenceNavProps = {
 // 	settings: ISettings;
@@ -37,12 +37,12 @@ const PreferenceNav = () => {
 
 	return (
 
-				<button onClick={handleFullScreen}>
-					<div className=' text-dark-gray-6 font-bold text-lg'>
-						{!isFullScreen ? <AiOutlineFullscreen /> : <AiOutlineFullscreenExit />}
-					</div>
-					<div className='preferenceBtn-tooltip'></div>
-				</button>
+		<button onClick={handleFullScreen}>
+			<div className='text-dark-gray-6 font-bold text-lg ml-2'>
+				{!isFullScreen ? <AiOutlineFullscreen /> : <AiOutlineFullscreenExit />}
+			</div>
+			<div className='preferenceBtn-tooltip'></div>
+		</button>
 	);
 };
 export default PreferenceNav;

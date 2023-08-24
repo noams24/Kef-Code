@@ -2,21 +2,22 @@
 
 import React, { useEffect, useState } from "react";
 import { FiRefreshCcw } from "react-icons/fi";
+import { TbPlayerStop } from 'react-icons/tb';
 
 type TimerProps = {};
 
 const Timer: React.FC<TimerProps> = () => {
 	const [showTimer, setShowTimer] = useState<boolean>(false);
 	const [time, setTime] = useState<number>(0);
+	const [stopTimer, setStopTimer] = useState<boolean>(false);
 
 	const formatTime = (time: number): string => {
 		const hours = Math.floor(time / 3600);
 		const minutes = Math.floor((time % 3600) / 60);
 		const seconds = time % 60;
 
-		return `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}:${
-			seconds < 10 ? "0" + seconds : seconds
-		}`;
+		return `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds
+			}`;
 	};
 
 	useEffect(() => {
@@ -24,37 +25,46 @@ const Timer: React.FC<TimerProps> = () => {
 
 		if (showTimer) {
 			intervalId = setInterval(() => {
+				if (stopTimer) {
+					return clearInterval(intervalId);
+				}
 				setTime((time) => time + 1);
 			}, 1000);
 		}
 
 		return () => clearInterval(intervalId);
-	}, [showTimer]);
+	}, [showTimer, stopTimer]);
 
 	return (
 		<div>
 			{showTimer ? (
-				<div className='flex items-center space-x-2 bg-dark-fill-3 p-1.5 cursor-pointer rounded hover:bg-dark-fill-2'>
-					<div>{formatTime(time)}</div>
+				<div className='flex items-center space-x-2 bg-dark-fill-3 p-1.5 bg-gray-600 rounded-full h-5' style={{ width: "7rem" }}>
+					<div className="text-white">{formatTime(time)}</div>
 					<FiRefreshCcw
+						color="white"
 						onClick={() => {
 							setShowTimer(false);
 							setTime(0);
+							setStopTimer(false);
 						}}
+					/>
+					<TbPlayerStop
+						color="white"
+						onClick={() => setStopTimer((prev => !prev))}
 					/>
 				</div>
 			) : (
 				<div
-					className='flex items-center p-1 h-8 hover:bg-dark-fill-3 rounded cursor-pointer'
+					className='flex items-center p-1  bg-gray-600 rounded-full h-5'
 					onClick={() => setShowTimer(true)}
 				>
 					<svg
 						xmlns='http://www.w3.org/2000/svg'
 						viewBox='0 0 24 24'
-						width='1em'
-						height='1em'
-						fill='currentColor'
-						className='h-6 w-6'
+						width='0.7em'
+						height='0.7em'
+						fill='white'
+						className='h-4 w-4'
 					>
 						<path
 							fillRule='evenodd'
