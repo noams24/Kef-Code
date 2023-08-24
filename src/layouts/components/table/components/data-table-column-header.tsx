@@ -51,18 +51,26 @@ export function DataTableColumnHeader<TData, TValue>({
             )}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="start">
-          <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
-            <ArrowUpIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
+        <DropdownMenuContent
+          align="end"
+          className="bg-gray-100">
+          <DropdownMenuItem
+            onClick={() => column.toggleSorting(false)}
+            className="flex justify-between">
+            <ArrowUpIcon className="h-3.5 w-3.5 text-muted-foreground/70" />
             סדר עולה
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
-            <ArrowDownIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
+          <DropdownMenuItem
+            onClick={() => column.toggleSorting(true)}
+            className="flex justify-between">
+            <ArrowDownIcon className="h-3.5 w-3.5 text-muted-foreground/70" />
             סדר יורד
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
-            <EyeNoneIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
+          <DropdownMenuItem
+            onClick={() => column.toggleVisibility(false)}
+            className="flex justify-between">
+            <EyeNoneIcon className="h-3.5 w-3.5 text-muted-foreground/70" />
             הסתר
           </DropdownMenuItem>
         </DropdownMenuContent>
