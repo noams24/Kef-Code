@@ -67,12 +67,14 @@ export function DataTableColumnHeader<TData, TValue>({
             סדר יורד
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem
-            onClick={() => column.toggleVisibility(false)}
-            className="flex justify-between">
-            <EyeNoneIcon className="h-3.5 w-3.5 text-muted-foreground/70" />
-            הסתר
-          </DropdownMenuItem>
+          {title !== 'שם השאלה' ?
+            <DropdownMenuItem
+              onClick={() => column.toggleVisibility(false)}
+              className="flex justify-between">
+              <EyeNoneIcon className="h-3.5 w-3.5 text-muted-foreground/70" />
+              הסתר
+            </DropdownMenuItem> :
+            null}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
