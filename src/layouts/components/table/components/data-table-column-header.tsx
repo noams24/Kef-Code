@@ -53,7 +53,7 @@ export function DataTableColumnHeader<TData, TValue>({
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="end"
-          className="dark:bg-black bg-white">
+          className="dark:bg-black bg-gray-100">
           <DropdownMenuItem
             onClick={() => column.toggleSorting(false)}
             className="flex justify-between">

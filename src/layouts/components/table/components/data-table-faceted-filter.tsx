@@ -83,9 +83,9 @@ export function DataTableFacetedFilter<TData, TValue>({
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className={`${[isStatus ? 'w-[200px]' : 'w-[160px]']} p-0 border-none`}
+        className={`${[isStatus ? 'w-[220px]' : 'w-[160px]']} p-0 border-none`}
         align="center">
-        <Command className="bg-gray-100 p-0">
+        <Command className="bg-gray-100 dark:bg-black p-0">
           <CommandList>
             <CommandGroup>
               {options.map((option) => {
@@ -104,7 +104,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                         filterValues.length ? filterValues : undefined
                       )
                     }}
-                    className={`grid-cols-${[isStatus ? 5 : 4]}  grid gap-2 items-center`}
+                    className="items-center justify-around"
                   >
                     {facets?.get(option.value) && (
                       <span className="flex h-4 w-4 items-center justify-center font-mono text-xs">
@@ -114,16 +114,18 @@ export function DataTableFacetedFilter<TData, TValue>({
                     {option.icon && (
                       <option.icon className="h-4 w-4 text-muted-foreground" />
                     )}
-                    <span className="col-span-2 flex items-center justify-end">{option.label}</span>
+                    <span className="col-span-1 flex items-center">
+                      {option.label}
+                    </span>
                     <div
                       className={cn(
-                        "flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
+                        "flex h-4 w-4 items-center justify-center rounded-sm border border-primary dark:border-1 dark:border-gray-400",
                         isSelected
-                          ? "bg-primary text-primary-foreground"
+                          ? "white text-primary-foreground"
                           : "opacity-50 [&_svg]:invisible"
                       )}
                     >
-                      <CheckIcon className={cn("h-4 w-4")} color="white" />
+                      <CheckIcon className={cn("h-4 w-4")} />
                     </div>
                   </CommandItem>
                 )
