@@ -27,27 +27,27 @@ import {
   export const statuses = [
     {
       value: "backlog",
-      label: "Backlog",
+      label: "ממתין",
       icon: QuestionMarkCircledIcon,
     },
     {
       value: "todo",
-      label: "Todo",
+      label: "לעשות",
       icon: CircleIcon,
     },
     {
       value: "in progress",
-      label: "In Progress",
+      label: "בתהליך",
       icon: StopwatchIcon,
     },
     {
       value: "done",
-      label: "Done",
+      label: "הושלם",
       icon: CheckCircledIcon,
     },
     {
       value: "canceled",
-      label: "Canceled",
+      label: "בוטל",
       icon: CrossCircledIcon,
     },
   ]
