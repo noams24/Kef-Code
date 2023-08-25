@@ -39,13 +39,12 @@ export function DataTableFacetedFilter<TData, TValue>({
 }: DataTableFacetedFilter<TData, TValue>) {
   const facets = column?.getFacetedUniqueValues()
   const selectedValues = new Set(column?.getFilterValue() as string[])
-
   const isStatus = title === 'סטטוס'
 
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="h-8 border-dashed">
+        <Button variant="outline" size="sm" className="h-8 border-dashed hover:border-cyan-700">
           <PlusCircledIcon className="mr-2 h-4 w-4" />
           {title}
           {selectedValues?.size > 0 && (
@@ -87,9 +86,7 @@ export function DataTableFacetedFilter<TData, TValue>({
         className={`${[isStatus ? 'w-[200px]' : 'w-[160px]']} p-0 border-none`}
         align="center">
         <Command className="bg-gray-100 p-0">
-          {/* <CommandInput placeholder={title} /> */}
           <CommandList>
-            {/* <CommandEmpty>לא נמצאו תוצאות</CommandEmpty> */}
             <CommandGroup>
               {options.map((option) => {
                 const isSelected = selectedValues.has(option.value)
