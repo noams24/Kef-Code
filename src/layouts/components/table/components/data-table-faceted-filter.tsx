@@ -40,6 +40,8 @@ export function DataTableFacetedFilter<TData, TValue>({
   const facets = column?.getFacetedUniqueValues()
   const selectedValues = new Set(column?.getFilterValue() as string[])
 
+  const isStatus = title === 'סטטוס'
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -81,11 +83,13 @@ export function DataTableFacetedFilter<TData, TValue>({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0" align="start">
-        <Command>
-          <CommandInput placeholder={title} />
+      <PopoverContent
+        className={`${[isStatus ? 'w-[200px]' : 'w-[160px]']} p-0 border-none`}
+        align="center">
+        <Command className="bg-gray-100 p-0">
+          {/* <CommandInput placeholder={title} /> */}
           <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
+            {/* <CommandEmpty>לא נמצאו תוצאות</CommandEmpty> */}
             <CommandGroup>
               {options.map((option) => {
                 const isSelected = selectedValues.has(option.value)
@@ -103,26 +107,27 @@ export function DataTableFacetedFilter<TData, TValue>({
                         filterValues.length ? filterValues : undefined
                       )
                     }}
+                    className={`grid-cols-${[isStatus ? 5 : 4]}  grid gap-2 items-center`}
                   >
+                    {facets?.get(option.value) && (
+                      <span className="flex h-4 w-4 items-center justify-center font-mono text-xs">
+                        {facets.get(option.value)}
+                      </span>
+                    )}
+                    {option.icon && (
+                      <option.icon className="h-4 w-4 text-muted-foreground" />
+                    )}
+                    <span className="col-span-2 flex items-center justify-end">{option.label}</span>
                     <div
                       className={cn(
-                        "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
+                        "flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
                         isSelected
                           ? "bg-primary text-primary-foreground"
                           : "opacity-50 [&_svg]:invisible"
                       )}
                     >
-                      <CheckIcon className={cn("h-4 w-4")} />
+                      <CheckIcon className={cn("h-4 w-4")} color="white" />
                     </div>
-                    {option.icon && (
-                      <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-                    )}
-                    <span>{option.label}</span>
-                    {facets?.get(option.value) && (
-                      <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
-                        {facets.get(option.value)}
-                      </span>
-                    )}
                   </CommandItem>
                 )
               })}
@@ -143,6 +148,6 @@ export function DataTableFacetedFilter<TData, TValue>({
           </CommandList>
         </Command>
       </PopoverContent>
-    </Popover>
+    </Popover >
   )
 }
