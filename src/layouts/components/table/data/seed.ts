@@ -17,4 +17,4 @@ fs.writeFileSync(
   JSON.stringify(tasks, null, 2)
 )
 
-console.log("✅ Tasks data generated.")
+// console.log("✅ Tasks data generated.")

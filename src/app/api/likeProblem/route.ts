@@ -59,7 +59,6 @@ export async function PATCH(req: Request) {
     }
 
     catch (error) {
-        console.log(error)
         return new Response(
             'שגיאה',
             { status: 500 }
