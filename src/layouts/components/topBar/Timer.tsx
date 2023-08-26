@@ -38,10 +38,9 @@ const Timer: React.FC<TimerProps> = () => {
 	return (
 		<div>
 			{showTimer ? (
-				<div className='flex items-center space-x-2 bg-dark-fill-3 p-1.5 bg-gray-600 rounded-full h-5' style={{ width: "7rem" }}>
-					<div className="text-white">{formatTime(time)}</div>
+				<div className='container-timer'>
+					<div className="dark:text-white text-gray-400">{formatTime(time)}</div>
 					<FiRefreshCcw
-						color="white"
 						onClick={() => {
 							setShowTimer(false);
 							setTime(0);
@@ -49,13 +48,12 @@ const Timer: React.FC<TimerProps> = () => {
 						}}
 					/>
 					<TbPlayerStop
-						color="white"
 						onClick={() => setStopTimer((prev => !prev))}
 					/>
 				</div>
 			) : (
 				<div
-					className='flex items-center p-1  bg-gray-600 rounded-full h-5'
+					className='flex items-center p-1 bg-gray-200 dark:bg-gray-600 rounded-full h-5'
 					onClick={() => setShowTimer(true)}
 				>
 					<svg
@@ -63,7 +61,7 @@ const Timer: React.FC<TimerProps> = () => {
 						viewBox='0 0 24 24'
 						width='0.7em'
 						height='0.7em'
-						fill='white'
+						fill='black'
 						className='h-4 w-4'
 					>
 						<path

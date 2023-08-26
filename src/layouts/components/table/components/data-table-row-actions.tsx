@@ -41,14 +41,14 @@ export function DataTableRowActions<TData>({
           <span className="sr-only">פתיחת תפריט</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[160px]">
+      <DropdownMenuContent align="end" className="w-[160px] bg-gray-100 dark:bg-black">
         <DropdownMenuItem>עריכה</DropdownMenuItem>
         <DropdownMenuItem>יצירת עותק</DropdownMenuItem>
         <DropdownMenuItem>שמירה</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>לייבלים</DropdownMenuSubTrigger>
-          <DropdownMenuSubContent>
+          <DropdownMenuSubContent className="bg-gray-100 dark:bg-black">
             <DropdownMenuRadioGroup value={task.label}>
               {labels.map((label) => (
                 <DropdownMenuRadioItem key={label.value} value={label.value}>

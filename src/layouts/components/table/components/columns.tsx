@@ -51,8 +51,8 @@ export const columns: ColumnDef<Task>[] = [
       return (
         <div className="flex justify-center items-center">
           {/* <div>{isLoading ? 'Content is loading' : JSON.stringify(data)}</div> */}
-          <span>{priority.label}</span>
-        </div>
+          <span className={`color-level-${priority.value}`}>{priority.label}</span>
+        </div >
       )
     },
     filterFn: (row, id, value) => {
@@ -68,11 +68,10 @@ export const columns: ColumnDef<Task>[] = [
       const label = labels.find((label) => label.value === row.original.label)
 
       return (
-        <div className="flex justify-end space-x-2">
+        <div className="flex justify-end space-x-2 pr-7">
           <span className="max-w-[500px] truncate font-medium">
             <Link
               href="/courses/Algebra/Chapter-1/1"
-              className={``}
             >
               {row.getValue("title")}
             </Link>
@@ -97,7 +96,9 @@ export const columns: ColumnDef<Task>[] = [
       }
 
       return (
-        <div className="flex justify-center w-[80px] items-center">
+        <div
+          title={status.label}
+          className="flex justify-center w-[80px] items-center">
           {status.icon && (
             <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
           )}

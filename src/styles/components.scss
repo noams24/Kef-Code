@@ -183,3 +183,24 @@
 
   width: 4.5rem;
 }
+
+// container for time and icons
+.container-timer {
+  @apply flex items-center space-x-2 p-1.5 dark:bg-gray-600 bg-gray-200 rounded-full h-5;
+
+  width: 7rem;
+}
+
+// color for each level
+
+.color-level-low {
+  @apply text-green-400 dark:text-green-600;
+}
+
+.color-level-medium {
+  @apply text-yellow-500;
+}
+
+.color-level-high {
+  @apply text-red-500 dark:text-red-700;
+}

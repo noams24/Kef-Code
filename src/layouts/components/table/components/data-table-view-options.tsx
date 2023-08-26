@@ -12,6 +12,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "../registry/new-york/ui/dropdown-menu"
+import { hebrewColumns } from "../data/data"
 import './styles.css';
 interface DataTableViewOptionsProps<TData> {
   table: Table<TData>
@@ -26,13 +27,13 @@ export function DataTableViewOptions<TData>({
         <Button
           variant="outline"
           size="sm"
-          className="ml-auto hidden h-8 lg:flex hover:border-cyan-700"
+          className="ml-auto hidden h-8 lg:flex btn-hover-color"
         >
           <MixerHorizontalIcon className="mr-2 h-4 w-4" />
           הגדרת תצוגה
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="dropDownMenuClass">
+      <DropdownMenuContent align="end" className="dropDownMenuClass dark:bg-black">
         <DropdownMenuLabel
           className="flex flex-row-reverse">
           שינוי עמודות
@@ -52,7 +53,10 @@ export function DataTableViewOptions<TData>({
                 checked={column.getIsVisible()}
                 onCheckedChange={(value) => column.toggleVisibility(!!value)}
               >
-                {column.id}
+                {hebrewColumns.map(({ label, value }) => {
+                  if (column.id !== value) return
+                  return label
+                })}
               </DropdownMenuCheckboxItem>
             )
           })}
