@@ -21,7 +21,6 @@ import "./split.css"
 export type EditorContentType = SerializedEditorState | undefined | any;
 
 type WorkSpaceProps = {
-  userId?: any;
   problemId: string,
   solution: any
   children: any
@@ -133,7 +132,9 @@ const Workspace: React.FC<WorkSpaceProps> = ({ problemId, solution, children }) 
   return (
     <>
       <Split className="split h-[70vh]" minSize={0} >
-        <SolutionSection workSpaceData={workSpaceData} problemId={problemId} solution={solution} children={children} />
+        <SolutionSection workSpaceData={workSpaceData} problemId={problemId} solution={solution}>
+        {children}
+        </SolutionSection>
         {/*EDITOR SECTION */}
         <div className="w-full overflow-y-auto ">
           {(!isLoadingData && workSpaceData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>}

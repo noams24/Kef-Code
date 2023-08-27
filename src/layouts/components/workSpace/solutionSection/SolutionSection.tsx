@@ -20,7 +20,7 @@ interface SolutionSectionProps {
     workSpaceData: any,
     problemId: any,
     solution: any,
-    children: any
+    children: any,
 }
 
 interface Data {
@@ -35,7 +35,7 @@ interface Data {
     // solutionVideoUrl?: String
 }
 
-const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, problemId, solution, children }) => {
+const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, problemId, solution, children}) => {
 
     const { solutionState, setSolution } = useGenerationStore()
     const { page } = useGenerationStoree()
@@ -95,12 +95,13 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
                         :
                         <div className="my-2">
                             {workSpaceData && <Likes problemId={problemId} difficulty={workSpaceData.difficulty} likes={Number(workSpaceData.likes)} dislikes={Number(workSpaceData.dislikes)} bookmark={workSpaceData.bookmark} likeStatus={workSpaceData.likeStatus} /> }
-                            <div className="mt-5 flex justify-center">s
+                            <div className="mt-5 flex justify-center">
                                 <ImageDisplay imageUrl={workSpaceData?.imageUrl} />
                             </div>
                         </div>}
                     <Accordion className="mt-8" title="דיון">
                         {children}
+                        {/* Comment Section */}
                     </Accordion>
                 </Tab>
             </Tabs>

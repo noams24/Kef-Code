@@ -1,17 +1,17 @@
-//import { db } from '@/lib/db'
 import { generateHtml } from "@/layouts/editor/utils/generateHtml"
 import parse from 'html-react-parser';
 import Workspace from "@/components/workSpace/WorkSpace";
 import TopBar from "@/components/topBar/TopBar";
-import { authOptions } from '@/lib/auth'
-import { getServerSession } from 'next-auth'
 import { JSDOM } from "jsdom";
 import playgroundTemplate from './example.json';
 import type { EditorDocument } from './types';
-
-import "mathlive/static.css";
-import '@/layouts/editor/theme.css';
 import CommentsSection from "@/components/comments/CommentsSection";
+
+// import "mathlive/static.css";
+// import '@/layouts/editor/theme.css';
+//import { db } from '@/lib/db'
+// import { authOptions } from '@/lib/auth'
+// import { getServerSession } from 'next-auth'
 
 
 interface PageProps {
@@ -23,7 +23,7 @@ interface PageProps {
 }
 
 const singleProblem = async ({ params }: PageProps) => {
-    const session = await getServerSession(authOptions);
+    // const session = await getServerSession(authOptions);
 
     const dom = new JSDOM()
     global.window = dom.window as unknown as Window & typeof globalThis
@@ -58,7 +58,7 @@ const singleProblem = async ({ params }: PageProps) => {
                 <TopBar title={params.single} />
             </div>
 
-            <Workspace userId={session?.user.id} problemId={params.single} solution={children}>
+            <Workspace problemId={params.single} solution={children}>
                 {develop ? null : <CommentsSection problemId={1} comments={[]} />}
             </Workspace>
         </>
