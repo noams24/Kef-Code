@@ -19,10 +19,10 @@ interface Data {
 }
 
 export const columns: ColumnDef<Task>[] = [
-  {
-    id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
-  },
+  // {
+  //   id: "actions",
+  //   cell: ({ row }) => <DataTableRowActions row={row} />,
+  // },
   {
     accessorKey: "priority",
     header: ({ column }) => (
@@ -98,7 +98,7 @@ export const columns: ColumnDef<Task>[] = [
       return (
         <div
           title={status.label}
-          className="flex justify-center w-[80px] items-center">
+          className="flex justify-end w-[80px] items-center">
           {status.icon && (
             <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
           )}

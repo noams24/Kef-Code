@@ -67,7 +67,7 @@ export const priorities = [
   },
 ]
 
-export const hebrewColumns = [
+export const hebrewColumnsFilter = [
   {
     value: 'status',
     label: 'סטטוס'
@@ -75,9 +75,5 @@ export const hebrewColumns = [
   {
     value: 'priority',
     label: 'רמת קושי'
-  },
-  {
-    value: 'title',
-    label: 'כותרת'
   }
 ]

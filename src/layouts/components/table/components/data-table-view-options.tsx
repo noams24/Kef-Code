@@ -12,7 +12,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "../registry/new-york/ui/dropdown-menu"
-import { hebrewColumns } from "../data/data"
+import { hebrewColumnsFilter } from "../data/data"
 import './styles.css';
 interface DataTableViewOptionsProps<TData> {
   table: Table<TData>
@@ -20,7 +20,7 @@ interface DataTableViewOptionsProps<TData> {
 
 export function DataTableViewOptions<TData>({
   table,
-}: DataTableViewOptionsProps<TData>) {
+}: DataTableViewOptionsProps<TData>) {  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -49,11 +49,11 @@ export function DataTableViewOptions<TData>({
             return (
               <DropdownMenuCheckboxItem
                 key={column.id}
-                className="capitalize flex flex-row-reverse"
+                className="flex flex-row-reverse"
                 checked={column.getIsVisible()}
                 onCheckedChange={(value) => column.toggleVisibility(!!value)}
               >
-                {hebrewColumns.map(({ label, value }) => {
+                {hebrewColumnsFilter.map(({ label, value }) => {
                   if (column.id !== value) return
                   return label
                 })}
