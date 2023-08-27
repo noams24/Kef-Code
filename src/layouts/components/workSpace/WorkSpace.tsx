@@ -21,7 +21,6 @@ import "./split.css"
 export type EditorContentType = SerializedEditorState | undefined | any;
 
 type WorkSpaceProps = {
-  userId?: any;
   problemId: string,
   solution: any
   children: any
@@ -36,6 +35,7 @@ interface Data {
   bookmark: boolean | undefined;
   likeStatus: any;
   solutionArticle?: any
+  totalSubmissions: number
   //TODO: discussion
   // solutionVideoUrl?: String
 }
@@ -113,7 +113,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({ problemId, solution, children }) 
   // }
 
   useEffect(() => {
-    if (workSpaceData) {
+    if (workSpaceData && workSpaceData.content) {
       const newData = { "id": "1", "name": "1", "data": workSpaceData.content.content }
       setDocument(newData as unknown as EditorDocument)
       setJsonState(newData.data)
@@ -133,7 +133,9 @@ const Workspace: React.FC<WorkSpaceProps> = ({ problemId, solution, children }) 
   return (
     <>
       <Split className="split h-[70vh]" minSize={0} >
-        <SolutionSection workSpaceData={workSpaceData} problemId={problemId} solution={solution} children={children} />
+        <SolutionSection workSpaceData={workSpaceData} problemId={problemId} solution={solution} loading={isLoadingData}>
+          {children}
+        </SolutionSection>
         {/*EDITOR SECTION */}
         <div className="w-full overflow-y-auto ">
           {(!isLoadingData && workSpaceData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>}

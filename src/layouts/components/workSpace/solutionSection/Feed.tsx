@@ -2,15 +2,6 @@
 import SolutionCard from './SolutionCard';
 import * as React from "react"
 import { useGenerationStore } from '@/store/store';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/Select"
 
 interface FeedProps {
   data: any
@@ -27,25 +18,9 @@ const Feed: React.FC<FeedProps> = ({ data }) => {
 
   return (
     <>
-      <div className="mt-3 dark:text-white text-center" dir="rtl">
-        <Select>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="לייקים" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>מיין לפי</SelectLabel>
-              <SelectItem value="likes">לייקים</SelectItem>
-              <SelectItem value="recent">נוסף לאחרונה</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
-
       {(!data) ? <p>אין פתרונות עדיין</p> :
         <div>
           {data?.map((item: any, index: any) => (
-            
             <div key={index} onClick={() => handleClick(index)}>
               <SolutionCard author={item.user.username} date={item.createdAt} likes={item.votes.length} comments={item.comments.length} />
             </div>

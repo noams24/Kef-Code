@@ -14,51 +14,48 @@ import { useGenerationStore } from '@/store/store';
 import { useGenerationStoree } from '@/store/store';
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-// import type { EditorDocument } from './types';
+
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+  } from "@/components/ui/Select"
+import { useEffect, useState } from "react";
 
 interface SolutionSectionProps {
     workSpaceData: any,
     problemId: any,
     solution: any,
-    children: any
+    children: any,
+    loading: any,
 }
 
-interface Data {
-    imageUrl: any;
-    likes: number;
-    dislikes: number;
-    difficulty: String;
-    bookmark: boolean | undefined;
-    likeStatus: any;
-    solutionArticle?: any
-    //TODO: discussion
-    // solutionVideoUrl?: String
-}
-
-const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, problemId, solution, children }) => {
+const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, problemId, solution, children, loading}) => {
 
     const { solutionState, setSolution } = useGenerationStore()
     const { page } = useGenerationStoree()
+    const [ sortBy, setSort ] = useState('likes')
+
     const development = process.env.DATABASE_URL !== undefined && process.env.DATABASE_URL !== null;
 
-    const { data: soltionSectionData, isPreviousData, isFetching } = useQuery({
-        queryKey: ['solutions', page],
+    const { data: soltionSectionData, refetch, isFetching } = useQuery({
+        queryKey: [page],
         queryFn: async () => {
-            const query = `/api/getSolutions?problemId=${problemId}&page=${page}`
+            const query = `/api/getSolutions?problemId=${problemId}&page=${page}&sortBy=${sortBy}`
             const { data } = await axios.get(query)
             return data
         },
-        keepPreviousData: true
-    })
+        keepPreviousData: true,  
+    },)
 
-    // const { data: problemDescription } = useQuery({
-    //     queryFn: async () => {
-    //         const query = `/api/getProblemDescription?problemId=${problemId}`
-    //         const { data } = await axios.get(query)
-    //         return data
-    //         // return data as Data
-    //     },
-    // })
+    const sortData: any = (e:any) => {
+        setSort(e)
+        refetch()
+    }
 
     return (
         <div className="overflow-y-auto scrollbar-hide">
@@ -75,8 +72,26 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
                             {/* <Solution author="ישראל ישראלי" date="2023-08-14" likes={42} comments={0} content={soltionSectionData[0].html} /> */}
                         </div>
                         : <div>
-                            {soltionSectionData ? <Feed data={soltionSectionData} /> : <p>טוען..</p>}
-                            {soltionSectionData && <PaginationControls hasNextPage={soltionSectionData.hasMore} hasPrevPage={page != 1} numberOfItems={1} />}
+                            {soltionSectionData ? 
+                            <div>
+                                  <div className="mt-3 dark:text-white text-center" dir="rtl">
+                                  <Select onValueChange={(e) => (sortData(e))}>
+                                    <SelectTrigger className="w-[180px]">
+                                      <SelectValue placeholder="לייקים" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      <SelectGroup>
+                                        <SelectLabel>מיין לפי</SelectLabel>
+                                        <SelectItem value="likes">לייקים</SelectItem>
+                                        <SelectItem value="recent">נוסף לאחרונה</SelectItem>
+                                      </SelectGroup>
+                                    </SelectContent>
+                                  </Select>
+                                </div>
+                            {isFetching ? <p>טוען</p> : <Feed data={soltionSectionData} />}
+                            </div>
+                             : <p>טוען..</p>}
+                            {soltionSectionData && workSpaceData && <PaginationControls numberOfPages={Math.ceil(workSpaceData.totalSubmissions / 5)} currentPage={page} />}
                             </div>}
             
                 </Tab>
@@ -95,12 +110,13 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
                         :
                         <div className="my-2">
                             {workSpaceData && <Likes problemId={problemId} difficulty={workSpaceData.difficulty} likes={Number(workSpaceData.likes)} dislikes={Number(workSpaceData.dislikes)} bookmark={workSpaceData.bookmark} likeStatus={workSpaceData.likeStatus} /> }
-                            <div className="mt-5 flex justify-center">s
+                            <div className="mt-5 flex justify-center">
                                 <ImageDisplay imageUrl={workSpaceData?.imageUrl} />
                             </div>
                         </div>}
                     <Accordion className="mt-8" title="דיון">
                         {children}
+                        {/* Comment Section */}
                     </Accordion>
                 </Tab>
             </Tabs>

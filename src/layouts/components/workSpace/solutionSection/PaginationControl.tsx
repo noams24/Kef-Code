@@ -6,36 +6,33 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons"
 import { useGenerationStoree } from '@/store/store';
 
 interface PaginationControlsProps {
-    hasNextPage: boolean
-    hasPrevPage: boolean
-    numberOfItems: number
+    numberOfPages: number
+    currentPage:number
 }
 
 const PaginationControls: FC<PaginationControlsProps> = (
     {
-        hasNextPage,
-        hasPrevPage,
-        numberOfItems,
+        numberOfPages,
+        currentPage,
     }
 ) => {
     const { page, setPage } = useGenerationStoree()
-    const per_page = 5
+    // const per_page = 5
 
     return (
         <div className='flex justify-center gap-2 mb-4'>
             <Button
-                disabled={!hasPrevPage}
+                disabled={currentPage === 1}
                 onClick={() => { setPage(Number(page) - 1)}}>
                     
                 <ChevronLeftIcon className="h-4 w-4" />
             </Button>
 
-            <div>
-                {/* {page} / {Math.ceil(numberOfItems / Number(per_page))} */}
+            <div className="mt-1">
                 {page}
             </div>
             <Button
-                // disabled={!hasNextPage}
+                disabled={currentPage === numberOfPages}
                 onClick={() => { setPage(Number(page) + 1)}}>
                 <ChevronRightIcon className="h-4 w-4" />
             </Button>

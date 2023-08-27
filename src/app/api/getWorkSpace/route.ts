@@ -79,6 +79,12 @@ export async function GET(req: Request) {
             }
         })
 
+        const totalSubmissions = await db.submissions.count({
+            where: {
+                problemId: problemId,
+            }
+        })
+
         const result = {
             content: content,
             imageUrl: problemData.img,
@@ -87,7 +93,8 @@ export async function GET(req: Request) {
             dislikes: dislikes,
             bookmark: bookmark,
             likeStatus: likeStatus?.type,
-            solutionArticle: solutionArticle
+            solutionArticle: solutionArticle,
+            totalSubmissions: totalSubmissions
             //todo:
             //videoUrl
         }

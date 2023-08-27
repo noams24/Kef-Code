@@ -9,27 +9,53 @@ export async function GET(req: Request) {
     const url = new URL(req.url)
     const problemId = Number(url.searchParams.get('problemId'))
     const page = Number(url.searchParams.get('page'))
-
+    const sortBy = url.searchParams.get('sortBy')
     const session = await getAuthSession()
+
 
     if (!problemId) return new Response('Invalid query', { status: 400 })
     try {
-        const results = await db.submissions.findMany({
-            orderBy: {
-                createdAt: 'desc',
-            },
-            where: {
-                problemId,
-                isPublic: true
-            },
-            include: {
-                user: true,
-                votes: true,
-                comments: true
-            },
-            take: 5,
-            skip: (page - 1) * 5
-        })
+        let results = null
+        if (sortBy === 'likes') {
+            results = await db.submissions.findMany({
+                where: {
+                    problemId,
+                    isPublic: true
+                },
+                include: {
+                    user: true,
+                    votes: true,
+                    comments: true,
+                },
+                
+                orderBy: {
+                    votes: {
+                      _count: 'desc',
+                    },
+                  },
+                
+                take: 5,
+                skip: (page - 1) * 5
+            })
+        }
+        else {
+            results = await db.submissions.findMany({
+                orderBy: {
+                    createdAt: 'desc',
+                },
+                where: {
+                    problemId,
+                    isPublic: true
+                },
+                include: {
+                    user: true,
+                    votes: true,
+                    comments: true
+                },
+                take: 5,
+                skip: (page - 1) * 5
+            })
+        }
 
         if (!results) return new Response('No results', { status: 401 })
 
@@ -54,10 +80,10 @@ export async function GET(req: Request) {
         for (let i = 0; i < results.length; i++) {
             // parse the json content to html to display the answer
             const document = results[i].content
-            const documentt = {id:'1', data:document} as unknown as EditorDocument
+            const documentt = { id: '1', data: document } as unknown as EditorDocument
             const htmlData = await generateHtml(documentt.data);
             newResults[i].html = htmlData
-            
+
             //check if the user has already like the submission
             const flag = newResults[i].votes.some((obj: { userId: string | undefined; }) => obj.userId === session?.user.id);
             newResults[i].likeStatus = flag
