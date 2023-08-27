@@ -113,7 +113,6 @@ const Workspace: React.FC<WorkSpaceProps> = ({ problemId, solution, children }) 
   // }
 
   useEffect(() => {
-    console.log(workSpaceData)
     if (workSpaceData && workSpaceData.content) {
       const newData = { "id": "1", "name": "1", "data": workSpaceData.content.content }
       setDocument(newData as unknown as EditorDocument)
