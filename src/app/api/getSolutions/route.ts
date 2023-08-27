@@ -59,7 +59,6 @@ export async function GET(req: Request) {
             newResults[i].html = htmlData
             
             //check if the user has already like the submission
-            // console.log(newResults[i].votes)
             const flag = newResults[i].votes.some((obj: { userId: string | undefined; }) => obj.userId === session?.user.id);
             newResults[i].likeStatus = flag
         }

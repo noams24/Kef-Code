@@ -34,7 +34,7 @@ export function DataTablePagination<TData>({
               table.setPageSize(Number(value))
             }}
           >
-            <SelectTrigger className="h-8 w-[70px] btn-hover-color">
+            <SelectTrigger className="h-8 w-[70px] btn-table-hover-color">
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
             <SelectContent side="top" className="bg-gray-100 dark:bg-black">
@@ -53,7 +53,7 @@ export function DataTablePagination<TData>({
         <div className="flex items-center space-x-2">
           <Button
             variant="outline"
-            className="hidden h-8 w-8 p-0 lg:flex btn-hover-color"
+            className="hidden h-8 w-8 p-0 lg:flex btn-table-hover-color"
             onClick={() => table.setPageIndex(table.getPageCount() - 1)}
             disabled={!table.getCanNextPage()}
             title="לך לעמוד אחרון"
@@ -63,7 +63,7 @@ export function DataTablePagination<TData>({
           </Button>
           <Button
             variant="outline"
-            className="h-8 w-8 p-0 btn-hover-color"
+            className="h-8 w-8 p-0 btn-table-hover-color"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
             title="לך לעמוד הבא"
@@ -73,7 +73,7 @@ export function DataTablePagination<TData>({
           </Button>
           <Button
             variant="outline"
-            className="h-8 w-8 p-0 btn-hover-color"
+            className="h-8 w-8 p-0 btn-table-hover-color"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
             title="חזרה לעמוד הקודם"
@@ -83,7 +83,7 @@ export function DataTablePagination<TData>({
           </Button>
           <Button
             variant="outline"
-            className="hidden h-8 w-8 p-0 lg:flex btn-hover-color"
+            className="hidden h-8 w-8 p-0 lg:flex btn-table-hover-color"
             onClick={() => table.setPageIndex(0)}
             disabled={!table.getCanPreviousPage()}
             title="לך לעמוד הראשון"

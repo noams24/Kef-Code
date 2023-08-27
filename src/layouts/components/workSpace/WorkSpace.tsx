@@ -1,14 +1,9 @@
 "use client"
+
 import Split from 'react-split'
 import { Button } from "@/components/ui/button";
 import playgroundTemplate from './jsonFiles/empty.json';
 import type { EditorDocument } from './types';
-import Tab from "@/shortcodes/Tab";
-import Tabs from "@/shortcodes/Tabs";
-// import Video from "@/shortcodes/Video";
-import Likes from "@/shortcodes/Likes";
-import Accordion from "@/shortcodes/Accordion";
-import ImageDisplay from "@/components/ImageDisplay"
 import { type EditorState, type SerializedEditorState } from "lexical";
 import React, { useState, useEffect } from "react";
 import { useMutation } from '@tanstack/react-query'
@@ -16,31 +11,24 @@ import axios, { AxiosError } from 'axios'
 import { useCustomToasts } from '@/hooks/use-custom-toast'
 import { toast } from '@/hooks/use-toast'
 import { useQuery } from '@tanstack/react-query'
-// import DisplaySolution from './DisplaySolution';
-import "./split.css"
-// import { notFound } from 'next/navigation';
-// import dynamic from "next/dynamic";
 import Confetti from 'react-confetti';
 import Editor from "@/layouts/editor/components/Editor"
 import useWindowSize from '@/hooks/useWindowSize';
-import Youtube from '@/shortcodes/Youtube';
-// import SolutionCard from './solutionSection/SolutionCard';
-import { useGenerationStore } from '@/store/store';
-import { AiOutlineClose } from 'react-icons/ai';
-import SolutionsSection from './solutionSection/SolutionsSection';
-import Solution from './solutionSection/Solution';
-// import { Suspense } from 'react'
-// import { Loader2 } from 'lucide-react'
-// import CommentsSection from '../comments/CommentsSection'
-import PaginationControls from './solutionSection/PaginationControl'
-import { useGenerationStoree } from '@/store/store';
+import SolutionSection from './solutionSection/SolutionSection';
 
-// import CommentsSection from '../components/CommentsSection'
-// const Editor = dynamic(() => import("@/layouts/editor/components/Editor"), { ssr: false, loading: () => <div>Loadin</div> });
+import "./split.css"
+
 export type EditorContentType = SerializedEditorState | undefined | any;
 
+type WorkSpaceProps = {
+  userId?: any;
+  problemId: string,
+  solution: any
+  children: any
+};
+
 interface Data {
-  content: EditorDocument | undefined;
+  content: any;
   imageUrl: any;
   likes: number;
   dislikes: number;
@@ -50,16 +38,7 @@ interface Data {
   solutionArticle?: any
   //TODO: discussion
   // solutionVideoUrl?: String
-
-  //TODO: solutions?: solutions[]
 }
-
-type WorkSpaceProps = {
-  userId?: any;
-  problemId: string,
-  solution: any
-  children: any
-};
 
 function onChange(
   state: EditorState,
@@ -74,18 +53,14 @@ function onChange(
   });
 }
 
-const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solution, children }) => {
-  // const document = playgroundTemplate as unknown as EditorDocument;
+const Workspace: React.FC<WorkSpaceProps> = ({ problemId, solution, children }) => {
   const { loginToast } = useCustomToasts()
-  const imageUrl = "https://i.ibb.co/Gdz4BTg/problem1.png";
+
   const [document, setDocument] = useState<EditorDocument>(playgroundTemplate as unknown as EditorDocument);
   const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
   const [confetti, setConfetti] = useState(false);
   const { width, height } = useWindowSize();
-  const { solutionState, setSolution } = useGenerationStore()
-  const { page } = useGenerationStoree()
 
-  // const development = (process.env.NODE_ENV !== "development")
   const development = process.env.DATABASE_URL !== undefined && process.env.DATABASE_URL !== null;
   //save solution to db
   const { mutate: handleSave, isLoading } = useMutation({
@@ -116,22 +91,31 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
     },
   })
 
-  //get data from the db
+  // get data from the db
   const { data: workSpaceData, isLoading: isLoadingData } = useQuery({
     queryFn: async () => {
-      const query = `/api/getWorkSpace?problemId=${problemId}&userId=${userId}`
+      const query = `/api/getWorkSpace?problemId=${problemId}`
       const { data } = await axios.get(query)
       return data as Data
     },
   })
+
+  // const { data: editorContent, isLoading: isLoadingEditor } = useQuery({
+  //   queryFn: async () => {
+  //     const query = `/api/getEditor?problemId=${problemId}`
+  //     const { data } = await axios.get(query)
+  //     return data
+  //   },
+  // })
+
   // if (!isFetching && !data?.imageUrl) {
   //   notFound()
   // }
 
   useEffect(() => {
-    if (workSpaceData?.content) {
+    if (workSpaceData) {
       const newData = { "id": "1", "name": "1", "data": workSpaceData.content.content }
-      setDocument(newData as EditorDocument)
+      setDocument(newData as unknown as EditorDocument)
       setJsonState(newData.data)
     }
   }, [workSpaceData])
@@ -146,71 +130,18 @@ const Workspace: React.FC<WorkSpaceProps> = ({ userId = null, problemId, solutio
     };
   }, [confetti]);
 
-
-  const { data: soltionSectionData, isPreviousData, isFetching } = useQuery({
-    queryKey: ['solutions', page],
-    queryFn: async () => {
-      const query = `/api/getSolutions?problemId=${problemId}&page=${page}`
-      const { data } = await axios.get(query)
-      return data
-    },
-    keepPreviousData: true
-  })
-
   return (
     <>
       <Split className="split h-[70vh]" minSize={0} >
-        <div className="overflow-y-auto scrollbar-hide">
-          <Tabs>
-            <Tab name="פתרונות">
-              {(solutionState || solutionState === 0) ?
-                <div className="px-5">
-                  <div className="sticky top-0">
-                    <button onClick={() => setSolution(null)} className="dark:text-white hover:bg-gray-400 ">
-                      <AiOutlineClose />
-                    </button>
-                  </div>
-                  <Solution data={soltionSectionData[Number(solutionState)]} />
-                  {/* <Solution author="ישראל ישראלי" date="2023-08-14" likes={42} comments={0} content={soltionSectionData[0].html} /> */}
-                </div>
-                : <div>
-                  {isFetching ? <p>טוען..</p> : <SolutionsSection data={soltionSectionData} />}
-                  {soltionSectionData ?
-                    <PaginationControls hasNextPage={isPreviousData || !soltionSectionData?.hasMore} hasPrevPage={page != 1}
-                      numberOfItems={1}
-                    /> : null}</div>}
-            </Tab>
-            <Tab name="פתרון רשמי">
-              <div className="mt-5">
-                <Youtube id="B1J6Ou4q8vE" title={'פתרון'} />
-              </div>
-              <div className="px-5">
-                {solution}
-              </div>
-            </Tab>
-            <Tab name="תיאור">
-              {development ? <div>
-                <Likes problemId={problemId} difficulty={'קל'} likes={5} dislikes={2} bookmark={undefined} likeStatus={undefined} />
-                <ImageDisplay imageUrl={imageUrl} /> </div>
-                :
-                <div className="my-2">
-                  {!isLoadingData && workSpaceData && <Likes problemId={problemId} difficulty={workSpaceData?.difficulty} likes={Number(workSpaceData?.likes)} dislikes={Number(workSpaceData?.dislikes)} bookmark={workSpaceData?.bookmark} likeStatus={workSpaceData?.likeStatus} />}
-                  {isLoadingData ? <div>Loading</div> : workSpaceData &&
-                    <div className="mt-5 flex justify-center"><ImageDisplay imageUrl={workSpaceData?.imageUrl} /></div>}
-                </div>}
-              <Accordion className="mt-8" title="דיון">
-                {children}
-              </Accordion>
-            </Tab>
-          </Tabs>
-
-
-        </div>
+        <SolutionSection workSpaceData={workSpaceData} problemId={problemId} solution={solution} children={children} />
+        {/*EDITOR SECTION */}
         <div className="w-full overflow-y-auto ">
-          {development ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> :
-            <div>{(!isLoadingData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>}</div>}
+          {(!isLoadingData && workSpaceData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>}
+          {/* <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> */}
         </div>
       </Split >
+
+      {/* Buttons */}
       <div className="my-3 flex justify-center gap-x-2">
         <Button
           onClick={() => handleSave({ jsonState, isPublic: true })}

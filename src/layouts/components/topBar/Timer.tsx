@@ -41,6 +41,7 @@ const Timer: React.FC<TimerProps> = () => {
 				<div className='container-timer'>
 					<div className="dark:text-white text-gray-400">{formatTime(time)}</div>
 					<FiRefreshCcw
+						color="white"
 						onClick={() => {
 							setShowTimer(false);
 							setTime(0);
