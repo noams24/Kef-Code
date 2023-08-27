@@ -10,7 +10,7 @@ import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { UploadProblem } from "@/components/UploadProblem";
 
-const Add = async () => {
+const AddProblem = async () => {
   const session = await getServerSession(authOptions)
   if (session?.user.role !== 'ADMIN') {
     throw new Error('Unauthorized')
@@ -27,4 +27,4 @@ const Add = async () => {
     </>
   );
 };
-export default Add;
+export default AddProblem;
