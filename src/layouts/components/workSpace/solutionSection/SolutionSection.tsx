@@ -14,28 +14,16 @@ import { useGenerationStore } from '@/store/store';
 import { useGenerationStoree } from '@/store/store';
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-// import type { EditorDocument } from './types';
 
 interface SolutionSectionProps {
     workSpaceData: any,
     problemId: any,
     solution: any,
     children: any,
+    loading: any,
 }
 
-interface Data {
-    imageUrl: any;
-    likes: number;
-    dislikes: number;
-    difficulty: String;
-    bookmark: boolean | undefined;
-    likeStatus: any;
-    solutionArticle?: any
-    //TODO: discussion
-    // solutionVideoUrl?: String
-}
-
-const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, problemId, solution, children}) => {
+const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, problemId, solution, children, loading}) => {
 
     const { solutionState, setSolution } = useGenerationStore()
     const { page } = useGenerationStoree()
@@ -48,17 +36,8 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
             const { data } = await axios.get(query)
             return data
         },
-        keepPreviousData: true
-    })
-
-    // const { data: problemDescription } = useQuery({
-    //     queryFn: async () => {
-    //         const query = `/api/getProblemDescription?problemId=${problemId}`
-    //         const { data } = await axios.get(query)
-    //         return data
-    //         // return data as Data
-    //     },
-    // })
+        keepPreviousData: true,  
+    },)
 
     return (
         <div className="overflow-y-auto scrollbar-hide">
@@ -76,7 +55,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
                         </div>
                         : <div>
                             {soltionSectionData ? <Feed data={soltionSectionData} /> : <p>טוען..</p>}
-                            {soltionSectionData && <PaginationControls hasNextPage={soltionSectionData.hasMore} hasPrevPage={page != 1} numberOfItems={1} />}
+                            {soltionSectionData && workSpaceData && <PaginationControls numberOfPages={Math.ceil(workSpaceData.totalSubmissions / 5)} currentPage={page} />}
                             </div>}
             
                 </Tab>
