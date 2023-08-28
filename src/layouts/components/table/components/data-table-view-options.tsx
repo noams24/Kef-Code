@@ -12,6 +12,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "../registry/new-york/ui/dropdown-menu"
+import { hebrewColumnsFilter } from "../data/data"
 import './styles.css';
 interface DataTableViewOptionsProps<TData> {
   table: Table<TData>
@@ -19,21 +20,24 @@ interface DataTableViewOptionsProps<TData> {
 
 export function DataTableViewOptions<TData>({
   table,
-}: DataTableViewOptionsProps<TData>) {
+}: DataTableViewOptionsProps<TData>) {  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
           size="sm"
-          className="ml-auto hidden h-8 lg:flex"
+          className="ml-auto hidden h-8 lg:flex btn-table-hover-color"
         >
           <MixerHorizontalIcon className="mr-2 h-4 w-4" />
           הגדרת תצוגה
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="dropDownMenuClass">
-        <DropdownMenuLabel>שינוי עמודות</DropdownMenuLabel>
+      <DropdownMenuContent align="end" className="dropDownMenuClass dark:bg-black">
+        <DropdownMenuLabel
+          className="flex flex-row-reverse">
+          שינוי עמודות
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         {table
           .getAllColumns()
@@ -45,11 +49,14 @@ export function DataTableViewOptions<TData>({
             return (
               <DropdownMenuCheckboxItem
                 key={column.id}
-                className="capitalize"
+                className="flex flex-row-reverse"
                 checked={column.getIsVisible()}
                 onCheckedChange={(value) => column.toggleVisibility(!!value)}
               >
-                {column.id}
+                {hebrewColumnsFilter.map(({ label, value }) => {
+                  if (column.id !== value) return
+                  return label
+                })}
               </DropdownMenuCheckboxItem>
             )
           })}
