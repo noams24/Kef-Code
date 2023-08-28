@@ -35,9 +35,8 @@ interface Data {
   bookmark: boolean | undefined;
   likeStatus: any;
   solutionArticle?: any
+  videoUrl?: any
   totalSubmissions: number
-  //TODO: discussion
-  // solutionVideoUrl?: String
 }
 
 function onChange(
@@ -61,7 +60,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({ problemId, solution, children }) 
   const [confetti, setConfetti] = useState(false);
   const { width, height } = useWindowSize();
 
-  const development = process.env.DATABASE_URL !== undefined && process.env.DATABASE_URL !== null;
+  // const development = process.env.DATABASE_URL !== undefined && process.env.DATABASE_URL !== null;
   //save solution to db
   const { mutate: handleSave, isLoading } = useMutation({
     mutationFn: async ({ jsonState, isPublic }: any) => {

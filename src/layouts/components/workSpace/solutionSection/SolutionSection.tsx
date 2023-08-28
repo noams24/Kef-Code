@@ -14,6 +14,10 @@ import { useGenerationStore } from '@/store/store';
 import { useGenerationStoree } from '@/store/store';
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
+import parse from 'html-react-parser';
+
+import "mathlive/static.css";
+import '@/layouts/editor/theme.css';
 
 import {
     Select,
@@ -23,7 +27,7 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
-  } from "@/components/ui/Select"
+} from "@/components/ui/Select"
 import { useEffect, useState } from "react";
 
 interface SolutionSectionProps {
@@ -34,11 +38,11 @@ interface SolutionSectionProps {
     loading: any,
 }
 
-const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, problemId, solution, children, loading}) => {
+const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, problemId, solution, children, loading }) => {
 
     const { solutionState, setSolution } = useGenerationStore()
     const { page } = useGenerationStoree()
-    const [ sortBy, setSort ] = useState('likes')
+    const [sortBy, setSort] = useState('likes')
 
     const development = process.env.DATABASE_URL !== undefined && process.env.DATABASE_URL !== null;
 
@@ -49,19 +53,22 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
             const { data } = await axios.get(query)
             return data
         },
-        keepPreviousData: true,  
+        keepPreviousData: true,
     },)
 
-    const sortData: any = (e:any) => {
+    const sortData: any = (e: any) => {
         setSort(e)
         refetch()
     }
-
+    if (workSpaceData){
+        console.log(workSpaceData)
+    }
     return (
         <div className="overflow-y-auto scrollbar-hide">
             <Tabs>
                 <Tab name="פתרונות">
-                    {(solutionState || solutionState === 0) ?
+                    {(workSpaceData && workSpaceData.totalSubmissions === 0) ? <h3 className="flex justify-center">אין פתרונות להצגה</h3> : 
+                    (solutionState || solutionState === 0) ?
                         <div className="px-5">
                             <div className="sticky top-0">
                                 <button onClick={() => setSolution(null)} className="dark:text-white hover:bg-gray-400 ">
@@ -72,35 +79,36 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
                             {/* <Solution author="ישראל ישראלי" date="2023-08-14" likes={42} comments={0} content={soltionSectionData[0].html} /> */}
                         </div>
                         : <div>
-                            {soltionSectionData ? 
-                            <div>
-                                  <div className="mt-3 dark:text-white text-center" dir="rtl">
-                                  <Select onValueChange={(e) => (sortData(e))}>
-                                    <SelectTrigger className="w-[180px]">
-                                      <SelectValue placeholder="לייקים" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                      <SelectGroup>
-                                        <SelectLabel>מיין לפי</SelectLabel>
-                                        <SelectItem value="likes">לייקים</SelectItem>
-                                        <SelectItem value="recent">נוסף לאחרונה</SelectItem>
-                                      </SelectGroup>
-                                    </SelectContent>
-                                  </Select>
+                            {soltionSectionData ?
+                                <div>
+                                    <div className="mt-3 dark:text-white text-center" dir="rtl">
+                                        <Select onValueChange={(e) => (sortData(e))}>
+                                            <SelectTrigger className="w-[180px]">
+                                                <SelectValue placeholder="לייקים" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectGroup>
+                                                    <SelectLabel>מיין לפי</SelectLabel>
+                                                    <SelectItem value="likes">לייקים</SelectItem>
+                                                    <SelectItem value="recent">נוסף לאחרונה</SelectItem>
+                                                </SelectGroup>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    {isFetching ? <p>טוען</p> : <Feed data={soltionSectionData} />}
                                 </div>
-                            {isFetching ? <p>טוען</p> : <Feed data={soltionSectionData} />}
-                            </div>
-                             : <p>טוען..</p>}
+                                : <p>טוען..</p>}
                             {soltionSectionData && workSpaceData && <PaginationControls numberOfPages={Math.ceil(workSpaceData.totalSubmissions / 5)} currentPage={page} />}
-                            </div>}
-            
+                        </div>}
+
                 </Tab>
                 <Tab name="פתרון רשמי">
                     <div className="mt-5">
-                        <Youtube id="B1J6Ou4q8vE" title={'פתרון'} />
+                        {development ? <Youtube id="B1J6Ou4q8vE" title={'פתרון'} /> :
+                         (workSpaceData && workSpaceData.videoUrl) ? <Youtube id={workSpaceData.videoUrl} title={'פתרון'} /> : null}
                     </div>
                     <div className="px-5">
-                        {solution}
+                       {development ? solution : (workSpaceData && workSpaceData.solutionArticle) ? parse(workSpaceData.solutionArticle) : null }
                     </div>
                 </Tab>
                 <Tab name="תיאור">
@@ -109,7 +117,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
                         <ImageDisplay imageUrl={"https://i.ibb.co/Gdz4BTg/problem1.png"} /> </div>
                         :
                         <div className="my-2">
-                            {workSpaceData && <Likes problemId={problemId} difficulty={workSpaceData.difficulty} likes={Number(workSpaceData.likes)} dislikes={Number(workSpaceData.dislikes)} bookmark={workSpaceData.bookmark} likeStatus={workSpaceData.likeStatus} /> }
+                            {workSpaceData && <Likes problemId={problemId} difficulty={workSpaceData.difficulty} likes={Number(workSpaceData.likes)} dislikes={Number(workSpaceData.dislikes)} bookmark={workSpaceData.bookmark} likeStatus={workSpaceData.likeStatus} />}
                             <div className="mt-5 flex justify-center">
                                 <ImageDisplay imageUrl={workSpaceData?.imageUrl} />
                             </div>

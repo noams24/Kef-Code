@@ -1,5 +1,9 @@
 import { db } from '@/lib/db'
 import { getAuthSession } from '@/lib/auth'
+import { generateHtml } from "@/layouts/editor/utils/generateHtml"
+import { JSDOM } from "jsdom";
+import type { EditorDocument } from '@/types'
+
 
 export async function GET(req: Request) {
     try {
@@ -69,13 +73,14 @@ export async function GET(req: Request) {
             })
         }
 
-        // get solution article:
-        const solutionArticle = await db.solution.findFirst({
+        // get solution article and videourl:
+        const solution = await db.solution.findFirst({
             where: {
                 problemId: problemId,
             },
             select: {
-                content: true
+                content: true,
+                videoUrl: true
             }
         })
 
@@ -84,6 +89,18 @@ export async function GET(req: Request) {
                 problemId: problemId,
             }
         })
+        let htmlData = null
+        if (solution?.content) {
+            const dom = new JSDOM()
+            global.window = dom.window as unknown as Window & typeof globalThis
+            global.document = dom.window.document
+            global.DocumentFragment = dom.window.DocumentFragment
+            global.Element = dom.window.Element
+            global.navigator = dom.window.navigator
+            const document = solution.content
+            const documentt = { id: '1', data: document } as unknown as EditorDocument
+            htmlData = await generateHtml(documentt.data);
+        }
 
         const result = {
             content: content,
@@ -93,10 +110,9 @@ export async function GET(req: Request) {
             dislikes: dislikes,
             bookmark: bookmark,
             likeStatus: likeStatus?.type,
-            solutionArticle: solutionArticle,
+            solutionArticle: htmlData,
+            videoUrl: solution?.videoUrl,
             totalSubmissions: totalSubmissions
-            //todo:
-            //videoUrl
         }
         return new Response(JSON.stringify(result))
     }

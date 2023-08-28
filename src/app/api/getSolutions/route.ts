@@ -1,6 +1,5 @@
 import { db } from '@/lib/db'
 import { generateHtml } from "@/layouts/editor/utils/generateHtml"
-import parse from 'html-react-parser';
 import { JSDOM } from "jsdom";
 import type { EditorDocument } from './types';
 import { getAuthSession } from '@/lib/auth'
