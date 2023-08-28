@@ -21,44 +21,31 @@ interface PageProps {
         single: string
     }
 }
-
+let solution: any = null
 const singleProblem = async ({ params }: PageProps) => {
     // const session = await getServerSession(authOptions);
-
-    const dom = new JSDOM()
-    global.window = dom.window as unknown as Window & typeof globalThis
-    global.document = dom.window.document
-    global.DocumentFragment = dom.window.DocumentFragment
-    global.Element = dom.window.Element
-    global.navigator = dom.window.navigator
-    const document = playgroundTemplate as unknown as EditorDocument;
-
-    const html = await generateHtml(document.data);
-
-    const children = parse(html);
     const develop = process.env.DATABASE_URL === undefined || process.env.DATABASE_URL === null;
-    {/* 
-    try {
-        // Fetch all records from the "Problem" table
-        const problem = await db.problem.findUnique({
-            where: {
-                id: params.single,
-            },
-        })
-        //console.log(problem);
+    if (develop) {
+        const dom = new JSDOM()
+        global.window = dom.window as unknown as Window & typeof globalThis
+        global.document = dom.window.document
+        global.DocumentFragment = dom.window.DocumentFragment
+        global.Element = dom.window.Element
+        global.navigator = dom.window.navigator
+        const document = playgroundTemplate as unknown as EditorDocument;
+
+        const html = await generateHtml(document.data);
+
+        solution = parse(html);
     }
-    catch (error) {
-        console.error('Error finding problem:', error);
-    }
-*/}
+
     return (
         <>
             {/* <PageHeader title={params.single} /> */}
             <div className="my-5">
                 <TopBar title={params.single} />
             </div>
-
-            <Workspace problemId={params.single} solution={children}>
+            <Workspace problemId={params.single} solution={solution}>
                 {develop ? null : <CommentsSection problemId={1} comments={[]} />}
             </Workspace>
         </>
