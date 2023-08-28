@@ -82,3 +82,14 @@ export type Button = {
   label: string;
   link: string;
 };
+
+export interface EditorDocument {
+  id: string;
+  handle?: string | null;
+  name: string;
+  data: SerializedEditorState;
+  createdAt: string;
+  updatedAt: string;
+  published?: boolean;
+  baseId?: string;
+}
