@@ -56,7 +56,7 @@ const Header = () => {
                   </span>
                   <ul className="nav-dropdown-list hidden group-hover:block lg:invisible lg:absolute lg:block lg:opacity-0 lg:group-hover:visible lg:group-hover:opacity-100">
                     {menu.children?.map((child, i) => (
-                      <li className="nav-dropdown-item" key={`children-${i}`}>
+                      <li className="nav-dropdown-item text-right" key={`children-${i}`}>
                         <Link
                           href={child.url}
                           className={`nav-dropdown-link block`}
