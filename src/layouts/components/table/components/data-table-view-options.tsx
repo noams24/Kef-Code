@@ -4,6 +4,7 @@ import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import { MixerHorizontalIcon } from "@radix-ui/react-icons"
 import { Table } from "@tanstack/react-table"
 
+import { useTableViewStore } from "@/store/store"
 import { Button } from "../registry/new-york/ui/button"
 import {
   DropdownMenu,
@@ -13,14 +14,20 @@ import {
   DropdownMenuSeparator,
 } from "../registry/new-york/ui/dropdown-menu"
 import { hebrewColumnsFilter } from "../data/data"
+import { ColumnsNameEnum, ViewOptionEnum } from "@/types/enum"
+
 import './styles.css';
+
 interface DataTableViewOptionsProps<TData> {
   table: Table<TData>
 }
 
 export function DataTableViewOptions<TData>({
   table,
-}: DataTableViewOptionsProps<TData>) {  
+}: DataTableViewOptionsProps<TData>) {
+
+  const { columnsView, setColumnsView } = useTableViewStore()
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -43,7 +50,7 @@ export function DataTableViewOptions<TData>({
           .getAllColumns()
           .filter(
             (column) =>
-              typeof column.accessorFn !== "undefined" && column.getCanHide()
+              typeof column.accessorFn !== "undefined" && column.getCanHide() && column.id !== ColumnsNameEnum.TITLE
           )
           .map((column) => {
             return (
@@ -51,7 +58,13 @@ export function DataTableViewOptions<TData>({
                 key={column.id}
                 className="flex flex-row-reverse"
                 checked={column.getIsVisible()}
-                onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                onCheckedChange={(value) => {
+                  column.toggleVisibility(!!value)
+                  setColumnsView({
+                    columnName: column.id,
+                    viewOption: column.getIsVisible() ? ViewOptionEnum.HIDE : ViewOptionEnum.NO_SORTING
+                  })
+                }}
               >
                 {hebrewColumnsFilter.map(({ label, value }) => {
                   if (column.id !== value) return
@@ -60,6 +73,14 @@ export function DataTableViewOptions<TData>({
               </DropdownMenuCheckboxItem>
             )
           })}
+        <DropdownMenuCheckboxItem
+          onClick={() => {
+            columnsView.map(({ columnName }) => {
+              setColumnsView({ columnName, viewOption: ViewOptionEnum.NO_SORTING })
+            })
+          }}>
+          איפוס עמודות
+        </DropdownMenuCheckboxItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

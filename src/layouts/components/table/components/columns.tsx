@@ -1,21 +1,28 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { Badge } from "@/components/table/registry/new-york/ui/badge"
-import { Checkbox } from "@/components/table/registry/new-york/ui/checkbox"
+
+import { useTableViewStore } from "@/store/store"
+import { useInitializeTableViewStore } from "@/hooks/useInitializeTableView"
 
 import { labels, priorities, statuses } from "../data/data"
 import { Task } from "../data/schema"
 import { DataTableColumnHeader } from "./data-table-column-header"
-import { DataTableRowActions } from "./data-table-row-actions"
 import Link from "next/link";
-import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
+import { ColumnsNameEnum, ViewOptionEnum } from "@/types/enum"
 
 interface Data {
   title: string
   difficulty: string
   //TODO: problemstatus: string
+}
+
+
+const getColumnView = () => {
+  useInitializeTableViewStore()
+  const { columnsView } = useTableViewStore()
+  return columnsView
+
 }
 
 export const columns: ColumnDef<Task>[] = [
@@ -48,15 +55,39 @@ export const columns: ColumnDef<Task>[] = [
       //   },
       // })
 
+      const className = getColumnView().map(({ columnName, viewOption }) => {
+        let colorClass = 'color-priority-low'
+        if (priority.value === 'medium') {
+          colorClass = 'color-priority-medium'
+        }
+        else if (priority.value === 'high') {
+          colorClass = 'color-priority-high'
+        }
+        if (columnName === ColumnsNameEnum.STATUS && viewOption === ViewOptionEnum.HIDE) {
+          return `ml-16 ${colorClass}`
+        }
+        return colorClass
+      }).join(' ')
+
       return (
         <div className="flex justify-center items-center">
           {/* <div>{isLoading ? 'Content is loading' : JSON.stringify(data)}</div> */}
-          <span className={`color-level-${priority.value}`}>{priority.label}</span>
+          <span className={className}>{priority.label}</span>
         </div >
       )
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id))
+    },
+    sortingFn: (rowA, rowB, columId) => {
+      const statusOrder = {
+        "high": 3,
+        "medium": 2,
+        "low": 1
+      }
+      const valueA = rowA.getValue(columId) as keyof typeof statusOrder
+      const valueB = rowB.getValue(columId) as keyof typeof statusOrder
+      return statusOrder[valueA] - statusOrder[valueB]
     },
   },
   {
@@ -66,9 +97,14 @@ export const columns: ColumnDef<Task>[] = [
     ),
     cell: ({ row }) => {
       const label = labels.find((label) => label.value === row.original.label)
+      const className = getColumnView().map(({ columnName, viewOption }) => {
+        if (columnName === ColumnsNameEnum.PRIORITY || columnName === ColumnsNameEnum.STATUS && viewOption === ViewOptionEnum.HIDE) {
+          return "ml-44"
+        }
+      }).join('')
 
       return (
-        <div className="flex justify-end space-x-2 pr-7">
+        <div className={`flex justify-end space-x-2 pr-7 ${className}`}>
           <span className="max-w-[500px] truncate font-medium">
             <Link
               href="/courses/Algebra/Chapter-1/1"
@@ -100,7 +136,7 @@ export const columns: ColumnDef<Task>[] = [
           title={status.label}
           className="flex justify-end w-[80px] items-center">
           {status.icon && (
-            <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+            <status.icon className='mr-2 h-4 w-4 text-muted-foreground' />
           )}
 
         </div>
@@ -108,6 +144,18 @@ export const columns: ColumnDef<Task>[] = [
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id))
+    },
+    sortingFn: (rowA, rowB, columId) => {
+      const statusOrder = {
+        "done": 5,
+        "in progress": 4,
+        "todo": 3,
+        "backlog": 2,
+        "canceled": 1
+      }
+      const valueA = rowA.getValue(columId) as keyof typeof statusOrder
+      const valueB = rowB.getValue(columId) as keyof typeof statusOrder
+      return statusOrder[valueA] - statusOrder[valueB]
     },
   }
 ]
