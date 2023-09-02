@@ -4,19 +4,23 @@
         "chapters": [
             {
                 "title": "רקורסיה",
-                "link": "recursion"
+                "link": "recursion",
+                "complete": 87
             },
             {
                 "title": "יעילות",
-                "link": "efficiency"
+                "link": "efficiency",
+                "complete": 42
             },
             {
                 "title": "פולימורפיזם",
-                "link": "polymorphism"
+                "link": "polymorphism",
+                "complete": 69
             },
             {
                 "title": "רשימות, מחסנית, עצים בינריים",
-                "link": "data-structures"
+                "link": "data-structures",
+                "complete": 24
             }
         ]
     },
@@ -25,23 +29,28 @@
         "chapters": [
             {
                 "title": "נוסחת נסיגה",
-                "link": "recurrence-relation"
+                "link": "recurrence-relation",
+                "complete": 50
             },
             {
                 "title": "ערימות",
-                "link": "heaps"
+                "link": "heaps",
+                "complete": 76
             },
             {
                 "title": "מערכים",
-                "link": "arrays"
+                "link": "arrays",
+                "complete": 33
             },
             {
                 "title": "עצים בינריים",
-                "link": "binary trees"
+                "link": "binary trees",
+                "complete": 91
             },
             {
                 "title": "הצעת מבני נתונים",
-                "link": "data-structures-proposal"
+                "link": "data-structures-proposal",
+                "complete": 12
             }
         ]
     },
@@ -50,15 +59,18 @@
         "chapters": [
             {
                 "title": "FFT",
-                "link": "FFT"
+                "link": "FFT",
+                "complete": 58
             },
             {
                 "title": "גרפים",
-                "link": "graphs"
+                "link": "graphs",
+                "complete": 7
             },
             {
                 "title": "תכנון דינמי",
-                "link": "dynamic-programming"
+                "link": "dynamic-programming",
+                "complete": 94
             }
         ]
     },
@@ -67,27 +79,33 @@
         "chapters": [
             {
                 "title": "שאלות אמריקאיות",
-                "link": "american-questions"
+                "link": "american-questions",
+                "complete": 81
             },
             {
                 "title": "קוד מארס",
-                "link": "mars"
+                "link": "mars",
+                "complete": 29
             },
             {
                 "title": "מעבדים",
-                "link": "processor"
+                "link": "processor",
+                "complete": 63
             },
             {
                 "title": "זיכרון",
-                "link": "memory"
+                "link": "memory",
+                "complete": 2
             },
             {
                 "title": "תרשימים",
-                "link": "diagrams"
+                "link": "diagrams",
+                "complete": 39
             },
             {
                 "title": "הדפסות",
-                "link": "printing"
+                "link": "printing",
+                "complete": 72
             }
         ]
     },
@@ -96,19 +114,23 @@
         "chapters": [
             {
                 "title": "תהליכונים",
-                "link": "thread"
+                "link": "thread",
+                "complete": 45
             },
             {
                 "title": "קיפאון",
-                "link": "freezing"
+                "link": "freezing",
+                "complete": 13
             },
             {
                 "title": "דיסקים",
-                "link": "discs"
+                "link": "discs",
+                "complete": 96
             },
             {
                 "title": "דפים",
-                "link": "pages"
+                "link": "pages",
+                "complete": 18
             }
         ]
     },
@@ -117,15 +139,18 @@
         "chapters": [
             {
                 "title": "כתיבת פונקציות",
-                "link": "functions"
+                "link": "functions",
+                "complete": 31
             },
             {
                 "title": "מציאת שגיאות",
-                "link": "finding-errors"
+                "link": "finding-errors",
+                "complete": 79
             },
             {
                 "title": "כתיבת תוכנית",
-                "link": "writing-program"
+                "link": "writing-program",
+                "complete": 84
             }
         ]
     },
@@ -134,11 +159,13 @@
         "chapters": [
             {
                 "title": "טיפוסי נתונים",
-                "link": "data-types"
+                "link": "data-types",
+                "complete": 14
             },
             {
                 "title": "השלם את החסר",
-                "link": "complete-the-missing"
+                "link": "complete-the-missing",
+                "complete": 68
             }
         ]
     },
@@ -147,23 +174,28 @@
         "chapters": [
             {
                 "title": "תת-מרחבים",
-                "link": "vector-space"
+                "link": "vector-space",
+                "complete": 93
             },
             {
                 "title": "הצגה טריגונומטרית",
-                "link": "trigonometric-display"
+                "link": "trigonometric-display",
+                "complete": 25
             },
             {
                 "title": "העתקה לינארית",
-                "link": "linear-map"
+                "link": "linear-map",
+                "complete": 56
             },
             {
                 "title": "מטריצות",
-                "link": "matrics"
+                "link": "matrics",
+                "complete": 3
             },
             {
                 "title": "בסיסים",
-                "link": "bases"
+                "link": "bases",
+                "complete": 71
             }
         ]
     },
@@ -172,19 +204,23 @@
         "chapters": [
             {
                 "title": "מכפלה פנימית",
-                "link": "inner-product-space"
+                "link": "inner-product-space",
+                "complete": 47
             },
             {
                 "title": "טרנספורמציות לינאריות",
-                "link": "linear-transformations"
+                "link": "linear-transformations",
+                "complete": 22
             },
             {
                 "title": "מציאת דרגה",
-                "link": "find degree"
+                "link": "find degree",
+                "complete": 65
             },
             {
                 "title": "צורות ז'ורדן",
-                "link": "linear-map"
+                "link": "linear-map",
+                "complete": 94
             }
         ]
     },
@@ -193,27 +229,33 @@
         "chapters": [
             {
                 "title": "תחשיב הפסוקים",
-                "link": "propositionallogic"
+                "link": "propositionallogic",
+                "complete": 38
             },
             {
                 "title": "עוצמות",
-                "link": "cardinal-numbers"
+                "link": "cardinal-numbers",
+                "complete": 9
             },
             {
                 "title": "עצים",
-                "link": "trees"
+                "link": "trees",
+                "complete": 61
             },
             {
                 "title": "יחסי שקילות",
-                "link": "equivalence-relation"
+                "link": "equivalence-relation",
+                "complete": 47
             },
             {
                 "title": "טורי חזקות",
-                "link": "power-series"
+                "link": "power-series",
+                "complete": 88
             },
             {
                 "title": "גרפים",
-                "link": "graphs"
+                "link": "graphs",
+                "complete": 12
             }
         ]
     },
@@ -222,15 +264,18 @@
         "chapters": [
             {
                 "title": "מאורעות",
-                "link": "mutually"
+                "link": "mutually",
+                "complete": 76
             },
             {
                 "title": "חישוב תוחלת ושונות",
-                "link": "expected-value-variance"
+                "link": "expected-value-variance",
+                "complete": 41
             },
             {
                 "title": "התפלגויות",
-                "link": "distribution"
+                "link": "distribution",
+                "complete": 50
             }
         ]
     },
@@ -239,19 +284,23 @@
         "chapters": [
             {
                 "title": "תחשיב הפסוקים",
-                "link": "propositional-logic"
+                "link": "propositional-logic",
+                "complete": 34
             },
             {
                 "title": "תחשיב היחסים",
-                "link": "first-order-logic"
+                "link": "first-order-logic",
+                "complete": 72
             },
             {
                 "title": "גדירות",
-                "link": "definable"
+                "link": "definable",
+                "complete": 18
             },
             {
                 "title": "הצרנת משפטים",
-                "link": "sentenses"
+                "link": "sentenses",
+                "complete": 92
             }
         ]
     },
@@ -260,27 +309,33 @@
         "chapters": [
             {
                 "title": "סדרות",
-                "link": "series"
+                "link": "series",
+                "complete": 8
             },
             {
                 "title": "רציפות",
-                "link": "continuous"
+                "link": "continuous",
+                "complete": 29
             },
             {
                 "title": "גבולות",
-                "link": "limits"
+                "link": "limits",
+                "complete": 77
             },
             {
                 "title": "רציפה במידה שווה",
-                "link": "uniform-continuity"
+                "link": "uniform-continuity",
+                "complete": 51
             },
             {
                 "title": "חסימות",
-                "link": "blocks"
+                "link": "blocks",
+                "complete": 95
             },
             {
                 "title": "כלל לופיטל",
-                "link": "lhopital"
+                "link": "lhopital",
+                "complete": 63
             }
         ]
     },
@@ -289,27 +344,33 @@
         "chapters": [
             {
                 "title": "טורים",
-                "link": "series"
+                "link": "series",
+                "complete": 36
             },
             {
                 "title": "התכנסות במידה שווה",
-                "link": "uniform-convergence"
+                "link": "uniform-convergence",
+                "complete": 81
             },
             {
                 "title": "רציפות",
-                "link": "continuous"
+                "link": "continuous",
+                "complete": 7
             },
             {
                 "title": "אינטגרלים",
-                "link": "integrals"
+                "link": "integrals",
+                "complete": 68
             },
             {
                 "title": "רציפה במידה שווה",
-                "link": "uniform-continuity"
+                "link": "uniform-continuity",
+                "complete": 42
             },
             {
                 "title": "חסימות",
-                "link": "blocks"
+                "link": "blocks",
+                "complete": 19
             }
         ]
     },
@@ -318,27 +379,33 @@
         "chapters": [
             {
                 "title": "תורת הקבוצות",
-                "link": "groups-theory"
+                "link": "groups-theory",
+                "complete": 90
             },
             {
                 "title": "חבורות",
-                "link": "group"
+                "link": "group",
+                "complete": 31
             },
             {
                 "title": "פונצקיות",
-                "link": "functions"
+                "link": "functions",
+                "complete": 55
             },
             {
                 "title": "איזומטריות",
-                "link": "isometry"
+                "link": "isometry",
+                "complete": 10
             },
             {
                 "title": "אקסיומות",
-                "link": "axioms"
+                "link": "axioms",
+                "complete": 76
             },
             {
                 "title": "אינדוקציה",
-                "link": "inductive-reasoning"
+                "link": "inductive-reasoning",
+                "complete": 53
             }
         ]
     }
