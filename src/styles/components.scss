@@ -204,3 +204,9 @@
 .color-level-high {
   @apply text-red-500 dark:text-red-700;
 }
+
+.course-card-title {
+  @apply text-3xl text-white mb-2 overflow-hidden whitespace-nowrap overflow-ellipsis;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: rgb(63, 63, 63);
+}
