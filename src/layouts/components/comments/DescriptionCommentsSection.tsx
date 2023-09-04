@@ -5,18 +5,18 @@ import PostComment from './PostComment'
 import { useQuery } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 
-interface CommentsSectionProps {
+interface DescriptionCommentsSectionProps {
   ID: string
   type: string
   userId: string | undefined
   comments: any
 }
 
-const CommentsSection = ({ ID, type, userId }: CommentsSectionProps) => {
+const DescriptionCommentsSection = ({ ID, type, userId }: DescriptionCommentsSectionProps) => {
 
   // get data from the db
   const { data: comments, isLoading } = useQuery({
-    queryKey: ['comments'],
+    queryKey: ['DescriptionComments'],
     queryFn: async () => {
       const query = `/api/getComments?ID=${ID}&type=${type}`
       const { data } = await axios.get(query)
@@ -94,4 +94,4 @@ const CommentsSection = ({ ID, type, userId }: CommentsSectionProps) => {
   )
 }
 
-export default CommentsSection
+export default DescriptionCommentsSection

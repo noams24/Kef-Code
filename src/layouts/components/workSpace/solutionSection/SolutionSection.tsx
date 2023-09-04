@@ -32,6 +32,7 @@ import { useState } from "react";
 import ImageSkeleton from "@/components/skeletons/ImageSkeleton";
 import LikesSkeleton from "@/components/skeletons/LikesSkeletion";
 import CommentsSection from "@/components/comments/CommentsSection";
+import DescriptionCommentsSection from "@/components/comments/DescriptionCommentsSection";
 // import CommentsSection from "@/components/comments/CommentsSectionn";
 
 interface SolutionSectionProps {
@@ -128,7 +129,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
                             </div>
                         </div>}
                     <Accordion className="mt-8" title="דיון">
-                        <CommentsSection ID={problemId} type='problem' comments={[]} userId={userId} />
+                        <DescriptionCommentsSection ID={problemId} type='problem' comments={[]} userId={userId} />
                     </Accordion>
                 </Tab>
             </Tabs>
