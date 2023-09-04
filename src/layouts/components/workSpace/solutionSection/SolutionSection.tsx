@@ -31,16 +31,18 @@ import {
 import { useState } from "react";
 import ImageSkeleton from "@/components/skeletons/ImageSkeleton";
 import LikesSkeleton from "@/components/skeletons/LikesSkeletion";
+// import CommentsSection from "@/components/comments/CommentsSectionn";
 
 interface SolutionSectionProps {
     workSpaceData: any,
     problemId: any,
     solution: any,
+    userId: string | undefined,
     children: any,
     loading: any,
 }
 
-const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, problemId, solution, children, loading }) => {
+const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, problemId, solution, userId, children, loading }) => {
 
     const { solutionState, setSolution } = useGenerationStore()
     const { page } = useGenerationStoree()
@@ -69,48 +71,52 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
         <div className="overflow-y-auto scrollbar-hide">
             <Tabs>
                 <Tab name="פתרונות">
-                    {(workSpaceData && workSpaceData.totalSubmissions === 0) ? <h3 className="flex justify-center">אין פתרונות להצגה</h3> : 
-                    (solutionState || solutionState === 0) ?
-                        <div className="px-5">
-                            <div className="sticky top-0">
-                                <button onClick={() => setSolution(null)} className="dark:text-white hover:bg-gray-400 ">
-                                    <AiOutlineClose />
-                                </button>
-                            </div>
-                            <Solution data={soltionSectionData[Number(solutionState)]} />
-                            {/* <Solution author="ישראל ישראלי" date="2023-08-14" likes={42} comments={0} content={soltionSectionData[0].html} /> */}
-                        </div>
-                        : <div>
-                            {soltionSectionData ?
-                                <div>
-                                    <div className="mt-3 dark:text-white text-center" dir="rtl">
-                                        <Select onValueChange={(e) => (sortData(e))}>
-                                            <SelectTrigger className="w-[180px]">
-                                                <SelectValue placeholder="לייקים" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectGroup>
-                                                    <SelectLabel>מיין לפי</SelectLabel>
-                                                    <SelectItem value="likes">לייקים</SelectItem>
-                                                    <SelectItem value="recent">נוסף לאחרונה</SelectItem>
-                                                </SelectGroup>
-                                            </SelectContent>
-                                        </Select>
-                                    </div>
-                                    {isFetching ? <p>טוען</p> : <Feed data={soltionSectionData} />}
+                    {(workSpaceData && workSpaceData.totalSubmissions === 0) ? <h3 className="flex justify-center">אין פתרונות להצגה</h3> :
+                        (solutionState || solutionState === 0) ?
+                            <div className="px-5">
+                                <div className="sticky top-0">
+                                    <button onClick={() => setSolution(null)} className="dark:text-white hover:bg-gray-400 ">
+                                        <AiOutlineClose />
+                                    </button>
                                 </div>
-                                : <p>טוען..</p>}
-                            {soltionSectionData && workSpaceData && <Pagination totalPages={Math.ceil(workSpaceData.totalSubmissions / 5)} />}
-                        </div>}
+                                <Solution data={soltionSectionData[Number(solutionState)]} userId={userId} />
+                                {/* <Solution author="ישראל ישראלי" date="2023-08-14" likes={42} comments={0} content={soltionSectionData[0].html} /> */}
+                            </div>
+                            : <div>
+                                {soltionSectionData ?
+                                    <div>
+                                        <div className="mt-3 dark:text-white text-center" dir="rtl">
+                                            <Select onValueChange={(e) => (sortData(e))}>
+                                                <SelectTrigger className="w-[180px]">
+                                                    <SelectValue placeholder="לייקים" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectGroup>
+                                                        <SelectLabel>מיין לפי</SelectLabel>
+                                                        <SelectItem value="likes">לייקים</SelectItem>
+                                                        <SelectItem value="recent">נוסף לאחרונה</SelectItem>
+                                                    </SelectGroup>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        {isFetching ? <p>טוען</p> : <Feed data={soltionSectionData} />}
+                                    </div>
+                                    : <p>טוען..</p>}
+                                {soltionSectionData && workSpaceData && <Pagination totalPages={Math.ceil(workSpaceData.totalSubmissions / 5)} />}
+                            </div>}
 
                 </Tab>
                 <Tab name="פתרון רשמי">
                     <div className="mt-5">
                         {development ? <Youtube id="B1J6Ou4q8vE" title={'פתרון'} /> :
-                         (workSpaceData && workSpaceData.videoUrl) ? <Youtube id={workSpaceData.videoUrl} title={'פתרון'} /> : null}
+                            (workSpaceData && workSpaceData.videoUrl) ? <Youtube id={workSpaceData.videoUrl} title={'פתרון'} /> : null}
                     </div>
                     <div className="px-5">
-                       {development ? solution : (workSpaceData && workSpaceData.solutionArticle) ? parse(workSpaceData.solutionArticle) : null }
+                        {development ? solution : (workSpaceData && workSpaceData.solutionArticle)
+                            ? parse(workSpaceData.solutionArticle) : null}
+                        {/* <Accordion className="mt-8" title="דיון">
+                            <CommentsSection problemId={1} comments={[]} userId={userId} />
+                        </Accordion> */}
                     </div>
                 </Tab>
                 <Tab name="תיאור">
@@ -119,9 +125,9 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
                         <ImageDisplay imageUrl={"https://i.ibb.co/Gdz4BTg/problem1.png"} /> </div>
                         :
                         <div className="my-2">
-                            {loading ? <LikesSkeleton/> : <Likes problemId={problemId} difficulty={workSpaceData.difficulty} likes={Number(workSpaceData.likes)} dislikes={Number(workSpaceData.dislikes)} bookmark={workSpaceData.bookmark} likeStatus={workSpaceData.likeStatus} />}
+                            {loading ? <LikesSkeleton /> : <Likes problemId={problemId} difficulty={workSpaceData.difficulty} likes={Number(workSpaceData.likes)} dislikes={Number(workSpaceData.dislikes)} bookmark={workSpaceData.bookmark} likeStatus={workSpaceData.likeStatus} />}
                             <div className="mt-5 flex justify-center">
-                                {loading ? <ImageSkeleton/> : <ImageDisplay imageUrl={workSpaceData?.imageUrl} /> }
+                                {loading ? <ImageSkeleton /> : <ImageDisplay imageUrl={workSpaceData?.imageUrl} />}
                             </div>
                         </div>}
                     <Accordion className="mt-8" title="דיון">

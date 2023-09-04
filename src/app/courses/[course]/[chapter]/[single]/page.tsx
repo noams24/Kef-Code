@@ -7,6 +7,9 @@ import playgroundTemplate from './example.json';
 import type { EditorDocument } from './types';
 import CommentsSection from "@/components/comments/CommentsSection";
 import { Metadata } from "next"
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
+
 
 export const metadata: Metadata = {
     title: "כיף קוד",
@@ -22,7 +25,7 @@ interface PageProps {
 }
 let solution: any = null
 const singleProblem = async ({ params }: PageProps) => {
-    // const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions);
     const develop = process.env.DATABASE_URL === undefined || process.env.DATABASE_URL === null;
     if (develop) {
         const dom = new JSDOM()
@@ -44,7 +47,7 @@ const singleProblem = async ({ params }: PageProps) => {
             <div className="my-5">
                 <TopBar title={params.single} />
             </div>
-            <Workspace problemId={params.single} solution={solution}>
+            <Workspace problemId={params.single} solution={solution} userId={session?.user.id}>
                 {develop ? null : <CommentsSection problemId={1} comments={[]} />}
             </Workspace>
         </>
