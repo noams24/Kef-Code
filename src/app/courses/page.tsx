@@ -1,6 +1,10 @@
 import Testimonials from "@/partials/Testimonials";
 import { getListPage } from "@/lib/contentParser";
+import { Metadata } from "next"
 
+export const metadata: Metadata = {
+    title: "כיף קוד - קורסים"
+  }
 const Courses = () => {
   const testimonial1 = getListPage("sections/CS.md");
   const testimonial2 = getListPage("sections/Math.md");

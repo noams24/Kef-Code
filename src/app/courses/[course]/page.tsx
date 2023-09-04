@@ -1,6 +1,11 @@
 import PageHeader from "@/partials/PageHeader";
 import ChapterCard from "@/components/ChapterCard";
 import coursesData from './chapters.json';
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+    title: "כיף קוד - פרקים",
+  }
 
 interface PageProps {
   params: {

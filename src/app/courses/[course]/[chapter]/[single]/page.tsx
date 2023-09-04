@@ -6,13 +6,11 @@ import { JSDOM } from "jsdom";
 import playgroundTemplate from './example.json';
 import type { EditorDocument } from './types';
 import CommentsSection from "@/components/comments/CommentsSection";
+import { Metadata } from "next"
 
-// import "mathlive/static.css";
-// import '@/layouts/editor/theme.css';
-//import { db } from '@/lib/db'
-// import { authOptions } from '@/lib/auth'
-// import { getServerSession } from 'next-auth'
-
+export const metadata: Metadata = {
+    title: "כיף קוד",
+  }
 
 interface PageProps {
     params: {
@@ -20,6 +18,7 @@ interface PageProps {
         problems: string,
         single: string
     }
+
 }
 let solution: any = null
 const singleProblem = async ({ params }: PageProps) => {
