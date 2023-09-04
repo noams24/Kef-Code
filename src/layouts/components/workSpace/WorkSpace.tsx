@@ -23,6 +23,7 @@ export type EditorContentType = SerializedEditorState | undefined | any;
 type WorkSpaceProps = {
   problemId: string,
   solution: any
+  userId: string | undefined,
   children: any
 };
 
@@ -52,7 +53,7 @@ function onChange(
   });
 }
 
-const Workspace: React.FC<WorkSpaceProps> = ({ problemId, solution, children }) => {
+const Workspace: React.FC<WorkSpaceProps> = ({ problemId, solution, userId, children }) => {
   const { loginToast } = useCustomToasts()
 
   const [document, setDocument] = useState<EditorDocument>(playgroundTemplate as unknown as EditorDocument);
@@ -132,7 +133,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({ problemId, solution, children }) 
   return (
     <>
       <Split className="split h-[70vh]" minSize={0} >
-        <SolutionSection workSpaceData={workSpaceData} problemId={problemId} solution={solution} loading={isLoadingData}>
+        <SolutionSection workSpaceData={workSpaceData} problemId={problemId} solution={solution} loading={isLoadingData} userId={userId}>
           {children}
         </SolutionSection>
         {/*EDITOR SECTION */}

@@ -11,9 +11,11 @@ import { useCustomToasts } from '@/hooks/use-custom-toast'
 import { usePrevious } from '@mantine/hooks'
 import axios, { AxiosError } from 'axios'
 import { toast } from '@/hooks/use-toast'
+import Accordion from "@/shortcodes/Accordion";
 
 import "mathlive/static.css";
 import '@/layouts/editor/theme.css';
+import CommentsSection from '@/components/comments/CommentsSectionn';
 
 // interface SolutionProps {
 //     author: string;
@@ -24,12 +26,13 @@ import '@/layouts/editor/theme.css';
 // }
 
 interface SolutionProps {
-    data: any;
+    data: any,
+    userId: string | undefined
 }
 
 
 // const Solution: React.FC<SolutionProps> = ({ author, date, likes, comments, content }) => {
-const Solution: React.FC<SolutionProps> = ({ data }) => {
+const Solution: React.FC<SolutionProps> = ({ data, userId }) => {
     const { loginToast } = useCustomToasts()
     const [votesAmt, setVotesAmt] = useState<number>(data.votes.length)
     const [currentVote, setCurrentVote] = useState<any>(data.likeStatus)
@@ -78,7 +81,7 @@ const Solution: React.FC<SolutionProps> = ({ data }) => {
 
     return (
         <div>
-            <div dir="rtl" className="flex justify-between mt-6 border-b-2 border-gray-700">
+            <div dir="rtl" className="flex justify-between mt-2 border-b-2 border-gray-700">
                 <div className="flex">
                     <FaRegUserCircle className={"mt-2 inline-block text-2xl"} />
                     <div className="mr-1">
@@ -96,7 +99,12 @@ const Solution: React.FC<SolutionProps> = ({ data }) => {
                     {currentVote ? <AiFillLike className="text-xl mt-0.5 ml-2 text-green-600"/> : <AiFillLike className="text-xl mt-0.5 ml-2"/>}
                 </button>
             </div>
+            <div className="mt-4">
             {parse(data.html)}
+            </div>
+            <Accordion className="mt-8" title="דיון">
+            <CommentsSection problemId={1} comments={[]} userId={userId} />
+            </Accordion>
         </div>
     );
 };
