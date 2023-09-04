@@ -4,7 +4,7 @@ import Tab from "@/shortcodes/Tab";
 import Tabs from "@/shortcodes/Tabs";
 import Solution from './Solution';
 import Feed from './Feed';
-import PaginationControls from './PaginationControl'
+import Pagination from './Pagination'
 import { AiOutlineClose } from 'react-icons/ai';
 import Youtube from '@/shortcodes/Youtube';
 import ImageDisplay from "@/components/ImageDisplay"
@@ -28,7 +28,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/Select"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface SolutionSectionProps {
     workSpaceData: any,
@@ -60,9 +60,9 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
         setSort(e)
         refetch()
     }
-    if (workSpaceData){
-        console.log(workSpaceData)
-    }
+    // if (workSpaceData){
+    //     // console.log(workSpaceData)
+    // }
     return (
         <div className="overflow-y-auto scrollbar-hide">
             <Tabs>
@@ -98,7 +98,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
                                     {isFetching ? <p>טוען</p> : <Feed data={soltionSectionData} />}
                                 </div>
                                 : <p>טוען..</p>}
-                            {soltionSectionData && workSpaceData && <PaginationControls numberOfPages={Math.ceil(workSpaceData.totalSubmissions / 5)} currentPage={page} />}
+                            {soltionSectionData && workSpaceData && <Pagination totalPages={Math.ceil(workSpaceData.totalSubmissions / 5)} />}
                         </div>}
 
                 </Tab>
