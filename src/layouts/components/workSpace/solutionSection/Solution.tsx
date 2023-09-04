@@ -12,10 +12,10 @@ import { usePrevious } from '@mantine/hooks'
 import axios, { AxiosError } from 'axios'
 import { toast } from '@/hooks/use-toast'
 import Accordion from "@/shortcodes/Accordion";
-
+import CommentsSection from '@/components/comments/CommentsSectionn';
+import { useGenerationStore } from '@/store/store';
 import "mathlive/static.css";
 import '@/layouts/editor/theme.css';
-import CommentsSection from '@/components/comments/CommentsSectionn';
 
 // interface SolutionProps {
 //     author: string;
@@ -37,6 +37,7 @@ const Solution: React.FC<SolutionProps> = ({ data, userId }) => {
     const [votesAmt, setVotesAmt] = useState<number>(data.votes.length)
     const [currentVote, setCurrentVote] = useState<any>(data.likeStatus)
     const prevVote = usePrevious(currentVote)
+    const { solutionState } = useGenerationStore()
 
     const { mutate: vote } = useMutation({
         mutationFn: async () => {
@@ -78,7 +79,7 @@ const Solution: React.FC<SolutionProps> = ({ data, userId }) => {
             }
         },
     })
-
+    // console.log(data)
     return (
         <div>
             <div dir="rtl" className="flex justify-between mt-2 border-b-2 border-gray-700">
@@ -94,16 +95,16 @@ const Solution: React.FC<SolutionProps> = ({ data, userId }) => {
                     </div>
                 </div>
                 <button onClick={() => vote('LIKE')}
-                    className= "flex justify-between rounded-lg border-2 border-gray-400 h-8 w-16 dark:text-white mt-2 hover:border-blue-700 dark:hover:border-sky-600 transition duration-300">
+                    className="flex justify-between rounded-lg border-2 border-gray-400 h-8 w-16 dark:text-white mt-2 hover:border-blue-700 dark:hover:border-sky-600 transition duration-300">
                     {currentVote ? <span className="mr-3 text-green-600">{votesAmt}</span> : <span className="mr-3">{votesAmt}</span>}
-                    {currentVote ? <AiFillLike className="text-xl mt-0.5 ml-2 text-green-600"/> : <AiFillLike className="text-xl mt-0.5 ml-2"/>}
+                    {currentVote ? <AiFillLike className="text-xl mt-0.5 ml-2 text-green-600" /> : <AiFillLike className="text-xl mt-0.5 ml-2" />}
                 </button>
             </div>
             <div className="mt-4">
-            {parse(data.html)}
+                {parse(data.html)}
             </div>
             <Accordion className="mt-8" title="דיון">
-            <CommentsSection problemId={1} comments={[]} userId={userId} />
+                <CommentsSection ID={data.id} type='submission'comments={[]} userId={userId} />
             </Accordion>
         </div>
     );

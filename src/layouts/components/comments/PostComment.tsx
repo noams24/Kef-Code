@@ -26,14 +26,16 @@ interface PostCommentProps {
   comment: ExtendedComment
   votesAmt: number
   currentVote: Vote | undefined
-  problemId: number
+  type: string
+  ID: string
 }
 
 const PostComment: FC<PostCommentProps> = ({
   comment,
   votesAmt,
   currentVote,
-  problemId,
+  type,
+  ID,
 }) => {
   const { data: session } = useSession()
   const [isReplying, setIsReplying] = useState<boolean>(false)
@@ -45,8 +47,8 @@ const PostComment: FC<PostCommentProps> = ({
   })
 
   const { mutate: postComment, isLoading } = useMutation({
-    mutationFn: async ({ problemId, text, replyToId }: CommentRequest) => {
-      const payload: CommentRequest = { problemId, text, replyToId }
+    mutationFn: async ({ ID, type, text, replyToId }: CommentRequest) => {
+      const payload: CommentRequest = { ID, type, text, replyToId }
 
       const { data } = await axios.patch(
         `/api/comment/problem`,
@@ -140,7 +142,8 @@ const PostComment: FC<PostCommentProps> = ({
                 onClick={() => {
                   if (!input) return
                   postComment({
-                    problemId,
+                    ID,
+                    type: type,
                     text: input,
                     replyToId: comment.replyToId ?? comment.id, // default to top-level comment
                   })

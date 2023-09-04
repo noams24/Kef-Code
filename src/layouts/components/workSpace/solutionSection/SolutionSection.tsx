@@ -64,9 +64,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
         setSort(e)
         refetch()
     }
-    // if (workSpaceData){
-    //     // console.log(workSpaceData)
-    // }
+
     return (
         <div className="overflow-y-auto scrollbar-hide">
             <Tabs>

@@ -1,17 +1,17 @@
 import { db } from '@/lib/db'
-import { getAuthSession } from '@/lib/auth'
-//TODO: handle problem status by user
 
 export async function GET(req: Request) {
     const url = new URL(req.url)
-    const problemId = Number(url.searchParams.get('problemId'))
-    if (!problemId) return new Response('Invalid query', { status: 400 })
-    const session = await getAuthSession()
-    const userId = session?.user.id
+    const ID = url.searchParams.get('ID')
+    const type = url.searchParams.get('type')
+    if (!ID || !type) return new Response('Invalid query', { status: 400 })
+   
     try {
-        const results = await db.comment.findMany({
+      let results = null
+      if (type === 'problem') {
+        results = await db.comment.findMany({
             where: {
-              problemId,
+              problemId: Number(ID),
               replyToId: null, // only fetch top-level comments
             },
             include: {
@@ -26,6 +26,29 @@ export async function GET(req: Request) {
               },
             },
           })
+        }
+
+        else if (type === 'submission') {
+          results = await db.comment.findMany({
+              where: {
+                submissionsId: ID,
+                replyToId: null, // only fetch top-level comments
+              },
+              include: {
+                author: true,
+                votes: true,
+                replies: {
+                  // first level replies
+                  include: {
+                    author: true,
+                    votes: true,
+                  },
+                },
+              },
+            })
+          }
+
+
         // return new Response(JSON.stringify({results,userId}))
         return new Response(JSON.stringify(results))
     }

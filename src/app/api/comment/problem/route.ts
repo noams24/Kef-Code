@@ -7,7 +7,7 @@ export async function PATCH(req: Request) {
   try {
     const body = await req.json()
 
-    const { problemId, text, replyToId } = CommentValidator.parse(body)
+    const { ID, type, text, replyToId } = CommentValidator.parse(body)
 
     const session = await getAuthSession()
 
@@ -16,14 +16,27 @@ export async function PATCH(req: Request) {
     }
 
     // if no existing vote, create a new vote
+    if (type === 'problem'){
     await db.comment.create({
       data: {
         text,
-        problemId,
+        problemId: Number(ID),
         authorId: session.user.id,
         replyToId,
       },
     })
+  }
+  else if (type === 'submission'){
+    await db.comment.create({
+      data: {
+        text,
+        submissionsId: ID,
+        authorId: session.user.id,
+        replyToId,
+      },
+    })
+  }
+
 
     return new Response('OK')
   } catch (error) {
