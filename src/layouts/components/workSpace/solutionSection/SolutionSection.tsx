@@ -31,6 +31,7 @@ import {
 import { useState } from "react";
 import ImageSkeleton from "@/components/skeletons/ImageSkeleton";
 import LikesSkeleton from "@/components/skeletons/LikesSkeletion";
+import CommentsSection from "@/components/comments/CommentsSection";
 // import CommentsSection from "@/components/comments/CommentsSectionn";
 
 interface SolutionSectionProps {
@@ -38,11 +39,10 @@ interface SolutionSectionProps {
     problemId: any,
     solution: any,
     userId: string | undefined,
-    children: any,
     loading: any,
 }
 
-const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, problemId, solution, userId, children, loading }) => {
+const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, problemId, solution, userId, loading }) => {
 
     const { solutionState, setSolution } = useGenerationStore()
     const { page } = useGenerationStoree()
@@ -64,7 +64,6 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
         setSort(e)
         refetch()
     }
-
     return (
         <div className="overflow-y-auto scrollbar-hide">
             <Tabs>
@@ -129,8 +128,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
                             </div>
                         </div>}
                     <Accordion className="mt-8" title="דיון">
-                        {children}
-                        {/* Comment Section */}
+                        <CommentsSection ID={problemId} type='problem' comments={[]} userId={userId} />
                     </Accordion>
                 </Tab>
             </Tabs>

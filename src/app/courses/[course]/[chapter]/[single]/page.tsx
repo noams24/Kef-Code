@@ -5,7 +5,6 @@ import TopBar from "@/components/topBar/TopBar";
 import { JSDOM } from "jsdom";
 import playgroundTemplate from './example.json';
 import type { EditorDocument } from './types';
-import CommentsSection from "@/components/comments/CommentsSection";
 import { Metadata } from "next"
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
@@ -47,9 +46,7 @@ const singleProblem = async ({ params }: PageProps) => {
             <div className="my-5">
                 <TopBar title={params.single} />
             </div>
-            <Workspace problemId={params.single} solution={solution} userId={session?.user.id}>
-                {develop ? null : <CommentsSection problemId={1} comments={[]} />}
-            </Workspace>
+            <Workspace problemId={params.single} solution={solution} userId={session?.user.id}/>
         </>
     );
 };

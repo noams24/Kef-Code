@@ -12,7 +12,7 @@ import { usePrevious } from '@mantine/hooks'
 import axios, { AxiosError } from 'axios'
 import { toast } from '@/hooks/use-toast'
 import Accordion from "@/shortcodes/Accordion";
-import CommentsSection from '@/components/comments/CommentsSectionn';
+import CommentsSection from '@/components/comments/CommentsSection';
 import { useGenerationStore } from '@/store/store';
 import "mathlive/static.css";
 import '@/layouts/editor/theme.css';
