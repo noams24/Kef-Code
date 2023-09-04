@@ -1,17 +1,14 @@
 import { promises as fs } from "fs"
 import path from "path"
 import { Metadata } from "next"
-import Image from "next/image"
 import { z } from "zod"
-
 import { columns } from "@/components/table/components/columns"
 import { DataTable } from "@/components/table/components/data-table"
-import { UserNav } from "@/components/table/components/user-nav"
 import { taskSchema } from "@/components/table/data/schema"
 import PageHeader from "@/partials/PageHeader";
+
 export const metadata: Metadata = {
-  title: "שאלות - כיף קוד",
-  description: "A task and issue tracker build using Tanstack Table.",
+  title: "כיף קוד - שאלות"
 }
 
 interface PageProps {
