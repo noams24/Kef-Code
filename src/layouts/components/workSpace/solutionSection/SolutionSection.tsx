@@ -29,6 +29,8 @@ import {
     SelectValue,
 } from "@/components/ui/Select"
 import { useState } from "react";
+import ImageSkeleton from "@/components/skeletons/ImageSkeleton";
+import LikesSkeleton from "@/components/skeletons/LikesSkeletion";
 
 interface SolutionSectionProps {
     workSpaceData: any,
@@ -117,9 +119,9 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
                         <ImageDisplay imageUrl={"https://i.ibb.co/Gdz4BTg/problem1.png"} /> </div>
                         :
                         <div className="my-2">
-                            {workSpaceData && <Likes problemId={problemId} difficulty={workSpaceData.difficulty} likes={Number(workSpaceData.likes)} dislikes={Number(workSpaceData.dislikes)} bookmark={workSpaceData.bookmark} likeStatus={workSpaceData.likeStatus} />}
+                            {loading ? <LikesSkeleton/> : <Likes problemId={problemId} difficulty={workSpaceData.difficulty} likes={Number(workSpaceData.likes)} dislikes={Number(workSpaceData.dislikes)} bookmark={workSpaceData.bookmark} likeStatus={workSpaceData.likeStatus} />}
                             <div className="mt-5 flex justify-center">
-                                <ImageDisplay imageUrl={workSpaceData?.imageUrl} />
+                                {loading ? <ImageSkeleton/> : <ImageDisplay imageUrl={workSpaceData?.imageUrl} /> }
                             </div>
                         </div>}
                     <Accordion className="mt-8" title="דיון">
