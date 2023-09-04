@@ -6,18 +6,19 @@ import { useQuery } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 
 interface CommentsSectionProps {
-  problemId: number
+  ID: string
+  type: string
   userId: string | undefined
   comments: any
 }
 
-const CommentsSection = ({ problemId, userId }: CommentsSectionProps) => {
+const CommentsSection = ({ ID, type, userId }: CommentsSectionProps) => {
 
   // get data from the db
   const { data: comments, isLoading } = useQuery({
     queryKey: ['comments'],
     queryFn: async () => {
-      const query = `/api/getComments?problemId=${problemId}`
+      const query = `/api/getComments?ID=${ID}&type=${type}`
       const { data } = await axios.get(query)
       return data
     },
@@ -26,7 +27,7 @@ const CommentsSection = ({ problemId, userId }: CommentsSectionProps) => {
   return (
     <div dir="rtl" className='flex flex-col text-right'>
       <div className="mt-2">
-        <CreateComment problemId={problemId} />
+        <CreateComment ID={ID} type={type} />
       </div>
       <div className='flex flex-col gap-y-6 '>
       {comments && comments
@@ -52,7 +53,8 @@ const CommentsSection = ({ problemId, userId }: CommentsSectionProps) => {
                     comment={topLevelComment}
                     currentVote={topLevelCommentVote}
                     votesAmt={topLevelCommentVotesAmt}
-                    problemId={problemId}
+                    type={type}
+                    ID={ID}
                   />
                 </div>
 
@@ -78,7 +80,8 @@ const CommentsSection = ({ problemId, userId }: CommentsSectionProps) => {
                             comment={reply}
                             currentVote={replyVote}
                             votesAmt={replyVotesAmt}
-                            problemId={problemId}
+                            type={type}
+                            ID={ID}
                           />
                         </div>
                       )

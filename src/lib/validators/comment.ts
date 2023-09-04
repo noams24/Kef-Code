@@ -1,7 +1,8 @@
 import { z } from 'zod'
 
 export const CommentValidator = z.object({
-  problemId: z.number(),
+  ID: z.string(),
+  type: z.string(),
   text: z.string(),
   replyToId: z.string().optional()
 })

@@ -13,18 +13,19 @@ import { Label } from '@/components/ui/Label'
 import { TextArea } from '@/components/ui/TextArea'
 
 interface CreateCommentProps {
-  problemId: number
+  ID: string
+  type: string
   replyToId?: string
 }
 
-const CreateComment: FC<CreateCommentProps> = ({ problemId, replyToId }) => {
+const CreateComment: FC<CreateCommentProps> = ({ ID, type, replyToId }) => {
   const [input, setInput] = useState<string>('')
   const router = useRouter()
   const { loginToast } = useCustomToasts()
 
   const { mutate: comment, isLoading } = useMutation({
-    mutationFn: async ({ problemId, text, replyToId }: CommentRequest) => {
-      const payload: CommentRequest = { problemId, text, replyToId }
+    mutationFn: async ({ ID, text, type, replyToId }: CommentRequest) => {
+      const payload: CommentRequest = { ID, type, text, replyToId }
 
       const { data } = await axios.patch(
         `/api/comment/problem/`,
@@ -68,7 +69,7 @@ const CreateComment: FC<CreateCommentProps> = ({ problemId, replyToId }) => {
           <Button
             isLoading={isLoading}
             disabled={input.length === 0}
-            onClick={() => comment({ problemId, text: input, replyToId })}>
+            onClick={() => comment({ ID, type: type, text: input, replyToId })}>
             שליחה
           </Button>
         </div>
