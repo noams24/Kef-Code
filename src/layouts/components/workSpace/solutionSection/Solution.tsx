@@ -3,7 +3,7 @@
 import React, { FC, useState } from 'react'
 import { FaRegUserCircle } from 'react-icons/fa';
 import { humanize, slugify } from "@/lib/utils/textConverter";
-import dateFormat from '@/lib/utils/dateFormat';
+import hebrewDateFormat from '@/lib/utils/hebrewDateFormat';
 import { AiFillLike } from 'react-icons/ai';
 import parse from 'html-react-parser';
 import { useMutation } from '@tanstack/react-query'
@@ -86,7 +86,7 @@ const Solution: React.FC<SolutionProps> = ({ data }) => {
                             {humanize(data.user.username)}
                         </a>
                         <div className="flex">
-                            <span className="mr-5">{dateFormat(data.createdAt)}</span>
+                            <span className="mr-4">{hebrewDateFormat(data.createdAt)}</span>
                         </div>
                     </div>
                 </div>
