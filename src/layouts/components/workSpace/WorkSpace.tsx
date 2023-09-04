@@ -24,7 +24,6 @@ type WorkSpaceProps = {
   problemId: string,
   solution: any
   userId: string | undefined,
-  children: any
 };
 
 interface Data {
@@ -53,7 +52,7 @@ function onChange(
   });
 }
 
-const Workspace: React.FC<WorkSpaceProps> = ({ problemId, solution, userId, children }) => {
+const Workspace: React.FC<WorkSpaceProps> = ({ problemId, solution, userId}) => {
   const { loginToast } = useCustomToasts()
 
   const [document, setDocument] = useState<EditorDocument>(playgroundTemplate as unknown as EditorDocument);
@@ -133,9 +132,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({ problemId, solution, userId, chil
   return (
     <>
       <Split className="split h-[70vh]" minSize={0} >
-        <SolutionSection workSpaceData={workSpaceData} problemId={problemId} solution={solution} loading={isLoadingData} userId={userId}>
-          {children}
-        </SolutionSection>
+        <SolutionSection workSpaceData={workSpaceData} problemId={problemId} solution={solution} loading={isLoadingData} userId={userId}/>
         {/*EDITOR SECTION */}
         <div className="w-full overflow-y-auto ">
           {(!isLoadingData && workSpaceData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>}
