@@ -1,5 +1,13 @@
 "use client"
 
+import {
+  CheckCircledIcon,
+  CircleIcon,
+  CrossCircledIcon,
+  QuestionMarkCircledIcon,
+  StopwatchIcon,
+} from "@radix-ui/react-icons"
+
 import * as React from "react"
 import * as SelectPrimitive from "@radix-ui/react-select"
 import { Check, ChevronDown } from "lucide-react"
@@ -29,6 +37,7 @@ const SelectTrigger = React.forwardRef<
     </SelectPrimitive.Icon>
     {children}
   </SelectPrimitive.Trigger>
+  
 ))
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName
 
@@ -68,7 +77,7 @@ const SelectLabel = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Label
     ref={ref}
-    className={cn("bg-body dark:bg-darkmode-body py-1.5 pl-8 pr-2 text-sm font-semibold", className)}
+    className={cn("bg-body dark:bg-darkmode-body py-1.5 pr-4 text-sm font-semibold", className)}
     {...props}
   />
 ))
@@ -81,18 +90,22 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      "bg-body dark:bg-darkmode-body relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "bg-body dark:bg-darkmode-body relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pr-6 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className
     )}
     {...props}
   >
-    <span className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
+    <span className="absolute right-1 flex h-3.5 w-3.5 items-center justify-center">
       <SelectPrimitive.ItemIndicator>
-        <Check className="h-4 w-4" />
+        <Check  className="h-4 w-4" />
       </SelectPrimitive.ItemIndicator>
     </span>
 
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+    {children === 'עוד לא התחלתי' && <CircleIcon className="mr-2"/>}
+    {children === 'בתהליך' && <StopwatchIcon className="mr-2"/>}
+    {children === 'תקוע' && <QuestionMarkCircledIcon className="mr-2"/>}
+    {children === 'סיימתי' && <CheckCircledIcon className="mr-2"/>}
   </SelectPrimitive.Item>
 ))
 SelectItem.displayName = SelectPrimitive.Item.displayName
