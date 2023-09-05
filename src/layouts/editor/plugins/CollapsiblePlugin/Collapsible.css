@@ -8,10 +8,7 @@
  */
 
  .Collapsible__container {
-    background: #fcfcfc;
-    border: 1px solid #eee;
-    border-radius: 10px;
-    margin-bottom: 8px;
+  @apply bg-gray-200 dark:bg-zinc-800 border border-slate-500 rounded mb-8
   }
   
   .Collapsible__title {
