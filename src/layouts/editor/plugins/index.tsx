@@ -64,7 +64,7 @@ export const EditorPlugins: React.FC<{
       <GraphPlugin />
       <StickyPlugin />
       <DragDropPaste />
-      <DraggableBlockPlugin />
+      {/* <DraggableBlockPlugin /> */}
       <CodeHighlightPlugin />
       <CollapsiblePlugin />
       <AutoLinkPlugin />
