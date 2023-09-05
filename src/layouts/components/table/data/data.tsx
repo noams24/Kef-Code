@@ -27,22 +27,22 @@ export const labels = [
 
 export const statuses = [
   {
-    value: "todo",
+    value: "BEGIN",
     label: "לעשות",
     icon: CircleIcon,
   },
   {
-    value: "in progress",
+    value: "ONGOING",
     label: "בתהליך",
     icon: StopwatchIcon,
   },
   {
-    value: "done",
+    value: "FINISH",
     label: "הושלם",
     icon: CheckCircledIcon,
   },
   {
-    value: "stuck",
+    value: "STUCK",
     label: "תקוע",
     icon: QuestionMarkCircledIcon,
   },
@@ -51,15 +51,15 @@ export const statuses = [
 export const priorities = [
   {
     label: "קל",
-    value: "low",
+    value: "EASY",
   },
   {
     label: "בינוני",
-    value: "medium",
+    value: "MEDIUM",
   },
   {
     label: "קשה",
-    value: "high",
+    value: "HARD",
   },
 ]
 

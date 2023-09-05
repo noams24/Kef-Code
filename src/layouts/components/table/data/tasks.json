@@ -2,287 +2,286 @@
     {
       "id": "TASK-8782",
       "title": "אי רציפות",
-      "status": "in progress",
-      "difficulty": "medium"
+      "status": "ONGOING",
+      "difficulty": "MEDIUM"
     },
     {
       "id": "TASK-7878",
       "title": "תורת הקבוצות",
-      "status": "stuck",
+      "status": "STUCK",
     
-      "difficulty": "medium"
+      "difficulty": "MEDIUM"
     },
     {
       "id": "TASK-7839",
       "title": "סדרות",
-      "status": "todo",
-      "difficulty": "high"
+      "status": "BEGIN",
+      "difficulty": "HARD"
     },
     {
       "id": "TASK-5562",
       "title":  "משפט לופיטל",
-      "status": "stuck",
-      "difficulty": "medium"
+      "status": "STUCK",
+      "difficulty": "MEDIUM"
     },
     {
       "id": "TASK-8686",
       "title": "מספרים מרוכבים",
-      "status": "stuck",
-      "difficulty": "medium"
+      "status": "STUCK",
+      "difficulty": "MEDIUM"
     },
     {
       "id": "TASK-1280",
       "title": "חזקות",
-      "status": "done",
-      "difficulty": "high"
+      "status": "FINISH",
+      "difficulty": "HARD"
     },
     {
       "id": "TASK-7262",
       "title": "רציפות",
-      "status": "done",
-      "difficulty": "high"
+      "status": "FINISH",
+      "difficulty": "HARD"
     },
     {
       "id": "TASK-1138",
       "title": "הוכחת אי שיוויון",
-      "status": "in progress",
-      "difficulty": "medium"
+      "status": "ONGOING",
+      "difficulty": "MEDIUM"
     },
     {
       "id": "TASK-7184",
       "title": "גזירות פונקציה",
-      "status": "todo",
-      "difficulty": "low"
+      "status": "BEGIN",
+      "difficulty": "EASY"
     },
     {
       "id": "TASK-5160",
       "title": "מציאת מקסימום",
-      "status": "in progress",
+      "status": "ONGOING",
     
-      "difficulty": "high"
+      "difficulty": "HARD"
     },
     {
       "id": "TASK-5618",
       "title": "Generating the driver won't do anything, we need to index the online SSL application!",
-      "status": "done",
-      "difficulty": "medium"
+      "status": "FINISH",
+      "difficulty": "MEDIUM"
     },
     {
       "id": "TASK-6699",
       "title": "I'll transmit the wireless JBOD capacitor, that should hard drive the SSD feed!",
-      "status": "stuck",
-    
-      "difficulty": "medium"
+      "status": "STUCK",
+      "difficulty": "MEDIUM"
     },
     {
       "id": "TASK-2858",
       "title": "We need to override the online UDP bus!",
-      "status": "stuck",
-      "difficulty": "medium"
+      "status": "STUCK",
+      "difficulty": "MEDIUM"
     },
     {
       "id": "TASK-9864",
       "title": "I'll reboot the 1080p FTP panel, that should matrix the HEX hard drive!",
-      "status": "done",
-      "difficulty": "high"
+      "status": "FINISH",
+      "difficulty": "HARD"
     },
     {
       "id": "TASK-8404",
       "title": "We need to generate the virtual HEX alarm!",
-      "status": "in progress",
-     "difficulty": "low"
+      "status": "ONGOING",
+     "difficulty": "EASY"
     },
     {
       "id": "TASK-5365",
       "title": "Backing up the pixel won't do anything, we need to transmit the primary IB array!",
-      "status": "in progress",
-      "difficulty": "low"
+      "status": "ONGOING",
+      "difficulty": "EASY"
     },
     {
       "id": "TASK-1780",
       "title": "The CSS feed is down, index the bluetooth transmitter so we can compress the CLI protocol!",
-      "status": "todo",
-      "difficulty": "high"
+      "status": "BEGIN",
+      "difficulty": "HARD"
     },
     {
       "id": "TASK-6938",
       "title": "Use the redundant SCSI application, then you can hack the optical alarm!",
-      "status": "todo",
-      "difficulty": "high"
+      "status": "BEGIN",
+      "difficulty": "HARD"
     },
     {
       "id": "TASK-9885",
       "title": "We need to compress the auxiliary VGA driver!",
-      "status": "stuck",
-      "difficulty": "high"
+      "status": "STUCK",
+      "difficulty": "HARD"
     },
     {
       "id": "TASK-3216",
       "title": "Transmitting the transmitter won't do anything, we need to compress the virtual HDD sensor!",
-      "status": "stuck",
-      "difficulty": "medium"
+      "status": "STUCK",
+      "difficulty": "MEDIUM"
     },
     {
       "id": "TASK-9285",
       "title": "The IP monitor is down, copy the haptic alarm so we can generate the HTTP transmitter!",
-      "status": "todo",
-      "difficulty": "high"
+      "status": "BEGIN",
+      "difficulty": "HARD"
     },
     {
       "id": "TASK-1024",
       "title": "Overriding the microchip won't do anything, we need to transmit the digital OCR transmitter!",
-      "status": "in progress",
+      "status": "ONGOING",
     
-      "difficulty": "low"
+      "difficulty": "EASY"
     },
     {
       "id": "TASK-7068",
       "title": "You can't generate the capacitor without indexing the wireless HEX pixel!",
-      "status": "stuck",
-      "difficulty": "low"
+      "status": "STUCK",
+      "difficulty": "EASY"
     },
     {
       "id": "TASK-6502",
       "title": "Navigating the microchip won't do anything, we need to bypass the back-end SQL bus!",
-      "status": "todo",
-      "difficulty": "high"
+      "status": "BEGIN",
+      "difficulty": "HARD"
     },
     {
       "id": "TASK-5326",
       "title": "We need to hack the redundant UTF8 transmitter!",
-      "status": "todo",
-      "difficulty": "low"
+      "status": "BEGIN",
+      "difficulty": "EASY"
     },
     {
       "id": "TASK-6274",
       "title": "Use the virtual PCI circuit, then you can parse the bluetooth alarm!",
-      "status": "stuck",
-      "difficulty": "low"
+      "status": "STUCK",
+      "difficulty": "EASY"
     },
     {
       "id": "TASK-1571",
       "title": "I'll input the neural DRAM circuit, that should protocol the SMTP interface!",
-      "status": "in progress",
-      "difficulty": "medium"
+      "status": "ONGOING",
+      "difficulty": "MEDIUM"
     },
     {
       "id": "TASK-9518",
       "title": "Compressing the interface won't do anything, we need to compress the online SDD matrix!",
-      "status": "stuck",
-      "difficulty": "medium"
+      "status": "STUCK",
+      "difficulty": "MEDIUM"
     },
     {
       "id": "TASK-5581",
       "title": "I'll synthesize the digital COM pixel, that should transmitter the UTF8 protocol!",
-      "status": "stuck",
-      "difficulty": "high"
+      "status": "STUCK",
+      "difficulty": "HARD"
     },
     {
       "id": "TASK-2197",
       "title": "Parsing the feed won't do anything, we need to copy the bluetooth DRAM bus!",
-      "status": "todo",
-      "difficulty": "low"
+      "status": "BEGIN",
+      "difficulty": "EASY"
     },
     {
       "id": "TASK-8484",
       "title": "We need to parse the solid state UDP firewall!",
-      "status": "in progress",
-      "difficulty": "low"
+      "status": "ONGOING",
+      "difficulty": "EASY"
     },
     {
       "id": "TASK-9892",
       "title": "If we back up the application, we can get to the UDP application through the multi-byte THX capacitor!",
-      "status": "done", 
-      "difficulty": "high"
+      "status": "FINISH", 
+      "difficulty": "HARD"
     },
     {
       "id": "TASK-9616",
       "title": "We need to synthesize the cross-platform ASCII pixel!",
-      "status": "in progress",
-      "difficulty": "medium"
+      "status": "ONGOING",
+      "difficulty": "MEDIUM"
     },
     {
       "id": "TASK-9744",
       "title": "Use the back-end IP card, then you can input the solid state hard drive!",
-      "status": "done",
-      "difficulty": "low"
+      "status": "FINISH",
+      "difficulty": "EASY"
     },
     {
       "id": "TASK-1376",
       "title": "Generating the alarm won't do anything, we need to generate the mobile IP capacitor!",
-      "status": "stuck",  
-      "difficulty": "low"
+      "status": "STUCK",  
+      "difficulty": "EASY"
     },
     {
       "id": "TASK-7382",
       "title": "If we back up the firewall, we can get to the RAM alarm through the primary UTF8 pixel!",
-      "status": "todo",
-      "difficulty": "low"
+      "status": "BEGIN",
+      "difficulty": "EASY"
     },
     {
       "id": "TASK-2290",
       "title": "I'll compress the virtual JSON panel, that should application the UTF8 bus!",
-      "status": "stuck",
-      "difficulty": "high"
+      "status": "STUCK",
+      "difficulty": "HARD"
     },
     {
       "id": "TASK-1533",
       "title": "You can't input the firewall without overriding the wireless TCP firewall!",
-      "status": "done",
-      "difficulty": "high"
+      "status": "FINISH",
+      "difficulty": "HARD"
     },
     {
       "id": "TASK-4920",
       "title": "Bypassing the hard drive won't do anything, we need to input the bluetooth JSON program!",
-      "status": "in progress",
-      "difficulty": "high"
+      "status": "ONGOING",
+      "difficulty": "HARD"
     },
     {
       "id": "TASK-5168",
       "title": "If we synthesize the bus, we can get to the IP panel through the virtual TLS array!",
-      "status": "in progress",
-      "difficulty": "low"
+      "status": "ONGOING",
+      "difficulty": "EASY"
     },
     {
       "id": "TASK-7103",
       "title": "We need to parse the multi-byte EXE bandwidth!",
-      "status": "stuck",
-      "difficulty": "low"
+      "status": "STUCK",
+      "difficulty": "EASY"
     },
     {
       "id": "TASK-4314",
       "title": "If we compress the program, we can get to the XML alarm through the multi-byte COM matrix!",
-      "status": "in progress",
-      "difficulty": "high"
+      "status": "ONGOING",
+      "difficulty": "HARD"
     },
     {
       "id": "TASK-3415",
       "title": "Use the cross-platform XML application, then you can quantify the solid state feed!",
-      "status": "todo",
-      "difficulty": "high"
+      "status": "BEGIN",
+      "difficulty": "HARD"
     },
     {
       "id": "TASK-8339",
       "title": "Try to calculate the DNS interface, maybe it will input the bluetooth capacitor!",
-      "status": "in progress",
-      "difficulty": "low"
+      "status": "ONGOING",
+      "difficulty": "EASY"
     },
     {
       "id": "TASK-6995",
       "title": "Try to hack the XSS bandwidth, maybe it will override the bluetooth matrix!",
-      "status": "todo",
-      "difficulty": "high"
+      "status": "BEGIN",
+      "difficulty": "HARD"
     },
     {
       "id": "TASK-8053",
       "title": "If we connect the program, we can get to the UTF8 matrix through the digital UDP protocol!",
-      "status": "todo",
-      "difficulty": "medium"
+      "status": "BEGIN",
+      "difficulty": "MEDIUM"
     },
     {
       "id": "TASK-4336",
       "title": "If we synthesize the microchip, we can get to the SAS sensor through the optical UDP program!",
-      "status": "todo",
-      "difficulty": "low"
+      "status": "BEGIN",
+      "difficulty": "EASY"
     }
 ]
