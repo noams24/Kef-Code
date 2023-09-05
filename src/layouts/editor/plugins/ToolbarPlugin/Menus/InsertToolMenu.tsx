@@ -4,7 +4,9 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { LexicalEditor } from 'lexical';
 import { INSERT_HORIZONTAL_RULE_COMMAND } from '@/layouts/editor/nodes/HorizontalRuleNode';
+import {INSERT_COLLAPSIBLE_COMMAND} from '@/layouts/editor/plugins/CollapsiblePlugin'
 import AddIcon from '@mui/icons-material/Add';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
@@ -95,6 +97,13 @@ export default function InsertToolMenu({ editor }: { editor: LexicalEditor }): J
           </ListItemIcon>
           <ListItemText>Note</ListItemText>
           <Typography variant="body2" color="text.secondary">/note</Typography>
+        </MenuItem>
+        <MenuItem onClick={() => { editor.dispatchCommand(INSERT_COLLAPSIBLE_COMMAND, undefined,); handleClose(); }}>
+          <ListItemIcon>
+            <PlayArrowIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>Collapsible</ListItemText>
+          <Typography variant="body2" color="text.secondary">   /collapse</Typography>
         </MenuItem>
       </Menu>
     </>

@@ -23,7 +23,6 @@ const DescriptionCommentsSection = ({ ID, type, userId }: DescriptionCommentsSec
       return data
     },
   })
-  console.log(comments)
   return (
     <div dir="rtl" className='flex flex-col text-right'>
       <div className="mt-2">

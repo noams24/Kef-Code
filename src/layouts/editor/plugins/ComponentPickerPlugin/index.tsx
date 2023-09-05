@@ -50,7 +50,7 @@ import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import CodeIcon from '@mui/icons-material/Code';
-
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
 import ImageIcon from '@mui/icons-material/Image';
 import TableIcon from '@mui/icons-material/TableChart';
@@ -349,9 +349,9 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
           editor.dispatchCommand(INSERT_STICKY_COMMAND, undefined),
       }),
       new ComponentPickerOption('Collapsible', {
-        icon: <i className="icon caret-right" />,
+        icon: <PlayArrowIcon />,
         keywords: ['collapse', 'collapsible', 'toggle'],
-        keyboardShortcut: '/collapsible',
+        keyboardShortcut: '/collapse',
         onSelect: () =>
           editor.dispatchCommand(INSERT_COLLAPSIBLE_COMMAND, undefined),
       }),
