@@ -35,6 +35,7 @@ import * as ReactDOM from 'react-dom';
 
 import { INSERT_MATH_COMMAND } from '../MathPlugin';
 import { INSERT_STICKY_COMMAND } from '../StickyPlugin';
+import {INSERT_COLLAPSIBLE_COMMAND} from '../CollapsiblePlugin';
 
 import Paper from '@mui/material/Paper';
 import MenuList from '@mui/material/MenuList';
@@ -49,7 +50,7 @@ import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import CodeIcon from '@mui/icons-material/Code';
-
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
 import ImageIcon from '@mui/icons-material/Image';
 import TableIcon from '@mui/icons-material/TableChart';
@@ -346,6 +347,13 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
         keyboardShortcut: '/note',
         onSelect: () =>
           editor.dispatchCommand(INSERT_STICKY_COMMAND, undefined),
+      }),
+      new ComponentPickerOption('Collapsible', {
+        icon: <PlayArrowIcon />,
+        keywords: ['collapse', 'collapsible', 'toggle'],
+        keyboardShortcut: '/collapse',
+        onSelect: () =>
+          editor.dispatchCommand(INSERT_COLLAPSIBLE_COMMAND, undefined),
       }),
       ...['left', 'center', 'right', 'justify'].map(
         (alignment) =>

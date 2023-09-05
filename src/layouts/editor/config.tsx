@@ -9,6 +9,9 @@ import { ImageNode } from "./nodes/ImageNode";
 import { SketchNode } from './nodes/SketchNode';
 import { GraphNode } from './nodes/GraphNode';
 import { StickyNode } from './nodes/StickyNode';
+import {CollapsibleContainerNode} from './plugins/CollapsiblePlugin/CollapsibleContainerNode';
+import {CollapsibleContentNode} from './plugins/CollapsiblePlugin/CollapsibleContentNode';
+import {CollapsibleTitleNode} from './plugins/CollapsiblePlugin/CollapsibleTitleNode';
 import theme from "./theme";
 
 export const editorConfig = {
@@ -38,5 +41,8 @@ export const editorConfig = {
     SketchNode,
     GraphNode,
     StickyNode,
+    CollapsibleContainerNode,
+    CollapsibleContentNode,
+    CollapsibleTitleNode,
   ]
 };
