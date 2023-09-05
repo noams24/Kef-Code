@@ -42,7 +42,19 @@ export async function POST(req: Request) {
           isPublic,
         },
       })
+
+      // Mark the status is "FINISH"
+      await db.problemStatus.create({
+        data: {
+          userId: session.user.id,
+          problemId,
+          status: "FINISH"
+        },
+      })
     }
+
+    
+
 
     //IF ADMIN, SAVE THE CONTENT AS A SOLUTION ARTICLE
     if (session.user.role === 'ADMIN') {
