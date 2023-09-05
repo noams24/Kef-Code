@@ -9,7 +9,7 @@ const tasks = Array.from({ length: 100 }, () => ({
   title: faker.hacker.phrase().replace(/^./, (letter) => letter.toUpperCase()),
   status: faker.helpers.arrayElement(statuses).value,
   label: faker.helpers.arrayElement(labels).value,
-  priority: faker.helpers.arrayElement(priorities).value,
+  difficulty: faker.helpers.arrayElement(priorities).value,
 }))
 
 fs.writeFileSync(

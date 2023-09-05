@@ -37,9 +37,9 @@ export function DataTableToolbar<TData>({
             options={statuses}
           />
         )}
-        {table.getColumn("priority") && (
+        {table.getColumn("difficulty") && (
           <DataTableFacetedFilter
-            column={table.getColumn("priority")}
+            column={table.getColumn("difficulty")}
             title="רמת קושי"
             options={priorities}
           />

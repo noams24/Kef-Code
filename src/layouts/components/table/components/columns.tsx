@@ -1,5 +1,6 @@
-"use client"
+"use client";
 
+<<<<<<< HEAD
 import { ColumnDef } from "@tanstack/react-table"
 
 import { useTableViewStore } from "@/store/store"
@@ -10,10 +11,19 @@ import { Task } from "../data/schema"
 import { DataTableColumnHeader } from "./data-table-column-header"
 import Link from "next/link";
 import { ColumnsNameEnum, ViewOptionEnum } from "@/types/enum"
+=======
+import { ColumnDef } from "@tanstack/react-table";
+import { priorities, statuses } from "../data/data";
+import { Task } from "../data/schema";
+import { DataTableColumnHeader } from "./data-table-column-header";
+import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+>>>>>>> 531d9ee (table)
 
 interface Data {
-  title: string
-  difficulty: string
+  title: string;
+  difficulty: string;
   //TODO: problemstatus: string
 }
 
@@ -31,17 +41,17 @@ export const columns: ColumnDef<Task>[] = [
   //   cell: ({ row }) => <DataTableRowActions row={row} />,
   // },
   {
-    accessorKey: "priority",
+    accessorKey: "difficulty",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="רמת קושי" />
     ),
     cell: ({ row }) => {
-      const priority = priorities.find(
-        (priority) => priority.value === row.getValue("priority")
-      )
+      const difficulty = priorities.find(
+        (difficulty) => difficulty.value === row.getValue("difficulty"),
+      );
 
-      if (!priority) {
-        return null
+      if (!difficulty) {
+        return null;
       }
 
       // const { data, isLoading }
@@ -72,12 +82,20 @@ export const columns: ColumnDef<Task>[] = [
       return (
         <div className="flex justify-center items-center">
           {/* <div>{isLoading ? 'Content is loading' : JSON.stringify(data)}</div> */}
+<<<<<<< HEAD
           <span className={className}>{priority.label}</span>
         </div >
       )
+=======
+          <span className={`color-level-${difficulty.value}`}>
+            {difficulty.label}
+          </span>
+        </div>
+      );
+>>>>>>> 531d9ee (table)
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      return value.includes(row.getValue(id));
     },
     sortingFn: (rowA, rowB, columId) => {
       const statusOrder = {
@@ -96,6 +114,7 @@ export const columns: ColumnDef<Task>[] = [
       <DataTableColumnHeader column={column} title="שם השאלה" />
     ),
     cell: ({ row }) => {
+<<<<<<< HEAD
       const label = labels.find((label) => label.value === row.original.label)
       const className = getColumnView().map(({ columnName, viewOption }) => {
         if (columnName === ColumnsNameEnum.PRIORITY || columnName === ColumnsNameEnum.STATUS && viewOption === ViewOptionEnum.HIDE) {
@@ -103,18 +122,17 @@ export const columns: ColumnDef<Task>[] = [
         }
       }).join('')
 
+=======
+>>>>>>> 531d9ee (table)
       return (
         <div className={`flex justify-end space-x-2 pr-7 ${className}`}>
           <span className="max-w-[500px] truncate font-medium">
-            <Link
-              href="/courses/Algebra/Chapter-1/1"
-            >
+            <Link href="/courses/Algebra/Chapter-1/1">
               {row.getValue("title")}
             </Link>
-
           </span>
         </div>
-      )
+      );
     },
   },
   {
@@ -124,27 +142,28 @@ export const columns: ColumnDef<Task>[] = [
     ),
     cell: ({ row }) => {
       const status = statuses.find(
-        (status) => status.value === row.getValue("status")
-      )
+        (status) => status.value === row.getValue("status"),
+      );
 
       if (!status) {
-        return null
+        return null;
       }
 
       return (
         <div
           title={status.label}
-          className="flex justify-end w-[80px] items-center">
+          className="flex justify-end w-[80px] items-center"
+        >
           {status.icon && (
             <status.icon className='mr-2 h-4 w-4 text-muted-foreground' />
           )}
-
         </div>
-      )
+      );
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      return value.includes(row.getValue(id));
     },
+<<<<<<< HEAD
     sortingFn: (rowA, rowB, columId) => {
       const statusOrder = {
         "done": 5,
@@ -159,3 +178,7 @@ export const columns: ColumnDef<Task>[] = [
     },
   }
 ]
+=======
+  },
+];
+>>>>>>> 531d9ee (table)

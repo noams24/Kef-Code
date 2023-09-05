@@ -27,11 +27,6 @@ export const labels = [
 
 export const statuses = [
   {
-    value: "backlog",
-    label: "ממתין",
-    icon: QuestionMarkCircledIcon,
-  },
-  {
     value: "todo",
     label: "לעשות",
     icon: CircleIcon,
@@ -47,9 +42,9 @@ export const statuses = [
     icon: CheckCircledIcon,
   },
   {
-    value: "canceled",
-    label: "בוטל",
-    icon: CrossCircledIcon,
+    value: "stuck",
+    label: "תקוע",
+    icon: QuestionMarkCircledIcon,
   },
 ]
 
@@ -74,7 +69,7 @@ export const hebrewColumnsFilter = [
     label: 'סטטוס'
   },
   {
-    value: 'priority',
+    value: 'difficulty',
     label: 'רמת קושי'
   }
 ]
