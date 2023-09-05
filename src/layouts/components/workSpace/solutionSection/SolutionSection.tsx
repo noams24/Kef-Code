@@ -15,6 +15,7 @@ import { useGenerationStoree } from '@/store/store';
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import parse from 'html-react-parser';
+import Status from '@/components/Status'
 
 import "mathlive/static.css";
 import '@/layouts/editor/theme.css';
@@ -85,14 +86,14 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
                                     <div>
                                         <div className="mt-3 dark:text-white text-center" dir="rtl">
                                             <Select onValueChange={(e) => (sortData(e))}>
-                                                <SelectTrigger className="w-[180px]">
+                                                <SelectTrigger className="w-[100px]">
                                                     <SelectValue placeholder="לייקים" />
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     <SelectGroup>
-                                                        <SelectLabel>מיין לפי</SelectLabel>
-                                                        <SelectItem value="likes">לייקים</SelectItem>
-                                                        <SelectItem value="recent">נוסף לאחרונה</SelectItem>
+                                                        <SelectLabel dir='rtl'>מיין לפי</SelectLabel>
+                                                        <SelectItem dir='rtl' value="likes">לייקים</SelectItem>
+                                                        <SelectItem dir='rtl' value="recent">נוסף לאחרונה</SelectItem>
                                                     </SelectGroup>
                                                 </SelectContent>
                                             </Select>
@@ -123,7 +124,11 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
                         <ImageDisplay imageUrl={"https://i.ibb.co/Gdz4BTg/problem1.png"} /> </div>
                         :
                         <div className="my-2">
+                            <div className="flex justify-between items-center ml-20">
+                            <p></p>
                             {loading ? <LikesSkeleton /> : <Likes problemId={problemId} difficulty={workSpaceData.difficulty} likes={Number(workSpaceData.likes)} dislikes={Number(workSpaceData.dislikes)} bookmark={workSpaceData.bookmark} likeStatus={workSpaceData.likeStatus} />}
+                            <Status/>
+                            </div>
                             <div className="mt-5 flex justify-center">
                                 {loading ? <ImageSkeleton /> : <ImageDisplay imageUrl={workSpaceData?.imageUrl} />}
                             </div>
