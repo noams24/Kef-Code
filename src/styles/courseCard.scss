@@ -1,0 +1,56 @@
+
+.title {
+background: rgba(0, 0, 0, 0.25);
+}
+
+.card {
+  display: inline-block;
+  border: thin solid rgb(205, 202, 202);
+  max-width: 20rem;
+  border-radius: 0.25rem;
+  margin: 2px 2px 2px 2px;
+}
+
+.imgCourse {
+  width: 16rem;
+  height:16rem;
+  object-fit: cover;
+  border-radius: 0.25rem;
+}
+
+.card:hover {
+box-shadow: 0 20px 15px -4px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.stylescore{
+position: absolute;
+right:0rem;
+left: 0.5rem;
+bottom: 13px;
+}
+
+.styletext{
+  position: absolute;
+  top: 1.25rem;
+  right:0rem;
+  left: 0rem;
+}
+
+.courseData {
+  display: flex;
+  padding:1rem 1.5rem 1.5rem 1.5rem;
+  justify-content: center;
+  align-items: center;
+  column-gap: 1rem;
+}
+
+.text{
+    text-align: center;
+    white-space: break-spaces;
+    inline-size: 250px;
+    text-shadow: -1px 1px 0 #000,
+    1px 1px 0 #000,
+    1px -1px 0 #000,
+    -1px -1px 0 #000;
+    color: white;
+}
