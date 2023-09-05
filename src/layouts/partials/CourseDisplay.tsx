@@ -1,7 +1,7 @@
 "use client";
 
 import CourseCard from "@/components/CourseCard";
-import { Course, Testimonial } from "@/types";
+import { Course } from "@/types";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 interface PageData {
@@ -15,7 +15,7 @@ interface PageData {
   };
 }
 
-const Testimonials = ({ data }: { data: PageData }) => {
+const CourseDisplay = ({ data }: { data: PageData }) => {
   const idSelector = `slider-${data.frontmatter.title}`;
 
   const slideLeft = () => {
@@ -67,4 +67,4 @@ const Testimonials = ({ data }: { data: PageData }) => {
   );
 };
 
-export default Testimonials;
+export default CourseDisplay;
