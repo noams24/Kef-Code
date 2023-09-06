@@ -19,77 +19,73 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import Divider from "@mui/material/Divider";
 
 import { tasks, checkpoints } from "@/tutorial";
+import Pagination from "@mui/material/Pagination";
+type CheckpointItem = typeof checkpoints[0][0];
 
 const Tutorial: React.FC = () => {
-    const [editorState, setEditorState] = useState<EditorState>();
-    const [currentTask, setCurrentTask] = useState(0);
+  const [currentTask, setCurrentTask] = useState(0);
+  const [currentCheckpoints, setCurrentCheckpoints] = useState<(CheckpointItem & { checked?: boolean })[]>(checkpoints[0]);
 
-    const onChange = (editorState: EditorState) => {
-        setEditorState(editorState);
-    };
+  const onChange = (editorState: EditorState) => {
+    const orderedCheckpoints = currentCheckpoints
+      .map((checkpoint, index) => ({ ...checkpoint, checked: checkpoint.check(editorState), index }))
+      .sort((a, b) => a.checked === b.checked ? a.index - b.index : a.checked ? 1 : -1);
+    setCurrentCheckpoints(orderedCheckpoints);
+  };
 
-    const nextTask = () => {
-        if (currentTask < tasks.length - 1) {
-            setCurrentTask(currentTask + 1);
-        }
-    };
+  const pages = tasks.length;
+  const [page, setPage] = useState(1);
+  const handlePageChange = (_: any, value: number) => {
+    setPage(value);
+    setCurrentTask(value - 1);
+    setCurrentCheckpoints(checkpoints[value - 1]);
+  }
 
-    const previousTask = () => {
-        if (currentTask > 0) {
-            setCurrentTask(currentTask - 1);
-        }
-    };
-
-    // order checkpoints with checked last
-    const orderedCheckpoints = checkpoints[currentTask]
-        .map((checkpoint, index) => ({ ...checkpoint, checked: checkpoint.check(editorState), index }))
-        .sort((a, b) => a.checked === b.checked ? a.index - b.index : a.checked ? 1 : -1);
-
-    return <>
-        {/* <Helmet title="Tutorial" /> */}
-        <div className="h-[85vh] mx-96 overflow-y-auto scrollbar-hide">
-            <Editor key={currentTask} document={tasks[currentTask]} onChange={onChange} />
-                <Paper sx={{ p: 2, mt: 3, displayPrint: 'none'}}>
-                    <Box key={`task-${currentTask}`} sx={{ mb: 2 }}>
-                        <Typography variant="h6">{tasks[currentTask].name}</Typography>
-                        <List>
-                            {orderedCheckpoints.map((checkpoint, index) =>
-                                <CheckpointItem key={`checkpoint-${index}`} name={checkpoint.name} steps={checkpoint.steps} checked={checkpoint.checked} />
-                            )}
-                        </List>
-                    </Box>
-                    <Box sx={{ display: "flex", justifyContent: "end" }}>
-                        <Button onClick={previousTask} disabled={currentTask === 0}>Previous</Button>
-                        <Button onClick={nextTask} disabled={currentTask === tasks.length - 1}>Next</Button>
-                    </Box>
-                </Paper>
-        </div>
-    </>;
+  return <>
+    {/* <Helmet title="Tutorial" /> */}
+    <Editor key={currentTask} document={tasks[currentTask]} onChange={onChange} />
+    <Paper className="dark:bg-darkmode-body" sx={{ p: 2, mt: 3, displayPrint: 'none' }}>
+      <Box key={`task-${currentTask}`} sx={{ mb: 2 }}>
+        <Typography variant="h6">{tasks[currentTask].name}</Typography>
+        <List>
+          {currentCheckpoints.map((checkpoint, index) =>
+          <div className="dark:bg-zinc-800 text-white rounded mb-1" >
+            <CheckpointItem key={`checkpoint-${index}`} name={checkpoint.name} steps={checkpoint.steps} checked={!!checkpoint.checked} />
+            </div>
+          )}
+        </List>
+      </Box>
+      {/* <div className="dark:text-white dark:focus:text-white "> */}
+      <div>
+      <Pagination color="primary" count={pages} page={page} onChange={handlePageChange} sx={{display: "flex", justifyContent: "center", mt: 3, width: "100%" }} />
+      </div>
+    </Paper>
+  </>;
 }
 
 const CheckpointItem = ({ name, steps, checked }: { name: string, steps: JSX.Element, checked: boolean }) => {
-    const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
-    const handleClick = () => {
-        setOpen(!open);
-    };
+  const handleClick = () => {
+    setOpen(!open);
+  };
 
-    return <>
-        <ListItemButton onClick={handleClick}>
-            <ListItemIcon>
-                {checked ? <CheckIcon /> : <ClearIcon />}
-            </ListItemIcon>
-            <ListItemText primary={name} sx={checked ? { textDecoration: "line-through" } : {}} />
-            {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ p: 2 }}>
-                <Typography variant="button" component="div" sx={{ mb: 2 }}>Steps</Typography>
-                {steps}
-            </Box>
-        </Collapse >
-        <Divider />
-    </>
+  return <>
+    <ListItemButton onClick={handleClick}>
+      <ListItemIcon>
+        {checked ? <CheckIcon /> : <ClearIcon />}
+      </ListItemIcon>
+      <ListItemText primary={name} sx={checked ? { textDecoration: "line-through" } : {}} />
+      {open ? <ExpandLess /> : <ExpandMore />}
+    </ListItemButton>
+    <Collapse in={open} timeout="auto" unmountOnExit>
+      <Box sx={{ p: 2 }}>
+        <Typography variant="button" component="div" sx={{ mb: 2 }}>Steps</Typography>
+        {steps}
+      </Box>
+    </Collapse >
+    <Divider />
+  </>
 }
 
 export default Tutorial;
