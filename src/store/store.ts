@@ -22,6 +22,11 @@ export const useGenerationStoree = create<GenerationStatee>()((set) => ({
   setPage: (page: number) => set({ page })
 }))
 
+export const useDevelop = create<any>()((set) => ({
+  development: process.env.NODE_ENV === "development",
+  setDevelop: (development: string) => set({ development })
+}))
+
 export type ColumnViewStateType = {
   columnName: string
   viewOption: ViewOptionEnum

@@ -6,10 +6,12 @@ import Link from "next/link";
 const Login: React.FC<{}> = async () => {
   let session = undefined
   // const develop = (process.env.NODE_ENV === "development")
-  const develop = process.env.DATABASE_URL !== undefined && process.env.DATABASE_URL !== null;
-  if (develop){
-    session = await getServerSession(authOptions);
-  }
+    try{
+      session = await getServerSession(authOptions);
+    }
+    catch{
+      
+    }
     return (
       <>
       {session?.user ? (
