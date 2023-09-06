@@ -39,7 +39,7 @@ import DescriptionCommentsSection from "@/components/comments/DescriptionComment
 
 interface SolutionSectionProps {
     workSpaceData: any,
-    problemId: any,
+    problemId: string,
     solution: any,
     userId: string | undefined,
     loading: any,
@@ -128,7 +128,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
                             <div className="flex justify-between items-center ml-20">
                             <p></p>
                             {loading ? <LikesSkeleton /> : <Likes problemId={problemId} difficulty={workSpaceData.difficulty} likes={Number(workSpaceData.likes)} dislikes={Number(workSpaceData.dislikes)} bookmark={workSpaceData.bookmark} likeStatus={workSpaceData.likeStatus} />}
-                            <Status/>
+                            {userId ? <Status problemId={problemId}/> : <div className="ml-20"> </div>}
                             </div>
                             <div className="mt-5 flex justify-center">
                                 {loading ? <ImageSkeleton /> : <ImageDisplay imageUrl={workSpaceData?.imageUrl} />}
