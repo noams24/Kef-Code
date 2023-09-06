@@ -15,7 +15,7 @@ import Confetti from 'react-confetti';
 import Editor from "@/layouts/editor/components/Editor"
 import useWindowSize from '@/hooks/useWindowSize';
 import SolutionSection from './solutionSection/SolutionSection';
-
+import { useDevelop } from '@/store/store'
 import "./split.css"
 
 export type EditorContentType = SerializedEditorState | undefined | any;
@@ -59,8 +59,8 @@ const Workspace: React.FC<WorkSpaceProps> = ({ problemId, solution, userId}) => 
   const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
   const [confetti, setConfetti] = useState(false);
   const { width, height } = useWindowSize();
+  const { development } = useDevelop()
 
-  // const development = process.env.DATABASE_URL !== undefined && process.env.DATABASE_URL !== null;
   //save solution to db
   const { mutate: handleSave, isLoading } = useMutation({
     mutationFn: async ({ jsonState, isPublic }: any) => {
@@ -92,24 +92,14 @@ const Workspace: React.FC<WorkSpaceProps> = ({ problemId, solution, userId}) => 
 
   // get data from the db
   const { data: workSpaceData, isLoading: isLoadingData } = useQuery({
+    queryKey:['workSpace'],
     queryFn: async () => {
+      if (development) return null
       const query = `/api/getWorkSpace?problemId=${problemId}`
       const { data } = await axios.get(query)
       return data as Data
     },
   })
-
-  // const { data: editorContent, isLoading: isLoadingEditor } = useQuery({
-  //   queryFn: async () => {
-  //     const query = `/api/getEditor?problemId=${problemId}`
-  //     const { data } = await axios.get(query)
-  //     return data
-  //   },
-  // })
-
-  // if (!isFetching && !data?.imageUrl) {
-  //   notFound()
-  // }
 
   useEffect(() => {
     if (workSpaceData && workSpaceData.content) {
@@ -135,8 +125,8 @@ const Workspace: React.FC<WorkSpaceProps> = ({ problemId, solution, userId}) => 
         <SolutionSection workSpaceData={workSpaceData} problemId={problemId} solution={solution} loading={isLoadingData} userId={userId}/>
         {/*EDITOR SECTION */}
         <div className="w-full overflow-y-auto ">
-          {(!isLoadingData && workSpaceData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div>}
-          {/* <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> */}
+          {!development ? (!isLoadingData && workSpaceData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div> 
+          : <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> }
         </div>
       </Split >
 

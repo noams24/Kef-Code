@@ -19,3 +19,8 @@ export const useGenerationStoree = create<GenerationStatee>()((set) => ({
     page: 1,
     setPage: (page: number) => set({ page })
   }))
+
+  export const useDevelop = create<any>()((set) => ({
+    development: process.env.NODE_ENV === "development",
+    setDevelop: (development: string) => set({ development })
+  }))

@@ -12,6 +12,7 @@ import Likes from "@/components/Likes";
 import Accordion from "@/shortcodes/Accordion";
 import { useGenerationStore } from '@/store/store';
 import { useGenerationStoree } from '@/store/store';
+import { useDevelop } from '@/store/store'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import parse from 'html-react-parser';
@@ -49,12 +50,12 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
     const { solutionState, setSolution } = useGenerationStore()
     const { page } = useGenerationStoree()
     const [sortBy, setSort] = useState('likes')
-
-    const development = process.env.DATABASE_URL !== undefined && process.env.DATABASE_URL !== null;
+    const { development } = useDevelop()
 
     const { data: soltionSectionData, refetch, isFetching } = useQuery({
         queryKey: [page],
         queryFn: async () => {
+            if (development) return null
             const query = `/api/getSolutions?problemId=${problemId}&page=${page}&sortBy=${sortBy}`
             const { data } = await axios.get(query)
             return data

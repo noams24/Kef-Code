@@ -4,6 +4,7 @@ import CreateComment from './CreateComment'
 import PostComment from './PostComment'
 import { useQuery } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
+import { useDevelop } from '@/store/store'
 
 interface CommentsSectionProps {
   ID: string
@@ -14,10 +15,12 @@ interface CommentsSectionProps {
 
 const CommentsSection = ({ ID, type, userId }: CommentsSectionProps) => {
 
+  const { development } = useDevelop()
   // get data from the db
   const { data: comments, isLoading } = useQuery({
     queryKey: ['comments'],
     queryFn: async () => {
+      if (development) return null
       const query = `/api/getComments?ID=${ID}&type=${type}`
       const { data } = await axios.get(query)
       return data
