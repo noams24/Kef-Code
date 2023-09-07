@@ -1,5 +1,6 @@
 import Pi from "./Pi";
 import "../../styles/courseCard.scss";
+import ImageFallback from "@/helpers/ImageFallback";
 
 interface Props {
   title: string;
@@ -15,11 +16,18 @@ const CourseCard = ({ title, link, image, chapters, items, completed }: Props) =
     <a href={`courses/${link}`}>
     <div className="card">
       <div className="relative w-full">
-          <img
+          {/* <img
             className="imgCourse"
           src={image}
           alt="Sunset in the mountains"
-        />
+        /> */}
+            <ImageFallback
+                  src={image}
+                  className="object-cover rounded-md w-64 h-64"
+                  height={300}
+                  width={300}
+                  alt="שם הקורס"
+                />
         <div className="styletext">
         <h2 className="text text-2xl ">{title}</h2>
         </div>
