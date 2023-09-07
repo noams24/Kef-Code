@@ -48,11 +48,14 @@ const Tutorial: React.FC = () => {
       <Box key={`task-${currentTask}`} sx={{ mb: 2 }}>
         <Typography variant="h6">{tasks[currentTask].name}</Typography>
         <List>
-          {currentCheckpoints.map((checkpoint, index) =>
+          {/* {currentCheckpoints.map((checkpoint, index) =>
           <div className="dark:bg-zinc-800 text-white rounded mb-1" >
             <CheckpointItem key={`checkpoint-${index}`} name={checkpoint.name} steps={checkpoint.steps} checked={!!checkpoint.checked} />
             </div>
-          )}
+          )} */}
+              {currentCheckpoints.map((checkpoint, index) =>
+                                <CheckpointItem key={`checkpoint-${index}`} name={checkpoint.name} steps={checkpoint.steps} checked={!!checkpoint.checked} />
+                            )}
         </List>
       </Box>
       {/* <div className="dark:text-white dark:focus:text-white "> */}
