@@ -14,7 +14,7 @@ const nextConfig = {
   basePath: config.base_path !== "/" ? config.base_path : "",
   trailingSlash: config.site.trailing_slash,
   images: {
-    domains: ['uploadthing.com', 'lh3.googleusercontent.com'],
+    domains: ['uploadthing.com', 'lh3.googleusercontent.com', "i.ibb.co", "utfs.io"],
   },
   experimental: {
     appDir: true

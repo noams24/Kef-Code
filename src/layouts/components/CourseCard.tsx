@@ -16,14 +16,9 @@ const CourseCard = ({ title, link, image, chapters, items, completed }: Props) =
     <a href={`courses/${link}`}>
     <div className="card">
       <div className="relative w-full">
-          {/* <img
-            className="imgCourse"
-          src={image}
-          alt="Sunset in the mountains"
-        /> */}
             <ImageFallback
                   src={image}
-                  className="object-cover rounded-md w-64 h-64"
+                  className="object-cover rounded-md w-64 h-64 transition-opacity opacity-0 duration-[2s]"
                   height={300}
                   width={300}
                   alt="שם הקורס"
