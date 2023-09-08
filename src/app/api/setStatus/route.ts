@@ -13,7 +13,7 @@ export async function POST(req: Request) {
         if (!session?.user) {
             return new Response('Unauthorized', { status: 401 })
         }
-        console.log(problemId, status)
+    
         const exists = await db.problemStatus.findFirst({
             where: {
                 userId: session.user.id,

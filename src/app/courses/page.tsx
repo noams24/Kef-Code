@@ -1,17 +1,33 @@
-import CourseDisplay from "@/partials/CourseDisplay";
+import CourseDisplay from "@/components/CourseDisplay";
 import { getListPage } from "@/lib/contentParser";
 import { Metadata } from "next";
-// import { getAuthSession } from "@/lib/auth";
+import { getAuthSession } from "@/lib/auth";
 // import { db } from "@/lib/db";
 
 export const metadata: Metadata = {
   title: "כיף קוד - קורסים",
 };
 const Courses = async () => {
+
+  const session = await getAuthSession();
   const computerScience = getListPage("sections/CS.md");
-  let math = getListPage("sections/Math.md");
+  const math = getListPage("sections/Math.md");
   const other = getListPage("sections/Other.md");
-  // const session = await getAuthSession();
+
+  return (
+    <div className="flex flex-col gap-y-5 p-3">
+      <CourseDisplay data={computerScience} session={session} />
+      <CourseDisplay data={math} session={session} />
+      <CourseDisplay data={other} session={session} />
+    </div>
+  );
+};
+
+export default Courses;
+
+
+
+
 
   // if (session) {
     // const progress = await db.
@@ -67,14 +83,3 @@ const Courses = async () => {
 
     // console.log(math.frontmatter.courses)
   // }
-
-  return (
-    <div className="flex flex-col gap-y-5 p-3">
-      <CourseDisplay data={computerScience} />
-      <CourseDisplay data={math} />
-      <CourseDisplay data={other} />
-    </div>
-  );
-};
-
-export default Courses;

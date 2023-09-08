@@ -20,7 +20,7 @@ const Status = ({problemId}:any) => {
   
   const { loginToast } = useCustomToasts()
   const { development } = useDevelop()
-  // console.log(problemId)
+  
   const { data: previousStatus } = useQuery({
     queryKey: ['status'],
     queryFn: async () => {
@@ -52,7 +52,7 @@ const Status = ({problemId}:any) => {
     onSuccess: () => {
     },
   })
-  console.log(previousStatus)
+
   return (
     <div>
       {previousStatus &&
