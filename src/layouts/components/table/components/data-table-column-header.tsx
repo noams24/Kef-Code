@@ -44,7 +44,7 @@ export function DataTableColumnHeader<TData, TValue>({
   }
 
   // Function that return the icon for each selector based on its view status 
-  const getColumnIcon = useMemo(() => (viewOption: ViewOptionEnum) => {
+  const getColumnIcon = (viewOption: ViewOptionEnum) => {
     const className = "table-selector-icons"
     switch (viewOption) {
       case ViewOptionEnum.DESC:
@@ -57,7 +57,7 @@ export function DataTableColumnHeader<TData, TValue>({
       default:
         return <CaretSortIcon className={className} />
     }
-  }, [columnsView])
+  }
 
   // Function that return the icon for each filter inside the drop down menu
   const getIconFilter = (viewOption: ViewOptionEnum) => {
@@ -92,7 +92,7 @@ export function DataTableColumnHeader<TData, TValue>({
           <Button
             variant="ghost"
             size="sm"
-            className={`-ml-3 h-8 data-[state=open]:bg-accent hover:text-cyan-700 focus-visible:border-white ${column.id === ColumnsNameEnum.PRIORITY && 'pl-4'}`}
+            className={`-ml-3 h-8 data-[state=open]:bg-accent hover:text-cyan-700 focus-visible:border-white ${column.id === ColumnsNameEnum.DIFFICULTY && 'pl-4'}`}
           >
             <span>{title}</span>
             {columnViewState ? getColumnIcon(columnViewState.viewOption) : null}
@@ -108,6 +108,7 @@ export function DataTableColumnHeader<TData, TValue>({
             }
             return (
               <DropdownMenuItem
+                key={value}
                 onClick={() => onClickFilter(value)}
                 className="flex justify-between">
                 {getIconFilter(value)}
