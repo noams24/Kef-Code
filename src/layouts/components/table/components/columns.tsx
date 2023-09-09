@@ -1,38 +1,15 @@
 "use client";
 
-<<<<<<< HEAD
-import { ColumnDef } from "@tanstack/react-table"
-
-import { useTableViewStore } from "@/store/store"
-import { useInitializeTableViewStore } from "@/hooks/useInitializeTableView"
-
-import { labels, priorities, statuses } from "../data/data"
-import { Task } from "../data/schema"
-import { DataTableColumnHeader } from "./data-table-column-header"
-import Link from "next/link";
-import { ColumnsNameEnum, ViewOptionEnum } from "@/types/enum"
-=======
 import { ColumnDef } from "@tanstack/react-table";
 import { priorities, statuses } from "../data/data";
 import { Task } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
->>>>>>> 531d9ee (table)
 
 interface Data {
   title: string;
   difficulty: string;
   //TODO: problemstatus: string
-}
-
-
-const getColumnView = () => {
-  useInitializeTableViewStore()
-  const { columnsView } = useTableViewStore()
-  return columnsView
-
 }
 
 export const columns: ColumnDef<Task>[] = [
@@ -65,34 +42,28 @@ export const columns: ColumnDef<Task>[] = [
       //   },
       // })
 
-      const className = getColumnView().map(({ columnName, viewOption }) => {
-        let colorClass = 'color-priority-low'
-        if (priority.value === 'medium') {
-          colorClass = 'color-priority-medium'
-        }
-        else if (priority.value === 'high') {
-          colorClass = 'color-priority-high'
-        }
-        if (columnName === ColumnsNameEnum.STATUS && viewOption === ViewOptionEnum.HIDE) {
-          return `ml-16 ${colorClass}`
-        }
-        return colorClass
-      }).join(' ')
+      // const className = getColumnView().map(({ columnName, viewOption }) => {
+      //   let colorClass = 'color-priority-low'
+      //   if (priority.value === 'medium') {
+      //     colorClass = 'color-priority-medium'
+      //   }
+      //   else if (priority.value === 'high') {
+      //     colorClass = 'color-priority-high'
+      //   }
+      //   if (columnName === ColumnsNameEnum.STATUS && viewOption === ViewOptionEnum.HIDE) {
+      //     return `ml-16 ${colorClass}`
+      //   }
+      //   return colorClass
+      // }).join(' ')
 
       return (
         <div className="flex justify-center items-center">
           {/* <div>{isLoading ? 'Content is loading' : JSON.stringify(data)}</div> */}
-<<<<<<< HEAD
-          <span className={className}>{priority.label}</span>
-        </div >
-      )
-=======
           <span className={`color-level-${difficulty.value}`}>
             {difficulty.label}
           </span>
         </div>
       );
->>>>>>> 531d9ee (table)
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
@@ -114,18 +85,15 @@ export const columns: ColumnDef<Task>[] = [
       <DataTableColumnHeader column={column} title="שם השאלה" />
     ),
     cell: ({ row }) => {
-<<<<<<< HEAD
-      const label = labels.find((label) => label.value === row.original.label)
-      const className = getColumnView().map(({ columnName, viewOption }) => {
-        if (columnName === ColumnsNameEnum.PRIORITY || columnName === ColumnsNameEnum.STATUS && viewOption === ViewOptionEnum.HIDE) {
-          return "ml-44"
-        }
-      }).join('')
 
-=======
->>>>>>> 531d9ee (table)
+      // const label = labels.find((label) => label.value === row.original.label)
+      // const className = getColumnView().map(({ columnName, viewOption }) => {
+      //   if (columnName === ColumnsNameEnum.PRIORITY || columnName === ColumnsNameEnum.STATUS && viewOption === ViewOptionEnum.HIDE) {
+      //     return "ml-44"
+      //   }
+      // }).join('')
       return (
-        <div className={`flex justify-end space-x-2 pr-7 ${className}`}>
+        <div className='flex justify-end space-x-2 pr-7'>
           <span className="max-w-[500px] truncate font-medium">
             <Link href="/courses/Algebra/Chapter-1/1">
               {row.getValue("title")}
@@ -163,7 +131,6 @@ export const columns: ColumnDef<Task>[] = [
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
-<<<<<<< HEAD
     sortingFn: (rowA, rowB, columId) => {
       const statusOrder = {
         "done": 5,
@@ -178,7 +145,3 @@ export const columns: ColumnDef<Task>[] = [
     },
   }
 ]
-=======
-  },
-];
->>>>>>> 531d9ee (table)
