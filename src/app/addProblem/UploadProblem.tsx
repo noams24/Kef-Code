@@ -97,6 +97,13 @@ export function UploadProblem(courses: any) {
         if (err.response?.status === 401) {
           return loginToast();
         }
+        else if (err.response?.status === 501) {
+          return toast({
+            title: "שגיאה",
+            description: "שם השאלה כבר קיים",
+            variant: "destructive",
+          })
+        }
       }
       toast({
         title: "שגיאה",
@@ -115,8 +122,8 @@ export function UploadProblem(courses: any) {
 
   let mappedCourses: any = null;
   if (Array.isArray(courses.courses)) {
-    mappedCourses = courses.courses.map((item: any) => (
-      <SelectItem value={item.courseName}>{item.hebrew}</SelectItem>
+    mappedCourses = courses.courses.map((item: any, index: number) => (
+      <SelectItem key={index} value={item.courseName}>{item.hebrew}</SelectItem>
     ));
   }
 
@@ -196,8 +203,8 @@ export function UploadProblem(courses: any) {
                     <SelectItem value="2">2</SelectItem>
                     <SelectItem value="3">3</SelectItem> */}
                     {chapters &&
-                      chapters.map((item: any) => (
-                        <SelectItem value={item.link}>{item.title}</SelectItem>
+                      chapters.map((item: any, index: number) => (
+                        <SelectItem key={index} value={item.link}>{item.title}</SelectItem>
                       ))}
                   </SelectContent>
                 </Select>

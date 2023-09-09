@@ -15,6 +15,16 @@ export async function POST(req: Request) {
             return new Response('Unauthorized', { status: 401 })
         }
 
+        const exists = await db.problem.findFirst({
+            where: {
+                course,
+                chapter,
+                title,
+            },
+        })
+
+        if (exists) return new Response('Title already exists', { status: 501 })
+
         await db.problem.create({
             data: {
                 title : title,
