@@ -10,23 +10,19 @@ interface FeedProps {
 const Feed: React.FC<FeedProps> = ({ data }) => {
   const { setSolution } = useGenerationStore()
 
-  const handleClick = (id:String) => {
+  const handleClick = (id: String) => {
     setSolution(id)
   };
-  
-  // console.log(data)
 
   return (
     <>
-      {(!data) ? <p>אין פתרונות עדיין</p> :
-        <div>
-          {data?.map((item: any, index: any) => (
-            <div key={index} onClick={() => handleClick(index)}>
-              <SolutionCard author={item.user.username} date={item.createdAt} likes={item.votes.length} comments={item.comments.length} />
-            </div>
-          ))}</div>
-      }
-    </>
+      <div>
+        {data?.map((item: any, index: any) => (
+          <div key={index} onClick={() => handleClick(index)}>
+            <SolutionCard author={item.user.username} date={item.createdAt} likes={item.votes.length} comments={item.comments.length} />
+          </div>
+        ))}</div>
+      u    </>
   );
 };
 
@@ -39,13 +35,13 @@ export default Feed;
 // import PaginationControls from './PaginationControl'
 // import { useGenerationStoree } from '@/store/store';
 
-      {/* {entries.map((item, index) => (
+{/* {entries.map((item, index) => (
         <div key={index}>
           <SolutionCard author={item.author} date={item.date} likes={item.likes} comments={item.comments} />
         </div>
       ))} */}
 
-      {/* {develop ? <div>{slicedData.map((item, index) => (
+{/* {develop ? <div>{slicedData.map((item, index) => (
         <div key={index}>
           <SolutionCard author={item.author} date={item.date} likes={item.likes} comments={item.comments} />
         </div>

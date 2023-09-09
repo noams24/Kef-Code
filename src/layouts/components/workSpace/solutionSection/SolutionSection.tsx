@@ -103,9 +103,18 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
                                                 </SelectContent>
                                             </Select>
                                         </div>
-                                        {isFetching ? <p>טוען</p> : <Feed data={soltionSectionData} />}
+                                        {isFetching ?
+                                            <p dir="rtl">טוען..</p> :
+                                            !soltionSectionData ?
+                                                <p dir='rtl'>אין פתרונות עדיין</p> :
+                                                <Feed data={soltionSectionData} />
+                                        }
                                     </div>
-                                    : <p>טוען..</p>}
+                                    : isFetching ?
+                                        <p dir="rtl">טוען..</p> :
+                                        <p dir='rtl'>אין פתרונות עדיין</p>
+
+                                }
                                 {soltionSectionData && workSpaceData && <Pagination totalPages={Math.ceil(workSpaceData.totalSubmissions / 5)} />}
                             </div>}
 
