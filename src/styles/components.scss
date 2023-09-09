@@ -218,8 +218,31 @@
   0 41.8px 33.4px rgba(0, 0, 0, 0.086),
   0 100px 80px rgba(0, 0, 0, 0.12);
   border-radius: 5px;
+
+  @apply mx-96 flex flex-col w-[410px] items-center border border-gray-800 rounded-lg p-4 m-3
+}
+
+.chapter-page-container-dark { 
+  box-shadow:
+  0 2.8px 2.2px rgba(124, 205, 240, 0.034),
+  0 6.7px 5.3px rgba(169, 203, 217, 0.048),
+  0 12.5px 10px rgba(141, 232, 230, 0.06),
+  0 22.3px 17.9px rgba(97, 177, 237, 0.072),
+  0 41.8px 33.4px rgba(180, 210, 237, 0.086),
+  0 20px 10px rgba(87, 109, 109, 0.12);
+  border-radius: 5px;
+
+  @apply mx-96 flex flex-col w-[410px] items-center border border-gray-500 rounded-lg p-4 m-3
 }
 
 .chapter-card-container-hover {
   box-shadow: 0 -5px 3px -3px rgb(75, 79, 110);
+}
+
+.chapter-card-container-hover-dark {
+  box-shadow: 0 -5px 3px -3px rgb(158, 213, 228);
+}
+
+.chapter-card-container {
+  @apply border dark:bg-slate-800 dark:border-gray-500 border-gray-300 bg-white p-4 w-96 h-24 cursor-pointer flex justify-end;
 }
