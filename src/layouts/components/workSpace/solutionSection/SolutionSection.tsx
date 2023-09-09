@@ -30,7 +30,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/Select"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ImageSkeleton from "@/components/skeletons/ImageSkeleton";
 import LikesSkeleton from "@/components/skeletons/LikesSkeletion";
 import CommentsSection from "@/components/comments/CommentsSection";
@@ -63,10 +63,14 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
         keepPreviousData: true,
     },)
 
-    const sortData: any = (e: any) => {
-        setSort(e)
+    useEffect(() => {
         refetch()
+    }, [sortBy])
+
+    const sortData = (sort: string) => {
+        setSort(sort)
     }
+
     return (
         <div className="overflow-y-auto scrollbar-hide">
             <Tabs>
@@ -86,7 +90,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
                                 {soltionSectionData ?
                                     <div>
                                         <div className="mt-3 dark:text-white text-center" dir="rtl">
-                                            <Select onValueChange={(e) => (sortData(e))}>
+                                            <Select onValueChange={(sort) => (sortData(sort))}>
                                                 <SelectTrigger className="w-[100px]">
                                                     <SelectValue placeholder="לייקים" />
                                                 </SelectTrigger>
@@ -126,9 +130,9 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
                         :
                         <div className="my-2">
                             <div className="flex justify-between items-center ml-20">
-                            <p></p>
-                            {loading ? <LikesSkeleton /> : <Likes problemId={problemId} difficulty={workSpaceData.difficulty} likes={Number(workSpaceData.likes)} dislikes={Number(workSpaceData.dislikes)} bookmark={workSpaceData.bookmark} likeStatus={workSpaceData.likeStatus} />}
-                            {userId ? <Status problemId={problemId}/> : <div className="ml-20"> </div>}
+                                <p></p>
+                                {loading ? <LikesSkeleton /> : <Likes problemId={problemId} difficulty={workSpaceData.difficulty} likes={Number(workSpaceData.likes)} dislikes={Number(workSpaceData.dislikes)} bookmark={workSpaceData.bookmark} likeStatus={workSpaceData.likeStatus} />}
+                                {userId ? <Status problemId={problemId} /> : <div className="ml-20"> </div>}
                             </div>
                             <div className="mt-5 flex justify-center">
                                 {loading ? <ImageSkeleton /> : <ImageDisplay imageUrl={workSpaceData?.imageUrl} />}
