@@ -7,7 +7,7 @@ import { Button } from "../registry/new-york/ui/button"
 import { Input } from "../registry/new-york/ui/input"
 import { DataTableViewOptions } from "./data-table-view-options"
 
-import { priorities, statuses } from "../data/data"
+import { difficulties, statuses } from "../data/data"
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
 
 interface DataTableToolbarProps<TData> {
@@ -41,7 +41,7 @@ export function DataTableToolbar<TData>({
           <DataTableFacetedFilter
             column={table.getColumn("difficulty")}
             title="רמת קושי"
-            options={priorities}
+            options={difficulties}
           />
         )}
         {isFiltered && (

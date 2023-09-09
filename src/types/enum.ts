@@ -8,7 +8,7 @@ export enum ViewOptionEnum {
 export enum ColumnsNameEnum {
     STATUS = "status",
     TITLE = "title",
-    PRIORITY = "priority"
+    DIFFICULTY = "difficulty"
 }
 
 export enum JsonKeysEnum {

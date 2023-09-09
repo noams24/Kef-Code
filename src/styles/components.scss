@@ -191,17 +191,17 @@
   width: 7rem;
 }
 
-// color for each priority
+// color for each difficulty
 
-.color-priority-low {
+.color-difficulty-low {
   @apply text-green-400 dark:text-green-600;
 }
 
-.color-priority-medium {
+.color-difficulty-medium {
   @apply text-yellow-500;
 }
 
-.color-priority-high {
+.color-difficulty-high {
   @apply text-red-500 dark:text-red-700;
 }
 

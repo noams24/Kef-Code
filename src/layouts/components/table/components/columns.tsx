@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { priorities, statuses } from "../data/data";
+import { difficulties, statuses } from "../data/data";
 import { Task } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import Link from "next/link";
@@ -23,7 +23,7 @@ export const columns: ColumnDef<Task>[] = [
       <DataTableColumnHeader column={column} title="רמת קושי" />
     ),
     cell: ({ row }) => {
-      const difficulty = priorities.find(
+      const difficulty = difficulties.find(
         (difficulty) => difficulty.value === row.getValue("difficulty"),
       );
 
@@ -56,10 +56,18 @@ export const columns: ColumnDef<Task>[] = [
       //   return colorClass
       // }).join(' ')
 
+        let colorClass = 'color-difficulty-low'
+        if (difficulty.value === 'MEDIUM') {
+          colorClass = 'color-difficulty-medium'
+        }
+        else if (difficulty.value === 'HARD') {
+          colorClass = 'color-difficulty-high'
+        }
+
       return (
         <div className="flex justify-center items-center">
           {/* <div>{isLoading ? 'Content is loading' : JSON.stringify(data)}</div> */}
-          <span className={`color-level-${difficulty.value}`}>
+          <span className={colorClass}>
             {difficulty.label}
           </span>
         </div>
@@ -70,9 +78,9 @@ export const columns: ColumnDef<Task>[] = [
     },
     sortingFn: (rowA, rowB, columId) => {
       const statusOrder = {
-        "high": 3,
-        "medium": 2,
-        "low": 1
+        "HARD": 3,
+        "MEDIUM": 2,
+        "EASY": 1
       }
       const valueA = rowA.getValue(columId) as keyof typeof statusOrder
       const valueB = rowB.getValue(columId) as keyof typeof statusOrder
@@ -86,7 +94,6 @@ export const columns: ColumnDef<Task>[] = [
     ),
     cell: ({ row }) => {
 
-      // const label = labels.find((label) => label.value === row.original.label)
       // const className = getColumnView().map(({ columnName, viewOption }) => {
       //   if (columnName === ColumnsNameEnum.PRIORITY || columnName === ColumnsNameEnum.STATUS && viewOption === ViewOptionEnum.HIDE) {
       //     return "ml-44"
@@ -133,11 +140,10 @@ export const columns: ColumnDef<Task>[] = [
     },
     sortingFn: (rowA, rowB, columId) => {
       const statusOrder = {
-        "done": 5,
-        "in progress": 4,
-        "todo": 3,
-        "backlog": 2,
-        "canceled": 1
+        "FINISH": 4,
+        "STUCK": 3,
+        "ONGOING": 2,
+        "BEGIN": 1
       }
       const valueA = rowA.getValue(columId) as keyof typeof statusOrder
       const valueB = rowB.getValue(columId) as keyof typeof statusOrder

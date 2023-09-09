@@ -48,7 +48,7 @@ export const statuses = [
   },
 ]
 
-export const priorities = [
+export const difficulties = [
   {
     label: "קל",
     value: "EASY",
