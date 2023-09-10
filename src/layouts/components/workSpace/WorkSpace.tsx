@@ -1,29 +1,30 @@
-"use client"
+"use client";
 
-import Split from 'react-split'
+import Split from "react-split";
 import { Button } from "@/components/ui/button";
-import playgroundTemplate from './jsonFiles/empty.json';
-import type { EditorDocument } from './types';
+import playgroundTemplate from "./jsonFiles/empty.json";
+import type { EditorDocument } from "./types";
 import { type EditorState, type SerializedEditorState } from "lexical";
 import React, { useState, useEffect } from "react";
-import { useMutation } from '@tanstack/react-query'
-import axios, { AxiosError } from 'axios'
-import { useCustomToasts } from '@/hooks/use-custom-toast'
-import { toast } from '@/hooks/use-toast'
-import { useQuery } from '@tanstack/react-query'
-import Confetti from 'react-confetti';
-import Editor from "@/layouts/editor/components/Editor"
-import useWindowSize from '@/hooks/useWindowSize';
-import SolutionSection from './solutionSection/SolutionSection';
-import { useDevelop } from '@/store/store'
-import "./split.css"
+import { useMutation } from "@tanstack/react-query";
+import axios, { AxiosError } from "axios";
+import { useCustomToasts } from "@/hooks/use-custom-toast";
+import { toast } from "@/hooks/use-toast";
+import { useQuery } from "@tanstack/react-query";
+import Confetti from "react-confetti";
+import Editor from "@/layouts/editor/components/Editor";
+import useWindowSize from "@/hooks/useWindowSize";
+import SolutionSection from "./solutionSection/SolutionSection";
+import { useDevelop } from "@/store/store";
+import "./split.css";
+import TopBar from "../topBar/TopBar";
 
 export type EditorContentType = SerializedEditorState | undefined | any;
 
 type WorkSpaceProps = {
-  problemId: string,
-  solution: any
-  userId: string | undefined,
+  problemId: string;
+  solution: any;
+  userId: string | undefined;
 };
 
 interface Data {
@@ -34,14 +35,14 @@ interface Data {
   difficulty: String;
   bookmark: boolean | undefined;
   likeStatus: any;
-  solutionArticle?: any
-  videoUrl?: any
-  totalSubmissions: number
+  solutionArticle?: any;
+  videoUrl?: any;
+  totalSubmissions: number;
 }
 
 function onChange(
   state: EditorState,
-  setJsonState: React.Dispatch<React.SetStateAction<EditorContentType>>
+  setJsonState: React.Dispatch<React.SetStateAction<EditorContentType>>,
 ) {
   state.read(() => {
     if (state.isEmpty()) {
@@ -52,67 +53,79 @@ function onChange(
   });
 }
 
-const Workspace: React.FC<WorkSpaceProps> = ({ problemId, solution, userId}) => {
-  const { loginToast } = useCustomToasts()
+const Workspace: React.FC<WorkSpaceProps> = ({
+  problemId,
+  solution,
+  userId,
+}) => {
+  const { loginToast } = useCustomToasts();
 
-  const [document, setDocument] = useState<EditorDocument>(playgroundTemplate as unknown as EditorDocument);
+  const [document, setDocument] = useState<EditorDocument>(
+    playgroundTemplate as unknown as EditorDocument,
+  );
   const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
   const [confetti, setConfetti] = useState(false);
   const { width, height } = useWindowSize();
-  const { development } = useDevelop()
+  const { development } = useDevelop();
 
   //save solution to db
   const { mutate: handleSave, isLoading } = useMutation({
     mutationFn: async ({ jsonState, isPublic }: any) => {
-      const payload: any = { problemId, jsonState, isPublic }
-      const { data } = await axios.post('/api/submit', payload)
-      return data
+      const payload: any = { problemId, jsonState, isPublic };
+      const { data } = await axios.post("/api/submit", payload);
+      return data;
     },
     onError: (err) => {
       if (err instanceof AxiosError) {
         if (err.response?.status === 401) {
-          return loginToast()
+          return loginToast();
         }
       }
       toast({
-        title: 'There was an error.',
-        description: 'Could not create subreddit.',
-        variant: 'destructive',
-      })
+        title: "There was an error.",
+        description: "Could not create subreddit.",
+        variant: "destructive",
+      });
     },
     onSuccess: () => {
-      setConfetti(true)
+      setConfetti(true);
       toast({
-        title: 'נשמר',
-        description: 'התשובה נשמרה בהצלחה.',
-        variant: 'destructive',
-      })
+        title: "נשמר",
+        description: "התשובה נשמרה בהצלחה.",
+        variant: "destructive",
+      });
     },
-  })
+  });
 
   // get data from the db
-  const { data: workSpaceData, isLoading: isLoadingData } = useQuery({
-    queryKey:['workSpace'],
+  const {
+    data: workSpaceData,
+    isLoading: isLoadingData,
+    isPreviousData,
+  } = useQuery({
+    queryKey: ["workSpaceData", problemId],
     queryFn: async () => {
-      if (development) return null
-      const query = `/api/getWorkSpace?problemId=${problemId}`
-      const { data } = await axios.get(query)
-      return data as Data
-    },
-  })
+      if (development) return null;
+      const query = `/api/getWorkSpace?problemId=${problemId}`;
+      const { data } = await axios.get(query);
 
-  useEffect(() => {
-    if (workSpaceData && workSpaceData.content) {
-      const newData = { "id": "1", "name": "1", "data": workSpaceData.content.content }
-      setDocument(newData as unknown as EditorDocument)
-      setJsonState(newData.data)
-    }
-  }, [workSpaceData])
+      if (data.content) {
+        const newData = {
+          id: "1",
+          name: "1",
+          data: data.content.content,
+        };
+        setDocument(newData as unknown as EditorDocument);
+        setJsonState(newData.data);
+      }
+      return data as Data;
+    },
+  });
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       // Do something after 3 seconds
-      setConfetti(false)
+      setConfetti(false);
     }, 8000);
     return () => {
       clearTimeout(timeoutId);
@@ -121,14 +134,31 @@ const Workspace: React.FC<WorkSpaceProps> = ({ problemId, solution, userId}) => 
 
   return (
     <>
-      <Split className="split h-[70vh]" minSize={0} >
-        <SolutionSection workSpaceData={workSpaceData} problemId={problemId} solution={solution} loading={isLoadingData} userId={userId}/>
+      <TopBar />
+      <Split className="split h-[70vh]" minSize={0}>
+        <SolutionSection
+          workSpaceData={workSpaceData}
+          problemId={problemId}
+          solution={solution}
+          loading={isLoadingData}
+          userId={userId}
+        />
         {/*EDITOR SECTION */}
         <div className="w-full overflow-y-auto ">
-          {!development ? (!isLoadingData && workSpaceData) ? <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> : <div>Loading</div> 
-          : <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} /> }
+          {development ? <Editor
+              document={document}
+              onChange={(editor) => onChange(editor, setJsonState)}
+            />
+            : !isLoadingData && workSpaceData ? (
+            <Editor
+              document={document}
+              onChange={(editor) => onChange(editor, setJsonState)}
+            />
+          ) : (
+            <h3 className="flex justify-center items-center ">טוען</h3>
+          )}
         </div>
-      </Split >
+      </Split>
 
       {/* Buttons */}
       <div className="my-3 flex justify-center gap-x-2">
@@ -147,7 +177,9 @@ const Workspace: React.FC<WorkSpaceProps> = ({ problemId, solution, userId}) => 
           שמירה
         </Button>
       </div>
-      {confetti && <Confetti gravity={0.3} width={width - 1} height={height - 1} />}
+      {confetti && (
+        <Confetti gravity={0.3} width={width - 1} height={height - 1} />
+      )}
     </>
   );
 };

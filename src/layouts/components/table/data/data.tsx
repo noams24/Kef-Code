@@ -1,3 +1,4 @@
+import { ViewOptionEnum } from "@/types/enum"
 import {
   ArrowDownIcon,
   ArrowRightIcon,
@@ -47,7 +48,7 @@ export const statuses = [
   },
 ]
 
-export const priorities = [
+export const difficulties = [
   {
     label: "קל",
     value: "EASY",
@@ -70,5 +71,20 @@ export const hebrewColumnsFilter = [
   {
     value: 'difficulty',
     label: 'רמת קושי'
+  }
+]
+
+export const sortingFilter = [
+  {
+    value: ViewOptionEnum.ASC,
+    label: "סדר עולה"
+  },
+  {
+    value: ViewOptionEnum.DESC,
+    label: "סדר יורד"
+  },
+  {
+    value: ViewOptionEnum.HIDE,
+    label: "הסתר"
   }
 ]

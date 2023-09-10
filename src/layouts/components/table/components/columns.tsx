@@ -1,12 +1,10 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { priorities, statuses } from "../data/data";
+import { difficulties, statuses } from "../data/data";
 import { Task } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 
 interface Data {
   title: string;
@@ -25,7 +23,7 @@ export const columns: ColumnDef<Task>[] = [
       <DataTableColumnHeader column={column} title="רמת קושי" />
     ),
     cell: ({ row }) => {
-      const difficulty = priorities.find(
+      const difficulty = difficulties.find(
         (difficulty) => difficulty.value === row.getValue("difficulty"),
       );
 
@@ -44,10 +42,32 @@ export const columns: ColumnDef<Task>[] = [
       //   },
       // })
 
+      // const className = getColumnView().map(({ columnName, viewOption }) => {
+      //   let colorClass = 'color-priority-low'
+      //   if (priority.value === 'medium') {
+      //     colorClass = 'color-priority-medium'
+      //   }
+      //   else if (priority.value === 'high') {
+      //     colorClass = 'color-priority-high'
+      //   }
+      //   if (columnName === ColumnsNameEnum.STATUS && viewOption === ViewOptionEnum.HIDE) {
+      //     return `ml-16 ${colorClass}`
+      //   }
+      //   return colorClass
+      // }).join(' ')
+
+        let colorClass = 'color-difficulty-low'
+        if (difficulty.value === 'MEDIUM') {
+          colorClass = 'color-difficulty-medium'
+        }
+        else if (difficulty.value === 'HARD') {
+          colorClass = 'color-difficulty-high'
+        }
+
       return (
         <div className="flex justify-center items-center">
           {/* <div>{isLoading ? 'Content is loading' : JSON.stringify(data)}</div> */}
-          <span className={`color-level-${difficulty.value}`}>
+          <span className={colorClass}>
             {difficulty.label}
           </span>
         </div>
@@ -56,6 +76,16 @@ export const columns: ColumnDef<Task>[] = [
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
+    sortingFn: (rowA, rowB, columId) => {
+      const statusOrder = {
+        "HARD": 3,
+        "MEDIUM": 2,
+        "EASY": 1
+      }
+      const valueA = rowA.getValue(columId) as keyof typeof statusOrder
+      const valueB = rowB.getValue(columId) as keyof typeof statusOrder
+      return statusOrder[valueA] - statusOrder[valueB]
+    },
   },
   {
     accessorKey: "title",
@@ -63,10 +93,16 @@ export const columns: ColumnDef<Task>[] = [
       <DataTableColumnHeader column={column} title="שם השאלה" />
     ),
     cell: ({ row }) => {
+
+      // const className = getColumnView().map(({ columnName, viewOption }) => {
+      //   if (columnName === ColumnsNameEnum.PRIORITY || columnName === ColumnsNameEnum.STATUS && viewOption === ViewOptionEnum.HIDE) {
+      //     return "ml-44"
+      //   }
+      // }).join('')
       return (
-        <div className="flex justify-end space-x-2 pr-7">
+        <div className='flex justify-end space-x-2 pr-7'>
           <span className="max-w-[500px] truncate font-medium">
-            <Link href="/courses/Algebra/Chapter-1/1">
+            <Link href="/courses/algebra-1/bases/1">
               {row.getValue("title")}
             </Link>
           </span>
@@ -94,7 +130,7 @@ export const columns: ColumnDef<Task>[] = [
           className="flex justify-end w-[80px] items-center"
         >
           {status.icon && (
-            <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+            <status.icon className='mr-2 h-4 w-4 text-muted-foreground' />
           )}
         </div>
       );
@@ -102,5 +138,16 @@ export const columns: ColumnDef<Task>[] = [
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
-  },
-];
+    sortingFn: (rowA, rowB, columId) => {
+      const statusOrder = {
+        "FINISH": 4,
+        "STUCK": 3,
+        "ONGOING": 2,
+        "BEGIN": 1
+      }
+      const valueA = rowA.getValue(columId) as keyof typeof statusOrder
+      const valueB = rowB.getValue(columId) as keyof typeof statusOrder
+      return statusOrder[valueA] - statusOrder[valueB]
+    },
+  }
+]

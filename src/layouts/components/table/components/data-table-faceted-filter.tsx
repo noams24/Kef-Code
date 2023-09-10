@@ -21,6 +21,7 @@ import {
 } from "../registry/new-york/ui/popver"
 
 import { Separator } from "../registry/new-york/ui/separator"
+import { ColumnsNameEnum } from "@/types/enum"
 
 interface DataTableFacetedFilter<TData, TValue> {
   column?: Column<TData, TValue>
@@ -39,7 +40,7 @@ export function DataTableFacetedFilter<TData, TValue>({
 }: DataTableFacetedFilter<TData, TValue>) {
   const facets = column?.getFacetedUniqueValues()
   const selectedValues = new Set(column?.getFilterValue() as string[])
-  const isStatus = title === 'סטטוס'
+  const isStatus = column?.id === ColumnsNameEnum.TITLE
 
   return (
     <Popover>
@@ -125,7 +126,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                           : "opacity-50 [&_svg]:invisible"
                       )}
                     >
-                      <CheckIcon className={cn("h-4 w-4")} color="white" />
+                      <CheckIcon className={cn("h-4 w-4")} />
                     </div>
                   </CommandItem>
                 )

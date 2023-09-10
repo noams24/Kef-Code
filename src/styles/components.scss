@@ -191,18 +191,22 @@
   width: 7rem;
 }
 
-// color for each level
+// color for each difficulty
 
-.color-level-low {
+.color-difficulty-low {
   @apply text-green-400 dark:text-green-600;
 }
 
-.color-level-medium {
+.color-difficulty-medium {
   @apply text-yellow-500;
 }
 
-.color-level-high {
+.color-difficulty-high {
   @apply text-red-500 dark:text-red-700;
+}
+
+.table-selector-icons {
+  @apply ml-2 h-4 w-4;
 }
 
 .chapter-page-container { 
