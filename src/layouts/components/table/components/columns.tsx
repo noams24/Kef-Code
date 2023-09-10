@@ -102,7 +102,7 @@ export const columns: ColumnDef<Task>[] = [
       return (
         <div className='flex justify-end space-x-2 pr-7'>
           <span className="max-w-[500px] truncate font-medium">
-            <Link href="/courses/Algebra/Chapter-1/1">
+            <Link href="/courses/algebra-1/bases/1">
               {row.getValue("title")}
             </Link>
           </span>

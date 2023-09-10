@@ -37,6 +37,7 @@ export async function GET(req: Request) {
         return new Response(JSON.stringify(newResults))
     }
     catch (error) {
-        return new Response('Could not fetch problems', { status: 500 })
+        return new Response(null)
+        // return new Response('Could not fetch problems', { status: 500, })
     }
 }
