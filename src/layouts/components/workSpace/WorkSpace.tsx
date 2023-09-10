@@ -98,27 +98,29 @@ const Workspace: React.FC<WorkSpaceProps> = ({
   });
 
   // get data from the db
-  const { data: workSpaceData, isLoading: isLoadingData } = useQuery({
+  const {
+    data: workSpaceData,
+    isLoading: isLoadingData,
+    isPreviousData,
+  } = useQuery({
     queryKey: ["workSpaceData", problemId],
     queryFn: async () => {
       if (development) return null;
       const query = `/api/getWorkSpace?problemId=${problemId}`;
       const { data } = await axios.get(query);
+
+      if (data.content) {
+        const newData = {
+          id: "1",
+          name: "1",
+          data: data.content.content,
+        };
+        setDocument(newData as unknown as EditorDocument);
+        setJsonState(newData.data);
+      }
       return data as Data;
     },
   });
-
-  useEffect(() => {
-    if (workSpaceData && workSpaceData.content) {
-      const newData = {
-        id: "1",
-        name: "1",
-        data: workSpaceData.content.content,
-      };
-      setDocument(newData as unknown as EditorDocument);
-      setJsonState(newData.data);
-    }
-  }, [workSpaceData]);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -143,20 +145,13 @@ const Workspace: React.FC<WorkSpaceProps> = ({
         />
         {/*EDITOR SECTION */}
         <div className="w-full overflow-y-auto ">
-          {!development ? (
-            !isLoadingData && workSpaceData ? (
-              <Editor
-                document={document}
-                onChange={(editor) => onChange(editor, setJsonState)}
-              />
-            ) : (
-              <div>Loading</div>
-            )
-          ) : (
+          {!isLoadingData && workSpaceData ? (
             <Editor
               document={document}
               onChange={(editor) => onChange(editor, setJsonState)}
             />
+          ) : (
+            <h3 className="flex justify-center items-center ">טוען</h3>
           )}
         </div>
       </Split>
