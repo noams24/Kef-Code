@@ -145,7 +145,11 @@ const Workspace: React.FC<WorkSpaceProps> = ({
         />
         {/*EDITOR SECTION */}
         <div className="w-full overflow-y-auto ">
-          {!isLoadingData && workSpaceData ? (
+          {development ? <Editor
+              document={document}
+              onChange={(editor) => onChange(editor, setJsonState)}
+            />
+            : !isLoadingData && workSpaceData ? (
             <Editor
               document={document}
               onChange={(editor) => onChange(editor, setJsonState)}
