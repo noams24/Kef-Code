@@ -46,8 +46,8 @@ const Providers = ({ children }: { children: ReactNode }) => {
   const theme = useMemo(() => createTheme({ palette: { mode } }), [mode]);
   
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemProviderMui theme={theme}>
+    // <ColorModeContext.Provider value={colorMode}>
+    //   <ThemProviderMui theme={theme}>
         <ThemeProvider
           attribute="class"
           defaultTheme={default_theme}
@@ -57,8 +57,8 @@ const Providers = ({ children }: { children: ReactNode }) => {
             <SessionProvider>{children}</SessionProvider>
           </QueryClientProvider>
         </ThemeProvider>
-      </ThemProviderMui>
-    </ColorModeContext.Provider>
+    //   </ThemProviderMui>
+    // </ColorModeContext.Provider>
   );
 };
 
