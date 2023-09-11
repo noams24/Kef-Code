@@ -32,26 +32,37 @@ import { toast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { useCustomToasts } from "@/hooks/use-custom-toast";
+import { difficulties } from "@/components/table/data/data";
 
 const profileFormSchema = z.object({
   title: z
-    .string()
+    .string({
+      required_error: "* כותרת חייבת להיות לפחות תו אחד"
+    })
     .min(1, {
-      message: "Title must be at least 1 characters.",
+      message: "* כותרת חייבת להיות לפחות תו אחד",
     })
     .max(30, {
-      message: "Title must not be longer than 30 characters.",
+      message: "* כותרת חייבת להיות עד 30 תווים*",
     }),
   course: z.string({
-    required_error: "Please select an course.",
+    required_error: "* נא לבחור קורס",
   }),
   chapter: z.string({
-    required_error: "Please select an chapter.",
+    required_error: "* נא לבחור פרק",
   }),
   difficulty: z.string({
-    required_error: "Please select difficulty.",
+    required_error: "* נא לבחור רמת קושי",
   }),
-  url: z.string().max(160).min(4),
+  url: z.string({
+    required_error: "* נא להעלות קישור שאלה"
+  })
+    .max(160, {
+      message: "* קישור חייב להיות עד 160 תווים"
+    })
+    .min(4, {
+      message: "* קישור חייב להיות לפחות 4 תווים"
+    })
 });
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
@@ -137,16 +148,16 @@ export function UploadProblem(courses: any) {
   }
 
   return (
-    <div className="mx-80">
+    <div className="mx-96">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 m-5" dir="rtl">
           <FormField
             control={form.control}
             name="title"
             render={({ field }) => (
-              <FormItem>
+              <FormItem >
                 <FormLabel>שם השאלה</FormLabel>
-                <FormControl>
+                <FormControl className="bg-transparent border-gray-400">
                   <Input placeholder="" {...field} />
                 </FormControl>
                 <FormMessage />
@@ -169,12 +180,12 @@ export function UploadProblem(courses: any) {
                   {/* <Select onValueChange={(event) => {
           form.setFieldValue("course", event.target.value);
         }} defaultValue={field.value}> */}
-                  <FormControl>
-                    <SelectTrigger>
+                  <FormControl className="border-gray-400">
+                    <SelectTrigger dir="rtl">
                       <SelectValue placeholder="בחר קורס" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent className="max-h-32 overflow-y-auto bg-body dark:bg-darkmode-body">
+                  <SelectContent dir="rtl" className="max-h-32 overflow-y-auto bg-body dark:bg-darkmode-body">
                     {mappedCourses}
                   </SelectContent>
                 </Select>
@@ -193,12 +204,12 @@ export function UploadProblem(courses: any) {
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                 >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="" />
+                  <FormControl className="border-gray-400">
+                    <SelectTrigger dir="rtl">
+                      <SelectValue placeholder="נא לבחור קודם קורס" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent className="max-h-32 overflow-y-auto bg-body dark:bg-darkmode-body">
+                  <SelectContent dir="rtl" className="max-h-32 overflow-y-auto bg-body dark:bg-darkmode-body">
                     {/* <SelectItem value="1">1</SelectItem>
                     <SelectItem value="2">2</SelectItem>
                     <SelectItem value="3">3</SelectItem> */}
@@ -222,15 +233,21 @@ export function UploadProblem(courses: any) {
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                 >
-                  <FormControl>
-                    <SelectTrigger>
+                  <FormControl className="border-gray-400">
+                    <SelectTrigger dir="rtl">
                       <SelectValue placeholder="" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent className="max-h-32 overflow-y-auto bg-body dark:bg-darkmode-body">
-                    <SelectItem value="קל">קל</SelectItem>
-                    <SelectItem value="בינוני">בינוני</SelectItem>
-                    <SelectItem value="קשה">קשה</SelectItem>
+                  <SelectContent dir="rtl" className="max-h-32 overflow-y-auto bg-body dark:bg-darkmode-body">
+                    {difficulties.map(({ label, value }) => {
+                      return (
+                        <SelectItem
+                          key={value}
+                          value={value}>
+                          {label}
+                        </SelectItem>
+                      )
+                    })}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -244,7 +261,7 @@ export function UploadProblem(courses: any) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>קישור לשאלה</FormLabel>
-                <FormControl>
+                <FormControl className="border-gray-400">
                   <Textarea placeholder="" className="resize-none" {...field} />
                 </FormControl>
                 <FormMessage />
@@ -252,13 +269,13 @@ export function UploadProblem(courses: any) {
             )}
           />
 
-          <Button type="submit" disabled={isLoading}>
+          <Button type="submit" disabled={isLoading} className="hover:dark:text-sky-100 hover:dark:border-gray-500">
             העלאת שאלה{" "}
           </Button>
         </form>
       </Form>
-      <div className="mb-6">
-        <label htmlFor="url" className="form-label">
+      {/* <div className="mb-6 mt-10">
+        <label dir="rtl" htmlFor="url" className="form-label">
           קישור לשאלה
         </label>
         <input
@@ -268,8 +285,9 @@ export function UploadProblem(courses: any) {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />
-      </div>
+      </div> */}
       <UploadDropzone
+        className="mb-8 dark:border-sky-200"
         endpoint="imageUploader"
         onClientUploadComplete={(res) => {
           if (res) {
