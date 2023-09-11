@@ -1,6 +1,5 @@
 "use client";
 
-import config from "@/config/config.json";
 import { ThemeProvider } from "next-themes";
 import { ReactNode } from "react";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
@@ -17,10 +16,10 @@ export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 const queryClient = new QueryClient();
 
 const Providers = ({ children }: { children: ReactNode }) => {
-  const { default_theme } = config.settings;
+  
 
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-  const [mode, setMode] = useState<"light" | "dark">("dark");
+  const [mode, setMode] = useState<"light" | "dark">("light");
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
@@ -35,7 +34,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
     const prefersLightTheme = window.matchMedia(
       "(prefers-color-scheme: light)",
     ).matches;
-    const mode = prefersLightTheme ? "light" : "dark";
+    const mode = prefersLightTheme ? "dark" : "light";
     setMode(mode);
   }, [prefersDarkMode]);
 
@@ -44,21 +43,21 @@ const Providers = ({ children }: { children: ReactNode }) => {
   }, [mode]);
 
   const theme = useMemo(() => createTheme({ palette: { mode } }), [mode]);
-  
+
   return (
-    // <ColorModeContext.Provider value={colorMode}>
-    //   <ThemProviderMui theme={theme}>
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemProviderMui theme={theme}>
         <ThemeProvider
           attribute="class"
-          defaultTheme={default_theme}
+          defaultTheme="light"
           enableColorScheme={false}
         >
           <QueryClientProvider client={queryClient}>
             <SessionProvider>{children}</SessionProvider>
           </QueryClientProvider>
         </ThemeProvider>
-    //   </ThemProviderMui>
-    // </ColorModeContext.Provider>
+       </ThemProviderMui>
+     </ColorModeContext.Provider>
   );
 };
 
