@@ -43,6 +43,7 @@ const Tutorial: React.FC = () => {
 
   return <>
     {/* <Helmet title="Tutorial" /> */}
+    <div className="h-[70vh] overflow-y-auto">
     <Editor key={currentTask} document={tasks[currentTask]} onChange={onChange} />
     <Paper className="dark:bg-darkmode-body" sx={{ p: 2, mt: 3, displayPrint: 'none' }}>
       <Box key={`task-${currentTask}`} sx={{ mb: 2 }}>
@@ -63,6 +64,7 @@ const Tutorial: React.FC = () => {
       <Pagination color="primary" count={pages} page={page} onChange={handlePageChange} sx={{display: "flex", justifyContent: "center", mt: 3, width: "100%" }} />
       </div>
     </Paper>
+    </div>
   </>;
 }
 
@@ -88,6 +90,7 @@ const CheckpointItem = ({ name, steps, checked }: { name: string, steps: JSX.Ele
       </Box>
     </Collapse >
     <Divider />
+    
   </>
 }
 

@@ -11,19 +11,22 @@ import {
   ThemeProvider as ThemProviderMui,
 } from "@mui/material/styles";
 
+import { useTheme } from "next-themes";
+
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 const queryClient = new QueryClient();
 
 const Providers = ({ children }: { children: ReactNode }) => {
   
+  const { setTheme, resolvedTheme } = useTheme();
 
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-  const [mode, setMode] = useState<"light" | "dark">("light");
+  const [mode, setMode] = useState<"light" | "dark">("dark");
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+        setMode((prevMode) => (prevMode === "dark" ? "dark" : "light"));
       },
     }),
     [],
@@ -32,7 +35,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (typeof window === "undefined") return;
     const prefersLightTheme = window.matchMedia(
-      "(prefers-color-scheme: light)",
+      "(prefers-color-scheme: dark)",
     ).matches;
     const mode = prefersLightTheme ? "dark" : "light";
     setMode(mode);
@@ -42,14 +45,16 @@ const Providers = ({ children }: { children: ReactNode }) => {
     document.body.setAttribute("theme", mode);
   }, [mode]);
 
-  const theme = useMemo(() => createTheme({ palette: { mode } }), [mode]);
+  setTheme('dark')
 
+  const theme = useMemo(() => createTheme({ palette: { mode } }), [mode]);
+// console.log(theme)
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemProviderMui theme={theme}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           enableColorScheme={false}
         >
           <QueryClientProvider client={queryClient}>
