@@ -50,7 +50,7 @@
 }
 
 .toolbar {
-  @apply bg-white dark:bg-gray-600
+  @apply bg-white dark:bg-darkmode-theme-light border border-border dark:border-darkmode-border
 }
 
 @media print {
