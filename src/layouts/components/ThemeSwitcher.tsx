@@ -3,14 +3,14 @@
 import config from "@/config/config.json";
 import { useTheme as useThemee } from "next-themes";
 import { useEffect, useState, useContext } from "react";
-import { ColorModeContext } from '@/partials/Providers';
+import { ColorModeContext } from '@/partials/ChildrenProviders';
 
 const ThemeSwitcher = ({ className }: { className: string }) => {
   const { theme_switcher } = config.settings;
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme, resolvedTheme } = useThemee();
   const colorMode = useContext(ColorModeContext);
-  
+  // console.log(colorMode)
   useEffect(() => setMounted(true), []);
   return (
     <>
