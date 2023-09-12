@@ -15,6 +15,27 @@ import { useDevelop } from "@/store/store";
 import axios, { AxiosError } from "axios";
 import Link from "next/link";
 
+const mockData = [
+  {
+    id: 1,
+    title: "שאלה במטריצות",
+    difficulty: "קשה",
+    status: "FINISH",
+  },
+  {
+    id: 6,
+    title: "אי רציפות",
+    difficulty: "קל",
+    status: "BEGIN",
+  },
+  {
+    id: 24,
+    title: "משפט לופיטל",
+    difficulty: "בינוני",
+    status: "STUCK",
+  },
+];
+
 const TopBar = () => {
   const pathname = usePathname().split("/");
   const course = pathname[2];
@@ -23,7 +44,7 @@ const TopBar = () => {
   const { development } = useDevelop();
 
   const { data, isLoading: isLoadingData } = useQuery({
-    queryKey: ["topbar", chapter],
+    queryKey: ["topbar", course, chapter],
     queryFn: async () => {
       if (development) return null;
       const query = `/api/getTopBar?course=${course}&chapter=${chapter}&problemId=${problemId}`;
@@ -31,6 +52,10 @@ const TopBar = () => {
       return data;
     },
   });
+
+  function openSelect(selectData:any) {
+    //TODO: display select problems: select modal or select drop down
+  }
 
   return (
     <section>
@@ -46,9 +71,15 @@ const TopBar = () => {
             )}
 
             <div className="rounded hover:bg-gray-400 bg-gray-400">
-              <button>
-                <BsList />
-              </button>
+              {data ? (
+                <button onClick={()=>openSelect(data)}>
+                  <BsList />
+                </button>
+              ) : (
+                <button onClick={()=>openSelect(mockData)}>
+                  <BsList />
+                </button>
+              )}
             </div>
             {data ? (
               <Link href={data.nextLink}>
