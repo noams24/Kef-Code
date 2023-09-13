@@ -19,30 +19,34 @@ interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function UserAccountNav({ user }: UserAccountNavProps) {
   return (
-    <DropdownMenu>
+    <DropdownMenu dir="rtl">
       <DropdownMenuTrigger>
         <UserAvatar
           user={{ name: user.name || null, image: user.image || null }}
           className='h-8 w-8'
         />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='bg-white dark:bg-black' align='end'>
+      <DropdownMenuContent  className='bg-body dark:bg-darkmode-body text dark:text-darkmode-dark' align='start'>
         <div className='flex items-center justify-start gap-2 p-2'>
           <div className='flex flex-col space-y-1 leading-none'>
             {user.name && <p className='font-medium'>{user.name}</p>}
             {user.email && (
-              <p className='w-[200px] truncate text-sm text-muted-foreground'>
+              <p className='w-[170px] truncate text-sm text-muted-foreground'>
                 {user.email}
               </p>
             )}
           </div>
         </div>
         <DropdownMenuSeparator />
-
+        <DropdownMenuItem asChild>
+          <Link href='/profile'>פרופיל</Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link href='/settings'>הגדרות</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
+
         <DropdownMenuItem
           className='cursor-pointer'
           onSelect={(event) => {
