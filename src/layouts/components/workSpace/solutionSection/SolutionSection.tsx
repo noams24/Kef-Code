@@ -51,9 +51,8 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
     const { page } = useGenerationStoree()
     const [sortBy, setSort] = useState('likes')
     const { development } = useDevelop()
-
     const { data: soltionSectionData, refetch, isFetching } = useQuery({
-        queryKey: [page],
+        queryKey: ["solution", problemId, page, sortBy],
         queryFn: async () => {
             if (development) return null
             const query = `/api/getSolutions?problemId=${problemId}&page=${page}&sortBy=${sortBy}`

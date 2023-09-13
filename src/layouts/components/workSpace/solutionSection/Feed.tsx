@@ -22,7 +22,7 @@ const Feed: React.FC<FeedProps> = ({ data }) => {
         <div>
           {data?.map((item: any, index: any) => (
             <div key={index} onClick={() => handleClick(index)}>
-              <SolutionCard author={item.user.username} date={item.createdAt} likes={item.votes.length} comments={item.comments.length} />
+              <SolutionCard author={item.user.username} date={item.createdAt} likes={item.votes.length} comments={item.comments.length} avatar={item.user.image}/>
             </div>
           ))}</div>
       }
