@@ -64,7 +64,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
 
     const sortData: any = (e: any) => {
         setSort(e)
-        refetch()
+        // refetch()
     }
     return (
         <div className="overflow-y-auto scrollbar-hide">
@@ -98,9 +98,9 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
                                                 </SelectContent>
                                             </Select>
                                         </div>
-                                        {isFetching ? <p>טוען</p> : <Feed data={soltionSectionData} />}
+                                        {isFetching ? <h4 className="flex justify-center mb-14">טוען</h4> : <Feed data={soltionSectionData} />}
                                     </div>
-                                    : <p>טוען..</p>}
+                                    : <h4 className="flex justify-center">טוען</h4>}
                                 {soltionSectionData && workSpaceData && <Pagination totalPages={Math.ceil(workSpaceData.totalSubmissions / 5)} />}
                             </div>}
 
