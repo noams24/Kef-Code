@@ -51,15 +51,15 @@ export const statuses = [
 export const difficulties = [
   {
     label: "קל",
-    value: "EASY",
+    value: "קל",
   },
   {
     label: "בינוני",
-    value: "MEDIUM",
+    value: "בינוני",
   },
   {
     label: "קשה",
-    value: "HARD",
+    value: "קשה",
   },
 ]
 

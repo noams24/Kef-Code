@@ -6,8 +6,8 @@ import { columns } from "@/components/table/components/columns";
 import { DataTable } from "@/components/table/components/data-table";
 import { taskSchema } from "@/components/table/data/schema";
 import PageHeader from "@/partials/PageHeader";
-// import { getAuthSession } from "@/lib/auth";
-// import { db } from "@/lib/db";
+import { getAuthSession } from "@/lib/auth";
+import { db } from "@/lib/db";
 
 export const metadata: Metadata = {
   title: "כיף קוד - שאלות",
@@ -29,65 +29,60 @@ async function getTasks() {
   return z.array(taskSchema).parse(tasks);
 }
 
+async function getData(course: string, chapter: string) {
+  try {
+    const session = await getAuthSession();
+    let problems: any = await db.problem.findMany({
+      where: {
+          course,
+          chapter,
+      },
+      select: {
+          id: true,
+          title: true,
+          difficulty: true,
+      },
+      orderBy: {
+          // difficulty: 'desc',
+          title: 'desc',
+      },
+  })
+
+  // for (let i = 0; i < problems.length; i++) problems[i].status = "BEGIN"
+  problems.forEach((problem: { status: string }) => {
+      problem.status = "BEGIN";
+  });
+
+  if (session) {
+      const query = `select id, status from Problem p join problemStatus ps on p.id = ps.problemId where course = '${course}' and chapter = '${chapter}' and ps.userId = '${session.user.id}'`
+      const problemStatus = await db.$queryRawUnsafe(query)
+
+      if (Array.isArray(problemStatus)) {
+          for (const p of problemStatus) {
+              const index = Number(problems.findIndex((item: { id: any }) => item.id === p.id))
+              problems[index].status = p.status
+          }
+      }
+  }
+    return z.array(taskSchema).parse(problems)
+  } catch (error) {
+    return null;
+  }
+}
+
 export default async function TaskPage({ params }: PageProps) {
-  // const session = await getAuthSession();
 
-  // let taskss = null;
-  // if (session) {
-  //   taskss =
-  //     await db.$queryRawUnsafe(`select id, title, status, difficulty from Problem p join problemStatus ps on p.id = ps.problemId
-  //                               where userId = '${session.user.id}' and course = '${params.course}'
-  //                                and chapter = '${params.chapter}'`);
-  // }
-  // taskss = z.array(taskSchema).parse(taskss);
-
-  // console.log(taskss);
-
+  const data = await getData(params.course, params.chapter);
+  console.log(data)
   const tasks = await getTasks();
-  // console.log(tasks)
-  // const taskss = await getTaskss();
+
   return (
     <>
       <PageHeader title={params.chapter} />
       <div className="p-10 w-auto flex justify-center">
-        <DataTable data={tasks} columns={columns} />
+        {/* <DataTable data={tasks} columns={columns} /> */}
+        {data && data[0] ? <DataTable data={data} columns={columns} /> : <DataTable data={tasks} columns={columns} />}
       </div>
     </>
   );
 }
-
-
-
-
-  //   const taskss = await db.problem.findMany({
-  //     where: {
-  //         course: params.course,
-  //         chapter: params.chapter
-  //     },
-  //     select: {
-  //         title: true,
-  //         difficulty: true,
-  //       },
-  // })
-
-  //   const taskss = await db.problem.findMany({
-  //     include: {
-  //       problemStatus: true,
-  //     },
-  //     where: {
-  //         course: params.course,
-  //         chapter: params.chapter,
-  //         userId: session?.user.id,
-  //     },
-
-  // })
-    // const status = await db.problemStatus.findMany({
-  //   where: {
-  //       course: params.course,
-  //       chapter: params.chapter
-  //   },
-  //   select: {
-  //       title: true,
-  //       difficulty: true,
-  //     },
-  // })
