@@ -2,6 +2,9 @@ import PageHeader from "@/partials/PageHeader";
 import ChapterCard from "@/components/ChapterCard";
 import coursesData from './chapters.json';
 import { Metadata } from "next"
+import { getAuthSession } from "@/lib/auth";
+import { db } from "@/lib/db";
+
 
 export const metadata: Metadata = {
     title: "כיף קוד - פרקים",
@@ -13,11 +16,36 @@ interface PageProps {
   }
 }
 
-const Chapter = ({ params }: PageProps) => {
+async function getChapterPercent(course:string){
+  
+  const session = await getAuthSession()
+    if (!session) return null
+    
+    try {
+        const query = `select chapter, COUNT(*) as completed from Problem p join problemStatus ps on p.id = ps.problemId where ps.userId = '${session.user.id}' and status = 'FINISH' and course = '${course}' group by chapter`
+        const chapterCompleted = await db.$queryRawUnsafe(query)
+        const courseItems = await db.$queryRawUnsafe(`select chapter, COUNT(*) as items from Problem where course = '${course}' group by chapter`)
+        let results:any = {}
+        if (Array.isArray(chapterCompleted) && Array.isArray(courseItems)) {
+            for (let i = 0; i < chapterCompleted.length; i++) {
+                let numberOfItems:any = courseItems.filter(item => item.chapter === chapterCompleted[i].chapter)[0].items
+                results[chapterCompleted[i].chapter] = (Number(chapterCompleted[i].completed) / Number(numberOfItems)) * 100
+            }
+        }
+        return results
+    }
+    catch (error) {
+        return null
+    }
+}
+
+const Chapter = async ({ params }: PageProps) => {
   const course = coursesData.find(course => course.courseName === params.course);
   if (!course) {
     return <p>הקורס בפיתוח</p>;
   }
+
+  const chapterPercent = await getChapterPercent(params.course);
   return (
     <>
       <PageHeader title={params.course} />
@@ -29,7 +57,8 @@ const Chapter = ({ params }: PageProps) => {
               title={chapter.title}
               link={chapter.link}
               course={params.course}
-              complete={String(chapter.complete)}
+              complete={String(chapterPercent[chapter.link])}
+              // complete={String(chapter.complete)}
               index={chapterIndex}
             />
           ))}
