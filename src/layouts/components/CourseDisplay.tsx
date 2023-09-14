@@ -3,10 +3,11 @@
 import CourseCard from "@/components/CourseCard";
 import { Course } from "@/types";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
-import { useDevelop } from '@/store/store'
-import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
 import Pi from "./Pi"
+// import { useDevelop } from '@/store/store'
+// import { useQuery } from '@tanstack/react-query'
+// import axios from 'axios'
+
 
 interface PageData {
   notFound?: boolean;
@@ -19,7 +20,7 @@ interface PageData {
   };
 }
 
-const CourseDisplay = ({ data, session }: { data: PageData, session:any }) => {
+const CourseDisplay = ({ data, coursePercent }: { data: PageData, coursePercent:any }) => {
   const idSelector = `slider-${data.frontmatter.title}`;
 
   const slideLeft = () => {
@@ -31,18 +32,6 @@ const CourseDisplay = ({ data, session }: { data: PageData, session:any }) => {
     let slider: any = document.getElementById(idSelector);
     slider.scrollLeft = slider.scrollLeft + 500;
   };
-
-  const { development } = useDevelop()
-
-  const { data: coursePercent } = useQuery({
-    queryKey: ['coursePercent'],
-    queryFn: async () => {
-        if (development || !session) return null
-        const query = `/api/getCoursePercent`
-        const { data } = await axios.get(query)
-        return data
-    },
-},)
 
   return (
     <>
@@ -69,7 +58,7 @@ const CourseDisplay = ({ data, session }: { data: PageData, session:any }) => {
                 chapters={chapters}
                 items={items}
               >
-                {!session ? null : ((coursePercent && coursePercent[link]) ? <Pi completed={String(coursePercent[link])} /> : <Pi completed={'0'} />)}
+                {!coursePercent ? null : (coursePercent[link] ? <Pi completed={String(coursePercent[link])} /> : <Pi completed={'0'} />)}
               </CourseCard>
             ),
           )}
