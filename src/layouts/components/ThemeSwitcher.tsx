@@ -10,7 +10,6 @@ const ThemeSwitcher = ({ className }: { className: string }) => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme, resolvedTheme } = useThemee();
   const colorMode = useContext(ColorModeContext);
-  // console.log(colorMode)
   useEffect(() => setMounted(true), []);
   return (
     <>

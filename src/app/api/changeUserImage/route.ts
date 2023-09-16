@@ -24,7 +24,6 @@ export async function PATCH(req: Request) {
 
     return new Response('OK')
   } catch (error) {
-    console.log(error)
     return new Response(
       'Could not change image',
       { status: 500 }

@@ -54,7 +54,7 @@ export default function DragDropPaste(): null {
                   };
                 },
                 error(err) {
-                  console.log(err.message);
+                  // console.log(err.message);
                   editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
                     src: result,
                     altText: file.name.replace(/\.[^/.]+$/, ""),

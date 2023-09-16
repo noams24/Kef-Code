@@ -73,7 +73,6 @@ async function getData(course: string, chapter: string) {
 export default async function TaskPage({ params }: PageProps) {
 
   const data = await getData(params.course, params.chapter);
-  console.log(data)
   const tasks = await getTasks();
 
   return (

@@ -53,9 +53,9 @@ export const columns: ColumnDef<Task>[] = [
     },
     sortingFn: (rowA, rowB, columId) => {
       const statusOrder = {
-        "HARD": 3,
-        "MEDIUM": 2,
-        "EASY": 1
+        "קשה": 3,
+        "בינוני": 2,
+        "קל": 1
       }
       const valueA = rowA.getValue(columId) as keyof typeof statusOrder
       const valueB = rowB.getValue(columId) as keyof typeof statusOrder

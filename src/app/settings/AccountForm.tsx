@@ -27,10 +27,7 @@ interface UserNameFormProps extends React.HTMLAttributes<HTMLFormElement> {
 type FormData = z.infer<typeof UsernameValidator>;
 
 const AccountForm = ({ user, className, ...props }: UserNameFormProps) => {
-  // const handleSubmit = async (e:any) => {
-  //     e.preventDefault();
-  //     console.log(e)
-  // }
+
   const router = useRouter()
 
   const {
@@ -46,7 +43,6 @@ const AccountForm = ({ user, className, ...props }: UserNameFormProps) => {
 
   const { mutate: updateUsername, isLoading } = useMutation({
     mutationFn: async ({ name }: FormData) => {
-    // console.log(name)
       const payload: FormData = { name };
 
       const { data } = await axios.patch(`/api/changeUserName/`, payload);

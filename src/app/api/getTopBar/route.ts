@@ -62,25 +62,3 @@ export async function GET(req: Request) {
             // return new Response('Could not fetch problems', { status: 500, })
         }
     }
-
-
-
-            //     if (session) {
-        //     const resultss = await db.problem.findMany({
-        //         where: {
-        //             course,
-        //             chapter,
-        //         },
-        //         include: {
-        //             problemStatus: {
-        //                 where : {
-        //                     userId: session.user.id,
-        //                 }
-        //             }
-        //         },
-        //         orderBy: {
-        //             difficulty: 'desc',
-        //         },
-        //     })
-        //     console.log(resultss)
-        // }

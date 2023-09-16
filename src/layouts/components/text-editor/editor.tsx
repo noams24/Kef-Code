@@ -34,12 +34,8 @@ function onChange(
 
 function handleSave(jsonState: any, session: any) {
   if (!session) {
-    // console.log("not logged")
     return;
   }
-  // console.log("logged");
-  // console.log(jsonState);
-  // console.log(session)
 }
 
 export const Editor: React.FC<{

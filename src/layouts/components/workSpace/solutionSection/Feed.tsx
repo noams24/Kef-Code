@@ -13,8 +13,6 @@ const Feed: React.FC<FeedProps> = ({ data }) => {
   const handleClick = (id:String) => {
     setSolution(id)
   };
-  
-  // console.log(data)
 
   return (
     <>

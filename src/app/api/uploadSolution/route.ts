@@ -6,8 +6,6 @@ import { z } from 'zod'
 export async function POST(req: Request) {
     try {
         const body = await req.json()
-        console.log(body)
-        //const { problemId, content } = submitValidator.parse(body)
         const problemId: number = Number(body.values.problemId)
         const videoUrl = body.values.videoUrl
         const content = body.jsonState

@@ -52,7 +52,7 @@ function ImageDialog({ editor, node, open }: { editor: LexicalEditor, node: Imag
           reader.readAsDataURL(result);
         },
         error(err: Error) {
-          console.log(err.message);
+          // console.log(err.message);
           reader.readAsDataURL(files[0]);
         },
       });

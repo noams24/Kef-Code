@@ -65,7 +65,6 @@ export function UploadSolution() {
       }
       setJsonState(state.toJSON());
     });
-    // console.log(jsonState)
   }
 
   const document = playgroundTemplate as unknown as EditorDocument;
