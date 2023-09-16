@@ -22,7 +22,7 @@ async function getCoursesPercent(){
         if (Array.isArray(courseCompleted) && Array.isArray(courseItems)) {
             for (let i = 0; i < courseCompleted.length; i++) {
                 let numberOfItems:any = courseItems.filter(item => item.course === courseCompleted[i].course)[0].items
-                results[courseCompleted[i].course] = (Number(courseCompleted[i].completed) / Number(numberOfItems)) * 100
+                results[courseCompleted[i].course] = Math.trunc((Number(courseCompleted[i].completed) / Number(numberOfItems)) * 100)
             }
         }
         return results

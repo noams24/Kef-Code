@@ -29,7 +29,7 @@ async function getChapterPercent(course:string){
         if (Array.isArray(chapterCompleted) && Array.isArray(courseItems)) {
             for (let i = 0; i < chapterCompleted.length; i++) {
                 let numberOfItems:any = courseItems.filter(item => item.chapter === chapterCompleted[i].chapter)[0].items
-                results[chapterCompleted[i].chapter] = (Number(chapterCompleted[i].completed) / Number(numberOfItems)) * 100
+                results[chapterCompleted[i].chapter] = Math.trunc((Number(chapterCompleted[i].completed) / Number(numberOfItems)) * 100)
             }
         }
         return results
