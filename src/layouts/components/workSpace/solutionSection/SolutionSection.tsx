@@ -108,7 +108,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
                 <Tab name="פתרון רשמי">
                     <div className="mt-5">
                         {development ? <Youtube id="B1J6Ou4q8vE" title={'פתרון'} /> :
-                            (workSpaceData && workSpaceData.videoUrl) ? <Youtube id={workSpaceData.videoUrl} title={'פתרון'} /> : null}
+                            (workSpaceData && workSpaceData.videoUrl) ? <Youtube id={workSpaceData.videoUrl} title={'פתרון'} /> : <h3 className="flex justify-center">אין פתרון עדיין</h3>}
                     </div>
                     <div className="px-5">
                         {development ? solution : (workSpaceData && workSpaceData.solutionArticle)
