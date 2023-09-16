@@ -5,10 +5,10 @@ import { db } from '@/lib/db'
 export async function POST(req: Request) {
     try {
         const body = await req.json()
-        const title = body.title
-        const course = body.course
-        const chapter = body.chapter
-        const difficulty = body.difficulty
+        const title = body.values.title
+        const course = body.values.course
+        const chapter = body.values.chapter
+        const difficulty = body.values.difficulty
         const img = body.url
         const session = await getAuthSession()
         if (session?.user.role !== 'ADMIN') {
@@ -22,7 +22,6 @@ export async function POST(req: Request) {
                 title,
             },
         })
-
         if (exists) return new Response('Title already exists', { status: 501 })
 
         await db.problem.create({
