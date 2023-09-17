@@ -8,6 +8,7 @@ import { voteType } from '@prisma/client'
 import axios, { AxiosError } from 'axios'
 import { useCustomToasts } from '@/hooks/use-custom-toast'
 import { toast } from '../../hooks/use-toast'
+import { usePrevious } from '@mantine/hooks'
 // import CircleSkeleton from "@/components/skeletons/circleSkeleton";
 // import { BsBookmark } from "react-icons/bi";
 
@@ -26,6 +27,7 @@ const Likes = ({ problemId, difficulty, likes, dislikes, bookmark, likeStatus }:
   const [currentDisLikes, setDislikes] = useState<number>(dislikes)
   const [currentLikeStatus, setLikeStatus] = useState<any>(likeStatus)
   const [currentBookmark, setBookmark] = useState<boolean | null | undefined>(bookmark)
+  const prevVote = usePrevious(currentLikeStatus)
   const { loginToast } = useCustomToasts()
 
   let difficultyClass = ''
@@ -49,14 +51,14 @@ const Likes = ({ problemId, difficulty, likes, dislikes, bookmark, likeStatus }:
       await axios.patch('/api/likeProblem', payload)
     },
     onError: (err, voteType) => {
-      // if (voteType === 'LIKE'){
-      //   setLikes((prev) => prev - 1)
-      // }
+      if (voteType === 'LIKE'){
+        setLikes((prev) => prev - 1)
+      }
 
-      // else setVotesAmt((prev) => prev + 1)
+      else setDislikes((prev) => prev -1)
 
       // reset current vote
-      // setCurrentVote(prevVote)
+      setLikeStatus(prevVote)
 
       if (err instanceof AxiosError) {
         if (err.response?.status === 401) {
@@ -116,6 +118,8 @@ const Likes = ({ problemId, difficulty, likes, dislikes, bookmark, likeStatus }:
       await axios.patch('/api/bookmarkProblem', payload)
     },
     onError: (err) => {
+      setBookmark(!currentBookmark)
+
       if (err instanceof AxiosError) {
         if (err.response?.status === 401) {
           return loginToast()
