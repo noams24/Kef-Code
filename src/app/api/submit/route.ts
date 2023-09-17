@@ -23,14 +23,27 @@ export async function POST(req: Request) {
     })
 
     if (exists) {
-      await db.submissions.update({
-        where: {
-          id: exists.id
-        },
-        data: {
-          content,
-        },
-      })
+      if (isPublic) {
+        await db.submissions.update({
+          where: {
+            id: exists.id
+          },
+          data: {
+            content,
+            isPublic
+          },
+        })
+      }
+      else {
+        await db.submissions.update({
+          where: {
+            id: exists.id
+          },
+          data: {
+            content,
+          },
+        })
+      }
     }
 
     else {
@@ -53,11 +66,11 @@ export async function POST(req: Request) {
       })
     }
 
-    
+
 
 
     //IF ADMIN, SAVE THE CONTENT AS A SOLUTION ARTICLE
-    if (session.user.role === 'ADMIN') {
+    if (session.user.role === 'ADMIN' && isPublic) {
       //check if there is already a solution
       const existSolution = await db.solution.findFirst({
         where: {
