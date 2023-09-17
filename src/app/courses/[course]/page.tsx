@@ -42,7 +42,7 @@ async function getChapterPercent(course:string){
 const Chapter = async ({ params }: PageProps) => {
   const course = coursesData.find(course => course.courseName === params.course);
   if (!course) {
-    return <p>הקורס בפיתוח</p>;
+    return <h2 className="flex justify-center">הקורס בפיתוח</h2>;
   }
 
   const chapterPercent = await getChapterPercent(params.course);
@@ -51,17 +51,31 @@ const Chapter = async ({ params }: PageProps) => {
       <PageHeader title={params.course} />
       <div className="flex justify-center">
         <div className="chapter-page-container mx-96 flex flex-col w-[410px] items-center border border-gray-800 rounded-lg p-4 m-3 dark:border-gray-500">
-          {course.chapters.map((chapter, chapterIndex) => (
+          {chapterPercent ?
+          course.chapters.map((chapter, chapterIndex) => (
             <ChapterCard
               key={chapterIndex} // Use a unique key for each component in the list
               title={chapter.title}
               link={chapter.link}
               course={params.course}
               complete={String(chapterPercent[chapter.link])}
-              // complete={String(chapter.complete)}
               index={chapterIndex}
+              numberOfQuestions={Math.floor(Math.random() * 100) + 1}
             />
-          ))}
+          ))
+        : 
+        course.chapters.map((chapter, chapterIndex) => (
+          <ChapterCard
+            key={chapterIndex} // Use a unique key for each component in the list
+            title={chapter.title}
+            link={chapter.link}
+            course={params.course}
+            complete={'0'}
+            index={chapterIndex}
+            numberOfQuestions={Math.floor(Math.random() * 100) + 1}
+          />
+        ))
+        }
         </div>
       </div>
     </>

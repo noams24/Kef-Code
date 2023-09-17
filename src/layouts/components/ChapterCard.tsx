@@ -7,10 +7,10 @@ interface ChapterCardProps {
   course: string
   complete?: string
   index: number
+  numberOfQuestions: number
 }
 
-const ChapterCard: React.FC<ChapterCardProps> = ({ title, link, course, complete, index }) => {
-
+const ChapterCard: React.FC<ChapterCardProps> = ({ title, link, course, complete, index, numberOfQuestions }) => {
   return (
     <div className="hover:chapter-card-container-hover border dark:bg-slate-800 dark:border-gray-500 border-gray-300 bg-white p-4 w-96 h-24 cursor-pointer flex justify-end">
       <Link href={`/courses/${course}/${link}`}>
@@ -22,7 +22,7 @@ const ChapterCard: React.FC<ChapterCardProps> = ({ title, link, course, complete
           </div>
         </div>
         <div className='flex justify-end mr-14'>
-          מספר שאלות
+          {`מספר שאלות: ${numberOfQuestions}`}
         </div>
       </Link>
     </div>
