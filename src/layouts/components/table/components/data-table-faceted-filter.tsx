@@ -86,7 +86,7 @@ export function DataTableFacetedFilter<TData, TValue>({
       <PopoverContent
         className={`${[isStatus ? 'w-[220px]' : 'w-[160px]']} p-0 border-none`}
         align="center">
-        <Command className="bg-gray-100 dark:bg-black p-0">
+        <Command className="bg-body dark:bg-darkmode-body p-0 border-1 dark:border-white">
           <CommandList>
             <CommandGroup>
               {options.map((option) => {

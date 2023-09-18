@@ -5,11 +5,18 @@ import { difficulties, statuses } from "../data/data";
 import { Task } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-interface Data {
-  title: string;
-  difficulty: string;
-  //TODO: problemstatus: string
+// interface Data {
+//   title: string;
+//   difficulty: string;
+//   //TODO: problemstatus: string
+// }
+
+const Path = () => {
+  const pathname = usePathname();
+  const paths = pathname.split("/").filter((x) => x);
+  return paths
 }
 
 export const columns: ColumnDef<Task>[] = [
@@ -68,16 +75,13 @@ export const columns: ColumnDef<Task>[] = [
       <DataTableColumnHeader column={column} title="שם השאלה" />
     ),
     cell: ({ row }) => {
-
-      // const className = getColumnView().map(({ columnName, viewOption }) => {
-      //   if (columnName === ColumnsNameEnum.PRIORITY || columnName === ColumnsNameEnum.STATUS && viewOption === ViewOptionEnum.HIDE) {
-      //     return "ml-44"
-      //   }
-      // }).join('')
+      const path = Path()
       return (
         <div className='flex justify-end space-x-2 pr-7'>
           <span className="max-w-[500px] truncate font-medium">
             <Link href="/courses/algebra-1/bases/1">
+              {/*When the website will be ready, uncomment the next row: */}
+            {/* <Link href={`/courses/${path[1]}/${path[2]}/${row.original.id}`}>  */}
               {row.getValue("title")}
             </Link>
           </span>
