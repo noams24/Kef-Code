@@ -50,7 +50,7 @@ const Chapter = async ({ params }: PageProps) => {
     <>
       <PageHeader title={params.course} />
       <div className="flex justify-center">
-        <div className="chapter-page-container mx-96 flex flex-col w-[410px] items-center border border-gray-800 rounded-lg p-4 m-3 dark:border-gray-500">
+        <div className="chapter-page-container dark:chapter-page-container-dark mx-96 flex flex-col w-[410px] items-center border border-gray-800 rounded-lg p-4 m-3 dark:border-gray-500">
           {
             course.chapters.map((chapter, chapterIndex) => (
               <ChapterCard
