@@ -138,7 +138,6 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({ workSpaceData, proble
                         :
                         <div className="my-2">
                             <div className="flex justify-between items-center ml-20">
-                                <p></p>
                                 {loading ? <LikesSkeleton /> : <Likes problemId={problemId} difficulty={workSpaceData.difficulty} likes={Number(workSpaceData.likes)} dislikes={Number(workSpaceData.dislikes)} bookmark={workSpaceData.bookmark} likeStatus={workSpaceData.likeStatus} />}
                                 {userId ? <Status problemId={problemId} /> : <div className="ml-20"> </div>}
                             </div>
