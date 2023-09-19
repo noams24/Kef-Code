@@ -100,7 +100,7 @@ export function DataTableColumnHeader<TData, TValue>({
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="end"
-          className="dark:bg-black bg-gray-100">
+          className="bg-body dark:bg-darkmode-body border dark:border-white">
 
           {sortingFilter.map(({ value, label }) => {
             if (column.id === ColumnsNameEnum.TITLE && value === ViewOptionEnum.HIDE) {

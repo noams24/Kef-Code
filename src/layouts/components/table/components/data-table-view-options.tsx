@@ -16,8 +16,6 @@ import {
 import { hebrewColumnsFilter } from "../data/data"
 import { ColumnsNameEnum, ViewOptionEnum } from "@/types/enum"
 
-import './styles.css';
-
 interface DataTableViewOptionsProps<TData> {
   table: Table<TData>
 }
@@ -40,7 +38,7 @@ export function DataTableViewOptions<TData>({
           הגדרת תצוגה
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="dropDownMenuClass dark:bg-black">
+      <DropdownMenuContent align="end" className="bg-body dark:bg-darkmode-body border dark:border-white">
         <DropdownMenuLabel
           className="flex flex-row-reverse">
           שינוי עמודות

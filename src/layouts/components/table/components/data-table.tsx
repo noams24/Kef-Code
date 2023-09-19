@@ -66,7 +66,9 @@ export function DataTable<TData, TValue>({
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   })
-
+  // const pathname = usePathname();
+  // const paths = pathname.split("/").filter((x) => x);
+  // console.log(paths)
   return (
     <div className="space-y-4">
       <DataTableToolbar table={table} />
