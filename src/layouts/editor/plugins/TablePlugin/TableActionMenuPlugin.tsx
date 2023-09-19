@@ -45,7 +45,7 @@ import {
   DEPRECATED_$isGridSelection,
   GridSelection,
 } from 'lexical';
-import { ReactPortal, useCallback, useEffect, useRef, useState } from 'react';
+import React, { ReactPortal, useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import invariant from '../../shared/invariant';
 
@@ -692,10 +692,10 @@ export default function TableActionMenuPlugin({
 }: {
   anchorElem?: HTMLElement;
 }): null | ReactPortal {
-  return createPortal(
+  return (createPortal(
     <TableCellActionMenuContainer
       anchorElem={anchorElem}
     />,
     anchorElem,
-  );
+  )) as React.ReactPortal;
 }

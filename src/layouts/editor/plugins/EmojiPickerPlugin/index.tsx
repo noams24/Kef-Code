@@ -19,7 +19,7 @@ import {
   $isRangeSelection,
   TextNode,
 } from 'lexical';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
 
 import Paper from '@mui/material/Paper';
@@ -173,7 +173,7 @@ export default function EmojiPickerPlugin() {
         }
 
         return anchorElementRef.current && options.length
-          ? ReactDOM.createPortal(
+          ? (ReactDOM.createPortal(
             <Paper sx={{ width: 224, marginTop: 3 }}>
               <MenuList sx={{
                 maxHeight: 200,
@@ -200,7 +200,7 @@ export default function EmojiPickerPlugin() {
               </MenuList>
             </Paper>,
             anchorElementRef.current,
-          )
+          )) as React.ReactPortal
           : null;
       }}
     />
