@@ -405,7 +405,9 @@ function useDraggableBlockMenu(
     hideTargetLine(targetLineRef.current);
   }
 
-  return createPortal(
+  return (
+  <React.Fragment> 
+    {createPortal(
     <>
       <div
         className="icon draggable-block-menu"
@@ -417,8 +419,10 @@ function useDraggableBlockMenu(
       </div>
       <div className="draggable-block-target-line" ref={targetLineRef} />
     </>,
-    anchorElem,
-  );
+    anchorElem
+)}
+    </React.Fragment>
+  )
 }
 
 export default function DraggableBlockPlugin({
