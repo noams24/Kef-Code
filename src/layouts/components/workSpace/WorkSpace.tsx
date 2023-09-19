@@ -16,8 +16,9 @@ import Editor from "@/layouts/editor/components/Editor";
 import useWindowSize from "@/hooks/useWindowSize";
 import SolutionSection from "./solutionSection/SolutionSection";
 import { useDevelop } from "@/store/store";
-import "./split.css";
 import TopBar from "../topBar/TopBar";
+
+import "./split.css";
 
 export type EditorContentType = SerializedEditorState | undefined | any;
 
@@ -60,9 +61,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
 }) => {
   const { loginToast } = useCustomToasts();
 
-  const [document, setDocument] = useState<EditorDocument>(
-    playgroundTemplate as unknown as EditorDocument,
-  );
+  const document = playgroundTemplate as unknown as EditorDocument
   const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
   const [confetti, setConfetti] = useState(false);
   const { width, height } = useWindowSize();
@@ -115,8 +114,6 @@ const Workspace: React.FC<WorkSpaceProps> = ({
           name: "1",
           data: data.content.content,
         };
-        setDocument(newData as unknown as EditorDocument);
-        setJsonState(newData.data);
       }
       return data as Data;
     },
@@ -143,17 +140,26 @@ const Workspace: React.FC<WorkSpaceProps> = ({
           loading={isLoadingData}
           userId={userId}
         />
+
         {/*EDITOR SECTION */}
         <div className="w-full overflow-y-auto ">
-          {development ? <Editor
-              document={document}
-              onChange={(editor) => onChange(editor, setJsonState)}
-            />
-            : !isLoadingData && workSpaceData ? (
+          {development || !userId ? (
             <Editor
               document={document}
               onChange={(editor) => onChange(editor, setJsonState)}
             />
+          ) : !isLoadingData && workSpaceData ? (
+            workSpaceData.content.content ? (
+              <Editor
+                document={{ data: workSpaceData.content.content }}
+                onChange={(editor) => onChange(editor, setJsonState)}
+              />
+            ) : (
+              <Editor
+                document={document}
+                onChange={(editor) => onChange(editor, setJsonState)}
+              />
+            )
           ) : (
             <h3 className="flex justify-center items-center ">טוען</h3>
           )}
