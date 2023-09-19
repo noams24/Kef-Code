@@ -17,9 +17,9 @@ const Container: React.FC<{ document: EditorDocument, onChange?: (editorState: E
   //const dispatch = useDispatch<AppDispatch>();
 
   function handleChange(editorState: EditorState) {
-    const data = editorState.toJSON();
-    if (isEqual(data, document.data)) return;
-    const updatedDocument: EditorDocument = { ...document, data, updatedAt: new Date().toISOString() };
+    // const data = editorState.toJSON();
+    // if (isEqual(data, document.data)) return;
+    // const updatedDocument: EditorDocument = { ...document, data, updatedAt: new Date().toISOString() };
     //validate(document.id) && dispatch(actions.updateLocalDocument({ id: document.id, partial: updatedDocument }));
     onChange && onChange(editorState);
   }
