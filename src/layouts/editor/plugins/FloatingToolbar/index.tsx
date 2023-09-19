@@ -215,7 +215,7 @@ function useFloatingToolbar(
     return null;
   }
 
-  return createPortal(<FloatingToolbar editor={editor} anchorElem={anchorElem} />, anchorElem);
+  return (createPortal(<FloatingToolbar editor={editor} anchorElem={anchorElem} />, anchorElem)) as React.ReactPortal;
 }
 
 export default function FloatingTextFormatToolbarPlugin({
