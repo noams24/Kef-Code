@@ -37,7 +37,7 @@ const LoginModal: FC = () => {
       {!isOpen ? null : (
         <div className="fixed inset-0 bg-zinc-900/20 z-10">
           <div className="container flex items-center h-full max-w-lg mx-auto">
-            <div className="relative bg-white dark:bg-darkmode-body w-full h-fit py-20 px-2 rounded-lg">
+            <div className="relative border-2 border-black dark:border-white bg-white dark:bg-darkmode-body w-full h-fit py-20 px-2 rounded-lg">
               <div className="absolute top-4 right-4">
                 {/* Close Modal Button */}
                 <Button
@@ -53,7 +53,7 @@ const LoginModal: FC = () => {
                 <div className="flex flex-col space-y-2 text-center">
                   {/* <Icons.logo className='mx-auto h-6 w-6' /> */}
                   <h1 className="text-2xl font-semibold tracking-tight">
-                    !ברוך הבא
+                    ברוך הבא
                   </h1>
                   <p className="text-sm max-w-xs mx-auto">
                     בהתחברות לאתר אני מאשר את תנאי השימוש
