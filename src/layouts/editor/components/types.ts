@@ -25,11 +25,11 @@ export interface AppState {
 }
 
 export interface EditorDocument {
-  id: string;
-  name: string;
+  id?: string;
+  name?: string;
   data: SerializedEditorState;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   published?: boolean;
   baseId?: string;
 }

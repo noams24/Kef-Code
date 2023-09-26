@@ -1,5 +1,6 @@
 import { buttonVariants } from '@/components/ui/Button2'
 import { toast } from '@/hooks/use-toast'
+import LoginModal from '@/partials/LoginModal'
 import Link from 'next/link'
 
 export const useCustomToasts = () => {
@@ -9,12 +10,13 @@ export const useCustomToasts = () => {
       description: 'אתה צריך להיות מחובר כדי לשמור',
       variant: 'destructive',
       action: (
-        <Link
-          onClick={() => dismiss()}
-          href='/sign-in'
-          className={buttonVariants({ variant: 'outline' })}>
-          כניסה
-        </Link>
+        // <Link
+        //   onClick={() => dismiss()}
+        //   href='/sign-in'
+        //   className={buttonVariants({ variant: 'outline' })}>
+        //   כניסה
+        // </Link>
+        <LoginModal/>
       ),
     })
   }

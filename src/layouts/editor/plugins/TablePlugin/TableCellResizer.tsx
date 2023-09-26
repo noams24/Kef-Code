@@ -371,7 +371,7 @@ export default function TableCellResizerPlugin(): null | ReactPortal {
   const [editor] = useLexicalComposerContext();
 
   return useMemo(
-    () => createPortal(<TableCellResizer editor={editor} />, document.body),
+    () => (createPortal(<TableCellResizer editor={editor} />, document.body)) as React.ReactPortal,
     [editor],
   );
 }

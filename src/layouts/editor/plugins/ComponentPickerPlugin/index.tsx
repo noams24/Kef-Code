@@ -30,7 +30,7 @@ import {
   FORMAT_ELEMENT_COMMAND,
   TextNode,
 } from 'lexical';
-import { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
 
 import { INSERT_MATH_COMMAND } from '../MathPlugin';
@@ -413,7 +413,8 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
         anchorElement,
         props,
       ) =>
-        anchorElement.current && options.length ? ReactDOM.createPortal(<IconMenu {...props} />, anchorElement.current) : null
+        {const element = anchorElement.current && options.length ? (ReactDOM.createPortal(<IconMenu {...props} />, anchorElement.current)) as React.ReactPortal : null
+        return element as React.ReactPortal}
       }
     />
   );
