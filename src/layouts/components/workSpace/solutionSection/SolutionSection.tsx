@@ -75,9 +75,8 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
     keepPreviousData: true,
   });
 
-  const sortData: any = (e: any) => {
-    setSort(e);
-    // refetch()
+  const sortData = (sort: string) => {
+    setSort(sort);
   };
 
   const { mutate: deleteSolution } = useMutation({
