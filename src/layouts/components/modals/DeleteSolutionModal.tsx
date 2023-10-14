@@ -4,7 +4,11 @@ import { FC, useEffect, useState } from "react";
 import { Button } from "@/components/ui/Button2";
 import { X } from "lucide-react";
 
-const DeleteSolutionModal: FC = () => {
+interface DeleteSolutionModalProps {
+  handleDelete: () => void
+}
+
+const DeleteSolutionModal: FC<DeleteSolutionModalProps> = ({handleDelete}) => {
   const [isOpen, setModal] = useState(true);
 
   useEffect(() => {
@@ -57,8 +61,11 @@ const DeleteSolutionModal: FC = () => {
                   </p>
                 </div>
                 <div className="flex justify-center gap-10">
-                  <button>מחיקה</button>
-                  <button>ביטול</button>
+                  <button onClick={() => {
+                    handleDelete();
+                    setModal(false)
+                  }}>מחיקה</button>
+                  <button onClick={() => setModal(false)}>ביטול</button>
                 </div>
               </div>
             </div>
