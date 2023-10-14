@@ -221,11 +221,11 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                 ) : (
                   <Likes
                     problemId={problemId}
-                    difficulty={workSpaceData.difficulty}
-                    likes={Number(workSpaceData.likes)}
-                    dislikes={Number(workSpaceData.dislikes)}
-                    bookmark={workSpaceData.bookmark}
-                    likeStatus={workSpaceData.likeStatus}
+                    difficulty={workSpaceData?.difficulty ? workSpaceData.difficulty : "קל"}
+                    likes={Number(workSpaceData?.likes ? workSpaceData.difficulty : 0)}
+                    dislikes={Number(workSpaceData?.dislikes ? workSpaceData.difficulty : 0)}
+                    bookmark={workSpaceData?.bookmark ? workSpaceData.difficulty : 0}
+                    likeStatus={workSpaceData?.likeStatus ? workSpaceData.difficulty : 0}
                   />
                 )}
                 {userId ? (
