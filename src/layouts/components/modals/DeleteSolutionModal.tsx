@@ -63,7 +63,8 @@ const DeleteSolutionModal: FC<DeleteSolutionModalProps> = ({handleDelete}) => {
                 <div className="flex justify-center gap-10">
                   <button onClick={() => {
                     handleDelete();
-                    setModal(false)
+                    setModal(false);
+                    window.location.reload();
                   }}>מחיקה</button>
                   <button onClick={() => setModal(false)}>ביטול</button>
                 </div>
