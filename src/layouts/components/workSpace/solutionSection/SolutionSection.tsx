@@ -40,6 +40,7 @@ import { useMutation } from "@tanstack/react-query";
 // import CommentsSection from "@/components/comments/CommentsSectionn";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import DeleteSolutionModal from "@/components/modals/DeleteSolutionModal";
+
 interface SolutionSectionProps {
   workSpaceData: any;
   problemId: string;
@@ -103,12 +104,13 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
   });
 
   function handleDelete(){
-    //TODO: open a warning modal before deleting a solution
+    //TODO: 
+    deleteSolution()
   }
 
   return (
     <div className="overflow-y-auto scrollbar-hide">
-      {/* {displayDeleteModal && <DeleteSolutionModal/>} */}
+      {displayDeleteModal && <DeleteSolutionModal handleDelete={handleDelete}/>}
       <Tabs>
         <Tab name="פתרונות">
           {workSpaceData && workSpaceData.totalSubmissions === 0 ? (
@@ -122,10 +124,10 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                 >
                   <AiOutlineClose />
                 </button>
-                {soltionSectionData[Number(solutionState)].userId ===
+                {soltionSectionData && soltionSectionData[Number(solutionState)].userId ===
                   userId && (
-                  <button onClick={() => deleteSolution()}>
-                {/* // <button onClick={handleDelete}> */}
+                    // open a warning modal before deleting a solution
+                  <button onClick={() => setDeleteModal(true)}>
                     {" "}
                     <BsFillTrash3Fill className="text-red-600"/>
                   </button>
@@ -221,11 +223,11 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                 ) : (
                   <Likes
                     problemId={problemId}
-                    difficulty={workSpaceData.difficulty}
-                    likes={Number(workSpaceData.likes)}
-                    dislikes={Number(workSpaceData.dislikes)}
-                    bookmark={workSpaceData.bookmark}
-                    likeStatus={workSpaceData.likeStatus}
+                    difficulty={workSpaceData?.difficulty ? workSpaceData.difficulty : "קל"}
+                    likes={Number(workSpaceData?.likes ? workSpaceData.difficulty : 0)}
+                    dislikes={Number(workSpaceData?.dislikes ? workSpaceData.difficulty : 0)}
+                    bookmark={workSpaceData?.bookmark ? workSpaceData.difficulty : 0}
+                    likeStatus={workSpaceData?.likeStatus ? workSpaceData.difficulty : 0}
                   />
                 )}
                 {userId ? (
