@@ -104,7 +104,6 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
   });
 
   function handleDelete(){
-    //TODO: 
     deleteSolution()
   }
 
@@ -223,11 +222,11 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                 ) : (
                   <Likes
                     problemId={problemId}
-                    difficulty={workSpaceData?.difficulty ? workSpaceData.difficulty : "קל"}
-                    likes={Number(workSpaceData?.likes ? workSpaceData.difficulty : 0)}
-                    dislikes={Number(workSpaceData?.dislikes ? workSpaceData.difficulty : 0)}
-                    bookmark={workSpaceData?.bookmark ? workSpaceData.difficulty : 0}
-                    likeStatus={workSpaceData?.likeStatus ? workSpaceData.difficulty : 0}
+                    difficulty={workSpaceData?.difficulty}
+                    likes={Number(workSpaceData?.likes ? workSpaceData.likes : 0)}
+                    dislikes={Number(workSpaceData?.dislikes ? workSpaceData.dislikes : 0)}
+                    bookmark={workSpaceData?.bookmark}
+                    likeStatus={workSpaceData?.likeStatus}
                   />
                 )}
                 {userId ? (
