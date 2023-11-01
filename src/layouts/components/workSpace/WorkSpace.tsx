@@ -149,7 +149,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
               onChange={(editor) => onChange(editor, setJsonState)}
             />
           ) : !isLoadingData && workSpaceData ? (
-            workSpaceData.content.content ? (
+            workSpaceData.content?.content ? (
               <Editor
                 document={{ data: workSpaceData.content.content }}
                 onChange={(editor) => onChange(editor, setJsonState)}
