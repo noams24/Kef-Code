@@ -15,6 +15,7 @@ import Accordion from "@/shortcodes/Accordion";
 import CommentsSection from "@/components/comments/CommentsSection";
 import { useGenerationStore } from "@/store/store";
 import { UserAvatar } from '@/components/UserAvatar'
+import Youtube from "@/shortcodes/Youtube";
 
 import "mathlive/static.css";
 import "@/layouts/editor/theme.css";
@@ -79,7 +80,7 @@ const Solution: React.FC<SolutionProps> = ({ data, userId }) => {
       }
     },
   });
- 
+
   return (
     <div>
       <div
@@ -120,6 +121,7 @@ const Solution: React.FC<SolutionProps> = ({ data, userId }) => {
           )}
         </button>
       </div>
+      {data.videoUrl && <Youtube id={data.videoUrl} title={"פתרון"} />}
       <div className="mt-4">{parse(data.html)}</div>
       <Accordion className="mt-8" title="דיון">
         <CommentsSection

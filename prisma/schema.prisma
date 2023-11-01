@@ -150,7 +150,7 @@ model Submissions {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   isPublic  Boolean
-
+  videoUrl String?
   comments Comment[]
   votes    Vote[]
 

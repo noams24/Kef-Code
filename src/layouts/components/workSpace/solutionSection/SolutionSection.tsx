@@ -39,7 +39,9 @@ import DescriptionCommentsSection from "@/components/comments/DescriptionComment
 import { useMutation } from "@tanstack/react-query";
 // import CommentsSection from "@/components/comments/CommentsSectionn";
 import { BsFillTrash3Fill } from "react-icons/bs";
+import { RxVideo } from "react-icons/rx";
 import DeleteSolutionModal from "@/components/modals/DeleteSolutionModal";
+import AddVideoModal from "@/components/modals/AddVideoModal";
 
 interface SolutionSectionProps {
   workSpaceData: any;
@@ -59,7 +61,8 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
   const { solutionState, setSolution } = useGenerationStore();
   const { page } = useGenerationStoree();
   const [sortBy, setSort] = useState("likes");
-  const [displayDeleteModal, setDeleteModal] = useState(false)
+  const [displayDeleteModal, setDeleteModal] = useState(false);
+  const [displayVideoModal, setVideoModal] = useState(false);
   const { development } = useDevelop();
   const {
     data: soltionSectionData,
@@ -82,7 +85,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
 
   const { mutate: deleteSolution } = useMutation({
     mutationFn: async () => {
-        // console.log(soltionSectionData[Number(solutionState)].id)
+      // console.log(soltionSectionData[Number(solutionState)].id)
       const solutionId: any = soltionSectionData[Number(solutionState)].id;
       const { data } = await axios.post("/api/deleteSolution", { solutionId });
       return data;
@@ -95,26 +98,61 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
       });
     },
     onSuccess: () => {
-        toast({
-            title: "נמחק",
-            description: "הפתרון נמחק בהצלחה",
-            variant: "destructive",
-          }); 
+      toast({
+        title: "נמחק",
+        description: "הפתרון נמחק בהצלחה",
+        variant: "destructive",
+      });
     },
   });
 
-  function handleDelete(){
-    deleteSolution()
-  }
+  const { mutate: addVideo } = useMutation({
+    mutationFn: async () => {
+      // console.log(soltionSectionData[Number(solutionState)].id)
+      const solutionId: any = soltionSectionData[Number(solutionState)].id;
+      const { data } = await axios.post("/api/deleteSolution", { solutionId });
+      return data;
+    },
+    onError: (err) => {
+      toast({
+        title: "שגיאה",
+        description: "לא ניתן למחוק פתרון כרגע, נסה שוב מאוחר יותר.",
+        variant: "destructive",
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "נמחק",
+        description: "הפתרון נמחק בהצלחה",
+        variant: "destructive",
+      });
+    },
+  });
 
-  const handleCloseModal = (newValue:any) => {
+  const handleCloseModal = (newValue: any) => {
     setDeleteModal(newValue);
-  }
+  };
 
+  const handleCloseVideoModal = (newValue: any) => {
+    setVideoModal(newValue);
+  };
 
   return (
     <div className="overflow-y-auto scrollbar-hide">
-      {displayDeleteModal && <DeleteSolutionModal handleDelete={handleDelete} setModal={handleCloseModal}/>}
+      {displayDeleteModal && (
+        <DeleteSolutionModal
+          handleDelete={deleteSolution}
+          setModal={handleCloseModal}
+        />
+      )}
+      {displayVideoModal && (
+        <AddVideoModal
+          handleVideo={addVideo}
+          setVideoModal={handleCloseVideoModal}
+          submissionId = {soltionSectionData[Number(solutionState)].id}
+        />
+      )}
+
       <Tabs>
         <Tab name="פתרונות">
           {workSpaceData && workSpaceData.totalSubmissions === 0 ? (
@@ -124,18 +162,26 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
               <div className="sticky flex justify-between top-0 my-3">
                 <button
                   onClick={() => setSolution(null)}
-                  className="border hover:border hover:border-zinc-500"
+                  className="h-5 w-5 border hover:border hover:border-zinc-500"
                 >
                   <AiOutlineClose />
                 </button>
-                {soltionSectionData && soltionSectionData[Number(solutionState)].userId ===
-                  userId && (
-                    // open a warning modal before deleting a solution
-                  <button onClick={() => setDeleteModal(true)}>
-                    {" "}
-                    <BsFillTrash3Fill className="text-red-600"/>
-                  </button>
-                )}
+                {soltionSectionData &&
+                  soltionSectionData[Number(solutionState)].userId ===
+                    userId && (
+                    <div>
+                      <button
+                        className="px-5"
+                        onClick={() => setVideoModal(true)}
+                      >
+                        <RxVideo className="h-5 w-5" />
+                      </button>
+                      <button onClick={() => setDeleteModal(true)}>
+                        {" "}
+                        <BsFillTrash3Fill className="h-5 w-5 text-red-600" />
+                      </button>
+                    </div>
+                  )}
               </div>
               <Solution
                 data={soltionSectionData[Number(solutionState)]}
@@ -228,8 +274,12 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                   <Likes
                     problemId={problemId}
                     difficulty={workSpaceData?.difficulty}
-                    likes={Number(workSpaceData?.likes ? workSpaceData.likes : 0)}
-                    dislikes={Number(workSpaceData?.dislikes ? workSpaceData.dislikes : 0)}
+                    likes={Number(
+                      workSpaceData?.likes ? workSpaceData.likes : 0,
+                    )}
+                    dislikes={Number(
+                      workSpaceData?.dislikes ? workSpaceData.dislikes : 0,
+                    )}
                     bookmark={workSpaceData?.bookmark}
                     likeStatus={workSpaceData?.likeStatus}
                   />
