@@ -107,9 +107,14 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
     deleteSolution()
   }
 
+  const handleCloseModal = (newValue:any) => {
+    setDeleteModal(newValue);
+  }
+
+
   return (
     <div className="overflow-y-auto scrollbar-hide">
-      {displayDeleteModal && <DeleteSolutionModal handleDelete={handleDelete}/>}
+      {displayDeleteModal && <DeleteSolutionModal handleDelete={handleDelete} setModal={handleCloseModal}/>}
       <Tabs>
         <Tab name="פתרונות">
           {workSpaceData && workSpaceData.totalSubmissions === 0 ? (

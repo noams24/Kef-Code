@@ -6,36 +6,25 @@ import { X } from "lucide-react";
 
 interface DeleteSolutionModalProps {
   handleDelete: () => void
+  setModal: any
 }
 
-const DeleteSolutionModal: FC<DeleteSolutionModalProps> = ({handleDelete}) => {
-  const [isOpen, setModal] = useState(true);
+const DeleteSolutionModal: FC<DeleteSolutionModalProps> = ({handleDelete, setModal}) => {
 
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
-      if (isOpen && !event.target.closest(".bg-white")) {
+        if (!event.target.closest(".bg-white")) {
         setModal(false);
       }
     };
-
-    if (isOpen) {
       document.addEventListener("mousedown", handleOutsideClick);
-    }
-
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [isOpen]);
+  }, [])
 
   return (
     <>
-      <button
-        className="btn btn-outline-primary btn-sm hidden lg:inline-block"
-        onClick={() => setModal(true)}
-      >
-        כניסה
-      </button>
-      {!isOpen ? null : (
         <div className="fixed inset-0 bg-zinc-900/20 z-10">
           <div className="container flex items-center h-full max-w-lg mx-auto">
             <div className="relative border-2 border-black dark:border-white bg-white dark:bg-darkmode-body w-full h-fit py-20 px-2 rounded-lg">
@@ -72,7 +61,7 @@ const DeleteSolutionModal: FC<DeleteSolutionModalProps> = ({handleDelete}) => {
             </div>
           </div>
         </div>
-      )}
+      
     </>
   );
 };
