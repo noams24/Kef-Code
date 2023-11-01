@@ -26,6 +26,7 @@ type WorkSpaceProps = {
   problemId: string;
   solution: any;
   userId: string | undefined;
+  role: string | undefined;
 };
 
 interface Data {
@@ -58,6 +59,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
   problemId,
   solution,
   userId,
+  role,
 }) => {
   const { loginToast } = useCustomToasts();
 
@@ -139,6 +141,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
           solution={solution}
           loading={isLoadingData}
           userId={userId}
+          role={role}
         />
 
         {/*EDITOR SECTION */}

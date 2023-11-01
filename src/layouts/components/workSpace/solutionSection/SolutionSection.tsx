@@ -40,6 +40,7 @@ import { useMutation } from "@tanstack/react-query";
 // import CommentsSection from "@/components/comments/CommentsSectionn";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import { RxVideo } from "react-icons/rx";
+import { FaFileUpload } from "react-icons/fa";
 import DeleteSolutionModal from "@/components/modals/DeleteSolutionModal";
 import AddVideoModal from "@/components/modals/AddVideoModal";
 
@@ -48,6 +49,7 @@ interface SolutionSectionProps {
   problemId: string;
   solution: any;
   userId: string | undefined;
+  role: string | undefined;
   loading: any;
 }
 
@@ -56,6 +58,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
   problemId,
   solution,
   userId,
+  role,
   loading,
 }) => {
   const { solutionState, setSolution } = useGenerationStore();
@@ -137,6 +140,32 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
     setVideoModal(newValue);
   };
 
+  const { mutate: AdminAddSolution, isLoading } = useMutation({
+    mutationFn: async () => {
+      const values = {
+        problemId: soltionSectionData[Number(solutionState)].problemId,
+        videoUrl: soltionSectionData[Number(solutionState)].videoUrl,
+      };
+      const payload = {values, jsonState: soltionSectionData[Number(solutionState)].content};
+      const { data } = await axios.post("/api/uploadSolution", payload);
+      return data;
+    },
+    onError: (err) => {
+      toast({
+        title: "שגיאה",
+        description: "לא ניתן לשמור את התשובה כרגע",
+        variant: "destructive",
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "נשמר",
+        description: "התשובה נשמרה בהצלחה",
+        variant: "destructive",
+      });
+    },
+  });
+
   return (
     <div className="overflow-y-auto scrollbar-hide">
       {displayDeleteModal && (
@@ -149,7 +178,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
         <AddVideoModal
           handleVideo={addVideo}
           setVideoModal={handleCloseVideoModal}
-          submissionId = {soltionSectionData[Number(solutionState)].id}
+          submissionId={soltionSectionData[Number(solutionState)].id}
         />
       )}
 
@@ -170,6 +199,11 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                   soltionSectionData[Number(solutionState)].userId ===
                     userId && (
                     <div>
+                      {role === "ADMIN" && (
+                        <button onClick={() => AdminAddSolution()}>
+                          <FaFileUpload className="h-5 w-5" />
+                        </button>
+                      )}
                       <button
                         className="px-5"
                         onClick={() => setVideoModal(true)}

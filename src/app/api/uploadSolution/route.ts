@@ -9,7 +9,6 @@ export async function POST(req: Request) {
         const problemId: number = Number(body.values.problemId)
         const videoUrl = body.values.videoUrl
         const content = body.jsonState
-        
         const session = await getAuthSession()
         if (!session?.user) {
             return new Response('Unauthorized', { status: 401 })

@@ -26,7 +26,7 @@ let solution: any = null
 const singleProblem = async ({ params }: PageProps) => {
     const session = await getServerSession(authOptions);
     
-    // if (develop) {
+    // if (develop) {y
     //     const dom = new JSDOM()
     //     global.window = dom.window as unknown as Window & typeof globalThis
     //     global.document = dom.window.document
@@ -46,7 +46,7 @@ const singleProblem = async ({ params }: PageProps) => {
             {/* <div className="my-5"> */}
                 {/* <TopBar title={params.single} /> */}
             {/* </div> */}
-            <Workspace problemId={params.single} solution={solution} userId={session?.user.id}/>
+            <Workspace problemId={params.single} solution={solution} userId={session?.user.id} role= {session?.user.role}/>
         </>
     );
 };
