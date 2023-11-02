@@ -17,7 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import * as z from "zod";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from 'axios'
 import { toast } from "@/hooks/use-toast";
 
 interface AddVideoModalProps {
@@ -66,6 +66,15 @@ const AddVideoModal: FC<AddVideoModalProps> = ({
       return data;
     },
     onError: (err) => {
+      if (err instanceof AxiosError) {
+        if (err.response?.status === 402) {
+          return toast({
+            title: "שגיאה",
+            description: "הקישור לא תקין",
+            variant: "destructive",
+          });
+        }
+      }
       toast({
         title: "שגיאה",
         description: "לא ניתן לשמור את התשובה כרגע",

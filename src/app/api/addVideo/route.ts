@@ -5,8 +5,12 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const submissionId = body.submissionId;
-    const videoUrl = body.values.videoUrl
-
+    const videoUrl = body.values.videoUrl;
+    const newUrl = videoUrl.split("youtube.com/watch?v=")[1]
+    if (!newUrl)
+    return new Response("youtube url isn't valid", {
+      status: 402,
+    })
     if (!submissionId)
       return new Response("submissionId not found", { status: 400 });
     const session = await getAuthSession();
@@ -18,7 +22,7 @@ export async function POST(req: Request) {
         id: submissionId,
       },
       data: {
-        videoUrl: videoUrl
+        videoUrl: newUrl,
       },
     });
 
