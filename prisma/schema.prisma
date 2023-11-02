@@ -46,21 +46,22 @@ model Account {
 }
 
 model User {
-  id            String          @id @default(cuid())
-  name          String?
-  email         String?         @unique
-  emailVerified DateTime?
-  username      String?         @unique
-  image         String?
-  role          UserRole        @default(USER)
-  posts         Post[]
-  sessions      Session[]
-  Comment       Comment[]
-  votes         Vote[]
-  bookmarks     Bookmark[]
-  submissions   Submissions[]
-  problemStatus problemStatus[]
-  accounts      Account[]
+  id                 String               @id @default(cuid())
+  name               String?
+  email              String?              @unique
+  emailVerified      DateTime?
+  username           String?              @unique
+  image              String?
+  role               UserRole             @default(USER)
+  posts              Post[]
+  sessions           Session[]
+  Comment            Comment[]
+  votes              Vote[]
+  bookmarks          Bookmark[]
+  submissions        Submissions[]
+  problemStatus      problemStatus[]
+  accounts           Account[]
+  problemsneedverify problemsneedverify[]
 }
 
 model Session {
@@ -141,18 +142,18 @@ model Solution {
 }
 
 model Submissions {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
   problemId Int
-  problem   Problem  @relation(fields: [problemId], references: [id])
+  problem   Problem   @relation(fields: [problemId], references: [id])
   content   Json
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   isPublic  Boolean
-  videoUrl String?
-  comments Comment[]
-  votes    Vote[]
+  videoUrl  String?
+  comments  Comment[]
+  votes     Vote[]
 
   @@index([userId])
   @@index([problemId])
@@ -198,5 +199,19 @@ model problemStatus {
   status    Status  @default(BEGIN)
 
   @@unique([problemId, userId])
+  @@index([userId])
+}
+
+model problemsneedverify {
+  id         String   @id @default(cuid())
+  course     String
+  chapter    String
+  title      String
+  img        String
+  difficulty String
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  createdAt  DateTime @default(now())
+
   @@index([userId])
 }
