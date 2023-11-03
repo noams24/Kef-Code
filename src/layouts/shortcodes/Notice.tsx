@@ -8,9 +8,11 @@ function Notice({
   type: string;
   children: React.ReactNode;
 }) {
+
+const dict:any = {"tip": "טיפ", "info" : "מידע", "warning" : "אזהרה", "note": "הערה"}
   return (
     <div className={`notice ${type}`}>
-      <div className="notice-head">
+      <div dir="rtl" className="notice-head">
         {type === "tip" ? (
           <svg
             width="20"
@@ -75,7 +77,8 @@ function Notice({
             />
           </svg>
         )}
-        <p className="my-0 ml-1.5">{humanize(type)}</p>
+        {/* <p className="my-0 ml-1.5">{humanize(dict[type])}</p> */}
+        <p className="my-0 mr-1.5">{dict[type]}</p> 
       </div>
       <div className="notice-body">{children}</div>
     </div>

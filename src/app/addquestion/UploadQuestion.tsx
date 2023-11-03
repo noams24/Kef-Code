@@ -33,6 +33,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { useCustomToasts } from "@/hooks/use-custom-toast";
 import { difficulties } from "@/components/table/data/data";
+import Notice from "@/shortcodes/Notice";
 
 const profileFormSchema = z.object({
   title: z
@@ -58,7 +59,7 @@ const profileFormSchema = z.object({
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
-export function UploadProblem(courses: any) {
+export function UploadQuestion(courses: any) {
   const { loginToast } = useCustomToasts();
   const [url, setUrl] = useState<string | undefined>();
 
@@ -130,11 +131,14 @@ export function UploadProblem(courses: any) {
   }
 
   return (
-    <div className="mx-96">
+    <div className="lg:mx-96 xl:mx-96 md:mx-72">
+      <div dir="rtl" className="mt-4">
+        <Notice type="note">מנהל האתר מאשר את השאלות</Notice>
+      </div>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 m-5"
+          className="space-y-6 m-5"
           dir="rtl"
         >
           <FormField

@@ -37,7 +37,7 @@ const Header = () => {
         </div>
         <ul
           id="nav-menu"
-          className="navbar-nav order-3 hidden w-full lg:order-1 lg:flex lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8"
+          className="navbar-nav order-1 hidden w-full lg:order-1 lg:flex lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8"
         >
           {main.map((menu, i) => (
             <React.Fragment key={`menu-${i}`}>

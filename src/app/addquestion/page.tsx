@@ -8,18 +8,18 @@
 import SeoMeta from "@/partials/SeoMeta";
 // import { authOptions } from "@/lib/auth";
 // import { getServerSession } from "next-auth";
-import { UploadProblem } from "./UploadProblem";
+import { UploadQuestion } from "./UploadQuestion";
 import { promises as fs } from "fs";
 import path from "path";
 
-const AddProblem = async () => {
+const AddQuestion = async () => {
   // const session = await getServerSession(authOptions)
   // if (session?.user.role !== 'ADMIN') {
   //   throw new Error('Unauthorized')
   // }
 
   const data = await fs.readFile(
-    path.join(process.cwd(), "./src/app/addProblem/courses.json"),
+    path.join(process.cwd(), "./src/app/addquestion/courses.json"),
   );
   const courses = JSON.parse(data.toString());
 
@@ -30,9 +30,9 @@ const AddProblem = async () => {
         meta_title="add problem"
         description="add problem"
       />
-      <UploadProblem courses={courses} />
+      <UploadQuestion courses={courses} />
       {/* <UploadProblemForm/> */}
     </>
   );
 };
-export default AddProblem;
+export default AddQuestion;

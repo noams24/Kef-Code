@@ -40,6 +40,10 @@
       ]
     },
     {
+      "name": "העלאת שאלה",
+      "url": "/addquestion"
+    },
+    {
       "name": "קורסים",
       "url": "/courses"
     }
