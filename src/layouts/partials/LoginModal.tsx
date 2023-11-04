@@ -29,7 +29,7 @@ const LoginModal: FC = () => {
   return (
     <>
       <button
-        className="btn btn-outline-primary btn-sm hidden lg:inline-block"
+        className="btn btn-outline-primary"
         onClick={() => setModal(true)}
       >
         כניסה
