@@ -79,8 +79,9 @@ export default async function TaskPage({ params }: PageProps) {
     <>
       <PageHeader title={params.chapter} />
       <div className="p-10 w-auto flex justify-center">
+      {data && <DataTable data={data} columns={columns} />}
         {/* <DataTable data={tasks} columns={columns} /> */}
-        {data && data[0] ? <DataTable data={data} columns={columns} /> : <DataTable data={tasks} columns={columns} />}
+        {/* {data && data[0] ? <DataTable data={data} columns={columns} /> : <DataTable data={tasks} columns={columns} />} */}
       </div>
     </>
   );
