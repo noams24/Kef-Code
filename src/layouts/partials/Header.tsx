@@ -4,11 +4,12 @@ import config from "@/config/config.json";
 import menu from "@/config/menu.json";
 import Link from "next/link";
 import React from "react";
-import { authOptions } from '@/lib/auth'
-import { getServerSession } from 'next-auth'
+// import { authOptions } from '@/lib/auth'
+// import { getServerSession } from 'next-auth'
 import Login from "@/components/Login";
 //import { UserAccountNav } from '@/components/UserAccountNav'
 //  child navigation link interface
+
 export interface IChildNavigationLink {
   name: string;
   url: string;
@@ -37,7 +38,7 @@ const Header = () => {
         </div>
         <ul
           id="nav-menu"
-          className="navbar-nav order-1 hidden w-full lg:order-1 lg:flex lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8"
+          className="navbar-nav order-1 flex w-auto space-x-2 pb-0 xl:space-x-8"
         >
           {main.map((menu, i) => (
             <React.Fragment key={`menu-${i}`}>
@@ -54,7 +55,7 @@ const Header = () => {
                       <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                     </svg>
                   </span>
-                  <ul className="nav-dropdown-list hidden group-hover:block lg:invisible lg:absolute lg:block lg:opacity-0 lg:group-hover:visible lg:group-hover:opacity-100">
+                  <ul className="nav-dropdown-list group-hover:block invisible absolute block opacity-0 group-hover:visible group-hover:opacity-100">
                     {menu.children?.map((child, i) => (
                       <li className="nav-dropdown-item text-right" key={`children-${i}`}>
                         <Link
@@ -79,7 +80,8 @@ const Header = () => {
               )}
             </React.Fragment>
           ))}
-          {navigation_button.enable && (
+
+          {/* {navigation_button.enable && (
             <li className="mt-4 inline-block lg:hidden">
               <Link
                 className="btn btn-outline-primary btn-sm"
@@ -88,7 +90,8 @@ const Header = () => {
                 {navigation_button.label}
               </Link>
             </li>
-          )}
+          )} */}
+
         </ul>
         {/*Left side of the navbar */}
         <div className="order-0 mr-10 flex items-center md:order-0 lg:ml-0">
