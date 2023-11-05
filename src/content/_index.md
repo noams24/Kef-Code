@@ -29,7 +29,7 @@ features:
     button:
       enable: true
       label: "דוגמא"
-      link: "https://kef-code.vercel.app/courses/algebra-1/bases/1"
+      link: "https://kef-code.vercel.app/courses/algebra-1/bases/תלות%20לינארית"
       features:
 
   - title: "פיצ'רים"
