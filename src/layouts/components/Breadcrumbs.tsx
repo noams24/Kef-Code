@@ -40,7 +40,7 @@ const Breadcrumbs = ({ className }: { className?: string }) => {
               </Link>
             ) : (
               <span className="text-light dark:text-darkmode-light">
-                {label}
+                {decodeURIComponent(label)}
               </span>
             )}
           </li>
