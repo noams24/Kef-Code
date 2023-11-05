@@ -61,6 +61,8 @@ const theme: EditorThemeClasses = {
   },
   image: 'LexicalTheme__image',
   indent: 'LexicalTheme__indent',
+  layoutContainer: 'LexicalTheme__layoutContainer',
+  layoutItem: 'LexicalTheme__layoutItem',
   link: 'LexicalTheme__link',
   list: {
     listitem: 'LexicalTheme__listItem',

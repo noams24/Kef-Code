@@ -41,6 +41,7 @@ export default function InsertToolMenu({ editor }: { editor: LexicalEditor }): J
   const openTableDialog = () => editor.dispatchCommand(SET_DIALOGS_COMMAND, ({ table: { open: true } }));
   const openGraphDialog = () => editor.dispatchCommand(SET_DIALOGS_COMMAND, ({ graph: { open: true } }));
   const openSketchDialog = () => editor.dispatchCommand(SET_DIALOGS_COMMAND, ({ sketch: { open: true } }));
+  const openColumnsDialog = () => editor.dispatchCommand(SET_DIALOGS_COMMAND, ({ columns: { open: true } }));
 
   return (
     <>
@@ -104,6 +105,13 @@ export default function InsertToolMenu({ editor }: { editor: LexicalEditor }): J
           </ListItemIcon>
           <ListItemText>Collapsible</ListItemText>
           <Typography variant="body2" color="text.secondary">   /collapse</Typography>
+        </MenuItem>
+        <MenuItem onClick={() => { openColumnsDialog(); handleClose(); }}>
+          <ListItemIcon>
+            <TableIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>Columns</ListItemText>
+          <Typography variant="body2" color="text.secondary">   /columns</Typography>
         </MenuItem>
       </Menu>
     </>
