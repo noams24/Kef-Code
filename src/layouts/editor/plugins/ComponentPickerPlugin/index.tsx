@@ -35,8 +35,7 @@ import * as ReactDOM from 'react-dom';
 
 import { INSERT_MATH_COMMAND } from '../MathPlugin';
 import { INSERT_STICKY_COMMAND } from '../StickyPlugin';
-import {INSERT_COLLAPSIBLE_COMMAND} from '../CollapsiblePlugin';
-
+import { INSERT_COLLAPSIBLE_COMMAND } from '../CollapsiblePlugin';
 import Paper from '@mui/material/Paper';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
@@ -51,6 +50,7 @@ import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import CodeIcon from '@mui/icons-material/Code';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import ViewColumnIcon from '@mui/icons-material/ViewColumn';
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
 import ImageIcon from '@mui/icons-material/Image';
 import TableIcon from '@mui/icons-material/TableChart';
@@ -165,7 +165,8 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
   const openTableDialog = () => editor.dispatchCommand(SET_DIALOGS_COMMAND, ({ table: { open: true } }));
   const openGraphDialog = () => editor.dispatchCommand(SET_DIALOGS_COMMAND, ({ graph: { open: true } }));
   const openSketchDialog = () => editor.dispatchCommand(SET_DIALOGS_COMMAND, ({ sketch: { open: true } }));
-
+  const openColumnsDialog = () => editor.dispatchCommand(SET_DIALOGS_COMMAND, ({ columns: { open: true } }));
+  
   const checkForTriggerMatch = useBasicTypeaheadTriggerMatch('/', {
     minLength: 0,
   });
@@ -354,6 +355,12 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
         keyboardShortcut: '/collapse',
         onSelect: () =>
           editor.dispatchCommand(INSERT_COLLAPSIBLE_COMMAND, undefined),
+      }),
+      new ComponentPickerOption('Columns', {
+        icon: <ViewColumnIcon />,
+        keywords: ['columns'],
+        keyboardShortcut: '/columns',
+        onSelect: openColumnsDialog,
       }),
       ...['left', 'center', 'right', 'justify'].map(
         (alignment) =>

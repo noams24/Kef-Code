@@ -32,7 +32,7 @@ import ImageTools from './Tools/ImageTools';
 import { $isSketchNode } from '../../nodes/SketchNode';
 import { $isGraphNode } from '../../nodes/GraphNode';
 import { $patchStyle } from '../../nodes/utils';
-import { ImageDialog, GraphDialog, SketchDialog, TableDialog } from './Dialogs';
+import { ImageDialog, GraphDialog, SketchDialog, TableDialog, ColumnsDialog} from './Dialogs';
 import { $isStickyNode } from '../../nodes/StickyNode';
 import { wrap } from 'module';
 import { Grid } from '@mui/material';
@@ -48,6 +48,9 @@ type EditorDialogs = {
     open: boolean;
   };
   table: {
+    open: boolean;
+  };
+  columns: {
     open: boolean;
   };
 };
@@ -148,6 +151,9 @@ function ToolbarPlugin() {
     table: {
       open: false,
     },
+    columns: {
+      open: false,
+    }
   });
 
   const updateToolbar = useCallback(() => {
@@ -386,6 +392,7 @@ function ToolbarPlugin() {
       <GraphDialog editor={activeEditor} node={$isGraphNode(selectedNode) ? selectedNode : null} open={dialogs.graph.open} />
       <SketchDialog editor={activeEditor} node={$isSketchNode(selectedNode) ? selectedNode : null} open={dialogs.sketch.open} />
       <TableDialog editor={activeEditor} open={dialogs.table.open} />
+      <ColumnsDialog editor={activeEditor} open={dialogs.columns.open} />
     </>
   );
 }

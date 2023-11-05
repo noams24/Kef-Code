@@ -27,6 +27,7 @@ import ClickableLinkPlugin from './LinkPlugin/ClickableLinkPlugin';
 import ComponentPickerMenuPlugin from './ComponentPickerPlugin';
 import TabFocusPlugin from './TabFocusPlugin';
 import DragDropPaste from './DragDropPastePlugin';
+import { ColumnsPlugin } from "./ColumnsPlugin"
 // import DraggableBlockPlugin from './DraggableBlockPlugin'
 import EmojiPickerPlugin from './EmojiPickerPlugin';
 import CollapsiblePlugin from "./CollapsiblePlugin";
@@ -64,6 +65,7 @@ export const EditorPlugins: React.FC<{
       <GraphPlugin />
       <StickyPlugin />
       <DragDropPaste />
+      <ColumnsPlugin />
       {/* <DraggableBlockPlugin /> */}
       <CodeHighlightPlugin />
       <CollapsiblePlugin />
