@@ -25,22 +25,19 @@ async function getChapterPercent(course: string) {
     const courseItems = await db.$queryRawUnsafe(
       `select chapter, COUNT(*) as items from Problem where course = '${course}' group by chapter`,
     );
+
     let results: any = {};
     if (Array.isArray(chapterCompleted) && Array.isArray(courseItems)) {
       for (let i = 0; i < chapterCompleted.length; i++) {
         let numberOfItems: any = courseItems.filter(
           (item) => item.chapter === chapterCompleted[i].chapter,
         )[0].items;
-        results[chapterCompleted[i].chapter] = {
-          percent: Math.trunc(
-            (Number(chapterCompleted[i].completed) / Number(numberOfItems)) *
-              100,
-          ),
-          numberOfItems: numberOfItems,
-        };
+        results[chapterCompleted[i].chapter] = Math.trunc(
+          (Number(chapterCompleted[i].completed) / Number(numberOfItems)) * 100,
+        );
       }
     }
-    return results;
+    return [results, courseItems];
   } catch (error) {
     return null;
   }
@@ -54,7 +51,8 @@ const Chapter = async ({ params }: PageProps) => {
     return <h2 className="flex justify-center">הקורס בפיתוח</h2>;
   }
 
-  const chapterPercent = await getChapterPercent(params.course);
+  const data = await getChapterPercent(params.course);
+
   return (
     <>
       <PageHeader title={params.course} />
@@ -67,14 +65,19 @@ const Chapter = async ({ params }: PageProps) => {
               link={chapter.link}
               course={params.course}
               complete={
-                chapterPercent && chapterPercent[chapter.link]
-                  ? String(chapterPercent[chapter.link].percent)
+                data && data[0][chapter.link]
+                  ? String(data[0][chapter.link])
                   : "0"
               }
               index={chapterIndex}
               numberOfQuestions={
-                chapterPercent && chapterPercent[chapter.link]
-                  ? chapterPercent[chapter.link].numberOfItems
+                data &&
+                data[1] &&
+                data[1].filter((item: any) => item.chapter === chapter.link)[0]
+                  ?.items
+                  ? data[1].filter(
+                      (item: any) => item.chapter === chapter.link,
+                    )[0].items
                   : 0
               }
             />
