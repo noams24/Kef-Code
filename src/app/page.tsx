@@ -112,12 +112,14 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div>
-            <h3 dir="rtl" className="my-5 flex justify-center">צרו איתנו קשר:</h3>
+        </section>
+      ))}
+      <div className="mb-10">
+            <h3 dir="rtl" className="flex justify-center">צרו איתנו קשר:</h3>
             <Link
               href={"https://discord.gg/Mht9WcSKqp"}
               target="_blank"
-              className="rounded-full bg-indigo-300 mx-96 flex items-center gap-2 justify-center"
+              className="rounded-full bg-indigo-300 mx-96 mt-4 flex items-center gap-2 justify-center"
             >
               דיסקורד
               <Image
@@ -128,8 +130,6 @@ const Home = () => {
               />
             </Link>
           </div>
-        </section>
-      ))}
       {/* <CallToAction data={callToAction} />  */}
       {/* <Reviews data={testimonial} /> */}
 
