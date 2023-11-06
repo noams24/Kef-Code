@@ -85,6 +85,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
   const { width, height } = useWindowSize();
   const { development } = useDevelop();
   const [content,setContent] = useState<any>(null)
+  const [fetchingData, setFetchingData] = useState<boolean>(false)
 
   //save solution to db
   const { mutate: handleSave, isLoading } = useMutation({
@@ -122,23 +123,10 @@ const Workspace: React.FC<WorkSpaceProps> = ({
     isPreviousData,
   } = useQuery({
     queryKey: ["workSpaceData", problemId],
-    queryFn: async () => {
-      
-      //1. check if submission exists in local db:
-      const exists = await db.data.where("id").equals(problemId).toArray()
-     
-      if (exists.length > 0) {
-          // return exists[0]
-          console.log(exists[0])
-          setContent(exists[0].content)
-        }
-      
+    queryFn: async () => {   
       if (development) return null;
       const query = `/api/getWorkSpace?problemId=${problemId}`;
       const { data } = await axios.get(query);
-
-      // if (data.content) {
-      //   console.log(data.content)
       //   const newData = {
       //     id: "1",
       //     name: "1",
@@ -159,10 +147,25 @@ const Workspace: React.FC<WorkSpaceProps> = ({
     };
   }, [confetti]);
 
-// console.log(content)
+  useEffect(() => {
+
+      async function getData() {
+        try {
+      setFetchingData(true)
+      const exists = await db.data.where("id").equals(problemId).toArray()
+      if (exists.length > 0) {
+          setContent(exists[0].content)
+        }
+        setFetchingData(false)
+      }
+      catch (error){}
+    }
+    getData()
+  }, []);
+
   return (
     <>
-      <TopBar />
+      {problemId && <TopBar problemId={problemId}/>}
       <Split className="split h-[70vh]" minSize={0}>
         <SolutionSection
           workSpaceData={workSpaceData}
@@ -195,7 +198,8 @@ const Workspace: React.FC<WorkSpaceProps> = ({
           ) : (
             <h3 className="flex justify-center items-center ">טוען</h3>
           )} */}
-          {content ? <Editor
+          {fetchingData ? <h3 className="flex justify-center items-center ">טוען</h3> :
+          content ? <Editor
                 document={{data:content}}
                 onChange={(editor) => onChange(editor, setJsonState, problemId)}
               />

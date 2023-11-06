@@ -36,18 +36,17 @@ const mockData = [
   },
 ];
 
-const TopBar = () => {
+const TopBar = (problemId:any) => {
   const pathname = usePathname().split("/");
   const course = pathname[2];
   const chapter = pathname[3];
-  const problemId = pathname[4];
   const { development } = useDevelop();
 
   const { data, isLoading: isLoadingData } = useQuery({
     queryKey: ["topbar", course, chapter],
     queryFn: async () => {
       if (development) return null;
-      const query = `/api/getTopBar?course=${course}&chapter=${chapter}&problemId=${problemId}`;
+      const query = `/api/getTopBar?course=${course}&chapter=${chapter}&problemId=${problemId.problemId}`;
       const { data } = await axios.get(query);
       return data;
     },
