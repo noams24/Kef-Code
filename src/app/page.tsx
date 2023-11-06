@@ -1,13 +1,15 @@
-import Reviews from "@/components/Reviews";
+// import Reviews from "@/components/Reviews";
 import ImageFallback from "@/helpers/ImageFallback";
 import { getListPage } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
-import CallToAction from "@/partials/CallToAction";
+// import CallToAction from "@/partials/CallToAction";
 import Footer from "@/partials/Footer";
 import SeoMeta from "@/partials/SeoMeta";
 // import Testimonials from "@/partials/Testimonials";
 import { Button, Feature } from "@/types";
 import { FaCheck } from "react-icons/fa/index.js";
+import Link from "next/link";
+import Image from "next/image";
 
 const Home = () => {
   const homepage = getListPage("_index.md");
@@ -99,22 +101,39 @@ const Home = () => {
                 </ul>
                 {feature.button.enable && (
                   <div className="flex justify-center">
-                  <a
-                    className="btn inline-block btn-primary mt-5"
-                    href={feature.button.link}
-                  >
-                    {feature.button.label}
-                  </a>
+                    <a
+                      className="btn inline-block btn-primary mt-5"
+                      href={feature.button.link}
+                    >
+                      {feature.button.label}
+                    </a>
                   </div>
                 )}
               </div>
             </div>
           </div>
+          <div>
+            <h3 dir="rtl" className="my-5 flex justify-center">צרו איתנו קשר:</h3>
+            <Link
+              href={"https://discord.gg/Mht9WcSKqp"}
+              target="_blank"
+              className="rounded-full bg-indigo-300 mx-96 flex items-center gap-2 justify-center"
+            >
+              דיסקורד
+              <Image
+                src={"/images/discord.png"}
+                alt="discord"
+                width={20}
+                height={20}
+              />
+            </Link>
+          </div>
         </section>
       ))}
       {/* <CallToAction data={callToAction} />  */}
       {/* <Reviews data={testimonial} /> */}
-      <Footer/>
+
+      <Footer />
     </>
   );
 };

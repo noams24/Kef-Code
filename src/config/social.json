@@ -1,24 +1,10 @@
 {
-  "main": [
-    {
-      "name": "facebook",
-      "icon": "FaFacebook",
-      "link": "https://www.facebook.com/"
-    },
-    {
-      "name": "twitter",
-      "icon": "FaTwitter",
-      "link": "https://twitter.com/"
-    },
-    {
-      "name": "github",
-      "icon": "FaGithub",
-      "link": "https://github.com/noams24/Kef-Code/"
-    },
-    {
-      "name": "linkedin",
-      "icon": "FaLinkedin",
-      "link": "https://www.linkedin.com/"
-    }
-  ]
-}
+    "main": [
+      {
+        "name": "github",
+        "icon": "FaGithub",
+        "link": "https://github.com/noams24/Kef-Code/"
+      }
+    ]
+  }
+  
