@@ -17,6 +17,7 @@ import useWindowSize from "@/hooks/useWindowSize";
 import SolutionSection from "./solutionSection/SolutionSection";
 import { useDevelop } from "@/store/store";
 import TopBar from "../topBar/TopBar";
+import { db } from "@/indexedDB"
 
 import "./split.css";
 
@@ -42,17 +43,32 @@ interface Data {
   totalSubmissions: number;
 }
 
-function onChange(
+async function onChange(
   state: EditorState,
   setJsonState: React.Dispatch<React.SetStateAction<EditorContentType>>,
+  problemId: any
 ) {
+  
   state.read(() => {
     if (state.isEmpty()) {
       setJsonState(undefined);
       return;
     }
     setJsonState(state.toJSON());
+    
   });
+      try {
+      const exists = await db.data.where("id").equals(problemId).toArray()
+      if (exists.length > 0) {
+        await db.data.update(problemId,{content: state.toJSON()})
+      }
+      else {
+      await db.data.add({
+        id: problemId, content : state.toJSON()
+      })
+    }
+    } catch (error) { 
+    }
 }
 
 const Workspace: React.FC<WorkSpaceProps> = ({
@@ -68,6 +84,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
   const [confetti, setConfetti] = useState(false);
   const { width, height } = useWindowSize();
   const { development } = useDevelop();
+  const [content,setContent] = useState<any>(null)
 
   //save solution to db
   const { mutate: handleSave, isLoading } = useMutation({
@@ -106,17 +123,28 @@ const Workspace: React.FC<WorkSpaceProps> = ({
   } = useQuery({
     queryKey: ["workSpaceData", problemId],
     queryFn: async () => {
+      
+      //1. check if submission exists in local db:
+      const exists = await db.data.where("id").equals(problemId).toArray()
+     
+      if (exists.length > 0) {
+          // return exists[0]
+          console.log(exists[0])
+          setContent(exists[0].content)
+        }
+      
       if (development) return null;
       const query = `/api/getWorkSpace?problemId=${problemId}`;
       const { data } = await axios.get(query);
 
-      if (data.content) {
-        const newData = {
-          id: "1",
-          name: "1",
-          data: data.content.content,
-        };
-      }
+      // if (data.content) {
+      //   console.log(data.content)
+      //   const newData = {
+      //     id: "1",
+      //     name: "1",
+      //     data: data.content.content,
+      //   };
+      // }
       return data as Data;
     },
   });
@@ -131,6 +159,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
     };
   }, [confetti]);
 
+// console.log(content)
   return (
     <>
       <TopBar />
@@ -146,26 +175,46 @@ const Workspace: React.FC<WorkSpaceProps> = ({
 
         {/*EDITOR SECTION */}
         <div className="w-full overflow-y-auto ">
-          {development || !userId ? (
+          {/* {development || !userId ? (
             <Editor
               document={document}
-              onChange={(editor) => onChange(editor, setJsonState)}
+              onChange={(editor) => onChange(editor, setJsonState, problemId)}
             />
           ) : !isLoadingData && workSpaceData ? (
             workSpaceData.content?.content ? (
               <Editor
                 document={{ data: workSpaceData.content.content }}
-                onChange={(editor) => onChange(editor, setJsonState)}
+                onChange={(editor) => onChange(editor, setJsonState, problemId)}
               />
             ) : (
               <Editor
                 document={document}
-                onChange={(editor) => onChange(editor, setJsonState)}
+                onChange={(editor) => onChange(editor, setJsonState, problemId)}
               />
             )
           ) : (
             <h3 className="flex justify-center items-center ">טוען</h3>
-          )}
+          )} */}
+          {content ? <Editor
+                document={{data:content}}
+                onChange={(editor) => onChange(editor, setJsonState, problemId)}
+              />
+            : !isLoadingData && workSpaceData ? (
+              workSpaceData.content?.content ? (
+                <Editor
+                  document={{ data: workSpaceData.content.content }}
+                  onChange={(editor) => onChange(editor, setJsonState, problemId)}
+                />
+              ) : (
+                <Editor
+                  document={document}
+                  onChange={(editor) => onChange(editor, setJsonState, problemId)}
+                />
+              )
+            ) : (
+              <h3 className="flex justify-center items-center ">טוען</h3>
+            )
+            }
         </div>
       </Split>
 
@@ -176,14 +225,14 @@ const Workspace: React.FC<WorkSpaceProps> = ({
           disabled={isLoading}
           className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
         >
-          פרסום
+          פרסום פתרון
         </Button>
         <Button
           onClick={() => handleSave({ jsonState, isPublic: false })}
           disabled={isLoading}
           className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
         >
-          שמירה
+          שמירה בענן
         </Button>
       </div>
       {confetti && (
