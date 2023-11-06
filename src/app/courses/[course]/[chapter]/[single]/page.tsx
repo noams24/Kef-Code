@@ -22,7 +22,7 @@ const singleProblem = async ({ params }: PageProps) => {
     where: {
       course: params.course,
       chapter: params.chapter,
-      title: decodeURIComponent(params.single),
+      title: decodeURIComponent(params.single.replace('-',' ')),
     },
     select: {
       id: true,

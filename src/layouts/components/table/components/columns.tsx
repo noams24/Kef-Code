@@ -81,7 +81,7 @@ export const columns: ColumnDef<Task>[] = [
           <span className="max-w-[500px] truncate font-medium">
             {/* <Link href="/courses/algebra-1/bases/1"> */}
               {/*When the website will be ready, uncomment the next row: */}
-            <Link href={`/courses/${path[1]}/${path[2]}/${row.original.title}`}> 
+            <Link href={`/courses/${path[1]}/${path[2]}/${row.original.title.replace(' ', '-')}`}> 
               {row.getValue("title")}
             </Link>
           </span>

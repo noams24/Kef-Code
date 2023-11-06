@@ -5,7 +5,7 @@ import { db } from "@/lib/db";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const title = body.values.title;
+    const title = body.values.title.replace('-', ' ');
     const course = body.values.course;
     const chapter = body.values.chapter;
     const difficulty = body.values.difficulty;
