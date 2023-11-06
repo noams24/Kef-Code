@@ -16,16 +16,17 @@ interface PageProps {
 }
 
 async function getChapterPercent(course: string) {
-  const session = await getAuthSession();
-  if (!session) return null;
 
   try {
-    const query = `select chapter, COUNT(*) as completed from Problem p join problemStatus ps on p.id = ps.problemId where ps.userId = '${session.user.id}' and status = 'FINISH' and course = '${course}' group by chapter`;
-    const chapterCompleted = await db.$queryRawUnsafe(query);
     const courseItems = await db.$queryRawUnsafe(
       `select chapter, COUNT(*) as items from Problem where course = '${course}' group by chapter`,
     );
+    const session = await getAuthSession();
+    if (!session) return [null, courseItems]
 
+    const query = `select chapter, COUNT(*) as completed from Problem p join problemStatus ps on p.id = ps.problemId where ps.userId = '${session.user.id}' and status = 'FINISH' and course = '${course}' group by chapter`;
+    const chapterCompleted = await db.$queryRawUnsafe(query);
+    
     let results: any = {};
     if (Array.isArray(chapterCompleted) && Array.isArray(courseItems)) {
       for (let i = 0; i < chapterCompleted.length; i++) {
@@ -65,7 +66,7 @@ const Chapter = async ({ params }: PageProps) => {
               link={chapter.link}
               course={params.course}
               complete={
-                data && data[0][chapter.link]
+                data && data[0] && data[0][chapter.link]
                   ? String(data[0][chapter.link])
                   : "0"
               }
