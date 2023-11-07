@@ -11,7 +11,7 @@
 }
 
 .btn-outline-primary {
-  @apply border-dark bg-transparent text-dark hover:bg-dark hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-dark;
+  @apply border-dark px-4 py-1 bg-transparent text-dark hover:bg-dark hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-dark;
 }
 
 .btn-table-hover-color {

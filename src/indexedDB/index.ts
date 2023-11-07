@@ -11,7 +11,7 @@ export class MySubClassedDexie extends Dexie {
   data!: Table<DATA>; 
 
   constructor() {
-    super('myDatabase');
+    super('kef-code');
     this.version(1).stores({
       data: '++id, content' // Primary key and indexed props
     });

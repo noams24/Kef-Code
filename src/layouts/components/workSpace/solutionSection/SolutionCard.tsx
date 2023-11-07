@@ -29,7 +29,7 @@ const SolutionCard: React.FC<SolutionCardProps> = ({
     >
       <div className="flex justify-center items-center mb-2">
         <a
-          href={`/authors/${slugify(author)}`}
+          href={`/user/${slugify(author)}`}
           className="font-bold text-center text-lg hover:text-blue-500 dark:hover:text-blue-500"
         >
           {/* <FaRegUserCircle className={"-mt-1 ml-2 inline-block"} /> */}

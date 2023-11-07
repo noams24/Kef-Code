@@ -95,7 +95,7 @@ const Solution: React.FC<SolutionProps> = ({ data, userId }) => {
           />
           <div className="mr-1">
             <a
-              href={`/authors/${slugify(data.user.username)}`}
+              href={`/user/${slugify(data.user.username)}`}
               className="mr-4 font-bold text-center text-lg hover:text-blue-500 dark:hover:text-blue-500"
             >
               {humanize(data.user.username)}
