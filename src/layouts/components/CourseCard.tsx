@@ -42,10 +42,10 @@ const CourseCard = ({
         </div>
 
         <div className="courseData">
-          <div className="flex-col text-center">
+          {/* <div className="flex-col text-center">
             <p className="text-2xl">{items}</p>
             <p className="text-xs text-gray-500">שאלות</p>
-          </div>
+          </div> */}
           <div className="flex-col text-center">
             <p className="text-2xl">{chapters}</p>
             <p className="text-xs text-gray-500">פרקים</p>
