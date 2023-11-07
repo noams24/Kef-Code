@@ -14,7 +14,7 @@ const View = ({ data, children }: any) => {
   const [open, setOpen] = useState(false);
   const printRef = useRef();
   const handlePrint = useReactToPrint({
-    content: () => printRef.current,
+    content: () => printRef.current ? printRef.current : null,
   });
 
   //   console.log(data);
