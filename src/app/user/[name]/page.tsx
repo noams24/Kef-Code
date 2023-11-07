@@ -20,8 +20,8 @@ const User = async ({ params }: { params: { name: string } }) => {
 
     // console.log(data);
     return (
-      <div className="pt-8">
-        <div className="flex justify-center items-center mb-2">
+      <div className="pt-8 w-full">
+        <div className="flex justify-between items-center mb-2">
           <h2>{humanize(user.username)} </h2>
           <UserAvatar
             user={{ name: "" || null, image: user.image || null }}
