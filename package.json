@@ -78,6 +78,7 @@
     "react-icons": "^4.10.1",
     "react-lite-youtube-embed": "^2.3.52",
     "react-split": "^2.0.14",
+    "react-to-print": "^2.14.15",
     "rehype-slug": "^5.1.0",
     "remark-gfm": "^3.0.1",
     "sharp": "^0.32.1",

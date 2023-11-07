@@ -27,7 +27,7 @@ const ViewPage = async ({ params }: { params: { id: string } }) => {
       return <h1 className="flex justify-center mt-5">הדף לא קיים</h1>;
     }
     return (
-      <div className="mx-36">{data && <View data={data}>{solution}</View>}</div>
+      <div className="">{data && <View data={data}>{solution}</View>}</div>
     );
   } catch {
     return <h1 className="flex justify-center mt-5">הדף לא קיים</h1>;
