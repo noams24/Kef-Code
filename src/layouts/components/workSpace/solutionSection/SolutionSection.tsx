@@ -184,9 +184,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
 
       <Tabs>
         <Tab name="פתרונות">
-          {workSpaceData && workSpaceData.totalSubmissions === 0 ? (
-            <h3 className="flex justify-center">אין פתרונות להצגה</h3>
-          ) : solutionState || solutionState === 0 ? (
+          { solutionState || solutionState === 0 ? (
             <div className="px-5">
               <div className="sticky flex justify-between top-0 my-3">
                 <button
