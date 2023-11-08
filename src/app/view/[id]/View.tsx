@@ -1,7 +1,7 @@
 "use client";
 import ImageDisplay from "@/components/ImageDisplay";
 import AppDrawer from "./AppDrawer";
-import { ReactInstance, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { UserAvatar } from "@/components/UserAvatar";
 import { humanize, slugify } from "@/lib/utils/textConverter";
@@ -14,14 +14,14 @@ const View = ({ data, children }: any) => {
   const [open, setOpen] = useState(false);
   const printRef = useRef();
   const handlePrint = useReactToPrint({
-    content: () => printRef.current ? printRef.current : null,
+    content: () => (printRef.current ? printRef.current : null),
   });
 
-  //   console.log(data);
   return (
     <div dir="rtl">
       <button
         className="absolute right-10 top-23"
+        title="מידע נוסף"
         onClick={() => setOpen(true)}
       >
         <AiOutlineInfoCircle className="h-8 w-8" />
@@ -34,7 +34,7 @@ const View = ({ data, children }: any) => {
         <div className="pt-10">{children}</div>
       </div>
       <AppDrawer isOpen={open} setOpen={setOpen}>
-        <div dir="rtl" className="flex mt-3">
+        <div dir="rtl" className="flex mt-3 border-b-2">
           {/* <FaRegUserCircle className={"mt-2 inline-block text-2xl"} /> */}
           <UserAvatar
             user={{
@@ -54,6 +54,11 @@ const View = ({ data, children }: any) => {
               <span className="mr-4">{hebrewDateFormat(data.createdAt)}</span>
             </div>
           </div>
+        </div>
+        <div className="pt-5 pr-3" dir="rtl">
+          <p>קורס: {data.problem.course}</p>
+          <p>פרק: {data.problem.chapter}</p>
+          <p>שם השאלה: {data.problem.title}</p>
         </div>
         <Box
           sx={{
@@ -80,10 +85,11 @@ const View = ({ data, children }: any) => {
             justifyContent: "center",
           }}
         >
-          <button className="group-hover:text-slate-900">
+          <button title="שיתוף" className="group-hover:text-slate-900">
             <Share />
           </button>
           <button
+            title="הדפסה"
             onClick={() => {
               handlePrint();
               //   window.print();
