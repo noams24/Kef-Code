@@ -109,6 +109,7 @@ export function UploadQuestion(courses: any) {
         description: "השאלה נשמרה בהצלחה",
         variant: "destructive",
       });
+      window.location.reload()
     },
   });
 

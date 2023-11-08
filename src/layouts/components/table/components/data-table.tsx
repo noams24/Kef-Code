@@ -116,7 +116,7 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-12 text-center"
                 >
-                  .עדיין אין שאלות לפרק לזה
+                  לא נמצאו שאלות
                   <br />
                   <a className="text-blue-500 text-decoration-line: underline" href="/addquestion">העלאת שאלה</a>
                 </TableCell>
