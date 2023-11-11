@@ -21,7 +21,7 @@ To get an overview of the project, read the [README](README.md). Here are some r
 
 ### Find an issue you would like to take
 
-- [issues] (https://github.com/noams24/Kef-Code/issues)
+- [Project Issues](https://github.com/noams24/Kef-Code/issues)
 
 ### Write a comment in the issue
 
