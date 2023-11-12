@@ -39,7 +39,8 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href='/profile'>פרופיל</Link>
+          {/* @ts-ignore */}
+          <Link href={`user/${user.username}`}>פרופיל</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>

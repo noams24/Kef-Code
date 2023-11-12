@@ -40,7 +40,7 @@ const RegularPages = ({ params }: { params: { regular: string } }) => {
         image={image}
       />
       <PageHeader title={title} />
-      <section className="section">
+      <section dir="rtl" className="section">
         <div className="container">
           <div className="content">
             <MDXContent content={content} />
