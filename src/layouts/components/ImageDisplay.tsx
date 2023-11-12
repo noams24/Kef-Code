@@ -3,7 +3,7 @@ import Image from "next/image";
 const ImageDisplay = ({ imageUrl }: any) => {
   return (
     <Image
-      className=" object-cover rounded-md transition-opacity opacity-0 duration-[1s]"
+      className="dark:invert object-cover rounded-md transition-opacity opacity-0 duration-[1s]"
       height={500}
       width={500}
       src={imageUrl}
