@@ -11,6 +11,7 @@ import { Share, Print } from "@mui/icons-material";
 import { useReactToPrint } from "react-to-print";
 import { Snackbar } from "@mui/material";
 import Alert from "@mui/material/Alert";
+import dictionary from "@/content/dictionary.json"
 
 const View = ({ data, children }: any) => {
   const [open, setOpen] = useState(false);
@@ -82,8 +83,10 @@ const View = ({ data, children }: any) => {
           </div>
         </div>
         <div className="pt-5 pr-3" dir="rtl">
-          <p>קורס: {data.problem.course}</p>
-          <p>פרק: {data.problem.chapter}</p>
+          {/* @ts-ignore */}
+          <p>קורס: {dictionary[data.problem.course]}</p>
+          {/* @ts-ignore */}
+          <p>פרק: {dictionary[data.problem.chapter]}</p>
           <p>שם השאלה: {data.problem.title}</p>
         </div>
         <Box

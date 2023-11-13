@@ -7,6 +7,7 @@ import { Share } from "@mui/icons-material";
 import Alert from "@mui/material/Alert";
 import { useState } from "react";
 import { Snackbar } from "@mui/material";
+import dictionary from "@/content/dictionary.json"
 
 const User = ({ user, data }: any) => {
   const [isCopied, setIsCopied] = useState(false);
@@ -87,7 +88,8 @@ const User = ({ user, data }: any) => {
                     <div className="flex flex-col w-full gap-y-1 pr-2 ">
                       <h5 className="font-bold">{item.problem.title}</h5>
                       <span className="text-sm">
-                        {item.problem.course} - {item.problem.chapter}
+                        {/* @ts-ignore */}
+                        {dictionary[item.problem.course]} - {dictionary[item.problem.chapter]}
                       </span>
                       <span className="text-sm">
                         {hebrewDateFormat(item.updatedAt)}
