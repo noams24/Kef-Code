@@ -40,7 +40,7 @@ const Timer: React.FC<TimerProps> = () => {
     <div>
       {showTimer ? (
         <div className="container-timer">
-          <div className="dark:text-white text-gray-400">
+          <div className="dark:text-white ">
             {formatTime(time)}
           </div>
           <FiRefreshCcw
