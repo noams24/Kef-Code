@@ -6,6 +6,7 @@ import { humanize, slugify } from "@/lib/utils/textConverter";
 import hebrewDateFormat from "@/lib/utils/hebrewDateFormat";
 import { AiOutlineCalendar, AiFillLike } from "react-icons/ai";
 import { UserAvatar } from "@/components/UserAvatar";
+import Link from "next/link";
 
 interface SolutionCardProps {
   author: string;
@@ -28,7 +29,7 @@ const SolutionCard: React.FC<SolutionCardProps> = ({
       className="first-letter:bg-gray-200 dark:bg-gray-900 hover:bg-gray-300 dark:hover:bg-gray-800 dark:text-white hover:cursor-pointer rounded-lg shadow p-4 h-20 my-4 no-underline"
     >
       <div className="flex justify-center items-center mb-2">
-        <a
+        <Link
           href={`/user/${slugify(author)}`}
           className="font-bold text-center text-lg hover:text-blue-500 dark:hover:text-blue-500"
         >
@@ -38,7 +39,7 @@ const SolutionCard: React.FC<SolutionCardProps> = ({
             className="h-7 w-7 -mt-1 ml-2 inline-block"
           />
           {humanize(author)}
-        </a>
+        </Link>
       </div>
       <div className="flex justify-center items-center text-sm mb-1">
         <span>{hebrewDateFormat(date)}</span>

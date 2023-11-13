@@ -157,16 +157,6 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
       });
   };
 
-  const copyToClipboard = () => {
-    const textToCopy = "Hello, Clipboard!";
-    navigator.clipboard.writeText(textToCopy).then(() => {
-      setIsCopied(true);
-      setTimeout(() => {
-        setIsCopied(false);
-      }, 2000); // Reset the copied state after 2 seconds
-    });
-  };
-
   const { mutate: AdminAddSolution, isLoading } = useMutation({
     mutationFn: async () => {
       const values = {
