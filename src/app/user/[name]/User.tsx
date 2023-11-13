@@ -4,8 +4,10 @@ import { SiGoogledocs } from "react-icons/si";
 import Link from "next/link";
 import hebrewDateFormat from "@/lib/utils/hebrewDateFormat";
 import { Share } from "@mui/icons-material";
+import Alert from "@mui/material/Alert";
 import { useState } from "react";
-import { AiFillCheckCircle } from "react-icons/ai";
+import { Snackbar } from "@mui/material";
+
 const User = ({ user, data }: any) => {
   const [isCopied, setIsCopied] = useState(false);
 
@@ -16,18 +18,25 @@ const User = ({ user, data }: any) => {
         setIsCopied(true);
         setTimeout(() => {
           setIsCopied(false);
-        }, 2000); 
+        }, 2000);
       });
   };
 
   return (
     <div className="w-full min-h-screen pt-8">
-      {isCopied && (
-        <div className=" text-green-500">
-          <AiFillCheckCircle />
-          הכתובת הועתקה!
-        </div>
-      )}
+      <Snackbar
+        open={isCopied}
+        autoHideDuration={6000}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <Alert severity="success" sx={{ width: "100%" }}>
+          הקישור הועתק
+        </Alert>
+      </Snackbar>
+
       <div className="flex flex-col w-full h-full max-w-6xl mx-auto ">
         <div className="flex items-center justify-between w-full p-2 border border-gray-700 rounded-sm gap-x-5 h-36">
           <div className="flex flex-col justify-between w-full h-full ">

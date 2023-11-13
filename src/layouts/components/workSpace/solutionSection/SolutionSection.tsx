@@ -5,7 +5,7 @@ import Tabs from "@/shortcodes/Tabs";
 import Solution from "./Solution";
 import Feed from "./Feed";
 import Pagination from "./Pagination";
-import { AiFillCheckCircle, AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
 import Youtube from "@/shortcodes/Youtube";
 import ImageDisplay from "@/components/ImageDisplay";
 import Likes from "@/components/Likes";
@@ -18,6 +18,8 @@ import { toast } from "@/hooks/use-toast";
 import axios from "axios";
 import parse from "html-react-parser";
 import Status from "@/components/Status";
+import Alert from "@mui/material/Alert";
+import { Snackbar } from "@mui/material";
 
 import "mathlive/static.css";
 import "@/layouts/editor/theme.css";
@@ -153,7 +155,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
         setIsCopied(true);
         setTimeout(() => {
           setIsCopied(false);
-        }, 2000); // Reset the copied state after 2 seconds
+        }, 2000);
       });
   };
 
@@ -200,11 +202,18 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
           submissionId={soltionSectionData[Number(solutionState)].id}
         />
       )}
-      {isCopied && (
-        <div className=" text-green-500">
-          <AiFillCheckCircle/>
-          הכתובת הועתקה!</div>
-      )}
+<Snackbar
+        open={isCopied}
+        autoHideDuration={6000}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <Alert severity="success" sx={{ width: "100%" }}>
+          הקישור הועתק
+        </Alert>
+      </Snackbar>
 
       <Tabs>
         <Tab name="פתרונות">

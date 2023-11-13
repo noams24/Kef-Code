@@ -25,7 +25,6 @@ if (theme.fonts.font_family.secondary) {
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./node_modules/flowbite-react/**/*.js",
     "./src/layouts/**/*.{js,ts,jsx,tsx}",
     "./src/content/**/*.{md,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx}",
@@ -86,7 +85,6 @@ module.exports = {
     },
   },
   plugins: [
-    require("flowbite/plugin"),
     require("@tailwindcss/typography"),
     require("@tailwindcss/forms"),
     require("tailwind-scrollbar-hide"),

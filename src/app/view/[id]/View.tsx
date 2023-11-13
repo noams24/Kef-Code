@@ -9,16 +9,42 @@ import hebrewDateFormat from "@/lib/utils/hebrewDateFormat";
 import { Box, IconButton } from "@mui/material";
 import { Share, Print } from "@mui/icons-material";
 import { useReactToPrint } from "react-to-print";
+import { Snackbar } from "@mui/material";
+import Alert from "@mui/material/Alert";
 
 const View = ({ data, children }: any) => {
   const [open, setOpen] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
   const printRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => (printRef.current ? printRef.current : null),
   });
 
+  const handleShare = () => {
+    navigator.clipboard
+      .writeText(`https://kef-code.vercel.app/view/${data.id}`)
+      .then(() => {
+        setIsCopied(true);
+        setTimeout(() => {
+          setIsCopied(false);
+        }, 2000);
+      });
+  };
+
   return (
     <div dir="rtl">
+      <Snackbar
+        open={isCopied}
+        autoHideDuration={6000}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <Alert severity="success" sx={{ width: "100%" }}>
+          הקישור הועתק
+        </Alert>
+      </Snackbar>
       <button
         className="absolute right-10 top-23"
         title="מידע נוסף"
@@ -85,7 +111,11 @@ const View = ({ data, children }: any) => {
             justifyContent: "center",
           }}
         >
-          <button title="שיתוף" className="group-hover:text-slate-900">
+          <button
+            title="שיתוף"
+            className="group-hover:text-slate-900"
+            onClick={() => handleShare()}
+          >
             <Share />
           </button>
           <button
