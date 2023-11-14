@@ -18,6 +18,8 @@ import { toast } from "@/hooks/use-toast";
 import axios from "axios";
 import parse from "html-react-parser";
 import Status from "@/components/Status";
+import Alert from "@mui/material/Alert";
+import { Snackbar } from "@mui/material";
 
 import "mathlive/static.css";
 import "@/layouts/editor/theme.css";
@@ -39,6 +41,7 @@ import DescriptionCommentsSection from "@/components/comments/DescriptionComment
 import { useMutation } from "@tanstack/react-query";
 // import CommentsSection from "@/components/comments/CommentsSectionn";
 import { BsFillTrash3Fill } from "react-icons/bs";
+import { BiShareAlt } from "react-icons/bi";
 import { RxVideo } from "react-icons/rx";
 import { FaFileUpload } from "react-icons/fa";
 import DeleteSolutionModal from "@/components/modals/DeleteSolutionModal";
@@ -66,6 +69,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
   const [sortBy, setSort] = useState("likes");
   const [displayDeleteModal, setDeleteModal] = useState(false);
   const [displayVideoModal, setVideoModal] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
   const { development } = useDevelop();
   const {
     data: soltionSectionData,
@@ -140,13 +144,31 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
     setVideoModal(newValue);
   };
 
+  const handleShare = () => {
+    navigator.clipboard
+      .writeText(
+        `https://kef-code.vercel.app/view/${
+          soltionSectionData[Number(solutionState)].id
+        }`,
+      )
+      .then(() => {
+        setIsCopied(true);
+        setTimeout(() => {
+          setIsCopied(false);
+        }, 2000);
+      });
+  };
+
   const { mutate: AdminAddSolution, isLoading } = useMutation({
     mutationFn: async () => {
       const values = {
         problemId: soltionSectionData[Number(solutionState)].problemId,
         videoUrl: soltionSectionData[Number(solutionState)].videoUrl,
       };
-      const payload = {values, jsonState: soltionSectionData[Number(solutionState)].content};
+      const payload = {
+        values,
+        jsonState: soltionSectionData[Number(solutionState)].content,
+      };
       const { data } = await axios.post("/api/uploadSolution", payload);
       return data;
     },
@@ -165,7 +187,6 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
       });
     },
   });
-
   return (
     <div className="overflow-y-auto scrollbar-hide">
       {displayDeleteModal && (
@@ -181,13 +202,26 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
           submissionId={soltionSectionData[Number(solutionState)].id}
         />
       )}
+<Snackbar
+        open={isCopied}
+        autoHideDuration={6000}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <Alert severity="success" sx={{ width: "100%" }}>
+          הקישור הועתק
+        </Alert>
+      </Snackbar>
 
       <Tabs>
         <Tab name="פתרונות">
-          { solutionState || solutionState === 0 ? (
+          {solutionState || solutionState === 0 ? (
             <div className="px-5">
               <div className="sticky flex justify-between top-0 my-3">
                 <button
+                  title="חזרה"
                   onClick={() => setSolution(null)}
                   className="h-5 w-5 border hover:border hover:border-zinc-500"
                 >
@@ -198,22 +232,32 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                     userId && (
                     <div>
                       {role === "ADMIN" && (
-                        <button onClick={() => AdminAddSolution()}>
+                        <button
+                          title="הפוך לפתרון רשמי"
+                          onClick={() => AdminAddSolution()}
+                        >
                           <FaFileUpload className="h-5 w-5" />
                         </button>
                       )}
                       <button
+                        title="הוספת סרטון"
                         className="px-5"
                         onClick={() => setVideoModal(true)}
                       >
                         <RxVideo className="h-5 w-5" />
                       </button>
-                      <button onClick={() => setDeleteModal(true)}>
+                      <button
+                        title="מחיקת פתרון"
+                        onClick={() => setDeleteModal(true)}
+                      >
                         {" "}
                         <BsFillTrash3Fill className="h-5 w-5 text-red-600" />
                       </button>
                     </div>
                   )}
+                <button title="שיתוף פתרון" onClick={() => handleShare()}>
+                  <BiShareAlt />
+                </button>
               </div>
               <Solution
                 data={soltionSectionData[Number(solutionState)]}
@@ -223,8 +267,10 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
             </div>
           ) : (
             <div>
-              {soltionSectionData ? (
-                <div>
+              {isFetching ? (
+                 <h3 className="flex justify-center mt-5">טוען</h3>
+              ) : soltionSectionData && soltionSectionData.length !== 0 ? (
+                <>
                   <div className="mt-3 dark:text-white text-center" dir="rtl">
                     <Select onValueChange={(e) => sortData(e)}>
                       <SelectTrigger className="w-[100px]">
@@ -243,15 +289,12 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                       </SelectContent>
                     </Select>
                   </div>
-                  {isFetching ? (
-                    <h4 className="flex justify-center mb-14">טוען</h4>
-                  ) : (
-                    <Feed data={soltionSectionData} />
-                  )}
-                </div>
+                  <Feed data={soltionSectionData} />
+                </>
               ) : (
-                <h4 className="flex justify-center">טוען</h4>
+                <h3 className="flex justify-center mt-5">אין פתרונות להצגה</h3>
               )}
+
               {soltionSectionData && workSpaceData && (
                 <Pagination
                   totalPages={Math.ceil(workSpaceData.totalSubmissions / 5)}

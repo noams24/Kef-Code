@@ -1,6 +1,6 @@
 import PageHeader from "@/partials/PageHeader";
 import ChapterCard from "@/components/ChapterCard";
-import coursesData from "./chapters.json";
+import coursesData from "@/content/chapters.json"
 import { Metadata } from "next";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";

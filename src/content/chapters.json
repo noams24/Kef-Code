@@ -19,7 +19,7 @@
             },
             {
                 "title": "רשימות, מחסנית, עצים בינריים",
-                "link": "data-structures",
+                "link": "structures",
                 "complete": 24
             }
         ]
@@ -44,7 +44,7 @@
             },
             {
                 "title": "עצים בינריים",
-                "link": "binary trees",
+                "link": "binary-trees",
                 "complete": 91
             },
             {
@@ -139,7 +139,7 @@
         "chapters": [
             {
                 "title": "כתיבת פונקציות",
-                "link": "functions",
+                "link": "writing-functions",
                 "complete": 31
             },
             {
@@ -219,7 +219,7 @@
             },
             {
                 "title": "צורות ז'ורדן",
-                "link": "linear-map",
+                "link": "jordan-shape",
                 "complete": 94
             }
         ]
@@ -254,7 +254,7 @@
             },
             {
                 "title": "גרפים",
-                "link": "graphs",
+                "link": "graph",
                 "complete": 12
             }
         ]
@@ -344,7 +344,7 @@
         "chapters": [
             {
                 "title": "טורים",
-                "link": "series",
+                "link": "columns",
                 "complete": 36
             },
             {

@@ -3,13 +3,14 @@
 import { humanize } from "@/lib/utils/textConverter";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import dictionary from "@/content/dictionary.json"
 
 const Breadcrumbs = ({ className }: { className?: string }) => {
   const pathname = usePathname();
   const paths = pathname.split("/").filter((x) => x);
   let parts = [
     {
-      label: "Home",
+      label: "בית",
       href: "/",
       "aria-label": pathname === "/" ? "page" : undefined,
     },
@@ -17,30 +18,41 @@ const Breadcrumbs = ({ className }: { className?: string }) => {
 
   paths.forEach((label: string, i: number) => {
     const href = `/${paths.slice(0, i + 1).join("/")}`;
+    {/* @ts-ignore */}
+    const translatedLabel = dictionary[decodeURIComponent(label)]
+    let newLabel = label
+    if (translatedLabel !== undefined){
+      newLabel = translatedLabel
+    }
     label !== "page" &&
       parts.push({
-        label: humanize(label.replace(/[-_]/g, " ")) || "",
+        label: newLabel.replaceAll('-',' '),
+        // label: humanize(label.replace(/[-_]/g, " ")) || "",
         href,
         "aria-label": pathname === href ? "page" : undefined,
       });
   });
 
   return (
-    <nav aria-label="Breadcrumb" className={className}>
+    <nav dir="rtl" aria-label="Breadcrumb" className={className}>
       <ol className="inline-flex items-center " role="list">
         {parts.map(({ label, ...attrs }, index) => (
           <li className="mx-1 capitalize" role="listitem" key={index}>
-            {index > 0 && <span className="inlin-block mr-1">/</span>}
+            {index > 0 && <span className="inlin-block ml-1">/</span>}
             {index !== parts.length - 1 ? (
               <Link
                 className="text-primary dark:text-darkmode-primary"
                 {...attrs}
               >
-                {label}
+                  {label}
               </Link>
             ) : (
               <span className="text-light dark:text-darkmode-light">
                 {decodeURIComponent(label)}
+                {/* {label} */}
+                {/* @ts-ignore */}
+                {/* {dictionary[decodeURIComponent(label)]} */}
+                {/* {dictionary[decodeURIComponent(label).toLowerCase]} */}
               </span>
             )}
           </li>
