@@ -9,11 +9,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select";
-import { useMutation } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 import { useCustomToasts } from '@/hooks/use-custom-toast'
 import { toast } from '@/hooks/use-toast'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery , useMutation } from '@tanstack/react-query'
 import { useDevelop } from '@/store/store'
 
 const Status = ({problemId}:any) => {
@@ -58,7 +57,7 @@ const Status = ({problemId}:any) => {
       {previousStatus &&
        <Select defaultValue={previousStatus.status} onValueChange={(status) => (handleClick(status))}>
         <SelectTrigger className="w-[100px]">
-          <SelectValue placeholder="סטטוס" />
+          <SelectValue>סטטוס</SelectValue>
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
