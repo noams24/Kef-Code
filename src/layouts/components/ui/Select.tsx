@@ -108,7 +108,7 @@ const SelectItem = React.forwardRef<
         </SelectPrimitive.ItemIndicator>
       </span>
 
-      <SelectPrimitive.ItemText>{isHovered ? children : ''}</SelectPrimitive.ItemText>
+      <SelectPrimitive.ItemText>{isHovered && children}</SelectPrimitive.ItemText>
       {children === "עוד לא התחלתי" && <CircleIcon className="mr-2" />}
       {children === "בתהליך" && <StopwatchIcon className="mr-2" />}
       {children === "תקוע" && <QuestionMarkCircledIcon className="mr-2" />}
