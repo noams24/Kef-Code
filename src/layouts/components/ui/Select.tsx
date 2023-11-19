@@ -11,6 +11,7 @@ import {
 import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { Check, ChevronDown } from "lucide-react";
+import Tippy from "@tippyjs/react";
 
 import { cn } from "@/lib/utils";
 
@@ -26,14 +27,11 @@ const SelectTrigger = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
-    className={cn(
-      "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-      className,
-    )}
+    className={cn("w-full", className)}
     {...props}
   >
     <SelectPrimitive.Icon asChild>
-      <ChevronDown className="h-4 w-4 opacity-50" />
+      <CircleIcon className="h-4 w-4 opacity-50" />
     </SelectPrimitive.Icon>
     {children}
   </SelectPrimitive.Trigger>
@@ -48,7 +46,7 @@ const SelectContent = React.forwardRef<
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
-        "relative z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+        "relative z-50 min-w-[4rem] rounded-md border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
         position === "popper" &&
           "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
         className,
@@ -60,7 +58,7 @@ const SelectContent = React.forwardRef<
         className={cn(
           "p-1",
           position === "popper" &&
-            "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]",
+            "h-[var(--radix-select-trigger-height)] min-w-[var(--radix-select-trigger-width)]",
         )}
       >
         {children}
@@ -77,7 +75,7 @@ const SelectLabel = React.forwardRef<
   <SelectPrimitive.Label
     ref={ref}
     className={cn(
-      "bg-body dark:bg-darkmode-body py-1.5 pr-4 text-sm font-semibold",
+      "bg-body dark:bg-darkmode-body py-1.5 text-center text-sm font-semibold w-full",
       className,
     )}
     {...props}
@@ -89,30 +87,19 @@ const SelectItem = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
 >(({ className, children, ...props }, ref) => {
-  const [isHovered, setIsHovered] = React.useState<boolean>(false);
-
   return (
     <SelectPrimitive.Item
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       ref={ref}
       className={cn(
-        "bg-body dark:bg-darkmode-body relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pr-6 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+        "bg-body dark:bg-darkmode-body relative flex w-full pl-2 cursor-pointer justify-center items-center select-none rounded-sm py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
         className,
       )}
       {...props}
     >
-      <span className="absolute right-1 flex h-3.5 w-3.5 items-center justify-center">
-        <SelectPrimitive.ItemIndicator>
-          <Check className="h-4 w-4" />
-        </SelectPrimitive.ItemIndicator>
-      </span>
-
-      <SelectPrimitive.ItemText>{isHovered && children}</SelectPrimitive.ItemText>
-      {children === "עוד לא התחלתי" && <CircleIcon className="mr-2" />}
-      {children === "בתהליך" && <StopwatchIcon className="mr-2" />}
-      {children === "תקוע" && <QuestionMarkCircledIcon className="mr-2" />}
-      {children === "סיימתי" && <CheckCircledIcon className="mr-2" />}
+          {children === "עוד לא התחלתי" && <Tippy content={children} placement="right"><CircleIcon className="mr-2" /></Tippy>}
+          {children === "בתהליך" && <Tippy content={children} placement="right"><StopwatchIcon className="mr-2" /></Tippy>}
+          {children === "תקוע" && <Tippy content={children} placement="right"><QuestionMarkCircledIcon className="mr-2" /></Tippy>}
+          {children === "סיימתי" && <Tippy content={children} placement="right"><CheckCircledIcon className="mr-2" /></Tippy>}
     </SelectPrimitive.Item>
   );
 });

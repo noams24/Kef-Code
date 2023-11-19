@@ -14,6 +14,7 @@ import { useCustomToasts } from '@/hooks/use-custom-toast'
 import { toast } from '@/hooks/use-toast'
 import { useQuery , useMutation } from '@tanstack/react-query'
 import { useDevelop } from '@/store/store'
+import 'tippy.js/dist/tippy.css';
 
 const Status = ({problemId}:any) => {
   
@@ -56,12 +57,11 @@ const Status = ({problemId}:any) => {
     <div>
       {previousStatus &&
        <Select defaultValue={previousStatus.status} onValueChange={(status) => (handleClick(status))}>
-        <SelectTrigger className="w-[100px]">
-          <SelectValue>סטטוס</SelectValue>
+        <SelectTrigger className="w-full">
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel dir="rtl">הגדר סטטוס</SelectLabel>
+            <SelectLabel dir="rtl">סטטוס</SelectLabel>
             <SelectItem dir="rtl" value="BEGIN">
               עוד לא התחלתי
             </SelectItem>
