@@ -19,6 +19,7 @@ import Youtube from "@/shortcodes/Youtube";
 
 import "mathlive/static.css";
 import "@/layouts/editor/theme.css";
+import Link from "next/link";
 
 // interface SolutionProps {
 //     author: string;
@@ -94,12 +95,13 @@ const Solution: React.FC<SolutionProps> = ({ data, userId }) => {
             className="h-12 w-12"
           />
           <div className="mr-1">
-            <a
+            <Link
               href={`/user/${slugify(data.user.username)}`}
               className="mr-4 font-bold text-center text-lg hover:text-blue-500 dark:hover:text-blue-500"
+              target="_blank"
             >
               {humanize(data.user.username)}
-            </a>
+            </Link>
             <div className="flex">
               <span className="mr-4">{hebrewDateFormat(data.createdAt)}</span>
             </div>

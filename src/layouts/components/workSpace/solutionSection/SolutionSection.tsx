@@ -41,11 +41,12 @@ import DescriptionCommentsSection from "@/components/comments/DescriptionComment
 import { useMutation } from "@tanstack/react-query";
 // import CommentsSection from "@/components/comments/CommentsSectionn";
 import { BsFillTrash3Fill } from "react-icons/bs";
-import { BiShareAlt } from "react-icons/bi";
 import { RxVideo } from "react-icons/rx";
 import { FaFileUpload } from "react-icons/fa";
 import DeleteSolutionModal from "@/components/modals/DeleteSolutionModal";
 import AddVideoModal from "@/components/modals/AddVideoModal";
+import { Share } from "@mui/icons-material";
+import CloseIcon from '@mui/icons-material/Close';
 
 interface SolutionSectionProps {
   workSpaceData: any;
@@ -223,9 +224,9 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                 <button
                   title="חזרה"
                   onClick={() => setSolution(null)}
-                  className="h-5 w-5 border hover:border hover:border-zinc-500"
+                  className="h-5 w-5"
                 >
-                  <AiOutlineClose />
+                  <CloseIcon />
                 </button>
                 {soltionSectionData &&
                   soltionSectionData[Number(solutionState)].userId ===
@@ -255,8 +256,8 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                       </button>
                     </div>
                   )}
-                <button title="שיתוף פתרון" onClick={() => handleShare()}>
-                  <BiShareAlt />
+                <button className="h-5 w-5" title="שיתוף פתרון" onClick={() => handleShare()}>
+                  <Share/>
                 </button>
               </div>
               <Solution

@@ -58,7 +58,7 @@ const Status = ({problemId}:any) => {
   })
 
   return (
-    <div>
+    <div className="mt-3">
       {previousStatus &&
        <Select defaultValue={status} onValueChange={(status) => (handleClick(status))}>
         <SelectTrigger className="w-full">
