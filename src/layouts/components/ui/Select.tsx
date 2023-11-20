@@ -3,14 +3,12 @@
 import {
   CheckCircledIcon,
   CircleIcon,
-  CrossCircledIcon,
   QuestionMarkCircledIcon,
   StopwatchIcon,
 } from "@radix-ui/react-icons";
 
 import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import { Check, ChevronDown } from "lucide-react";
 import Tippy from "@tippyjs/react";
 
 import { cn } from "@/lib/utils";
@@ -30,10 +28,14 @@ const SelectTrigger = React.forwardRef<
     className={cn("w-full", className)}
     {...props}
   >
-    <SelectPrimitive.Icon asChild>
-      <CircleIcon className="h-4 w-4 opacity-50" />
-    </SelectPrimitive.Icon>
-    {children}
+    <Tippy content={'הגדר סטטוס'} placement="top">
+         <div>
+          {children === "BEGIN" && <CircleIcon className="h-4 w-4 opacity-50" />}
+          {children === "ONGOING" && <StopwatchIcon className="h-4 w-4 opacity-50" />}
+          {children === "STUCK" && <QuestionMarkCircledIcon className="h-4 w-4 opacity-50" />}
+          {children === "FINISH" && <CheckCircledIcon className="h-4 w-4 opacity-50" />}
+          </div>
+          </Tippy>
   </SelectPrimitive.Trigger>
 ));
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
@@ -95,11 +97,14 @@ const SelectItem = React.forwardRef<
         className,
       )}
       {...props}
-    >
-          {children === "עוד לא התחלתי" && <Tippy content={children} placement="right"><CircleIcon className="mr-2" /></Tippy>}
-          {children === "בתהליך" && <Tippy content={children} placement="right"><StopwatchIcon className="mr-2" /></Tippy>}
-          {children === "תקוע" && <Tippy content={children} placement="right"><QuestionMarkCircledIcon className="mr-2" /></Tippy>}
-          {children === "סיימתי" && <Tippy content={children} placement="right"><CheckCircledIcon className="mr-2" /></Tippy>}
+    ><Tippy content={children} placement="right">
+      <div>
+          {children === "עוד לא התחלתי" && <CircleIcon className="mr-2" />}
+          {children === "בתהליך" && <StopwatchIcon className="mr-2" />}
+          {children === "תקוע" && <QuestionMarkCircledIcon className="mr-2" />}
+          {children === "סיימתי" && <CheckCircledIcon className="mr-2" />}
+          </div>
+          </Tippy>
     </SelectPrimitive.Item>
   );
 });
