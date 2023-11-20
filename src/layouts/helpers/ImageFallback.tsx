@@ -19,7 +19,7 @@ const ImageFallback = (props: any) => {
       onError={() => {
         setImgSrc(fallback);
       }}
-      onLoadingComplete={(image) => image.classList.remove("opacity-0")}
+      onLoad={(img) => img.currentTarget.classList.remove("opacity-0")}
     />
   );
 };
