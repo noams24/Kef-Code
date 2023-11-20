@@ -9,30 +9,34 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select";
-import { useMutation } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 import { useCustomToasts } from '@/hooks/use-custom-toast'
 import { toast } from '@/hooks/use-toast'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery , useMutation } from '@tanstack/react-query'
 import { useDevelop } from '@/store/store'
+import 'tippy.js/dist/tippy.css';
+import { useState } from "react";
 
 const Status = ({problemId}:any) => {
   
-  const { loginToast } = useCustomToasts()
-  const { development } = useDevelop()
-  
+  const { loginToast } = useCustomToasts();
+  const { development } = useDevelop();
+  const [status,setStatus] = useState<string>('BEGIN');
+
   const { data: previousStatus } = useQuery({
     queryKey: ['status'],
     queryFn: async () => {
         if (development) return null
         const query = `/api/getStatus?problemId=${problemId}`
         const { data } = await axios.get(query)
+        setStatus(data.status);
         return data
     },
 },)
 
   const { mutate: handleClick} = useMutation({
     mutationFn: async (status : any) => {
+      setStatus(status);
       const payload: any = { problemId, status }
       const { data } = await axios.post('/api/setStatus', payload)
       return data
@@ -56,13 +60,13 @@ const Status = ({problemId}:any) => {
   return (
     <div>
       {previousStatus &&
-       <Select defaultValue={previousStatus.status} onValueChange={(status) => (handleClick(status))}>
-        <SelectTrigger className="w-[100px]">
-          <SelectValue placeholder="סטטוס" />
+       <Select defaultValue={status} onValueChange={(status) => (handleClick(status))}>
+        <SelectTrigger className="w-full">
+         {status}
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel dir="rtl">הגדר סטטוס</SelectLabel>
+            <SelectLabel dir="rtl">סטטוס</SelectLabel>
             <SelectItem dir="rtl" value="BEGIN">
               עוד לא התחלתי
             </SelectItem>
