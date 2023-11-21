@@ -13,7 +13,7 @@ const Youtube = ({
   [key: string]: any;
 }) => {
   return (
-    <div className="p-3 border-b-2">
+    <div className="p-3 border-b-2 w-[50%] h-[50%]">
     <LiteYouTubeEmbed
       wrapperClass="yt-lite rounded-lg"
       id={id}

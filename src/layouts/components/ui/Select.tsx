@@ -28,14 +28,20 @@ const SelectTrigger = React.forwardRef<
     className={cn("w-full", className)}
     {...props}
   >
-    <Tippy content={'הגדר סטטוס'} placement="top">
-         <div>
-          {children === "BEGIN" && <CircleIcon className="h-4 w-4 opacity-50" />}
-          {children === "ONGOING" && <StopwatchIcon className="h-4 w-4 opacity-50" />}
-          {children === "STUCK" && <QuestionMarkCircledIcon className="h-4 w-4 opacity-50" />}
-          {children === "FINISH" && <CheckCircledIcon className="h-4 w-4 opacity-50" />}
-          </div>
-          </Tippy>
+    <Tippy content={"הגדר סטטוס"} placement="top">
+      <div>
+        {children === "BEGIN" && <CircleIcon className="h-4 w-4 opacity-50" />}
+        {children === "ONGOING" && (
+          <StopwatchIcon className="h-4 w-4 opacity-50" />
+        )}
+        {children === "STUCK" && (
+          <QuestionMarkCircledIcon className="h-4 w-4 opacity-50" />
+        )}
+        {children === "FINISH" && (
+          <CheckCircledIcon className="h-4 w-4 opacity-50" />
+        )}
+      </div>
+    </Tippy>
   </SelectPrimitive.Trigger>
 ));
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
@@ -97,14 +103,15 @@ const SelectItem = React.forwardRef<
         className,
       )}
       {...props}
-    ><Tippy content={children} placement="right">
-      <div>
+    >
+      <Tippy content={children} placement="right">
+        <div>
           {children === "עוד לא התחלתי" && <CircleIcon className="mr-2" />}
           {children === "בתהליך" && <StopwatchIcon className="mr-2" />}
           {children === "תקוע" && <QuestionMarkCircledIcon className="mr-2" />}
           {children === "סיימתי" && <CheckCircledIcon className="mr-2" />}
-          </div>
-          </Tippy>
+        </div>
+      </Tippy>
     </SelectPrimitive.Item>
   );
 });

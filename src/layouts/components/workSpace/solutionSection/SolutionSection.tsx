@@ -304,7 +304,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
           )}
         </Tab>
         <Tab name="פתרון רשמי">
-          <div className="mt-5">
+          <div className="mt-5 flex justify-center items-center">
             {development ? (
               <Youtube id="B1J6Ou4q8vE" title={"פתרון"} />
             ) : workSpaceData && workSpaceData.videoUrl ? (
