@@ -28,20 +28,14 @@ const SelectTrigger = React.forwardRef<
     className={cn("w-full", className)}
     {...props}
   >
-    <Tippy content={"הגדר סטטוס"} placement="top">
-      <div>
-        {children === "BEGIN" && <CircleIcon className="h-4 w-4 opacity-50" />}
-        {children === "ONGOING" && (
-          <StopwatchIcon className="h-4 w-4 opacity-50" />
-        )}
-        {children === "STUCK" && (
-          <QuestionMarkCircledIcon className="h-4 w-4 opacity-50" />
-        )}
-        {children === "FINISH" && (
-          <CheckCircledIcon className="h-4 w-4 opacity-50" />
-        )}
-      </div>
-    </Tippy>
+    <Tippy content={'הגדר סטטוס'} placement="top">
+         <div>
+          {children === "BEGIN" && <CircleIcon className="h-4 w-4 opacity-50" />}
+          {children === "ONGOING" && <StopwatchIcon className="h-4 w-4 opacity-50" />}
+          {children === "STUCK" && <QuestionMarkCircledIcon className="h-4 w-4 opacity-50" />}
+          {children === "FINISH" && <CheckCircledIcon className="h-4 w-4 opacity-50" />}
+          </div>
+          </Tippy>
   </SelectPrimitive.Trigger>
 ));
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
