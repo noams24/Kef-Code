@@ -1,11 +1,33 @@
 import config from "@/config/config.json";
 import theme from "@/config/theme.json";
 import TwSizeIndicator from "@/helpers/TwSizeIndicator";
-import Footer from "@/partials/Footer";
+// import Footer from "@/partials/Footer";
 import Header from "@/partials/Header";
 import Providers from "@/partials/Providers";
 import { Toaster } from '@/components/ui/Toaster'
+import Birzia from 'next/font/local';
+import { Inter } from 'next/font/google';
+
 import "@/styles/main.scss";
+
+const birzia = Birzia({
+  src: [
+    {
+      path: '../../public/fonts/Birzia-Black.woff2',
+      weight: '900',
+    },
+    {
+      path: '../../public/fonts/Birzia-Bold.woff2',
+      weight: '700',
+    },
+    {
+      path: '../../public/fonts/Birzia-Medium.woff2',
+      weight: '500',
+    },
+  ],
+});
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export default function RootLayout({
   children,
@@ -55,7 +77,7 @@ export default function RootLayout({
         />
       </head>
 
-      <body suppressHydrationWarning={true}>
+      <body className={`${birzia.className} ${inter.variable}`} suppressHydrationWarning={true}>
         <TwSizeIndicator />
         <Providers>
           <Header/>

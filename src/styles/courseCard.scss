@@ -7,6 +7,7 @@ background: rgba(0, 0, 0, 0.25);
   display: inline-block;
   border: thin solid rgb(205, 202, 202);
   max-width: 20rem;
+  height: 20rem;
   border-radius: 0.25rem;
   margin: 2px 2px 2px 2px;
 }
@@ -47,7 +48,7 @@ bottom: 13px;
 .text{
     text-align: center;
     white-space: break-spaces;
-    inline-size: 250px;
+    inline-size: 220px;
     text-shadow: -1px 1px 0 #000,
     1px 1px 0 #000,
     1px -1px 0 #000,
