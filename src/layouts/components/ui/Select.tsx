@@ -97,14 +97,15 @@ const SelectItem = React.forwardRef<
         className,
       )}
       {...props}
-    ><Tippy content={children} placement="right">
-      <div>
+    >
+      <Tippy content={children} placement="right">
+        <div>
           {children === "עוד לא התחלתי" && <CircleIcon className="mr-2" />}
           {children === "בתהליך" && <StopwatchIcon className="mr-2" />}
           {children === "תקוע" && <QuestionMarkCircledIcon className="mr-2" />}
           {children === "סיימתי" && <CheckCircledIcon className="mr-2" />}
-          </div>
-          </Tippy>
+        </div>
+      </Tippy>
     </SelectPrimitive.Item>
   );
 });

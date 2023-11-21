@@ -203,7 +203,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
           submissionId={soltionSectionData[Number(solutionState)].id}
         />
       )}
-<Snackbar
+      <Snackbar
         open={isCopied}
         autoHideDuration={6000}
         anchorOrigin={{
@@ -269,7 +269,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
           ) : (
             <div>
               {isFetching ? (
-                 <h3 className="flex justify-center mt-5">טוען</h3>
+                <h3 className="flex justify-center mt-5">טוען</h3>
               ) : soltionSectionData && soltionSectionData.length !== 0 ? (
                 <>
                   <div className="mt-3 dark:text-white text-center" dir="rtl">
@@ -305,18 +305,39 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
           )}
         </Tab>
         <Tab name="פתרון רשמי">
-          <div className="mt-5">
-            {development ? (
+          {workSpaceData && workSpaceData.videoUrl && (
+            <div className="px-5">
+              <h4 className="mt-1.5 font-bold pt-2" dir="rtl">
+                סרטון הסבר
+              </h4>
+              <hr className="my-4 h-0.5 rounded bg-zinc-200 border-0 dark:bg-zinc-700" />
+              <div className="flex justify-center items-center">
+                <Youtube id={workSpaceData.videoUrl} title={"פתרון"} />
+              </div>
+            </div>
+          )}
+
+          {/* {development ? (
               <Youtube id="B1J6Ou4q8vE" title={"פתרון"} />
             ) : workSpaceData && workSpaceData.videoUrl ? (
+              <div>
+                <h4 className="font-bold pt-2" dir="rtl">סרטון הסבר</h4>
+                <hr className="my-4 h-0.5 rounded bg-zinc-200 border-0 dark:bg-zinc-700"/>
               <Youtube id={workSpaceData.videoUrl} title={"פתרון"} />
-            ) : null}
-          </div>
+              </div>
+            ) : null} */}
+          {/* </div> */}
           <div className="px-5">
             {development ? (
               solution
             ) : workSpaceData && workSpaceData.solutionArticle ? (
-              parse(workSpaceData.solutionArticle)
+              <div>
+                <h4 className="mt-1.5 font-bold pt-2" dir="rtl">
+                  פתרון
+                </h4>
+                <hr className="my-4 h-0.5 rounded bg-zinc-200 border-0 dark:bg-zinc-700" />
+                {parse(workSpaceData.solutionArticle)}
+              </div>
             ) : (
               <h3 className="flex justify-center">אין פתרון עדיין</h3>
             )}
