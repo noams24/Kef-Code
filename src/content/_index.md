@@ -19,7 +19,7 @@ features:
     image: "/images/service-1.png"
     content: ""
     bulletpoints:
-      - "מעל 10 קורסים שונים"
+      - "מעל 20 קורסים שונים"
       - "שאלות ממבחנים עם פתרונות מה[מגה](https://mega.nz/folder/0Sg0iD4B#0OPF1JJgFjtYoJuStlsCtA) של האוניברסיטה הפתוחה"
       - "תמיכה מהקהילה"
       
