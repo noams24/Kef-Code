@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 // import Pi from "./Pi";
 import "../../styles/courseCard.scss";
 import ImageFallback from "@/helpers/ImageFallback";
@@ -22,12 +23,12 @@ const CourseCard = ({
   children
 }: Props) => {
   return (
-    <a href={`courses/${link}`}>
+    <Link href={`courses/${link}`}>
       <div className="card">
         <div className="relative w-full">
           <ImageFallback
             src={image}
-            className="object-cover rounded-md w-64 h-64 transition-opacity opacity-0 duration-[2s]"
+            className="object-cover rounded-md w-60 h-60 transition-opacity opacity-0 duration-[2s]"
             height={300}
             width={300}
             alt="שם הקורס"
@@ -52,7 +53,7 @@ const CourseCard = ({
           </div>
         </div>
       </div>
-    </a>
+    </Link>
   );
 };
 

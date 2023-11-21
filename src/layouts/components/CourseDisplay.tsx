@@ -45,7 +45,7 @@ const CourseDisplay = ({
   return (
     <>
       <div className="flex flex-row justify-center items-center">
-        <p className="text-3xl font-medium p-2">{data.frontmatter.title}</p>
+        <p className="text-3xl font-medium p-1">{data.frontmatter.title}</p>
       </div>
       <div className="relative flex items-center">
         {/* <MdChevronLeft
