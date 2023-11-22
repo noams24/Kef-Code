@@ -48,8 +48,8 @@ const Status = ({problemId}:any) => {
         }
       }
       toast({
-        title: 'There was an error.',
-        description: 'Could not create subreddit.',
+        title: 'שגיאה',
+        description: 'לא ניתן לשמור סטטוס',
         variant: 'destructive',
       })
     },

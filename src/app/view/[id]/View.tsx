@@ -58,7 +58,7 @@ const View = ({ data, children }: any) => {
         <div className="flex justify-center">
           <ImageDisplay imageUrl={data.problem.img} />
         </div>
-        <div className="pt-10">{children}</div>
+        <div className="pt-10 font-primary">{children}</div>
       </div>
       <AppDrawer isOpen={open} setOpen={setOpen}>
         <div dir="rtl" className="flex mt-3 border-b-2">

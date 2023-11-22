@@ -91,6 +91,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
   const { mutate: handleSave, isLoading } = useMutation({
     mutationFn: async ({ jsonState, isPublic }: any) => {
       const payload: any = { problemId, jsonState, isPublic };
+      
       const { data } = await axios.post("/api/submit", payload);
       return data;
     },
@@ -101,8 +102,8 @@ const Workspace: React.FC<WorkSpaceProps> = ({
         }
       }
       toast({
-        title: "There was an error.",
-        description: "Could not create subreddit.",
+        title: "שגיאה",
+        description: "לא ניתן לשמור/לפרסם את הפתרון כרגע, נסה שוב מאוחר יותר",
         variant: "destructive",
       });
     },
@@ -110,7 +111,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
       setConfetti(true);
       toast({
         title: "נשמר",
-        description: "התשובה נשמרה בהצלחה.",
+        description: "התשובה נשמרה/פורסמה בהצלחה.",
         variant: "destructive",
       });
     },
@@ -155,6 +156,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
       const exists = await db.data.where("id").equals(problemId).toArray()
       if (exists.length > 0) {
           setContent(exists[0].content)
+          setJsonState(exists[0].content)
         }
         setFetchingData(false)
       }
@@ -162,7 +164,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
     }
     getData()
   }, []);
-
+ 
   return (
     <>
       {problemId && <TopBar problemId={problemId}/>}

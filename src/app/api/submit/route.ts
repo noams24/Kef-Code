@@ -23,7 +23,6 @@ export async function POST(req: Request) {
     })
 
     if (exists) {
-      if (isPublic) {
         await db.submissions.update({
           where: {
             id: exists.id
@@ -33,19 +32,7 @@ export async function POST(req: Request) {
             isPublic
           },
         })
-      }
-      else {
-        await db.submissions.update({
-          where: {
-            id: exists.id
-          },
-          data: {
-            content,
-          },
-        })
-      }
     }
-
     else {
       await db.submissions.create({
         data: {
@@ -57,49 +44,49 @@ export async function POST(req: Request) {
       })
 
       // Mark the status is "FINISH"
-      await db.problemStatus.create({
-        data: {
-          userId: session.user.id,
-          problemId,
-          status: "FINISH"
-        },
-      })
+      // await db.problemStatus.create({
+      //   data: {
+      //     userId: session.user.id,
+      //     problemId,
+      //     status: "FINISH"
+      //   },
+      // })
     }
 
 
 
 
     //IF ADMIN, SAVE THE CONTENT AS A SOLUTION ARTICLE
-    if (session.user.role === 'ADMIN' && isPublic) {
+    // if (session.user.role === 'ADMIN' && isPublic) {
       //check if there is already a solution
-      const existSolution = await db.solution.findFirst({
-        where: {
-          problemId: problemId
-        },
-        select: {
-          content: true
-        }
-      })
+      // const existSolution = await db.solution.findFirst({
+      //   where: {
+      //     problemId: problemId
+      //   },
+      //   select: {
+      //     content: true
+      //   }
+      // })
 
-      if (!existSolution) {
-        await db.solution.create({
-          data: {
-            problemId,
-            content,
-          },
-        })
-      }
-      else {
-        await db.solution.update({
-          where: {
-            problemId
-          },
-          data: {
-            content,
-          },
-        })
-      }
-    }
+      // if (!existSolution) {
+      //   await db.solution.create({
+      //     data: {
+      //       problemId,
+      //       content,
+      //     },
+      //   })
+      // }
+      // else {
+      //   await db.solution.update({
+      //     where: {
+      //       problemId
+      //     },
+      //     data: {
+      //       content,
+      //     },
+      //   })
+      // }
+    // }
 
     return new Response('OK')
   } catch (error) {

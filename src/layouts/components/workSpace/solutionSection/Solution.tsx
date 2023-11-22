@@ -81,7 +81,7 @@ const Solution: React.FC<SolutionProps> = ({ data, userId }) => {
       }
     },
   });
-
+  // console.log(data.html)
   return (
     <div>
       <div
@@ -124,7 +124,7 @@ const Solution: React.FC<SolutionProps> = ({ data, userId }) => {
         </button>
       </div>
       {data.videoUrl && <Youtube id={data.videoUrl} title={"פתרון"} />}
-      <div className="mt-4">{parse(data.html)}</div>
+      <div className="mt-4 font-primary">{parse(data.html)}</div>
       <Accordion className="mt-8" title="דיון">
         <CommentsSection
           ID={data.id}

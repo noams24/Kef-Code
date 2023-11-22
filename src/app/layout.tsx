@@ -76,7 +76,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-
+      
       <body className={`${birzia.className} ${inter.variable}`} suppressHydrationWarning={true}>
         <TwSizeIndicator />
         <Providers>
