@@ -4,23 +4,20 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { $getSelection, $isRangeSelection, FORMAT_TEXT_COMMAND, LexicalEditor, COMMAND_PRIORITY_CRITICAL, SELECTION_CHANGE_COMMAND, TextFormatType, $isNodeSelection, } from "lexical";
 import { $patchStyleText, } from '@lexical/selection';
-import FormatBoldIcon from '@mui/icons-material/FormatBold';
-import FormatItalicIcon from '@mui/icons-material/FormatItalic';
-import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
-import CodeIcon from '@mui/icons-material/Code';
-import FormatStrikethroughIcon from '@mui/icons-material/FormatStrikethrough';
-import SubscriptIcon from '@mui/icons-material/Subscript';
-import SuperscriptIcon from '@mui/icons-material/Superscript';
+import { FormatBold, FormatItalic, FormatUnderlined, Code, FormatStrikethrough, Subscript, Superscript, Link } from '@mui/icons-material';
 import { mergeRegister, } from '@lexical/utils';
-
+import { $isLinkNode } from '@lexical/link';
+import { getSelectedNode } from '@/layouts/editor/utils/getSelectedNode';
 import { IS_APPLE } from '../../../shared/environment';
 import { useCallback, useEffect, useState } from 'react';
 import { SxProps, Theme } from '@mui/material/styles';
 import ColorPicker from './ColorPicker';
 import { $isMathNode, MathNode } from '../../../nodes/MathNode';
 import { $patchStyle } from '../../../nodes/utils';
+import { SET_DIALOGS_COMMAND } from '../../ToolbarPlugin'
 
 export default function TextFormatToggles({ editor, sx }: { editor: LexicalEditor, sx?: SxProps<Theme> | undefined }): JSX.Element {
+  const [isLink, setIsLink] = useState(false);
   const [isBold, setIsBold] = useState(false);
   const [isItalic, setIsItalic] = useState(false);
   const [isUnderline, setIsUnderline] = useState(false);
@@ -41,6 +38,14 @@ export default function TextFormatToggles({ editor, sx }: { editor: LexicalEdito
       setIsSubscript(selection.hasFormat('subscript'));
       setIsSuperscript(selection.hasFormat('superscript'));
       setIsCode(selection.hasFormat('code'));
+
+      const node = getSelectedNode(selection);
+      const parent = node.getParent();
+      if ($isLinkNode(parent) || $isLinkNode(node)) {
+        setIsLink(true);
+      } else {
+        setIsLink(false);
+      }
 
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -92,7 +97,7 @@ export default function TextFormatToggles({ editor, sx }: { editor: LexicalEdito
     editor.dispatchCommand(FORMAT_TEXT_COMMAND, button.value as TextFormatType);
   };
 
-  const formatObj = { isBold, isItalic, isUnderline, isStrikethrough, isSubscript, isSuperscript, isCode };
+  const formatObj = { isBold, isItalic, isUnderline, isStrikethrough, isSubscript, isSuperscript, isCode, isLink };
   const formatKeys = Object.keys(formatObj) as Array<keyof typeof formatObj>;
 
   const formats = formatKeys.reduce(
@@ -104,27 +109,32 @@ export default function TextFormatToggles({ editor, sx }: { editor: LexicalEdito
     }, [] as string[],
   );
 
+  const openLinkDialog = () => editor.dispatchCommand(SET_DIALOGS_COMMAND, ({ link: { open: true } }));
+
   return (<ToggleButtonGroup size="small" sx={{ ...sx }} value={formats} onChange={handleFormat} aria-label="text formatting">
     <ToggleButton value="bold" title={IS_APPLE ? 'Bold (⌘B)' : 'Bold (Ctrl+B)'} aria-label={`Format text as bold. Shortcut: ${IS_APPLE ? '⌘B' : 'Ctrl+B'}`}>
-      <FormatBoldIcon />
+      <FormatBold />
     </ToggleButton>
     <ToggleButton value="italic" title={IS_APPLE ? 'Italic (⌘I)' : 'Italic (Ctrl+I)'} aria-label={`Format text as italics. Shortcut: ${IS_APPLE ? '⌘I' : 'Ctrl+I'}`}>
-      <FormatItalicIcon />
+      <FormatItalic />
     </ToggleButton>
     <ToggleButton value="underline" title={IS_APPLE ? 'Underline (⌘U)' : 'Underline (Ctrl+U)'} aria-label={`Format text to underlined. Shortcut: ${IS_APPLE ? '⌘U' : 'Ctrl+U'}`}>
-      <FormatUnderlinedIcon />
+      <FormatUnderlined />
     </ToggleButton>
     <ToggleButton value="code" title='Format text to inline code' aria-label='Format text to inline code'>
-      <CodeIcon />
+      <Code />
     </ToggleButton>
     <ToggleButton value="strikethrough" title='Format text with strikethrough' aria-label='Format text with strikethrough'>
-      <FormatStrikethroughIcon />
+      <FormatStrikethrough />
     </ToggleButton>
     <ToggleButton value="subscript" title='Format text with subscript' aria-label='Format text with subscript'>
-      <SubscriptIcon />
+      <Subscript />
     </ToggleButton>
     <ToggleButton value="superscript" title='Format text with superscript' aria-label='Format text with superscript'>
-      <SuperscriptIcon />
+      <Superscript />
+    </ToggleButton>
+    <ToggleButton value="link" title='Insert link' aria-label='Insert link' onClick={openLinkDialog}>
+      <Link />
     </ToggleButton>
     <ColorPicker onColorChange={onColorChange} />
   </ToggleButtonGroup>)

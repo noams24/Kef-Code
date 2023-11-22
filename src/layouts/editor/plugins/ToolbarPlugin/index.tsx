@@ -32,9 +32,10 @@ import ImageTools from './Tools/ImageTools';
 import { $isSketchNode } from '../../nodes/SketchNode';
 import { $isGraphNode } from '../../nodes/GraphNode';
 import { $patchStyle } from '../../nodes/utils';
-import { ImageDialog, GraphDialog, SketchDialog, TableDialog, ColumnsDialog} from './Dialogs';
+import { ImageDialog, GraphDialog, SketchDialog, TableDialog, ColumnsDialog, LinkDialog} from './Dialogs';
 import { $isStickyNode } from '../../nodes/StickyNode';
-import { wrap } from 'module';
+// import { wrap } from 'module';
+import { $isLinkNode } from '@lexical/link';
 import { Grid } from '@mui/material';
 
 type EditorDialogs = {
@@ -53,6 +54,9 @@ type EditorDialogs = {
   columns: {
     open: boolean;
   };
+  link: {
+    open: boolean;
+  }
 };
 
 export type SetDialogsPayload = Readonly<Partial<EditorDialogs>>;
@@ -152,6 +156,9 @@ function ToolbarPlugin() {
       open: false,
     },
     columns: {
+      open: false,
+    },
+    link: {
       open: false,
     }
   });
@@ -393,6 +400,7 @@ function ToolbarPlugin() {
       <SketchDialog editor={activeEditor} node={$isSketchNode(selectedNode) ? selectedNode : null} open={dialogs.sketch.open} />
       <TableDialog editor={activeEditor} open={dialogs.table.open} />
       <ColumnsDialog editor={activeEditor} open={dialogs.columns.open} />
+      <LinkDialog editor={activeEditor} node={$isLinkNode(selectedNode) ? selectedNode : null} open={dialogs.link.open} />
     </>
   );
 }

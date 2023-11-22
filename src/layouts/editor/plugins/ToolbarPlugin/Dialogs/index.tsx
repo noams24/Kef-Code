@@ -4,5 +4,5 @@ import SketchDialog from "./SketchDialog";
 import ImageDialog from "./ImageDialog";
 import TableDialog from "./TableDialog";
 import ColumnsDialog from "./ColumnsDialog"
-
-export { GraphDialog, SketchDialog, ImageDialog, TableDialog, ColumnsDialog };
+import LinkDialog from "./LinkDialog"
+export { GraphDialog, SketchDialog, ImageDialog, TableDialog, ColumnsDialog, LinkDialog };
