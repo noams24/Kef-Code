@@ -79,6 +79,7 @@ export async function GET(req: Request) {
                 problemId: problemId,
             },
             select: {
+                id: true,
                 content: true,
                 videoUrl: true
             }
@@ -112,6 +113,7 @@ export async function GET(req: Request) {
             likeStatus: likeStatus?.type,
             solutionArticle: htmlData,
             videoUrl: solution?.videoUrl,
+            solutionId: solution?.id,
             totalSubmissions: totalSubmissions
         }
         return new Response(JSON.stringify(result))

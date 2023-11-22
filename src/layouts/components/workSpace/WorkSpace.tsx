@@ -38,6 +38,7 @@ interface Data {
   difficulty: String;
   bookmark: boolean | undefined;
   likeStatus: any;
+  solutionId?: String;
   solutionArticle?: any;
   videoUrl?: any;
   totalSubmissions: number;

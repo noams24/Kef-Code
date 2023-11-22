@@ -46,7 +46,7 @@ import { FaFileUpload } from "react-icons/fa";
 import DeleteSolutionModal from "@/components/modals/DeleteSolutionModal";
 import AddVideoModal from "@/components/modals/AddVideoModal";
 import { Share } from "@mui/icons-material";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 
 interface SolutionSectionProps {
   workSpaceData: any;
@@ -257,8 +257,12 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                       </button>
                     </div>
                   )}
-                <button className="h-5 w-5" title="שיתוף פתרון" onClick={() => handleShare()}>
-                  <Share/>
+                <button
+                  className="h-5 w-5"
+                  title="שיתוף פתרון"
+                  onClick={() => handleShare()}
+                >
+                  <Share />
                 </button>
               </div>
               <Solution
@@ -337,14 +341,21 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                   פתרון
                 </h4>
                 <hr className="my-4 h-0.5 rounded bg-zinc-200 border-0 dark:bg-zinc-700" />
-                <div className="font-arial">{parse(workSpaceData.solutionArticle)}</div>
+                <div className="font-arial">
+                  {parse(workSpaceData.solutionArticle)}
+                </div>
+                <Accordion className="mt-8" title="דיון">
+                  <DescriptionCommentsSection
+                    ID={workSpaceData.solutionId}
+                    type="solution"
+                    comments={[]}
+                    userId={userId}
+                  />
+                </Accordion>
               </div>
             ) : (
               <h3 className="flex justify-center">אין פתרון עדיין</h3>
             )}
-            {/* <Accordion className="mt-8" title="דיון">
-                            <CommentsSection problemId={1} comments={[]} userId={userId} />
-                        </Accordion> */}
           </div>
         </Tab>
         <Tab name="תיאור">

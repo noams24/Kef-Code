@@ -16,6 +16,7 @@ import { Label } from '../ui/Label'
 import { TextArea } from '../ui/TextArea'
 import { toast } from '@/hooks/use-toast'
 import { useSession } from 'next-auth/react'
+import Link from 'next/link'
 
 type ExtendedComment = Comment & {
   votes: Vote[]
@@ -81,7 +82,13 @@ const PostComment: FC<PostCommentProps> = ({
           className='h-6 w-6'
         />
         <div className='mr-2 flex items-center gap-x-2'>
+        <Link
+          href={`/user/${comment.author.username}`}
+          target="_blank"
+          className="font-bold text-center text-lg hover:text-blue-500 dark:hover:text-blue-500"
+        >
           <p className='text-sm font-medium'>{comment.author.username}</p>
+          </Link>
 
           <p className='max-h-40 truncate text-xs text-zinc-500'>
             {formatTimeToNow(new Date(comment.createdAt))}
