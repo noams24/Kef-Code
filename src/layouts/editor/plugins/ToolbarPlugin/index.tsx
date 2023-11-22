@@ -136,7 +136,7 @@ function ToolbarPlugin() {
   const [blockType, setBlockType] = useState<keyof typeof blockTypeToBlockName>('paragraph');
   const [selectedElementKey, setSelectedElementKey] = useState<NodeKey | null>(null);
   const [fontSize, setFontSize] = useState<string>('15px');
-  const [fontFamily, setFontFamily] = useState<string>('Roboto');
+  const [fontFamily, setFontFamily] = useState<string>('Arial');
   const [isRTL, setIsRTL] = useState(false);
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
@@ -217,7 +217,7 @@ function ToolbarPlugin() {
         $getSelectionStyleValueForProperty(selection, 'font-size', '15px'),
       );
       setFontFamily(
-        $getSelectionStyleValueForProperty(selection, 'font-family', 'Roboto'),
+        $getSelectionStyleValueForProperty(selection, 'font-family', 'Arial'),
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -318,12 +318,14 @@ function ToolbarPlugin() {
   );
 
   const FONT_FAMILY_OPTIONS = [
+    ['Arial', 'Arial'],
     ['Roboto', 'Roboto'],
     ['KaTeX_Main', 'KaTeX'],
     ['Virgil', 'Virgil'],
     ['Cascadia', 'Cascadia'],
     ['Courier New', 'Courier New'],
     ['Georgia', 'Georgia'],
+    ['Birzia', 'Birzia']
   ];
 
   const FONT_SIZE_OPTIONS: [string, string][] = [

@@ -43,7 +43,7 @@ const Tutorial: React.FC = () => {
 
   return <>
     {/* <Helmet title="Tutorial" /> */}
-    <div className="h-[70vh] overflow-y-auto font-primary">
+    <div className="h-[70vh] overflow-y-auto font-arial">
     <Editor key={currentTask} document={tasks[currentTask]} onChange={onChange} />
     <Paper className="dark:bg-darkmode-body" sx={{ p: 2, mt: 3, displayPrint: 'none' }}>
       <Box key={`task-${currentTask}`} sx={{ mb: 2 }}>

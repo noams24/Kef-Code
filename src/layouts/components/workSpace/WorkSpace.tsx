@@ -179,7 +179,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
         />
 
         {/*EDITOR SECTION */}
-        <div className="w-full overflow-y-auto font-primary">
+        <div className="w-full overflow-y-auto font-arial">
           {/* {development || !userId ? (
             <Editor
               document={document}

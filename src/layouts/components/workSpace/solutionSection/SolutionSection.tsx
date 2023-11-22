@@ -337,7 +337,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                   פתרון
                 </h4>
                 <hr className="my-4 h-0.5 rounded bg-zinc-200 border-0 dark:bg-zinc-700" />
-                <div className="font-primary">{parse(workSpaceData.solutionArticle)}</div>
+                <div className="font-arial">{parse(workSpaceData.solutionArticle)}</div>
               </div>
             ) : (
               <h3 className="flex justify-center">אין פתרון עדיין</h3>
