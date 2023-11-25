@@ -30,10 +30,10 @@ const SelectTrigger = React.forwardRef<
   >
     <Tippy content={'הגדר סטטוס'} placement="top">
          <div>
-          {children === "BEGIN" && <CircleIcon className="h-4 w-4 opacity-50" />}
-          {children === "ONGOING" && <StopwatchIcon className="h-4 w-4 opacity-50" />}
-          {children === "STUCK" && <QuestionMarkCircledIcon className="h-4 w-4 opacity-50" />}
-          {children === "FINISH" && <CheckCircledIcon className="h-4 w-4 opacity-50" />}
+          {children === "BEGIN" && <CircleIcon className="h-4 w-4" />}
+          {children === "ONGOING" && <StopwatchIcon className="h-4 w-4" />}
+          {children === "STUCK" && <QuestionMarkCircledIcon className="h-4 w-4" />}
+          {children === "FINISH" && <CheckCircledIcon className="h-4 w-4" />}
           </div>
           </Tippy>
   </SelectPrimitive.Trigger>
