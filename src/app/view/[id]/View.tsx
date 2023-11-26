@@ -73,7 +73,7 @@ const View = ({ data, children }: any) => {
           <div className="mr-1">
             <a
               href={`/user/${slugify(data.user.username)}`}
-              className="mr-4 font-bold text-center text-lg hover:text-blue-500 dark:hover:text-blue-500"
+              className="mr-4 font-bold font-primary text-center text-lg hover:text-blue-500 dark:hover:text-blue-500"
             >
               {humanize(data.user.username)}
             </a>

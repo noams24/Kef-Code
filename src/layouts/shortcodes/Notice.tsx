@@ -12,7 +12,7 @@ function Notice({
 const dict:any = {"tip": "טיפ", "info" : "מידע", "warning" : "אזהרה", "note": "הערה"}
   return (
     <div className={`notice ${type}`}>
-      <div dir="rtl" className="notice-head">
+      <div dir="rtl" className="flex">
         {type === "tip" ? (
           <svg
             width="20"

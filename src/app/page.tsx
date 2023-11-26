@@ -111,10 +111,11 @@ const Home = () => {
         <h3 dir="rtl" className="flex justify-center">
           צרו איתנו קשר:
         </h3>
+        <div className="flex justify-center">
         <Link
           href={"https://discord.gg/Mht9WcSKqp"}
           target="_blank"
-          className="rounded-full bg-indigo-300 mx-96 mt-4 flex items-center gap-2 justify-center"
+          className="rounded-full w-36 bg-indigo-300 mt-4 items-center flex justify-center gap-2"
         >
           דיסקורד
           <Image
@@ -124,6 +125,7 @@ const Home = () => {
             height={20}
           />
         </Link>
+        </div>
       </div>
       {/* <CallToAction data={callToAction} />  */}
       {/* <Reviews data={testimonial} /> */}

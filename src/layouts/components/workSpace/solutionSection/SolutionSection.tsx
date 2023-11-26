@@ -335,7 +335,11 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
           <div className="px-5">
             {development ? (
               solution
-            ) : workSpaceData && workSpaceData.solutionArticle ? (
+            ) : 
+              
+            !workSpaceData ? <h3 className="flex justify-center mt-4">...טוען</h3>
+            :
+            workSpaceData.solutionArticle ? (
               <div>
                 <h4 className="mt-1.5 font-bold pt-2" dir="rtl">
                   פתרון

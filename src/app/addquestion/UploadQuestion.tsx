@@ -99,7 +99,7 @@ export function UploadQuestion(courses: any) {
       }
       toast({
         title: "שגיאה",
-        description: "לא ניתן לשמור את התשובה כרגע",
+        description: "לא ניתן להעלות שאלה",
         variant: "destructive",
       });
     },

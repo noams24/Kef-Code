@@ -95,7 +95,7 @@ export function UploadSolution() {
       }
       toast({
         title: 'שגיאה',
-        description: 'לא ניתן לשמור את התשובה כרגע',
+        description: 'לא ניתן להעלות תשובה',
         variant: 'destructive',
       })
     },
