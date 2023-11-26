@@ -14,7 +14,7 @@ import { toast } from "@/hooks/use-toast";
 import Accordion from "@/shortcodes/Accordion";
 import CommentsSection from "@/components/comments/CommentsSection";
 import { useGenerationStore } from "@/store/store";
-import { UserAvatar } from '@/components/UserAvatar'
+import { UserAvatar } from "@/components/UserAvatar";
 import Youtube from "@/shortcodes/Youtube";
 
 import "mathlive/static.css";
@@ -86,12 +86,15 @@ const Solution: React.FC<SolutionProps> = ({ data, userId }) => {
     <div>
       <div
         dir="rtl"
-        className="flex justify-between mt-2 border-b-2 border-gray-700"
+        className="flex justify-between mt-2"
       >
         <div className="flex">
           {/* <FaRegUserCircle className={"mt-2 inline-block text-2xl"} /> */}
           <UserAvatar
-            user={{ name: data.user.username || null, image: data.user.image || null }}
+            user={{
+              name: data.user.username || null,
+              image: data.user.image || null,
+            }}
             className="h-12 w-12"
           />
           <div className="mr-1">
@@ -123,7 +126,16 @@ const Solution: React.FC<SolutionProps> = ({ data, userId }) => {
           )}
         </button>
       </div>
-      {data.videoUrl && <Youtube id={data.videoUrl} title={"פתרון"} />}
+      <hr className="my-4 h-0.5 rounded bg-zinc-200 border-0 dark:bg-zinc-700" />
+      {data.videoUrl && (
+        <div>
+        <div className="flex justify-center items-center">
+          <Youtube id={data.videoUrl} title={"פתרון"} />
+          </div>
+          <hr className="my-4 h-0.5 rounded bg-zinc-200 border-0 dark:bg-zinc-700" />
+        </div>
+      )}
+      
       <div className="mt-4 font-arial">{parse(data.html)}</div>
       <Accordion className="mt-8" title="דיון">
         <CommentsSection
