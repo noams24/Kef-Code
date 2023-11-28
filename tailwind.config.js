@@ -29,7 +29,6 @@ module.exports = {
     "./src/content/**/*.{md,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx}",
   ],
-  safelist: [{ pattern: /^swiper-/ }],
   darkMode: "class",
   theme: {
     screens: {
@@ -81,6 +80,8 @@ module.exports = {
       fontFamily: {
         primary: [fontPrimary, fontPrimaryType],
         secondary: [fontSecondary, fontSecondaryType],
+        arial: ["Arial"],
+        birzia: ['Birzia', 'sans-serif'],
       },
     },
   },

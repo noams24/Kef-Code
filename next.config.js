@@ -1,6 +1,6 @@
+/** @type {import('next').NextConfig} */
 const config = require("./src/config/config.json");
 
-/** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack: (config, options) => {
     config.module.rules.push({
@@ -16,9 +16,6 @@ const nextConfig = {
   images: {
     domains: ['uploadthing.com', 'lh3.googleusercontent.com', "i.ibb.co", "utfs.io"],
   },
-  experimental: {
-    appDir: true
-  }
 };
 
 module.exports = nextConfig;

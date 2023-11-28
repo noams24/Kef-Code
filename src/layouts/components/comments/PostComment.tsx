@@ -16,6 +16,7 @@ import { Label } from '../ui/Label'
 import { TextArea } from '../ui/TextArea'
 import { toast } from '@/hooks/use-toast'
 import { useSession } from 'next-auth/react'
+import Link from 'next/link'
 
 type ExtendedComment = Comment & {
   votes: Vote[]
@@ -59,8 +60,8 @@ const PostComment: FC<PostCommentProps> = ({
 
     onError: () => {
       return toast({
-        title: 'Something went wrong.',
-        description: "Comment wasn't created successfully. Please try again.",
+        title: 'שגיאה',
+        description: "נסה שוב מאוחר יותר",
         variant: 'destructive',
       })
     },
@@ -81,7 +82,12 @@ const PostComment: FC<PostCommentProps> = ({
           className='h-6 w-6'
         />
         <div className='mr-2 flex items-center gap-x-2'>
-          <p className='text-sm font-medium'>{comment.author.username}</p>
+        <Link
+          href={`/user/${comment.author.username}`}
+          target="_blank"
+        >
+          <p className='font-primary font-bold text-center hover:text-blue-500 dark:hover:text-blue-500'>{comment.author.username}</p>
+          </Link>
 
           <p className='max-h-40 truncate text-xs text-zinc-500'>
             {formatTimeToNow(new Date(comment.createdAt))}
@@ -89,7 +95,7 @@ const PostComment: FC<PostCommentProps> = ({
         </div>
       </div>
 
-      <p className='text-sm mt-2'>{comment.text}</p>
+      <p className='font-primary text-sm mt-2'>{comment.text}</p>
 
       <div className='flex gap-2 items-center'>
         <CommentVotes

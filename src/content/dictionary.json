@@ -2,6 +2,10 @@
     "בית":"בית",
     "courses":"קורסים",
     "contact":"צור קשר",
+    "saved": "שאלות שמורות",
+    "privacy": "תנאי השימוש",
+    "blog": "בלוג",
+    "authors": "יוצרים",
 
     "intro-to-computer-science":"מבוא למדעי המחשב",
     "data-structures":"מבני נתונים",

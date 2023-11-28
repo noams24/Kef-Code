@@ -58,7 +58,7 @@ const View = ({ data, children }: any) => {
         <div className="flex justify-center">
           <ImageDisplay imageUrl={data.problem.img} />
         </div>
-        <div className="pt-10">{children}</div>
+        <div className="pt-10 font-arial">{children}</div>
       </div>
       <AppDrawer isOpen={open} setOpen={setOpen}>
         <div dir="rtl" className="flex mt-3 border-b-2">
@@ -73,7 +73,7 @@ const View = ({ data, children }: any) => {
           <div className="mr-1">
             <a
               href={`/user/${slugify(data.user.username)}`}
-              className="mr-4 font-bold text-center text-lg hover:text-blue-500 dark:hover:text-blue-500"
+              className="mr-4 font-bold font-primary text-center text-lg hover:text-blue-500 dark:hover:text-blue-500"
             >
               {humanize(data.user.username)}
             </a>

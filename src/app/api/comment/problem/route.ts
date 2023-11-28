@@ -15,7 +15,6 @@ export async function PATCH(req: Request) {
       return new Response('Unauthorized', { status: 401 })
     }
 
-    // if no existing vote, create a new vote
     if (type === 'problem'){
     await db.comment.create({
       data: {
@@ -37,6 +36,16 @@ export async function PATCH(req: Request) {
     })
   }
 
+  else if (type === 'solution'){
+    await db.comment.create({
+      data: {
+        text,
+        solutionId: ID,
+        authorId: session.user.id,
+        replyToId,
+      },
+    })
+  }
 
     return new Response('OK')
   } catch (error) {

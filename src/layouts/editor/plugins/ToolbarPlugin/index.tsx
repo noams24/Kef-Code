@@ -32,9 +32,10 @@ import ImageTools from './Tools/ImageTools';
 import { $isSketchNode } from '../../nodes/SketchNode';
 import { $isGraphNode } from '../../nodes/GraphNode';
 import { $patchStyle } from '../../nodes/utils';
-import { ImageDialog, GraphDialog, SketchDialog, TableDialog, ColumnsDialog} from './Dialogs';
+import { ImageDialog, GraphDialog, SketchDialog, TableDialog, ColumnsDialog, LinkDialog} from './Dialogs';
 import { $isStickyNode } from '../../nodes/StickyNode';
-import { wrap } from 'module';
+// import { wrap } from 'module';
+import { $isLinkNode } from '@lexical/link';
 import { Grid } from '@mui/material';
 
 type EditorDialogs = {
@@ -53,6 +54,9 @@ type EditorDialogs = {
   columns: {
     open: boolean;
   };
+  link: {
+    open: boolean;
+  }
 };
 
 export type SetDialogsPayload = Readonly<Partial<EditorDialogs>>;
@@ -132,7 +136,7 @@ function ToolbarPlugin() {
   const [blockType, setBlockType] = useState<keyof typeof blockTypeToBlockName>('paragraph');
   const [selectedElementKey, setSelectedElementKey] = useState<NodeKey | null>(null);
   const [fontSize, setFontSize] = useState<string>('15px');
-  const [fontFamily, setFontFamily] = useState<string>('Roboto');
+  const [fontFamily, setFontFamily] = useState<string>('Arial');
   const [isRTL, setIsRTL] = useState(false);
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
@@ -152,6 +156,9 @@ function ToolbarPlugin() {
       open: false,
     },
     columns: {
+      open: false,
+    },
+    link: {
       open: false,
     }
   });
@@ -210,7 +217,7 @@ function ToolbarPlugin() {
         $getSelectionStyleValueForProperty(selection, 'font-size', '15px'),
       );
       setFontFamily(
-        $getSelectionStyleValueForProperty(selection, 'font-family', 'Roboto'),
+        $getSelectionStyleValueForProperty(selection, 'font-family', 'Arial'),
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -311,12 +318,14 @@ function ToolbarPlugin() {
   );
 
   const FONT_FAMILY_OPTIONS = [
+    ['Arial', 'Arial'],
     ['Roboto', 'Roboto'],
     ['KaTeX_Main', 'KaTeX'],
     ['Virgil', 'Virgil'],
     ['Cascadia', 'Cascadia'],
     ['Courier New', 'Courier New'],
     ['Georgia', 'Georgia'],
+    ['Birzia', 'Birzia']
   ];
 
   const FONT_SIZE_OPTIONS: [string, string][] = [
@@ -393,6 +402,7 @@ function ToolbarPlugin() {
       <SketchDialog editor={activeEditor} node={$isSketchNode(selectedNode) ? selectedNode : null} open={dialogs.sketch.open} />
       <TableDialog editor={activeEditor} open={dialogs.table.open} />
       <ColumnsDialog editor={activeEditor} open={dialogs.columns.open} />
+      <LinkDialog editor={activeEditor} node={$isLinkNode(selectedNode) ? selectedNode : null} open={dialogs.link.open} />
     </>
   );
 }

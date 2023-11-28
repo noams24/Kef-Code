@@ -4,7 +4,7 @@ html {
 
 body {
   // @apply bg-body font-primary font-normal leading-relaxed text-text dark:bg-darkmode-body dark:text-darkmode-text;
-  @apply bg-body font-primary font-normal leading-relaxed text-black dark:bg-darkmode-body dark:text-white;
+  @apply bg-body leading-relaxed text-black dark:bg-darkmode-body dark:text-white;
 }
 
 h1,
@@ -13,7 +13,7 @@ h3,
 h4,
 h5,
 h6 {
-  @apply font-secondary font-bold leading-tight text-dark dark:text-darkmode-dark;
+  @apply font-bold leading-tight text-dark dark:text-darkmode-dark;
 }
 
 h1,
@@ -63,6 +63,11 @@ code {
 @font-face {
   font-family: Cascadia;
   src: url(/fonts/excalidraw/Cascadia.woff2);
+}
+
+@font-face {
+  font-family: Birzia;
+  src: url(/fonts/Birzia-Medium.woff2)
 }
 
 @font-face {

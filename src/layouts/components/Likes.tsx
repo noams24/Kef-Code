@@ -145,55 +145,51 @@ const Likes = ({
   });
 
   return (
-    <>
-      <div className="flex justify-center">
-        <div className="flex items-center mt-3">
-          <div
-            className={`${difficultyClass} inline-block rounded-[21px] bg-opacity-[.15] px-2.5 py-1 text-xs font-medium capitalize `}
-          >
-            {difficulty}
-          </div>
-          {/* <div className='rounded p-[3px] ml-4 text-lg transition-colors duration-200 text-green-s text-dark-green-s'>
+    <div className="flex justify-center items-center mt-3 mr-20">
+      <div
+        className={`${difficultyClass} inline-block rounded-[21px] bg-opacity-[.15] px-2.5 py-1 text-xs font-medium capitalize `}
+      >
+        {difficulty}
+      </div>
+      {/* <div className='rounded p-[3px] ml-4 text-lg transition-colors duration-200 text-green-s text-dark-green-s'>
             <BsCheck2Circle />
           </div> */}
 
-          <div
-            className="flex items-center cursor-pointer hover:bg-gray-400 space-x-1 rounded p-[3px]  ml-4 text-lg transition-colors duration-200 text-dark-gray-6"
-            onClick={() => handleVote("LIKE")}
-          >
-            {currentLikeStatus === "LIKE" ? (
-              <AiFillLike className="text-green-600" />
-            ) : (
-              <AiFillLike />
-            )}
-            <span className="text-xs">{currentLikes}</span>
-          </div>
-
-          <div
-            className="flex items-center cursor-pointer hover:bg-gray-400 space-x-1 rounded p-[3px]  ml-4 text-lg transition-colors duration-200 text-green-s text-dark-gray-6"
-            onClick={() => handleVote("DISLIKE")}
-          >
-            {currentLikeStatus === "DISLIKE" ? (
-              <AiFillDislike className="text-red-600" />
-            ) : (
-              <AiFillDislike />
-            )}
-            <span className="text-xs">{currentDisLikes}</span>
-          </div>
-
-          <div
-            className="cursor-pointer hover:bg-gray-400  rounded p-[3px]  ml-4 text-xl transition-colors duration-200 text-green-s text-dark-gray-6"
-            onClick={() => handleBookmark()}
-          >
-            {currentBookmark ? (
-              <BsBookmarksFill className="text-blue-600" />
-            ) : (
-              <BsBookmarksFill />
-            )}
-          </div>
-        </div>
+      <div
+        className="flex items-center cursor-pointer hover:bg-gray-400 space-x-1 rounded p-[3px]  ml-4 text-lg transition-colors duration-200 text-dark-gray-6"
+        onClick={() => handleVote("LIKE")}
+      >
+        {currentLikeStatus === "LIKE" ? (
+          <AiFillLike className="text-green-600" />
+        ) : (
+          <AiFillLike />
+        )}
+        <span className="text-xs">{currentLikes}</span>
       </div>
-    </>
+
+      <div
+        className="flex items-center cursor-pointer hover:bg-gray-400 space-x-1 rounded p-[3px]  ml-4 text-lg transition-colors duration-200 text-green-s text-dark-gray-6"
+        onClick={() => handleVote("DISLIKE")}
+      >
+        {currentLikeStatus === "DISLIKE" ? (
+          <AiFillDislike className="text-red-600" />
+        ) : (
+          <AiFillDislike />
+        )}
+        <span className="text-xs">{currentDisLikes}</span>
+      </div>
+
+      <div
+        className="cursor-pointer hover:bg-gray-400  rounded p-[3px]  ml-4 text-xl transition-colors duration-200 text-green-s text-dark-gray-6"
+        onClick={() => handleBookmark()}
+      >
+        {currentBookmark ? (
+          <BsBookmarksFill className="text-blue-600" />
+        ) : (
+          <BsBookmarksFill />
+        )}
+      </div>
+    </div>
   );
 };
 

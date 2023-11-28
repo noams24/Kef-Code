@@ -6,6 +6,7 @@ import UserAuthForm from "@/components/UserAuthForm";
 import { FC, useEffect, useState } from "react";
 import { Button } from "@/components/ui/Button2";
 import { X } from "lucide-react";
+import Link from "next/link";
 
 const LoginModal: FC = () => {
   const [isOpen, setModal] = useState(false);
@@ -25,6 +26,8 @@ const LoginModal: FC = () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [isOpen]);
+
+  const privacy = " תנאי השימוש "
 
   return (
     <>
@@ -56,7 +59,8 @@ const LoginModal: FC = () => {
                     ברוך הבא
                   </h1>
                   <p className="text-sm max-w-xs mx-auto">
-                    בהתחברות לאתר אני מאשר את תנאי השימוש
+                   בהתחברות לאתר אני מאשר את 
+                  <Link className="text-blue-500 onhover:underline" target="_blank" href="/privacy">{privacy}</Link>
                   </p>
                 </div>
                 <UserAuthForm />

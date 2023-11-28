@@ -104,8 +104,10 @@ model Comment {
   replyTo       Comment?     @relation("ReplyTo", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   replies       Comment[]    @relation("ReplyTo")
   commentId     String?
-  Submissions   Submissions? @relation(fields: [submissionsId], references: [id])
+  Submissions   Submissions? @relation(fields: [submissionsId], references: [id], onDelete: Cascade)
   submissionsId String?
+  Solutions  Solution? @relation(fields: [solutionId], references: [id], onDelete: Cascade)
+  solutionId String?
   votes         Vote[]
 
   @@index([authorId])
@@ -113,6 +115,7 @@ model Comment {
   @@index([problemId])
   @@index([replyToId])
   @@index([submissionsId])
+  @@index([solutionId])
 }
 
 model Problem {
@@ -133,12 +136,15 @@ model Problem {
 }
 
 model Solution {
+  id        String    @id @default(cuid())
   problemId Int      @unique
   problem   Problem  @relation(fields: [problemId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   videoUrl  String?
   content   Json?
+  comments  Comment[]
+  votes     Vote[]
 }
 
 model Submissions {
@@ -172,12 +178,15 @@ model Vote {
   commentId    String?
   SubmissionId String?
   Submission   Submissions? @relation(fields: [SubmissionId], references: [id])
+  SolutionId String?
+  Solution   Solution? @relation(fields: [SolutionId], references: [id])
 
   @@index([userId])
   @@index([problemId])
   @@index([postId])
   @@index([commentId])
   @@index([SubmissionId])
+  @@index([SolutionId])
 }
 
 model Bookmark {

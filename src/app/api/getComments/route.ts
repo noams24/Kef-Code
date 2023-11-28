@@ -48,6 +48,27 @@ export async function GET(req: Request) {
             })
           }
 
+          else if (type === 'solution') {
+            results = await db.comment.findMany({
+                where: {
+                  solutionId: ID,
+                  replyToId: null, // only fetch top-level comments
+                },
+                include: {
+                  author: true,
+                  votes: true,
+                  replies: {
+                    // first level replies
+                    include: {
+                      author: true,
+                      votes: true,
+                    },
+                  },
+                },
+              })
+            }
+
+
 
         // return new Response(JSON.stringify({results,userId}))
         return new Response(JSON.stringify(results))

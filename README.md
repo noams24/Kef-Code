@@ -11,7 +11,7 @@
 
 <p align=center>
 
-  <a href="https://github.com/vercel/next.js/releases/tag/v13.4.1" alt="Contributors">
+  <a href="https://github.com/vercel/next.js/releases/tag/v14.0.3" alt="Contributors">
     <img src="https://img.shields.io/static/v1?label=NEXTJS&message=13.4&color=000&logo=nextjs" />
   </a>
 
@@ -27,7 +27,7 @@
 ## 📌 Key Features
 
 - Written in modern languages: React, Typescript, Tailwind CSS
-- Uses Next.js 13.4 app directory structure
+- Uses Next.js 14 app directory structure
 - Explores basic React Server Components
 - Full user authentication lifecycle with prisma and next-auth
 - Rich text: Text formatting, Copy + Paste Preformatted text, Code syntax highlighting, Insert Images, Tables and Sticky notes

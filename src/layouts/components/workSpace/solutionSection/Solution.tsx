@@ -14,11 +14,12 @@ import { toast } from "@/hooks/use-toast";
 import Accordion from "@/shortcodes/Accordion";
 import CommentsSection from "@/components/comments/CommentsSection";
 import { useGenerationStore } from "@/store/store";
-import { UserAvatar } from '@/components/UserAvatar'
+import { UserAvatar } from "@/components/UserAvatar";
 import Youtube from "@/shortcodes/Youtube";
 
 import "mathlive/static.css";
 import "@/layouts/editor/theme.css";
+import Link from "next/link";
 
 // interface SolutionProps {
 //     author: string;
@@ -80,26 +81,30 @@ const Solution: React.FC<SolutionProps> = ({ data, userId }) => {
       }
     },
   });
-
+  // console.log(data.html)
   return (
     <div>
       <div
         dir="rtl"
-        className="flex justify-between mt-2 border-b-2 border-gray-700"
+        className="flex justify-between mt-2"
       >
         <div className="flex">
           {/* <FaRegUserCircle className={"mt-2 inline-block text-2xl"} /> */}
           <UserAvatar
-            user={{ name: data.user.username || null, image: data.user.image || null }}
+            user={{
+              name: data.user.username || null,
+              image: data.user.image || null,
+            }}
             className="h-12 w-12"
           />
           <div className="mr-1">
-            <a
+            <Link
               href={`/user/${slugify(data.user.username)}`}
-              className="mr-4 font-bold text-center text-lg hover:text-blue-500 dark:hover:text-blue-500"
+              className="mr-4 font-primary font-bold text-center text-lg hover:text-blue-500 dark:hover:text-blue-500"
+              target="_blank"
             >
               {humanize(data.user.username)}
-            </a>
+            </Link>
             <div className="flex">
               <span className="mr-4">{hebrewDateFormat(data.createdAt)}</span>
             </div>
@@ -121,8 +126,17 @@ const Solution: React.FC<SolutionProps> = ({ data, userId }) => {
           )}
         </button>
       </div>
-      {data.videoUrl && <Youtube id={data.videoUrl} title={"פתרון"} />}
-      <div className="mt-4">{parse(data.html)}</div>
+      <hr className="my-4 h-0.5 rounded bg-zinc-200 border-0 dark:bg-zinc-700" />
+      {data.videoUrl && (
+        <div>
+        <div className="flex justify-center items-center">
+          <Youtube id={data.videoUrl} title={"פתרון"} />
+          </div>
+          <hr className="my-4 h-0.5 rounded bg-zinc-200 border-0 dark:bg-zinc-700" />
+        </div>
+      )}
+      
+      <div className="mt-4 font-arial">{parse(data.html)}</div>
       <Accordion className="mt-8" title="דיון">
         <CommentsSection
           ID={data.id}

@@ -45,8 +45,10 @@ const Login = () => {
             !ברוך הבא
           </h1>
           <p className="text-sm text-muted-foreground">
-            בהתחברות לאתר אני מאשר את תנאי השימוש
+            בהתחברות לאתר אני מאשר את
+            <Link href="/privacy">תנאי השימוש</Link>
           </p>
+          
         </div>
         <UserAuthForm />
         <p className="px-8 text-center text-sm text-muted-foreground">

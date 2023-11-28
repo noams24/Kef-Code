@@ -48,8 +48,8 @@ const Status = ({problemId}:any) => {
         }
       }
       toast({
-        title: 'There was an error.',
-        description: 'Could not create subreddit.',
+        title: 'שגיאה',
+        description: 'לא ניתן לשמור סטטוס',
         variant: 'destructive',
       })
     },
@@ -58,7 +58,7 @@ const Status = ({problemId}:any) => {
   })
 
   return (
-    <div>
+    <div className="mt-3">
       {previousStatus &&
        <Select defaultValue={status} onValueChange={(status) => (handleClick(status))}>
         <SelectTrigger className="w-full">

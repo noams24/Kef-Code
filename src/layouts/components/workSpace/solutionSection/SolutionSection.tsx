@@ -41,11 +41,12 @@ import DescriptionCommentsSection from "@/components/comments/DescriptionComment
 import { useMutation } from "@tanstack/react-query";
 // import CommentsSection from "@/components/comments/CommentsSectionn";
 import { BsFillTrash3Fill } from "react-icons/bs";
-import { BiShareAlt } from "react-icons/bi";
 import { RxVideo } from "react-icons/rx";
 import { FaFileUpload } from "react-icons/fa";
 import DeleteSolutionModal from "@/components/modals/DeleteSolutionModal";
 import AddVideoModal from "@/components/modals/AddVideoModal";
+import { Share } from "@mui/icons-material";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface SolutionSectionProps {
   workSpaceData: any;
@@ -187,6 +188,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
       });
     },
   });
+
   return (
     <div className="overflow-y-auto scrollbar-hide">
       {displayDeleteModal && (
@@ -223,9 +225,9 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                 <button
                   title="חזרה"
                   onClick={() => setSolution(null)}
-                  className="h-5 w-5 border hover:border hover:border-zinc-500"
+                  className="h-5 w-5"
                 >
-                  <AiOutlineClose />
+                  <CloseIcon />
                 </button>
                 {soltionSectionData &&
                   soltionSectionData[Number(solutionState)].userId ===
@@ -255,8 +257,12 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                       </button>
                     </div>
                   )}
-                <button title="שיתוף פתרון" onClick={() => handleShare()}>
-                  <BiShareAlt />
+                <button
+                  className="h-5 w-5"
+                  title="שיתוף פתרון"
+                  onClick={() => handleShare()}
+                >
+                  <Share />
                 </button>
               </div>
               <Solution
@@ -329,20 +335,31 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
           <div className="px-5">
             {development ? (
               solution
-            ) : workSpaceData && workSpaceData.solutionArticle ? (
+            ) : 
+              
+            !workSpaceData ? <h3 className="flex justify-center mt-4">...טוען</h3>
+            :
+            workSpaceData.solutionArticle ? (
               <div>
                 <h4 className="mt-1.5 font-bold pt-2" dir="rtl">
                   פתרון
                 </h4>
                 <hr className="my-4 h-0.5 rounded bg-zinc-200 border-0 dark:bg-zinc-700" />
-                {parse(workSpaceData.solutionArticle)}
+                <div className="font-arial">
+                  {parse(workSpaceData.solutionArticle)}
+                </div>
+                <Accordion className="mt-8" title="דיון">
+                  <DescriptionCommentsSection
+                    ID={workSpaceData.solutionId}
+                    type="solution"
+                    comments={[]}
+                    userId={userId}
+                  />
+                </Accordion>
               </div>
             ) : (
               <h3 className="flex justify-center">אין פתרון עדיין</h3>
             )}
-            {/* <Accordion className="mt-8" title="דיון">
-                            <CommentsSection problemId={1} comments={[]} userId={userId} />
-                        </Accordion> */}
           </div>
         </Tab>
         <Tab name="תיאור">

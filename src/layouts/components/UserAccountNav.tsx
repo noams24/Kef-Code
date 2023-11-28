@@ -47,7 +47,10 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
           <Link href='/settings'>הגדרות</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-
+        <DropdownMenuItem asChild>
+          <Link href='/saved'>שאלות שמורות</Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
         <DropdownMenuItem
           className='cursor-pointer'
           onSelect={(event) => {

@@ -82,8 +82,8 @@ const User: React.FC<MyComponentProps> = ({ user, data }) => {
         <div className="flex items-center justify-between w-full p-2 border border-gray-700 rounded-sm gap-x-5 h-36">
           <div className="flex flex-col justify-between w-full h-full ">
             <div>
-              <h3 dir="rtl" className="mt-8">
-                {user?.username}
+              <h3 dir="rtl" className="mt-8 font-primary">
+                {user.username}
               </h3>
               {/* <h4>Walter@gmail.com</h4> */}
             </div>

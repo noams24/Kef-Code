@@ -47,7 +47,7 @@ export const columns: ColumnDef<Task>[] = [
         }
 
       return (
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center font-arial">
           {/* <div>{isLoading ? 'Content is loading' : JSON.stringify(data)}</div> */}
           <span className={colorClass}>
             {difficulty.label}
@@ -78,7 +78,7 @@ export const columns: ColumnDef<Task>[] = [
       const path = Path()
       return (
         <div className='flex justify-end space-x-2 pr-7'>
-          <span className="max-w-[500px] truncate font-medium">
+          <span className="max-w-[500px] truncate font-medium font-arial">
             {/* <Link href="/courses/algebra-1/bases/1"> */}
               {/*When the website will be ready, uncomment the next row: */}
             <Link href={`/courses/${path[1]}/${path[2]}/${row.original.title.replaceAll(' ', '-')}`}> 
