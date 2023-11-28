@@ -83,7 +83,7 @@ const User: React.FC<MyComponentProps> = ({ user, data }) => {
           <div className="flex flex-col justify-between w-full h-full ">
             <div>
               <h3 dir="rtl" className="mt-8 font-primary">
-                {user.username}
+                {user?.username}
               </h3>
               {/* <h4>Walter@gmail.com</h4> */}
             </div>
