@@ -1,16 +1,47 @@
 import { db } from "@/lib/db";
 import User from "./User";
 
+interface ProblemObject {
+  chapter:string;
+  img:string;
+  title:string;
+  id:number;
+  course:string;
+  difficulty: string;
+}
+
+export type UserObject = {
+  id: string;
+  name: string | null;
+  email: string | null;
+  emailVerified: Date | null;
+  username: string | null;
+  image: string | null;
+  role: string;
+} | null;
+
+export interface DataObject {
+  content: any;
+  createdAt:Date;
+  updatedAt:Date;
+  id: string;
+  isPublic:boolean;
+  problem:ProblemObject;
+  problemId:number;
+  userId:string;
+  videoUrl?:string | null;
+}
+
 const UserPage = async ({ params }: { params: { name: string } }) => {
   try {
-    const user: any = await db.user.findUnique({
+    const user: UserObject = await db.user.findUnique({
       where: {
         username: decodeURIComponent(params.name),
       },
     });
     if (!user) return <div>משתמש לא קיים</div>;
 
-    const data: any = await db.submissions.findMany({
+    let data: DataObject[] = await db.submissions.findMany({
       where: {
         userId: user.id,
         isPublic: true,
@@ -40,55 +71,4 @@ export default UserPage;
 // import coursesData from "@/content/chapters.json";
 // import { AiOutlineCalendar } from "react-icons/ai";
 
-// const dat = [
-//   {
-//     id: "1",
-//     userId: "clgfjsgfjfg",
-//     problemId: 1,
-//     content: { root: [Object] },
-//     createdAt: new Date("2023-08-20T19:34:51.140Z").toString(),
-//     updatedAt: new Date("2023-08-20T19:34:51.140Z").toString(),
-//     isPublic: true,
-//     videoUrl: "B1J6Ou4q8vE",
-//   },
-//   {
-//     id: "3",
-//     userId: "clgfjsgfjfg",
-//     problemId: 1,
-//     content: { root: [Object] },
-//     createdAt: new Date("2023-08-20T19:34:51.140Z").toString(),
-//     updatedAt: new Date("2023-08-20T19:34:51.140Z").toString(),
-//     isPublic: true,
-//     videoUrl: null,
-//   },
-//   {
-//     id: "cllkt8q460001mg08cgwccsat",
-//     userId: "clgfjsgfjfg",
-//     problemId: 1,
-//     content: { root: [Object] },
-//     createdAt: new Date("2023-08-20T19:34:51.140Z").toString(),
-//     updatedAt: new Date("2023-08-20T19:34:51.140Z").toString(),
-//     isPublic: true,
-//     videoUrl: null,
-//   },
-//   {
-//     id: "cllkt9i0r0001mh08ikegn95k",
-//     userId: "clgfjsgfjfg",
-//     problemId: 1,
-//     content: { root: [Object] },
-//     createdAt: new Date("2023-08-20T19:34:51.140Z").toString(),
-//     updatedAt: new Date("2023-08-20T19:34:51.140Z").toString(),
-//     isPublic: true,
-//     videoUrl: null,
-//   },
-//   {
-//     id: "cllkta3k20003mh08dlgbi8mp",
-//     userId: "clgfjsgfjfg",
-//     problemId: 1,
-//     content: { root: [Object] },
-//     createdAt: new Date("2023-08-20T19:34:51.140Z").toString(),
-//     updatedAt: new Date("2023-08-20T19:34:51.140Z").toString(),
-//     isPublic: true,
-//     videoUrl: null,
-//   },
-// ];
+
