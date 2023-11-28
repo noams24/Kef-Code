@@ -20,7 +20,7 @@ const SearchTask:React.FC<MyComponentProps>  = ({handleSearchSolutions , val , s
   <input dir='rtl' placeholder='חפש פתרון לפי שם קורס...' 
   className="h-full w-full pl-[42px] pr-[18px] rounded-[50px]
    bg-gray-50 dark:bg-gray-500 outline-none focus:outline-1
-    focus:outline-purple-500 placeholder-blue-500" 
+    focus:outline-purple-500 placeholder-gray-900" 
     onChange={handleSearchSolutions}
     value={val}
     />

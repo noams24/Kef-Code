@@ -44,6 +44,8 @@ const User: React.FC<MyComponentProps> = ({ user, data }) => {
 
   const sortSolutionsBy = (status: string) => {
     if(status === 'אקראי') return setSolutions(data);
+    if(status === 'אלפביתי') return setSolutions(solutions.slice().sort((a, b) => a.problem.title.localeCompare(b.problem.title)));
+     
     const statusSort = status === 'עודכן לאחרונה' ? 'updatedAt' : 'createdAt';
     const sortedArray = solutions.slice().sort((a, b) => {
       const dateA = a[statusSort].getTime();
@@ -51,7 +53,7 @@ const User: React.FC<MyComponentProps> = ({ user, data }) => {
     
       return dateB - dateA;
     })
-    setStatusTime(statusSort)
+    setStatusTime(statusSort);
     setSolutions(sortedArray);
   };
 
@@ -76,7 +78,7 @@ const User: React.FC<MyComponentProps> = ({ user, data }) => {
         </Alert>
       </Snackbar>
 
-      <div className="flex flex-col w-full h-full max-w-6xl mx-auto ">
+      <div className="flex flex-col w-full h-full max-w-6xl mx-auto">
         <div className="flex items-center justify-between w-full p-2 border border-gray-700 rounded-sm gap-x-5 h-36">
           <div className="flex flex-col justify-between w-full h-full ">
             <div>
@@ -179,7 +181,7 @@ export default User;
 //      difficulty:"קשה",
 //      id:1,
 //      img:"https://uploadthing.com/f/497afd25-86ff-4705-abab-378854e93917_q1.png",
-//      title:"תלות לינארית"
+//      title:"בלות לינארית"
 //     },
 //     content: { root: [Object] },
 //     createdAt: new Date("2023-08-20T19:34:51.140Z"),
@@ -197,7 +199,7 @@ export default User;
 //       difficulty:"קשה",
 //       id:1,
 //       img:"https://uploadthing.com/f/497afd25-86ff-4705-abab-378854e93917_q1.png",
-//       title:"תלות לינארית"
+//       title:"אלות לינארית"
 //      },
 //     content: { root: [Object] },
 //     createdAt: new Date("2023-08-20T19:22:51.140Z"),
@@ -215,7 +217,7 @@ export default User;
 //       difficulty:"קשה",
 //       id:1,
 //       img:"https://uploadthing.com/f/497afd25-86ff-4705-abab-378854e93917_q1.png",
-//       title:"תלות לינארית"
+//       title:"גלות לינארית"
 //      },
 //     content: { root: [Object] },
 //     createdAt: new Date("2023-08-20T19:00:51.140Z"),
@@ -233,7 +235,7 @@ export default User;
 //       difficulty:"קשה",
 //       id:1,
 //       img:"https://uploadthing.com/f/497afd25-86ff-4705-abab-378854e93917_q1.png",
-//       title:"תלות לינארית"
+//       title:"ללות לינארית"
 //      },
 //     content: { root: [Object] },
 //     createdAt: new Date("2023-08-20T17:34:51.140Z"),
