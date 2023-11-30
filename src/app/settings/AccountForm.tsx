@@ -98,7 +98,7 @@ const AccountForm = ({ user, className, ...props }: UserNameFormProps) => {
       <SeoMeta title="הגדרות" meta_title="הגדרות" description="הגדרות" />
       <PageHeader title="הגדרות" />
       {/* <section dir="rtl" className="section-sm mx-96"> */}
-      <section dir="rtl" className="mx-96">
+      <section dir="rtl" className="mx-80 mt-5">
         <div className="container">
           <div className="row">
             <div className="mx-auto md:col-10 lg:col-6">
@@ -115,7 +115,7 @@ const AccountForm = ({ user, className, ...props }: UserNameFormProps) => {
                   <div className="flex gap-4">
                     <input
                       id="name"
-                      className="form-input"
+                      className="form-input font-primary"
                       placeholder="שם משתמש"
                       type="text"
                       {...register("name")}

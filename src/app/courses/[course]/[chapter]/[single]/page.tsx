@@ -1,12 +1,8 @@
-import { Metadata } from "next";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import Workspace from "@/components/workSpace/WorkSpace";
 import { db } from "@/lib/db";
-
-export const metadata: Metadata = {
-  title: "כיף קוד",
-};
+import SeoMeta from "@/partials/SeoMeta";
 
 interface PageProps {
   params: {
@@ -17,12 +13,13 @@ interface PageProps {
 }
 let solution: any = null;
 const singleProblem = async ({ params }: PageProps) => {
+  const title = decodeURIComponent(params.single.replaceAll('-',' '))
   const session = await getServerSession(authOptions);
   const problem = await db.problem.findFirst({
     where: {
       course: params.course,
       chapter: params.chapter,
-      title: decodeURIComponent(params.single.replaceAll('-',' ')),
+      title: title,
     },
     select: {
       id: true,
@@ -33,6 +30,14 @@ const singleProblem = async ({ params }: PageProps) => {
 
   return (
     <>
+        <SeoMeta
+        // @ts-ignore
+        title={`כיף קוד - ${title}`}
+        // @ts-ignore
+        meta_title={`כיף קוד - ${title}`}
+        // @ts-ignore
+        description={`כיף קוד - ${title}`}
+      />
       <Workspace
         problemId={String(problem.id)}
         solution={solution}

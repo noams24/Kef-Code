@@ -1,13 +1,10 @@
 import PageHeader from "@/partials/PageHeader";
 import ChapterCard from "@/components/ChapterCard";
 import coursesData from "@/content/chapters.json"
-import { Metadata } from "next";
+import SeoMeta from "@/partials/SeoMeta";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-
-export const metadata: Metadata = {
-  title: "כיף קוד - פרקים",
-};
+import dictionary from "@/content/dictionary.json";
 
 interface PageProps {
   params: {
@@ -56,6 +53,15 @@ const Chapter = async ({ params }: PageProps) => {
 
   return (
     <>
+        <SeoMeta
+        // @ts-ignore
+        title={`כיף קוד - ${dictionary[params.course]}`}
+        // @ts-ignore
+        meta_title={`כיף קוד - ${dictionary[params.course]}`}
+        // @ts-ignore
+        description={`כיף קוד - ${dictionary[params.course]}`}
+      />
+       {/* @ts-ignore */}
       <PageHeader title={params.course} />
       <div className="flex justify-center">
         <div className="chapter-page-container dark:chapter-page-container-dark mx-96 flex flex-col w-[410px] items-center border border-gray-800 rounded-lg p-4 m-3 dark:border-gray-500">

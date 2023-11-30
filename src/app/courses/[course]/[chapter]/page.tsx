@@ -1,6 +1,5 @@
 import { promises as fs } from "fs";
 import path from "path";
-import { Metadata } from "next";
 import { z } from "zod";
 import { columns } from "@/components/table/components/columns";
 import { DataTable } from "@/components/table/components/data-table";
@@ -8,10 +7,8 @@ import { taskSchema } from "@/components/table/data/schema";
 import PageHeader from "@/partials/PageHeader";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-
-export const metadata: Metadata = {
-  title: "כיף קוד - שאלות",
-};
+import dictionary from "@/content/dictionary.json";
+import SeoMeta from "@/partials/SeoMeta";
 
 interface PageProps {
   params: {
@@ -73,10 +70,18 @@ async function getData(course: string, chapter: string) {
 export default async function TaskPage({ params }: PageProps) {
 
   const data = await getData(params.course, params.chapter);
-  const tasks = await getTasks();
+  // const tasks = await getTasks();
 
   return (
     <>
+        <SeoMeta
+        // @ts-ignore
+        title={`כיף קוד - ${dictionary[params.chapter]}`}
+        // @ts-ignore
+        meta_title={`כיף קוד - ${dictionary[params.chapter]}`}
+        // @ts-ignore
+        description={`כיף קוד - ${dictionary[params.chapter]}`}
+      />
       <PageHeader title={params.chapter} />
       <div className="p-10 w-auto flex justify-center">
       {data && <DataTable data={data} columns={columns} />}

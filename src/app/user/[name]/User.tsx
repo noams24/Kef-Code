@@ -107,9 +107,9 @@ const User: React.FC<MyComponentProps> = ({ user, data }) => {
             filterByCourse={SortCoursesBy}
           />
         </div>
-        <div dir="rtl" className="flex flex-col w-full mt-10 gap-y-5 ">
+        <div dir="rtl" className="flex flex-col w-full mt-8 gap-y-5 ">
           <div className="flex justify-between w-full">
-            <h4>פתרונות שנוספו לאחרונה</h4>
+            <h4>פתרונות</h4>
             <div className="flex items-center justify-center">
               {/* <button
                     // type="button"
@@ -125,17 +125,17 @@ const User: React.FC<MyComponentProps> = ({ user, data }) => {
                   </select> */}
             </div>
           </div>
-          <div className="grid w-full grid-cols-4 gap-3">
+          <div className="grid grid-cols-4 gap-3">
             {solutions.map((item: any, index: any) => (
               <div
                 className="flex flex-col p-2 hover:bg-gray-100 dark:hover:bg-slate-800 border border-gray-800 dark:border-gray-400 rounded-sm"
                 key={index}
               >
                 <Link href={`/view/${item.id}`} target="_blank">
-                  <div className="flex justify-between space-x-3">
+                  <div className="flex justify-between space-x-3 w-80">
                     <SiGoogledocs className="" size={30} />
                     <div className="flex flex-col w-full gap-y-1 pr-2 ">
-                      <h5 className="font-bold">{item.problem.title}</h5>
+                      <h5 className="font-bold font-primary">{item.problem.title}</h5>
                       <span className="text-sm">
                         {/* @ts-ignore */}
                         {dictionary[item.problem.course]} -{" "}{dictionary[item.problem.chapter]}
@@ -144,7 +144,7 @@ const User: React.FC<MyComponentProps> = ({ user, data }) => {
                         {hebrewDateFormat(item[statusTime])}
                       </span>
                     </div>
-                    <div className="mt-12">
+                    <div className="mt-12 pl-12">
                       <button
                         title="שיתוף"
                         onClick={(e) => {

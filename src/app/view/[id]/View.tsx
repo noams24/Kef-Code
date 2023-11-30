@@ -12,6 +12,7 @@ import { useReactToPrint } from "react-to-print";
 import { Snackbar } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import dictionary from "@/content/dictionary.json"
+import Link from "next/link";
 
 const View = ({ data, children }: any) => {
   const [open, setOpen] = useState(false);
@@ -84,10 +85,10 @@ const View = ({ data, children }: any) => {
         </div>
         <div className="pt-5 pr-3" dir="rtl">
           {/* @ts-ignore */}
-          <p>קורס: {dictionary[data.problem.course]}</p>
+          <p>קורס: <Link href={`/courses/${data.problem.course}`} className="hover:text-blue-500 hover:underline">{dictionary[data.problem.course]}</Link></p>
           {/* @ts-ignore */}
-          <p>פרק: {dictionary[data.problem.chapter]}</p>
-          <p>שם השאלה: {data.problem.title}</p>
+          <p>פרק: <Link href={`/courses/${data.problem.course}/${data.problem.chapter}`} className="hover:text-blue-500 hover:underline">{dictionary[data.problem.chapter]}</Link></p>
+          <p>שם השאלה: <Link href={`/courses/${data.problem.course}/${data.problem.chapter}/${data.problem.title}`} className="hover:text-blue-500 hover:underline">{data.problem.title}</Link></p>
         </div>
         <Box
           sx={{
