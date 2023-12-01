@@ -38,13 +38,15 @@ import Notice from "@/shortcodes/Notice";
 const profileFormSchema = z.object({
   title: z
     .string({
-      required_error: "* כותרת חייבת להיות לפחות תו אחד",
+      required_error: "* חובה",
     })
-    .min(1, {
-      message: "* כותרת חייבת להיות לפחות תו אחד",
+    .min(3, {
+      message: "* שם השאלה חייב להיות לפחות 3 תווים",
     })
-    .max(30, {
-      message: "* כותרת חייבת להיות עד 30 תווים*",
+    .max(15, {
+      message: "* שם השאלה צריך להיות עד 20 תווים",
+    }).regex(/^[a-zA-Z0-9א-ת ]+$/, {
+      message: "* שם שאלה לא תקין"
     }),
   course: z.string({
     required_error: "* נא לבחור קורס",
