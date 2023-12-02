@@ -43,8 +43,8 @@ const profileFormSchema = z.object({
     .min(3, {
       message: "* שם השאלה חייב להיות לפחות 3 תווים",
     })
-    .max(15, {
-      message: "* שם השאלה צריך להיות עד 20 תווים",
+    .max(50, {
+      message: "* שם השאלה צריך להיות עד 50 תווים",
     }).regex(/^[a-zA-Z0-9א-ת ]+$/, {
       message: "* שם שאלה לא תקין"
     }),
