@@ -1,45 +1,6 @@
 {
   "main": [
     {
-      "name": "דפים",
-      "url": "",
-      "hasChildren": true,
-      "children": [
-        {
-          "name": "מידע נוסף",
-          "url": "/about"
-        },
-        {
-          "name": "יצירת קשר",
-          "url": "/contact"
-        },
-        {
-          "name": "בלוג",
-          "url": "/blog"
-        },
-        {
-          "name": "יוצרים",
-          "url": "/authors"
-        },
-        {
-          "name": "קטגוריות",
-          "url": "/categories"
-        },
-        {
-          "name": "חיפוש",
-          "url": "/search"
-        },
-        {
-          "name": "דף לא קיים",
-          "url": "/404"
-        },
-        {
-          "name": "דוגמא",
-          "url": "/elements"
-        }
-      ]
-    },
-    {
       "name": "העלאת שאלה",
       "url": "/addquestion"
     },

@@ -342,13 +342,13 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
         keyboardShortcut: '/3x3',
         onSelect: openTableDialog,
       }),
-      new ComponentPickerOption('Note', {
-        icon: <StickyNote2Icon />,
-        keywords: ['sticky', 'note', 'sticky note'],
-        keyboardShortcut: '/note',
-        onSelect: () =>
-          editor.dispatchCommand(INSERT_STICKY_COMMAND, undefined),
-      }),
+      // new ComponentPickerOption('Note', {
+      //   icon: <StickyNote2Icon />,
+      //   keywords: ['sticky', 'note', 'sticky note'],
+      //   keyboardShortcut: '/note',
+      //   onSelect: () =>
+      //     editor.dispatchCommand(INSERT_STICKY_COMMAND, undefined),
+      // }),
       new ComponentPickerOption('Collapsible', {
         icon: <PlayArrowIcon />,
         keywords: ['collapse', 'collapsible', 'toggle'],

@@ -17,7 +17,7 @@ import useWindowSize from "@/hooks/useWindowSize";
 import SolutionSection from "./solutionSection/SolutionSection";
 import { useDevelop } from "@/store/store";
 import TopBar from "../topBar/TopBar";
-import { db } from "@/indexedDB"
+import { db } from "@/indexedDB";
 
 import "./split.css";
 
@@ -47,29 +47,26 @@ interface Data {
 async function onChange(
   state: EditorState,
   setJsonState: React.Dispatch<React.SetStateAction<EditorContentType>>,
-  problemId: any
+  problemId: any,
 ) {
-  
   state.read(() => {
     if (state.isEmpty()) {
       setJsonState(undefined);
       return;
     }
     setJsonState(state.toJSON());
-    
   });
-      try {
-      const exists = await db.data.where("id").equals(problemId).toArray()
-      if (exists.length > 0) {
-        await db.data.update(problemId,{content: state.toJSON()})
-      }
-      else {
+  try {
+    const exists = await db.data.where("id").equals(problemId).toArray();
+    if (exists.length > 0) {
+      await db.data.update(problemId, { content: state.toJSON() });
+    } else {
       await db.data.add({
-        id: problemId, content : state.toJSON()
-      })
+        id: problemId,
+        content: state.toJSON(),
+      });
     }
-    } catch (error) { 
-    }
+  } catch (error) {}
 }
 
 const Workspace: React.FC<WorkSpaceProps> = ({
@@ -80,19 +77,19 @@ const Workspace: React.FC<WorkSpaceProps> = ({
 }) => {
   const { loginToast } = useCustomToasts();
 
-  const document = playgroundTemplate as unknown as EditorDocument
+  const document = playgroundTemplate as unknown as EditorDocument;
   const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
   const [confetti, setConfetti] = useState(false);
   const { width, height } = useWindowSize();
   const { development } = useDevelop();
-  const [content,setContent] = useState<any>(null)
-  const [fetchingData, setFetchingData] = useState<boolean>(false)
+  const [content, setContent] = useState<any>(null);
+  const [fetchingData, setFetchingData] = useState<boolean>(false);
 
   //save solution to db
   const { mutate: handleSave, isLoading } = useMutation({
     mutationFn: async ({ jsonState, isPublic }: any) => {
       const payload: any = { problemId, jsonState, isPublic };
-      
+
       const { data } = await axios.post("/api/submit", payload);
       return data;
     },
@@ -125,7 +122,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
     isPreviousData,
   } = useQuery({
     queryKey: ["workSpaceData", problemId],
-    queryFn: async () => {   
+    queryFn: async () => {
       if (development) return null;
       const query = `/api/getWorkSpace?problemId=${problemId}`;
       const { data } = await axios.get(query);
@@ -150,25 +147,23 @@ const Workspace: React.FC<WorkSpaceProps> = ({
   }, [confetti]);
 
   useEffect(() => {
-
-      async function getData() {
-        try {
-      setFetchingData(true)
-      const exists = await db.data.where("id").equals(problemId).toArray()
-      if (exists.length > 0) {
-          setContent(exists[0].content)
-          setJsonState(exists[0].content)
+    async function getData() {
+      try {
+        setFetchingData(true);
+        const exists = await db.data.where("id").equals(problemId).toArray();
+        if (exists.length > 0) {
+          setContent(exists[0].content);
+          setJsonState(exists[0].content);
         }
-        setFetchingData(false)
-      }
-      catch (error){}
+        setFetchingData(false);
+      } catch (error) {}
     }
-    getData()
+    getData();
   }, []);
- 
+
   return (
     <>
-      {problemId && <TopBar problemId={problemId}/>}
+      {problemId && <TopBar problemId={problemId} />}
       <Split className="split h-[70vh]" minSize={0}>
         <SolutionSection
           workSpaceData={workSpaceData}
@@ -201,27 +196,33 @@ const Workspace: React.FC<WorkSpaceProps> = ({
           ) : (
             <h3 className="flex justify-center items-center ">טוען</h3>
           )} */}
-          {fetchingData ? <h3 className="flex justify-center items-center ">טוען</h3> :
-          content ? <Editor
-                document={{data:content}}
+          {development ? (
+            <Editor
+              document={document}
+              onChange={(editor) => onChange(editor, setJsonState, problemId)}
+            />
+          ) : fetchingData ? (
+            <h3 className="flex justify-center items-center ">טוען</h3>
+          ) : content ? (
+            <Editor
+              document={{ data: content }}
+              onChange={(editor) => onChange(editor, setJsonState, problemId)}
+            />
+          ) : !isLoadingData && workSpaceData ? (
+            workSpaceData.content?.content ? (
+              <Editor
+                document={{ data: workSpaceData.content.content }}
                 onChange={(editor) => onChange(editor, setJsonState, problemId)}
               />
-            : !isLoadingData && workSpaceData ? (
-              workSpaceData.content?.content ? (
-                <Editor
-                  document={{ data: workSpaceData.content.content }}
-                  onChange={(editor) => onChange(editor, setJsonState, problemId)}
-                />
-              ) : (
-                <Editor
-                  document={document}
-                  onChange={(editor) => onChange(editor, setJsonState, problemId)}
-                />
-              )
             ) : (
-              <h3 className="flex justify-center items-center ">טוען</h3>
+              <Editor
+                document={document}
+                onChange={(editor) => onChange(editor, setJsonState, problemId)}
+              />
             )
-            }
+          ) : (
+            <h3 className="flex justify-center items-center ">טוען</h3>
+          )}
         </div>
       </Split>
 
