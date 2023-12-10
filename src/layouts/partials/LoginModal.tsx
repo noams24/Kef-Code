@@ -60,7 +60,7 @@ const LoginModal: FC = () => {
                   </h1>
                   <p className="text-sm max-w-xs mx-auto">
                    בהתחברות לאתר אני מאשר את 
-                  <Link className="text-blue-500 onhover:underline" target="_blank" href="/privacy">{privacy}</Link>
+                  <Link className="text-blue-500 hover:underline" target="_blank" href="/privacy">{privacy}</Link>
                   </p>
                 </div>
                 <UserAuthForm />

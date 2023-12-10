@@ -1,9 +1,8 @@
 import CourseDisplay from "@/components/CourseDisplay";
-// import { getListPage } from "@/lib/contentParser";
 import { Metadata } from "next";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-import computerScienceCourses from "@/content/mathCourses.json";
+import computerScienceCourses from "@/content/computerScienceCourses.json";
 import mathCourses from "@/content/mathCourses.json";
 import otherCourses from "@/content/otherCourses.json";
 export const metadata: Metadata = {
@@ -40,32 +39,24 @@ async function getCoursesPercent() {
 }
 
 const Courses = async () => {
-  // const computerScience = getListPage("sections/CS.md");
-  // const math = getListPage("sections/Math.md");
-  // const other = getListPage("sections/Other.md");
-
   const coursePercent = await getCoursesPercent();
-
   return (
     <div className="flex flex-col gap-y-5 p-3">
       <div>
-        <h3 className="p-4 flex justify-center">קורסי מדעי המחשב</h3>
+        <h3 className="p-3 flex justify-center">קורסי מדעי המחשב</h3>
         <CourseDisplay
           data={computerScienceCourses}
           coursePercent={coursePercent}
         />
       </div>
       <div>
-        <h3 className="p-1 flex justify-center">קורסי מתמטיקה</h3>
+        <h3 className="p-3 flex justify-center">קורסי מתמטיקה</h3>
         <CourseDisplay data={mathCourses} coursePercent={coursePercent} />
       </div>
       <div>
-        <h3 className="p-1 flex justify-center">קורסי בחירה</h3>
+        <h3 className="p-3 flex justify-center">קורסי בחירה</h3>
         <CourseDisplay data={otherCourses} coursePercent={coursePercent} />
       </div>
-      {/* <CourseDisplay data={computerScience} coursePercent={coursePercent} />
-      <CourseDisplay data={math} coursePercent={coursePercent} />
-      <CourseDisplay data={other} coursePercent={coursePercent} /> */}
     </div>
   );
 };
