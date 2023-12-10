@@ -3,9 +3,9 @@ import CourseDisplay from "@/components/CourseDisplay";
 import { Metadata } from "next";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-import computerScienceCourses from "@/content/sections/computerScienceCourses.json";
-import mathCourses from "@/content/sections/mathCourses.json";
-import otherCourses from "@/content/sections/otherCourses.json";
+import computerScienceCourses from "@/content/mathCourses.json";
+import mathCourses from "@/content/mathCourses.json";
+import otherCourses from "@/content/otherCourses.json";
 export const metadata: Metadata = {
   title: "כיף קוד - קורסים",
 };
@@ -49,7 +49,7 @@ const Courses = async () => {
   return (
     <div className="flex flex-col gap-y-5 p-3">
       <div>
-        <h3 className="p-1 flex justify-center">קורסי מדעי המחשב</h3>
+        <h3 className="p-4 flex justify-center">קורסי מדעי המחשב</h3>
         <CourseDisplay
           data={computerScienceCourses}
           coursePercent={coursePercent}
