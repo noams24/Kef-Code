@@ -41,6 +41,7 @@ import { Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react'
 import ImageResizer from './ImageResizer';
 import { $isImageNode } from '.';
 import Typography from '@mui/material/Typography';
+import Image from 'next/image';
 
 const NestedEditor = lazy(() => import('../../NestedEditor'));
 
@@ -64,7 +65,7 @@ function LazyImage({
   onLoad: () => void;
 }): JSX.Element {
   return (
-    <img
+    <Image
       className={className || undefined}
       src={src}
       alt={altText}

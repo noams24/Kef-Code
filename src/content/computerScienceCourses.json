@@ -1,0 +1,51 @@
+[
+    {
+        "title": "מבוא למדעי המחשב",
+        "link": "intro-to-computer-science",
+        "image": "/coursesImages/IntroToCS.png",
+        "chapters": "4",
+        "items": "5"
+    },
+    {
+        "title": "מבני נתונים",
+        "link": "data-structures",
+        "image": "/coursesImages/DataStructures.png",
+        "chapters": "5",
+        "items": "10"
+    },
+    {
+        "title": "אלגוריתמים",
+        "link": "algorithms",
+        "image": "/coursesImages/Algorithms.png",
+        "chapters": "3",
+        "items": "48"
+    },
+    {
+        "title": "ארגון המחשב",
+        "link": "computer-organization",
+        "image": "/coursesImages/ComputerOrganization.png",
+        "chapters": "6",
+        "items": "17"
+    },
+    {
+        "title": "מערכות הפעלה",
+        "link": "operating-systems",
+        "image": "/coursesImages/OperationSystems.png",
+        "chapters": "4",
+        "items": "20"
+    },
+    {
+        "title": "מעבדה בתכנות מערכות",
+        "link": "programming-languages-lab",
+        "image": "/coursesImages/C.png",
+        "chapters": "3",
+        "items": "10"
+    },
+    {
+        "title": "שפות תכנות",
+        "link": "programming-languages",
+        "image": "/coursesImages/ProgrammingLanguages.png",
+        "chapters": "2",
+        "items": "4"
+    }
+]

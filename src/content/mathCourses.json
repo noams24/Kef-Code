@@ -1,0 +1,58 @@
+[
+    {
+    "title": "אלגברה לינארית 1",
+    "link": "algebra-1",
+    "image": "/coursesImages/Algebra1.png",
+    "chapters": "5",
+    "items": "10"
+    },
+    {
+    "title": "אלגברה לינארית 2",
+    "link": "algebra-2",
+    "image": "/coursesImages/Algebra2.png",
+    "chapters": "4",
+    "items": "10"
+    },
+    {
+    "title": "מתמטיקה בדידה",
+    "link": "discrete-mathematics",
+    "image": "/coursesImages/Bdida.png",
+    "chapters": "6",
+    "items": "48"
+    },
+    {
+    "title": "הסתברות ומבוא לסטטיסטיקה",
+    "link": "probability",
+    "image": "/coursesImages/Probability.png",
+    "chapters": "3",
+    "items": "17"
+    },
+    {
+    "title": "לוגיקה למדעי המחשב",
+    "link": "logics",
+    "image": "/coursesImages/Logics.png",
+    "chapters": "4",
+    "items": "10"
+    },
+    {
+    "title": "אינפי 1",
+    "link": "infi-1",
+    "image": "/coursesImages/Infi1.png",
+    "chapters": "6",
+    "items": "10"
+    },
+    {
+    "title": "אינפי 2",
+    "link": "infi-2",
+    "image": "/coursesImages/Infi2.png",
+    "chapters": "5",
+    "items": "10"
+    },
+    {
+    "title": "אשנב למתמטיקה",
+    "link": "eshnav",
+    "image": "/coursesImages/Eshnav.png",
+    "chapters": "6",
+    "items": "10"
+    }
+]
