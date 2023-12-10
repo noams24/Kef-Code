@@ -12,15 +12,23 @@ import "swiper/css";
 // import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 
+// interface PageData {
+//   notFound?: boolean;
+//   content?: string;
+//   frontmatter: {
+//     enable?: boolean;
+//     title: string;
+//     description?: string;
+//     courses: Array<Course>;
+//   };
+// }
+
 interface PageData {
-  notFound?: boolean;
-  content?: string;
-  frontmatter: {
-    enable?: boolean;
-    title: string;
-    description?: string;
-    courses: Array<Course>;
-  };
+  title: string;
+  link: string;
+  image: string;
+  chapters: string;
+  items: string
 }
 
 const CourseDisplay = ({
@@ -30,22 +38,22 @@ const CourseDisplay = ({
   data: PageData;
   coursePercent: any;
 }) => {
-  const idSelector = `slider-${data.frontmatter.title}`;
-  const swiper = useSwiper();
-  const slideLeft = () => {
-    let slider: any = document.getElementById(idSelector);
-    slider.scrollLeft = slider.scrollLeft - 500;
-  };
+  const idSelector = `slider-${data.title}`;
+  // const swiper = useSwiper();
+  // const slideLeft = () => {
+  //   let slider: any = document.getElementById(idSelector);
+  //   slider.scrollLeft = slider.scrollLeft - 500;
+  // };
 
-  const slideRight = () => {
-    let slider: any = document.getElementById(idSelector);
-    slider.scrollLeft = slider.scrollLeft + 500;
-  };
+  // const slideRight = () => {
+  //   let slider: any = document.getElementById(idSelector);
+  //   slider.scrollLeft = slider.scrollLeft + 500;
+  // };
 
   return (
     <>
       <div className="flex flex-row justify-center items-center">
-        <p className="text-3xl font-medium p-1">{data.frontmatter.title}</p>
+        <p className="text-3xl font-medium p-1">{data.title}</p>
       </div>
       <div className="relative flex items-center">
         {/* <MdChevronLeft
@@ -88,7 +96,7 @@ const CourseDisplay = ({
               },
             }}
           >
-            {data.frontmatter.courses?.map(
+            {/* {data.map(
               ({ title, link, image, chapters, items }) => (
                 <SwiperSlide key={title}>
                   <CourseCard
@@ -107,7 +115,7 @@ const CourseDisplay = ({
                   </CourseCard>
                 </SwiperSlide>
               ),
-            )}
+            )} */}
           </Swiper>
         </div>
         {/* <MdChevronRight

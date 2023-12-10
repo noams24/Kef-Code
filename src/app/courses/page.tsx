@@ -36,8 +36,8 @@ async function getCoursesPercent(){
 const Courses = async () => {
 
   const computerScience = getListPage("sections/CS.md");
-  const math = getListPage("sections/Math.md");
-  const other = getListPage("sections/Other.md");
+  // const math = getListPage("sections/Math.md");
+  // const other = getListPage("sections/Other.md");
 
   const coursePercent = await getCoursesPercent();
 

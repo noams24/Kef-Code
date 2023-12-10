@@ -11,9 +11,9 @@ import { FaCheck } from "react-icons/fa/index.js";
 import Link from "next/link";
 import Image from "next/image";
 
-const Home = () => {
+const Home = async () => {
   const homepage = getListPage("_index.md");
-  const { frontmatter } = homepage;
+  const { frontmatter } = await homepage;
   const {
     banner,
     features,

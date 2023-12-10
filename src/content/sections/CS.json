@@ -1,5 +1,9 @@
 [
     {
-        
+        "title": "מבוא למדעי המחשב",
+        "link": "intro-to-computer-science",
+        "image": "/coursesImages/IntroToCS.png",
+        "chapters": "4",
+        "items": "5"
     }
 ]
