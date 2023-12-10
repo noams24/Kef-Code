@@ -1,8 +1,9 @@
-// import CourseDisplay from "@/components/CourseDisplay";
+import CourseDisplay from "@/components/CourseDisplay";
 import { getListPage } from "@/lib/contentParser";
 import { Metadata } from "next";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
+import CS from "@/content/sections/CS.json"
 
 export const metadata: Metadata = {
   title: "כיף קוד - קורסים",
@@ -40,9 +41,9 @@ const Courses = async () => {
 
   const coursePercent = await getCoursesPercent();
 
-  console.log(coursePercent, computerScience, math, other)
   return (
     <div className="flex flex-col gap-y-5 p-3">
+       {/* <CourseDisplay data={CS} coursePercent={coursePercent} /> */}
       {/* <CourseDisplay data={computerScience} coursePercent={coursePercent} />
       <CourseDisplay data={math} coursePercent={coursePercent} />
       <CourseDisplay data={other} coursePercent={coursePercent} /> */}

@@ -16,7 +16,7 @@ const parseFrontmatter = (frontmatter: any) => {
 };
 
 // get list page data, ex: _index.md
-export const getListPage = (filePath: string) => {
+export const getListPage = async (filePath: string) => {
   "use server"
   const pageDataPath = path.join(process.cwd(), contentPath, filePath);
   if (!fs.existsSync(pageDataPath)) {
