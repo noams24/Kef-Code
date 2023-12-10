@@ -1,5 +1,5 @@
 // import CourseDisplay from "@/components/CourseDisplay";
-// import { getListPage } from "@/lib/contentParser";
+import { getListPage } from "@/lib/contentParser";
 import { Metadata } from "next";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
@@ -34,12 +34,13 @@ async function getCoursesPercent(){
 
 const Courses = async () => {
 
-  // const computerScience = getListPage("sections/CS.md");
-  // const math = getListPage("sections/Math.md");
-  // const other = getListPage("sections/Other.md");
+  const computerScience = getListPage("sections/CS.md");
+  const math = getListPage("sections/Math.md");
+  const other = getListPage("sections/Other.md");
 
   const coursePercent = await getCoursesPercent();
 
+  console.log(coursePercent, computerScience, math, other)
   return (
     <div className="flex flex-col gap-y-5 p-3">
       {/* <CourseDisplay data={computerScience} coursePercent={coursePercent} />
