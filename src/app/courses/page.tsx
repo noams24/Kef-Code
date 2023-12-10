@@ -1,8 +1,11 @@
-import CourseDisplay from "@/components/CourseDisplay";
+// import CourseDisplay from "@/components/CourseDisplay";
 import { getListPage } from "@/lib/contentParser";
 import { Metadata } from "next";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
+import dynamic from "next/dynamic";
+
+const CourseDisplay = dynamic(() => import("@/components/CourseDisplay"), { ssr: false });
 
 export const metadata: Metadata = {
   title: "כיף קוד - קורסים",

@@ -7,6 +7,7 @@ import hebrewDateFormat from "@/lib/utils/hebrewDateFormat";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "@/hooks/use-toast";
+import Image from "next/image";
 
 export function ApproveProblem(data: any) {
   const { mutate: Submit, isLoading } = useMutation({
@@ -55,7 +56,7 @@ export function ApproveProblem(data: any) {
               </div>
             </div>
           </div>
-          <img src={item.img} alt={item.title} className="w-42 h-42" />
+          <Image src={item.img} alt={item.title} className="w-42 h-42" />
           <p>קורס: {item.course} </p>
           <p>פרק: {item.chapter}</p>
           <p>שם השאלה: {item.title}</p>
