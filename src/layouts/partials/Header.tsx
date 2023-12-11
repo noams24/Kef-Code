@@ -29,7 +29,7 @@ const Header = () => {
 
   return (
     <header
-      className="header z-30 h-[11vh] sticky top-0 border-b border-gray-400"
+      className="header z-30 h-[8vh] sticky top-0 border-b border-gray-400"
     >
       <nav className="navbar container">
         {/* logo */}

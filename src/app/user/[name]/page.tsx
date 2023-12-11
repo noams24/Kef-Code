@@ -42,7 +42,7 @@ const UserPage = async ({ params }: { params: { name: string } }) => {
     });
     if (!user) return <div>משתמש לא קיים</div>;
 
-    let data: DataObject[] = await db.submissions.findMany({
+    const data: DataObject[] = await db.submissions.findMany({
       where: {
         userId: user.id,
         isPublic: true,

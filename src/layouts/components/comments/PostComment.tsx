@@ -109,11 +109,12 @@ const PostComment: FC<PostCommentProps> = ({
 
         <Button
           onClick={() => {
-            if (!session) return router.push('/sign-in')
+            // if (!session) return router.push('/sign-in')
             setIsReplying(true)
           }}
           variant='ghost'
           size='xs'
+          disabled={!session}
           >
           <MessageSquare className='h-4 w-4 ml-1.5' />
           תגובה

@@ -275,7 +275,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
             <div>
               {isFetching ? (
                 <h3 className="flex justify-center mt-5">טוען</h3>
-                ) : soltionSectionData.length !== 0 ? (
+                ) : soltionSectionData && soltionSectionData.length !== 0 ? (
                 <>
                   <div className="mt-3 dark:text-white text-center" dir="rtl">
                     <Select onValueChange={(e) => sortData(e)}>
