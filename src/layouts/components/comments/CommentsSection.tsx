@@ -18,7 +18,7 @@ const CommentsSection = ({ ID, type, userId }: CommentsSectionProps) => {
   const { development } = useDevelop()
   // get data from the db
   const { data: comments, isLoading } = useQuery({
-    queryKey: ['comments'],
+    queryKey: ['comments', ID],
     queryFn: async () => {
       if (development) return null
       const query = `/api/getComments?ID=${ID}&type=${type}`

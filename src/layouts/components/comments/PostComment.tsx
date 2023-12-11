@@ -8,7 +8,7 @@ import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { MessageSquare } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { FC, useRef, useState } from 'react'
+import { FC, useRef, useState, useContext  } from 'react'
 import CommentVotes from './CommentVotes'
 import { UserAvatar } from '../UserAvatar'
 import { Button } from '../ui/Button2'
@@ -17,6 +17,7 @@ import { TextArea } from '../ui/TextArea'
 import { toast } from '@/hooks/use-toast'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
+import { QueryContext } from "@/partials/ChildrenProviders";
 
 type ExtendedComment = Comment & {
   votes: Vote[]
@@ -38,6 +39,7 @@ const PostComment: FC<PostCommentProps> = ({
   type,
   ID,
 }) => {
+  const queryClient = useContext(QueryContext);
   const { data: session } = useSession()
   const [isReplying, setIsReplying] = useState<boolean>(false)
   const commentRef = useRef<HTMLDivElement>(null)
@@ -66,7 +68,8 @@ const PostComment: FC<PostCommentProps> = ({
       })
     },
     onSuccess: () => {
-      router.refresh()
+      // router.refresh()
+      queryClient.invalidateQueries({ queryKey: ["comments"] });
       setIsReplying(false)
     },
   })

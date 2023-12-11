@@ -32,7 +32,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/Select";
+} from "@/components/ui/Select2";
 import { useState } from "react";
 import ImageSkeleton from "@/components/skeletons/ImageSkeleton";
 import LikesSkeleton from "@/components/skeletons/LikesSkeletion";
@@ -275,12 +275,12 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
             <div>
               {isFetching ? (
                 <h3 className="flex justify-center mt-5">טוען</h3>
-              ) : soltionSectionData && soltionSectionData.length !== 0 ? (
+                ) : soltionSectionData.length !== 0 ? (
                 <>
                   <div className="mt-3 dark:text-white text-center" dir="rtl">
                     <Select onValueChange={(e) => sortData(e)}>
                       <SelectTrigger className="w-[100px]">
-                        <SelectValue placeholder="לייקים" />
+                        <SelectValue placeholder="מיין לפי" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
@@ -358,7 +358,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                 </Accordion>
               </div>
             ) : (
-              <h3 className="flex justify-center">אין פתרון עדיין</h3>
+              <h3 className="flex justify-center mt-5 mb-5">אין פתרון עדיין</h3>
             )}
           </div>
         </Tab>

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import playgroundTemplate from "./jsonFiles/empty.json";
 import type { EditorDocument } from "./types";
 import { type EditorState, type SerializedEditorState } from "lexical";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { useCustomToasts } from "@/hooks/use-custom-toast";
@@ -18,6 +18,7 @@ import SolutionSection from "./solutionSection/SolutionSection";
 import { useDevelop } from "@/store/store";
 import TopBar from "../topBar/TopBar";
 import { db } from "@/indexedDB";
+import { QueryContext } from "@/partials/ChildrenProviders";
 
 import "./split.css";
 
@@ -76,7 +77,6 @@ const Workspace: React.FC<WorkSpaceProps> = ({
   role,
 }) => {
   const { loginToast } = useCustomToasts();
-
   const document = playgroundTemplate as unknown as EditorDocument;
   const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
   const [confetti, setConfetti] = useState(false);
@@ -84,7 +84,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
   const { development } = useDevelop();
   const [content, setContent] = useState<any>(null);
   const [fetchingData, setFetchingData] = useState<boolean>(false);
-
+  const queryClient = useContext(QueryContext);
   //save solution to db
   const { mutate: handleSave, isLoading } = useMutation({
     mutationFn: async ({ jsonState, isPublic }: any) => {
@@ -112,6 +112,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
         description: "התשובה נשמרה/פורסמה בהצלחה.",
         variant: "destructive",
       });
+      queryClient.invalidateQueries({ queryKey: ["solution"] });
     },
   });
 

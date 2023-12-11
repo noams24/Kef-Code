@@ -1,12 +1,17 @@
-
 "use client";
 
-import { ThemeProvider } from "next-themes";
-import { ReactNode } from "react";
+// import { ThemeProvider } from "next-themes";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
-import { createContext, useState, useMemo, useEffect } from "react";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import {
+  createContext,
+  useState,
+  useMemo,
+  useEffect,
+  ReactNode,
+  useContext,
+} from "react";
+// import useMediaQuery from "@mui/material/useMediaQuery";
 import {
   createTheme,
   ThemeProvider as ThemProviderMui,
@@ -17,18 +22,21 @@ import { useTheme as useThemee } from "next-themes";
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 const queryClient = new QueryClient();
+export const QueryContext = createContext(queryClient);
+// export const useQueryClient = () => useContext(QueryContext);
+// export const QueryContext = createContext(queryClient);
+// console.log(queryClient);
 const ChildrenProviders = ({ children }: { children: ReactNode }) => {
+  const { theme, setTheme, resolvedTheme } = useThemee();
 
-    const { theme, setTheme, resolvedTheme } = useThemee();
+  const [mode, setMode] = useState<"light" | "dark">("light");
 
-    const [mode, setMode] = useState<"light" | "dark">("light");
-    
-    useEffect(() => {
-    if (theme === "light") setMode("light")
-    else setMode("dark")
-}, []);
-  
-    const colorMode = useMemo(
+  useEffect(() => {
+    if (theme === "light") setMode("light");
+    else setMode("dark");
+  }, []);
+
+  const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
         setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
@@ -52,16 +60,16 @@ const ChildrenProviders = ({ children }: { children: ReactNode }) => {
 
   const themee = useMemo(() => createTheme({ palette: { mode } }), [mode]);
 
-  
-
   return (
     <ColorModeContext.Provider value={colorMode}>
-    <ThemProviderMui theme={themee}>
-      <QueryClientProvider client={queryClient}>
-        <SessionProvider>{children}</SessionProvider>
-      </QueryClientProvider>
-    </ThemProviderMui>
-  </ColorModeContext.Provider>
+      <ThemProviderMui theme={themee}>
+        <QueryClientProvider client={queryClient}>
+          <QueryContext.Provider value={queryClient}>
+            <SessionProvider>{children}</SessionProvider>
+          </QueryContext.Provider>
+        </QueryClientProvider>
+      </ThemProviderMui>
+    </ColorModeContext.Provider>
   );
 };
 

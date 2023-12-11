@@ -42,7 +42,6 @@ export async function POST(req: Request) {
           isPublic,
         },
       })
-
       // Mark the status is "FINISH"
       // await db.problemStatus.create({
       //   data: {

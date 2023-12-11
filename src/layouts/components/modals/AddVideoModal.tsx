@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect } from "react";
+import { FC, useEffect, useContext } from "react";
 import { Button } from "@/components/ui/Button2";
 import { X } from "lucide-react";
 import {
@@ -19,6 +19,7 @@ import * as z from "zod";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from 'axios'
 import { toast } from "@/hooks/use-toast";
+import { QueryContext } from "@/partials/ChildrenProviders";
 
 interface AddVideoModalProps {
   handleVideo: () => void;
@@ -42,6 +43,8 @@ const AddVideoModal: FC<AddVideoModalProps> = ({
     resolver: zodResolver(FormSchema),
     mode: "onChange",
   });
+
+  const queryClient = useContext(QueryContext);
 
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
@@ -82,6 +85,7 @@ const AddVideoModal: FC<AddVideoModalProps> = ({
       });
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["solution"] });
       toast({
         title: "הצלחה",
         description: "העלאת סרטון בוצעה בהצלחה",

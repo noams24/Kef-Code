@@ -65,7 +65,7 @@ function LazyImage({
   onLoad: () => void;
 }): JSX.Element {
   return (
-    <Image
+    <img
       className={className || undefined}
       src={src}
       alt={altText}

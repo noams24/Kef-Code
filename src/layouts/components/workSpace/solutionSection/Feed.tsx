@@ -17,7 +17,7 @@ const Feed: React.FC<FeedProps> = ({ data }) => {
   return (
     <>
       <div>
-        {data.length === 0 ? <h3 className="flex justify-center">אין פתרונות להצגה</h3> : data.map((item: any, index: any) => (
+        {data.length === 0 ? <h3 className="flex justify-center mt-5">אין פתרונות להצגה</h3> : data.map((item: any, index: any) => (
           <div key={index} onClick={() => handleClick(index)}>
             <SolutionCard author={item.user.username} date={item.createdAt} likes={item.votes.length} comments={item.comments.length} avatar={item.user.image} />
           </div>
