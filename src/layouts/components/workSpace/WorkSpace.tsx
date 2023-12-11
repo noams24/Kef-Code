@@ -165,7 +165,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
   return (
     <>
       {problemId && <TopBar problemId={problemId} />}
-      <Split className="split h-[70vh]" minSize={0}>
+      <Split className="split h-[77vh]" minSize={0}>
         <SolutionSection
           workSpaceData={workSpaceData}
           problemId={problemId}

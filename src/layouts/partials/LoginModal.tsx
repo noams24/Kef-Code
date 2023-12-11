@@ -27,7 +27,7 @@ const LoginModal: FC = () => {
     };
   }, [isOpen]);
 
-  const privacy = " תנאי השימוש "
+  const privacy = "בהתחברות לאתר אני מאשר את "
 
   return (
     <>
@@ -59,8 +59,8 @@ const LoginModal: FC = () => {
                     ברוך הבא
                   </h1>
                   <p className="text-sm max-w-xs mx-auto">
-                   בהתחברות לאתר אני מאשר את 
-                  <Link className="text-blue-500 hover:underline" target="_blank" href="/privacy">{privacy}</Link>
+                   {privacy}
+                  <Link className="text-blue-500 hover:underline" target="_blank" href="/privacy">תנאי השימוש</Link>
                   </p>
                 </div>
                 <UserAuthForm />

@@ -37,31 +37,38 @@ const User: React.FC<MyComponentProps> = ({ user, data }) => {
     setSearchInput(e.target.value);
     const filteredData: DataObject[] = data.filter(
       (solution: DataObject) =>
-       solution.problem.title?.includes(e.target.value),
+        solution.problem.title?.includes(e.target.value),
     );
     setSolutions(filteredData);
   };
 
   const sortSolutionsBy = (status: string) => {
-    if(status === 'אקראי') return setSolutions(data);
-    if(status === 'אלפביתי') return setSolutions(solutions.slice().sort((a, b) => a.problem.title.localeCompare(b.problem.title)));
-     
-    const statusSort = status === 'עודכן לאחרונה' ? 'updatedAt' : 'createdAt';
+    if (status === "אקראי") return setSolutions(data);
+    if (status === "אלפביתי")
+      return setSolutions(
+        solutions
+          .slice()
+          .sort((a, b) => a.problem.title.localeCompare(b.problem.title)),
+      );
+
+    const statusSort = status === "עודכן לאחרונה" ? "updatedAt" : "createdAt";
     const sortedArray = solutions.slice().sort((a, b) => {
       const dateA = a[statusSort].getTime();
       const dateB = b[statusSort].getTime();
-    
+
       return dateB - dateA;
-    })
+    });
     setStatusTime(statusSort);
     setSolutions(sortedArray);
   };
 
-  const SortCoursesBy = (course:string) => {
-    if(course === 'הכל') return setSolutions(data);
-    const sortByCourse = data.filter((solution) => (dictionary as any)[solution.problem.course] === course);
-    setSolutions(sortByCourse)
-  }
+  const SortCoursesBy = (course: string) => {
+    if (course === "הכל") return setSolutions(data);
+    const sortByCourse = data.filter(
+      (solution) => (dictionary as any)[solution.problem.course] === course,
+    );
+    setSolutions(sortByCourse);
+  };
 
   return (
     <div className="w-full min-h-screen pt-8">
@@ -85,11 +92,7 @@ const User: React.FC<MyComponentProps> = ({ user, data }) => {
               <h3 dir="rtl" className="mt-8 font-primary">
                 {user?.username}
               </h3>
-              {/* <h4>Walter@gmail.com</h4> */}
             </div>
-            {/* <i className="self-end w-5 h-5 rounded-full bg-cyan-500"></i> */}
-            {/* <BiShareAlt className="self-end w-5 h-5 " /> */}
-            {/* <Image src={""} alt={""} /> */}
           </div>
           <div className="">
             <UserAvatar
@@ -135,10 +138,14 @@ const User: React.FC<MyComponentProps> = ({ user, data }) => {
                   <div className="flex justify-between space-x-3 w-80">
                     <SiGoogledocs className="" size={30} />
                     <div className="flex flex-col w-full gap-y-1 pr-2 ">
-                      <h5 className="font-bold font-primary">{item.problem.title}</h5>
+                      <h5 className="font-bold font-primary">
+                        {item.problem.title}
+                      </h5>
                       <span className="text-sm">
                         {/* @ts-ignore */}
-                        {dictionary[item.problem.course]} -{" "}{dictionary[item.problem.chapter]}
+                        {dictionary[item.problem.course]} -{" "}
+                        {/* @ts-ignore */}
+                        {dictionary[item.problem.chapter]}
                       </span>
                       <span className="text-sm">
                         {hebrewDateFormat(item[statusTime])}
@@ -168,7 +175,6 @@ const User: React.FC<MyComponentProps> = ({ user, data }) => {
 };
 
 export default User;
-
 
 // const data :DataObject[] = [
 //   {
