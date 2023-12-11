@@ -190,7 +190,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
   });
 
   return (
-    <div className="overflow-y-auto scrollbar-hide">
+    <div className="overflow-y-auto">
       {displayDeleteModal && (
         <DeleteSolutionModal
           handleDelete={deleteSolution}

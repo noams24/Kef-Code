@@ -3,6 +3,7 @@ import View from "./View";
 import { generateHtml } from "@/layouts/editor/utils/generateHtml";
 import { JSDOM } from "jsdom";
 import parse from "html-react-parser";
+import SeoMeta from "@/partials/SeoMeta";
 
 const ViewPage = async ({ params }: { params: { id: string } }) => {
   try {
@@ -27,7 +28,14 @@ const ViewPage = async ({ params }: { params: { id: string } }) => {
       return <h1 className="flex justify-center mt-5">הדף לא קיים</h1>;
     }
     return (
-      <div className="">{data && <View data={data}>{solution}</View>}</div>
+      <div>
+        <SeoMeta
+          title={`כיף קוד - ${data.problem.title}`}
+          meta_title={`כיף קוד - ${data.problem.title}`}
+          description={`כיף קוד - ${data.problem.title}`}
+        />
+        {data && <View data={data}>{solution}</View>}
+      </div>
     );
   } catch {
     return <h1 className="flex justify-center mt-5">הדף לא קיים</h1>;

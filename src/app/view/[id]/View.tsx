@@ -1,5 +1,5 @@
 "use client";
-import ImageDisplay from "@/components/ImageDisplay";
+import ImageDisplay from "@/components/ImageDisplay2";
 import AppDrawer from "./AppDrawer";
 import { useRef, useState } from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";

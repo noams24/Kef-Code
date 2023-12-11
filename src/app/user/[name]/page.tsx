@@ -1,12 +1,13 @@
 import { db } from "@/lib/db";
 import User from "./User";
+import SeoMeta from "@/partials/SeoMeta";
 
 interface ProblemObject {
-  chapter:string;
-  img:string;
-  title:string;
-  id:number;
-  course:string;
+  chapter: string;
+  img: string;
+  title: string;
+  id: number;
+  course: string;
   difficulty: string;
 }
 
@@ -22,14 +23,14 @@ export type UserObject = {
 
 export interface DataObject {
   content: any;
-  createdAt:Date;
-  updatedAt:Date;
+  createdAt: Date;
+  updatedAt: Date;
   id: string;
-  isPublic:boolean;
-  problem:ProblemObject;
-  problemId:number;
-  userId:string;
-  videoUrl?:string | null;
+  isPublic: boolean;
+  problem: ProblemObject;
+  problemId: number;
+  userId: string;
+  videoUrl?: string | null;
 }
 
 const UserPage = async ({ params }: { params: { name: string } }) => {
@@ -47,14 +48,23 @@ const UserPage = async ({ params }: { params: { name: string } }) => {
         isPublic: true,
       },
       orderBy: {
-        updatedAt: 'desc',
-    },
+        updatedAt: "desc",
+      },
       include: {
         problem: true,
       },
     });
 
-    return <User user={user} data={data} />;
+    return (
+      <div>
+        <SeoMeta
+          title={`כיף קוד - ${user.username}`}
+          meta_title={`כיף קוד - ${user.username}`}
+          description={`כיף קוד - ${user.username}`}
+        />
+        <User user={user} data={data} />
+      </div>
+    );
   } catch {
     return <div>שגיאה</div>;
   }
@@ -70,5 +80,3 @@ export default UserPage;
 // import { GiWorld } from "react-icons/gi";
 // import coursesData from "@/content/chapters.json";
 // import { AiOutlineCalendar } from "react-icons/ai";
-
-

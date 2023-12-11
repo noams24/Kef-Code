@@ -233,3 +233,20 @@ code {
 :root {
   --ML__static-fonts: true
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+[theme="dark"] ::-webkit-scrollbar-track {
+  background: #555555;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  
+}
+
+[theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
