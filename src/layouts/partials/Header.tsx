@@ -1,14 +1,9 @@
 import Logo from "@/components/Logo";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
-import config from "@/config/config.json";
 import menu from "@/config/menu.json";
 import Link from "next/link";
 import React from "react";
-// import { authOptions } from '@/lib/auth'
-// import { getServerSession } from 'next-auth'
 import Login from "@/components/Login";
-//import { UserAccountNav } from '@/components/UserAccountNav'
-//  child navigation link interface
 
 export interface IChildNavigationLink {
   name: string;
@@ -25,11 +20,10 @@ export interface INavigationLink {
 
 const Header = () => {
   const { main }: { main: INavigationLink[] } = menu;
-  const { navigation_button, settings } = config;
 
   return (
     <header
-      className="header z-30 h-[8vh] sticky top-0 border-b border-gray-400"
+      className="header z-30 h-20 sticky top-0 border-b border-gray-400"
     >
       <nav className="navbar container">
         {/* logo */}
