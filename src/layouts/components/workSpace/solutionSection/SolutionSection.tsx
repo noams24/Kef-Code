@@ -5,7 +5,6 @@ import Tabs from "@/shortcodes/Tabs";
 import Solution from "./Solution";
 import Feed from "./Feed";
 import Pagination from "./Pagination";
-import { AiOutlineClose } from "react-icons/ai";
 import Youtube from "@/shortcodes/Youtube";
 import ImageDisplay from "@/components/ImageDisplay";
 import Likes from "@/components/Likes";
@@ -36,10 +35,8 @@ import {
 import { useState } from "react";
 import ImageSkeleton from "@/components/skeletons/ImageSkeleton";
 import LikesSkeleton from "@/components/skeletons/LikesSkeletion";
-// import CommentsSection from "@/components/comments/CommentsSection";
 import DescriptionCommentsSection from "@/components/comments/DescriptionCommentsSection";
 import { useMutation } from "@tanstack/react-query";
-// import CommentsSection from "@/components/comments/CommentsSectionn";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import { RxVideo } from "react-icons/rx";
 import { FaFileUpload } from "react-icons/fa";
@@ -74,8 +71,6 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
   const { development } = useDevelop();
   const {
     data: soltionSectionData,
-    refetch,
-    isFetching,
   } = useQuery({
     queryKey: ["solution", problemId, page, sortBy],
     queryFn: async () => {
@@ -273,9 +268,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
             </div>
           ) : (
             <div>
-              {isFetching ? (
-                <h3 className="flex justify-center mt-5">טוען</h3>
-                ) : soltionSectionData && soltionSectionData.length !== 0 ? (
+              {soltionSectionData && soltionSectionData.length !== 0 ? (
                 <>
                   <div className="mt-3 dark:text-white text-center" dir="rtl">
                     <Select onValueChange={(e) => sortData(e)}>

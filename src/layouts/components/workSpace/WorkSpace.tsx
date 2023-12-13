@@ -85,6 +85,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
   const [content, setContent] = useState<any>(null);
   const [fetchingData, setFetchingData] = useState<boolean>(false);
   const queryClient = useContext(QueryContext);
+  var screenHeight = window.innerHeight;
   //save solution to db
   const { mutate: handleSave, isLoading } = useMutation({
     mutationFn: async ({ jsonState, isPublic }: any) => {
@@ -165,7 +166,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
   return (
     <>
       {problemId && <TopBar problemId={problemId} />}
-      <Split className="split h-[77vh]" minSize={0}>
+      <Split className={`split ${screenHeight > 900 ? 'h-[77vh]' : 'h-[70vh]'}`} minSize={0}>
         <SolutionSection
           workSpaceData={workSpaceData}
           problemId={problemId}
