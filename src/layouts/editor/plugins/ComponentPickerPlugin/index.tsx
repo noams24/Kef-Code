@@ -222,9 +222,9 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
 
   const options = useMemo(() => {
     const baseOptions = [
-      new ComponentPickerOption('Paragraph', {
+      new ComponentPickerOption('פסקה', {
         icon: <ViewHeadlineIcon />,
-        keywords: ['normal', 'paragraph', 'p', 'text'],
+        keywords: ['normal', 'paragraph', 'p', 'text', 'פסקה'],
         onSelect: () =>
           editor.update(() => {
             const selection = $getSelection();
@@ -235,9 +235,9 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
       }),
       ...Array.from({ length: 4 }, (_, i) => i + 1).map(
         (n) =>
-          new ComponentPickerOption(`Heading ${n}`, {
+          new ComponentPickerOption(`כותרת ${n}`, {
             icon: HeadingIcon(n),
-            keywords: ['heading', 'header', `h${n}`],
+            keywords: ['heading', 'header', `h${n}`, 'כותרת'],
             keyboardShortcut: '#'.repeat(n),
             onSelect: () =>
               editor.update(() => {
@@ -251,30 +251,30 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
               }),
           }),
       ),
-      new ComponentPickerOption('Numbered List', {
+      new ComponentPickerOption('מספור', {
         icon: <FormatListNumberedIcon />,
-        keywords: ['numbered list', 'ordered list', 'ol'],
+        keywords: ['numbered list', 'ordered list', 'ol', 'מספור'],
         keyboardShortcut: '1.',
         onSelect: () =>
           editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined),
       }),
-      new ComponentPickerOption('Bulleted List', {
+      new ComponentPickerOption('תבליטים', {
         icon: <FormatListBulletedIcon />,
-        keywords: ['bulleted list', 'unordered list', 'ul'],
+        keywords: ['bulleted list', 'unordered list', 'ul', 'תבליטים'],
         keyboardShortcut: '*',
         onSelect: () =>
           editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined),
       }),
-      new ComponentPickerOption('Check List', {
+      new ComponentPickerOption('טודוליסט', {
         icon: <PlaylistAddCheckIcon />,
-        keywords: ['check list', 'todo list'],
+        keywords: ['check list', 'todo list', 'טודוליסט'],
         keyboardShortcut: '[x]',
         onSelect: () =>
           editor.dispatchCommand(INSERT_CHECK_LIST_COMMAND, undefined),
       }),
-      new ComponentPickerOption('Quote', {
+      new ComponentPickerOption('ציטוט', {
         icon: <FormatQuoteIcon />,
-        keywords: ['block quote'],
+        keywords: ['block quote', 'ציטוט'],
         keyboardShortcut: '>',
         onSelect: () =>
           editor.update(() => {
@@ -284,9 +284,9 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
             }
           }),
       }),
-      new ComponentPickerOption('Code', {
+      new ComponentPickerOption('קוד', {
         icon: <CodeIcon />,
-        keywords: ['javascript', 'python', 'js', 'codeblock'],
+        keywords: ['javascript', 'python', 'js', 'codeblock', 'קוד'],
         keyboardShortcut: '```',
         onSelect: () =>
           editor.update(() => {
@@ -304,42 +304,42 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
             }
           }),
       }),
-      new ComponentPickerOption('Divider', {
+      new ComponentPickerOption('חוצץ', {
         icon: <HorizontalRuleIcon />,
-        keywords: ['horizontal rule', 'divider', 'hr'],
+        keywords: ['horizontal rule', 'divider', 'hr', 'חוצץ'],
         keyboardShortcut: '---',
         onSelect: () =>
           editor.dispatchCommand(INSERT_HORIZONTAL_RULE_COMMAND, undefined),
       }),
-      new ComponentPickerOption('Math', {
+      new ComponentPickerOption('מתמטיקה', {
         icon: <FunctionsIcon />,
-        keywords: ['equation', 'latex', 'math'],
+        keywords: ['equation', 'latex', 'math', 'מתמטיקה'],
         keyboardShortcut: '$$',
         onSelect: () =>
           editor.dispatchCommand(INSERT_MATH_COMMAND, { value: '' }),
       }),
-      new ComponentPickerOption('Graph', {
+      new ComponentPickerOption('גרף', {
         icon: GraphIcon,
-        keywords: ['geogebra', 'graph', 'plot', '2d', '3d'],
-        keyboardShortcut: '/plot',
+        keywords: ['geogebra', 'graph', 'plot', '2d', '3d', 'גרף'],
+        keyboardShortcut: '/גרף',
         onSelect: openGraphDialog,
       }),
-      new ComponentPickerOption('Sketch', {
+      new ComponentPickerOption('קשקוש', {
         icon: <BrushIcon />,
-        keywords: ['excalidraw', 'sketch', 'drawing', 'diagram'],
-        keyboardShortcut: '/sketch',
+        keywords: ['excalidraw', 'sketch', 'drawing', 'diagram', 'קשקוש', 'ציור', 'צייר'],
+        keyboardShortcut: '/קשקוש',
         onSelect: openSketchDialog,
       }),
-      new ComponentPickerOption('Image', {
+      new ComponentPickerOption('תמונה', {
         icon: <ImageIcon />,
-        keywords: ['image', 'photo', 'picture', 'img'],
-        keyboardShortcut: '/img',
+        keywords: ['image', 'photo', 'picture', 'img', 'תמונה'],
+        keyboardShortcut: '/תמונה',
         onSelect: openImageDialog
       }),
-      new ComponentPickerOption('Table', {
+      new ComponentPickerOption('טבלה', {
         icon: <TableIcon />,
-        keywords: ['table', 'grid', 'spreadsheet', 'rows', 'columns'],
-        keyboardShortcut: '/3x3',
+        keywords: ['table', 'grid', 'spreadsheet', 'rows', 'columns', 'טבלה'],
+        keyboardShortcut: '/טבלה',
         onSelect: openTableDialog,
       }),
       // new ComponentPickerOption('Note', {
@@ -349,24 +349,24 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
       //   onSelect: () =>
       //     editor.dispatchCommand(INSERT_STICKY_COMMAND, undefined),
       // }),
-      new ComponentPickerOption('Collapsible', {
+      new ComponentPickerOption('קיפול', {
         icon: <PlayArrowIcon />,
-        keywords: ['collapse', 'collapsible', 'toggle'],
-        keyboardShortcut: '/collapse',
+        keywords: ['collapse', 'collapsible', 'toggle', 'קיפול'],
+        keyboardShortcut: '/קיפול',
         onSelect: () =>
           editor.dispatchCommand(INSERT_COLLAPSIBLE_COMMAND, undefined),
       }),
-      new ComponentPickerOption('Columns', {
+      new ComponentPickerOption('עמודות', {
         icon: <ViewColumnIcon />,
-        keywords: ['columns'],
-        keyboardShortcut: '/columns',
+        keywords: ['columns', 'עמודות'],
+        keyboardShortcut: '/עמודות',
         onSelect: openColumnsDialog,
       }),
-      ...['left', 'center', 'right', 'justify'].map(
+      ...['לשמאל', 'למרכז', 'לימין', 'לצדדים'].map(
         (alignment) =>
-          new ComponentPickerOption(`Align ${alignment}`, {
+          new ComponentPickerOption(`ישור ${alignment}`, {
             icon: FormatAlignIcon(alignment),
-            keywords: ['align', alignment],
+            keywords: ['align','ישור', alignment],
             keyboardShortcut: `/${alignment}`,
             onSelect: () =>
               // @ts-ignore Correct types, but since they're dynamic TS doesn't like it.

@@ -107,10 +107,10 @@ function SketchDialog({ editor, node, open }: { editor: LexicalEditor, node: Ske
     </DialogContent>
     <DialogActions>
       <Button autoFocus onClick={handleClose}>
-        Cancel
+        ביטול
       </Button>
       <Button onClick={handleSubmit}>
-        {!node ? "Insert" : "Update"}
+        {!node ? "אישור" : "עדכן"}
       </Button>
     </DialogActions>
   </Dialog>;

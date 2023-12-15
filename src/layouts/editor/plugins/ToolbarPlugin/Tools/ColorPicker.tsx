@@ -79,7 +79,7 @@ export default function ColorPicker({ onColorChange, toggle = "togglebutton" }
         transformOrigin={{ vertical: 'top', horizontal: 'center' }}
         sx={{ 'ul': { pt: 0, display: 'flex', flexWrap: 'wrap', width: 280 } }}
       >
-        <ListSubheader key="text" sx={{ width: "100%" }}>Text</ListSubheader>
+        <ListSubheader key="text" sx={{ width: "100%" }}>צבע גופן</ListSubheader>
         {textPalete.map((color, index) => (
           <MenuItem key={index} onClick={e => { onChange("text", color); }}>
             <CircleOutlinedIcon style={{ color }} />
@@ -88,7 +88,7 @@ export default function ColorPicker({ onColorChange, toggle = "togglebutton" }
         <MenuItem key="clear-color" onClick={e => { onChange("text", 'inherit'); }}>
           <FormatClearIcon />
         </MenuItem>
-        <ListSubheader key="background" sx={{ width: "100%" }}>Background</ListSubheader>
+        <ListSubheader key="background" sx={{ width: "100%" }}>צבע סימון טקסט</ListSubheader>
         {backgroundPalete.map((color, index) => (
           <MenuItem key={index} onClick={e => { onChange("background", color); }}>
             <CircleIcon style={{ backgroundColor: color, color: 'transparent' }} />

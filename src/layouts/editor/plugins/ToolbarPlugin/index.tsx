@@ -356,11 +356,11 @@ function ToolbarPlugin() {
         {/*<AppBar className='toolbar-appbar' elevation={trigger ? 4 : 0} position={trigger ? 'fixed' : 'static'}>*/}
         <Toolbar className="toolbar" sx={{ displayPrint: 'none', px: `${(trigger ? 1 : 0)}!important`, justifyContent: "space-between", alignItems: "center", gap: 0.5, minHeight: 54 }}>
           <Box sx={{ display: "flex" }}>
-            <IconButton title={IS_APPLE ? 'Undo (⌘Z)' : 'Undo (Ctrl+Z)'} aria-label="Undo" disabled={!canUndo}
+            <IconButton title={IS_APPLE ? 'בטל (⌘Z)' : 'בטל (Ctrl+Z)'} aria-label="בטל" disabled={!canUndo}
               onClick={() => { activeEditor.dispatchCommand(UNDO_COMMAND, undefined); }}>
               <UndoIcon />
             </IconButton>
-            <IconButton title={IS_APPLE ? 'Redo (⌘Y)' : 'Redo (Ctrl+Y)'} aria-label="Redo" disabled={!canRedo}
+            <IconButton title={IS_APPLE ? 'חזור על ההקלדה (⌘Y)' : 'חזור על ההקלדה (Ctrl+Y)'} aria-label="חזור על ההקלדה" disabled={!canRedo}
               onClick={() => { activeEditor.dispatchCommand(REDO_COMMAND, undefined); }}>
               <RedoIcon />
             </IconButton>
@@ -377,10 +377,10 @@ function ToolbarPlugin() {
                 </Select>
               ) : (
                 <>
-                  <Select size='small' sx={{ width: 100 }} onChange={onFontFamilySelect} value={fontFamily}>
+                  <Select title="גופן" size='small' sx={{ width: 100 }} onChange={onFontFamilySelect} value={fontFamily}>
                     {FONT_FAMILY_OPTIONS.map(([option, text]) => <MenuItem key={option} value={option}>  {text}</MenuItem>)}
                   </Select>
-                  <Select size='small' sx={{ width:65,  }} onChange={onFontSizeSelect} value={fontSize}>
+                  <Select title="גודל גופן" size='small' sx={{ width:65,  }} onChange={onFontSizeSelect} value={fontSize}>
                     {FONT_SIZE_OPTIONS.map(([option, text]) => <MenuItem key={option} value={option}>  {text}</MenuItem>)}
                   </Select>
                   <TextFormatToggles editor={activeEditor} sx={{ display: { xs: "none", sm: "none", md: "none", lg: "flex" } }} />
@@ -391,8 +391,12 @@ function ToolbarPlugin() {
             }
           </Box>
           <Box sx={{ display: "flex" }}>
+            <div title="הוספה">
             <InsertToolMenu editor={activeEditor} />
+            </div>
+            <div title="ישור טקסט">
             <AlignTextMenu editor={activeEditor} isRTL={isRTL} />
+            </div>
           </Box>
         </Toolbar >
       </AppBar>

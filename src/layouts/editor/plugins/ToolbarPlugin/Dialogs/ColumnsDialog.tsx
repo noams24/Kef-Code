@@ -14,11 +14,11 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
 const LAYOUTS = [
-  ["1fr 1fr", "2 columns (equal width)"],
-  ["1fr 3fr", "2 columns (25% - 75%)"],
-  ["1fr 1fr 1fr", "3 columns (equal width)"],
-  ["1fr 2fr 1fr", "3 columns (25% - 50% - 25%)"],
-  ["1fr 1fr 1fr 1fr", "4 columns (equal width)"],
+  ["1fr 1fr", "שתי עמודות (בגודל שווה)"],
+  ["1fr 3fr", " (25% - 75%) שתי עמודות"],
+  ["1fr 1fr 1fr", "שלוש עמודות (בגודל שווה)"],
+  ["1fr 2fr 1fr", "(25% - 50% - 25%) שלוש עמודות"],
+  ["1fr 1fr 1fr 1fr", "ארבע עמודות (בגודל שווה)"],
 ];
 
 function ColumnsDialog({
@@ -61,7 +61,7 @@ function ColumnsDialog({
       aria-labelledby="columns-dialog-title"
       disableEscapeKeyDown
     >
-      <DialogTitle id="columns-dialog-title">Insert Columns</DialogTitle>
+      <DialogTitle id="columns-dialog-title">הוספת עמודות</DialogTitle>
       <DialogContent>
         <Select
           size="small"
@@ -79,9 +79,9 @@ function ColumnsDialog({
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={handleClose}>
-          Cancel
+          ביטול
         </Button>
-        <Button onClick={handleClick}>Insert</Button>
+        <Button onClick={handleClick}>אישור</Button>
       </DialogActions>
     </Dialog>
   );

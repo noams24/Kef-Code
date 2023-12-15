@@ -54,43 +54,43 @@ export default function InsertToolMenu({ editor }: { editor: LexicalEditor }): J
           <ListItemIcon>
             <HorizontalRuleIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Divider</ListItemText>
+          <ListItemText>חוצץ</ListItemText>
           <Typography variant="body2" color="text.secondary">---</Typography>
         </MenuItem>
         <MenuItem onClick={() => { editor.dispatchCommand(INSERT_MATH_COMMAND, { value: '' },); handleClose(); }}>
           <ListItemIcon>
             <FunctionsIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Math</ListItemText>
+          <ListItemText>מתמטיקה</ListItemText>
           <Typography variant="body2" color="text.secondary">$$</Typography>
         </MenuItem>
         <MenuItem onClick={() => { openGraphDialog(); handleClose(); }}>
           <ListItemIcon>
             <GraphIcon />
           </ListItemIcon>
-          <ListItemText>Graph</ListItemText>
-          <Typography variant="body2" color="text.secondary">/plot</Typography>
+          <ListItemText>גרף</ListItemText>
+          <Typography variant="body2" color="text.secondary">/גרף</Typography>
         </MenuItem>
         <MenuItem onClick={() => { openSketchDialog(); handleClose(); }}>
           <ListItemIcon>
             <BrushIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Sketch</ListItemText>
-          <Typography variant="body2" color="text.secondary" sx={{ ml: 1 }}>/sketch</Typography>
+          <ListItemText>קשקוש</ListItemText>
+          <Typography variant="body2" color="text.secondary" sx={{ ml: 1 }}>/קשקוש</Typography>
         </MenuItem>
         <MenuItem onClick={() => { openImageDialog(); handleClose(); }}>
           <ListItemIcon>
             <ImageIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Image</ListItemText>
-          <Typography variant="body2" color="text.secondary">/img</Typography>
+          <ListItemText>תמונה</ListItemText>
+          <Typography variant="body2" color="text.secondary">/תמונה</Typography>
         </MenuItem>
         <MenuItem onClick={() => { openTableDialog(); handleClose(); }}>
           <ListItemIcon>
             <TableIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Table</ListItemText>
-          <Typography variant="body2" color="text.secondary">/3x3</Typography>
+          <ListItemText>טבלה</ListItemText>
+          <Typography variant="body2" color="text.secondary">/טבלה</Typography>
         </MenuItem>
         {/* <MenuItem onClick={() => { editor.dispatchCommand(INSERT_STICKY_COMMAND, undefined); handleClose(); }}>
           <ListItemIcon>
@@ -103,15 +103,15 @@ export default function InsertToolMenu({ editor }: { editor: LexicalEditor }): J
           <ListItemIcon>
             <PlayArrowIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Collapsible</ListItemText>
-          <Typography variant="body2" color="text.secondary">   /collapse</Typography>
+          <ListItemText>קיפול</ListItemText>
+          <Typography variant="body2" color="text.secondary">/קיפול</Typography>
         </MenuItem>
         <MenuItem onClick={() => { openColumnsDialog(); handleClose(); }}>
           <ListItemIcon>
             <TableIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Columns</ListItemText>
-          <Typography variant="body2" color="text.secondary">   /columns</Typography>
+          <ListItemText>עמודות</ListItemText>
+          <Typography variant="body2" color="text.secondary">/עמודות</Typography>
         </MenuItem>
       </Menu>
     </>

@@ -134,61 +134,61 @@ export function BlockFormatSelect({ editor, blockType }: {
         <ListItemIcon>
           <ViewHeadlineIcon fontSize="small" />
         </ListItemIcon>
-        <ListItemText>Normal</ListItemText>
+        <ListItemText>פסקה</ListItemText>
       </MenuItem>
       <MenuItem value='h1' onClick={() => formatHeading('h1')}>
         <ListItemIcon>
           <H1Icon />
         </ListItemIcon>
-        <ListItemText>Heading 1</ListItemText>
+        <ListItemText>כותרת 1</ListItemText>
       </MenuItem>
       <MenuItem value='h2' onClick={() => formatHeading('h2')}>
         <ListItemIcon>
           <H2Icon />
         </ListItemIcon>
-        <ListItemText>Heading 2</ListItemText>
+        <ListItemText>כותרת 2</ListItemText>
       </MenuItem>
       <MenuItem value='h3' onClick={() => formatHeading('h3')}>
         <ListItemIcon>
           <H3Icon />
         </ListItemIcon>
-        <ListItemText>Heading 3</ListItemText>
+        <ListItemText>כותרת 3</ListItemText>
       </MenuItem>
       <MenuItem value='h4' onClick={() => formatHeading('h4')}>
         <ListItemIcon>
           <H4Icon />
         </ListItemIcon>
-        <ListItemText>Heading 4</ListItemText>
+        <ListItemText>כותרת 4</ListItemText>
       </MenuItem>
       <MenuItem value='bullet' onClick={formatBulletList}>
         <ListItemIcon>
           <FormatListBulletedIcon fontSize="small" />
         </ListItemIcon>
-        <ListItemText>Bullet List</ListItemText>
+        <ListItemText>תבליטים</ListItemText>
       </MenuItem>
       <MenuItem value='number' onClick={formatNumberedList}>
         <ListItemIcon>
           <FormatListNumberedIcon fontSize="small" />
         </ListItemIcon>
-        <ListItemText>Numbered List</ListItemText>
+        <ListItemText>מספור</ListItemText>
       </MenuItem>
       <MenuItem value='check' onClick={formatCheckList}>
         <ListItemIcon>
           <PlaylistAddCheckIcon fontSize="small" />
         </ListItemIcon>
-        <ListItemText>Check List</ListItemText>
+        <ListItemText>טודוליסט</ListItemText>
       </MenuItem>
       <MenuItem value='quote' onClick={formatQuote}>
         <ListItemIcon>
           <FormatQuoteIcon fontSize="small" />
         </ListItemIcon>
-        <ListItemText>Quote</ListItemText>
+        <ListItemText>ציטוט</ListItemText>
       </MenuItem>
       <MenuItem value='code' onClick={formatCode}>
         <ListItemIcon>
           <CodeIcon fontSize="small" />
         </ListItemIcon>
-        <ListItemText>CodeBlock</ListItemText>
+        <ListItemText>קוד</ListItemText>
       </MenuItem>
     </Select>
   );

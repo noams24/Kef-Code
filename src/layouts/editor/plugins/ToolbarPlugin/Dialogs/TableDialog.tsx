@@ -65,29 +65,29 @@ function TableDialog({ editor, open }: { editor: LexicalEditor, open: boolean })
     disableEscapeKeyDown
   >
     <DialogTitle id="table-dialog-title">
-      Insert Table
+      הוספת טבלה
     </DialogTitle>
     <DialogContent>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <FormControl sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', my: 2 }}>
           <IconButton onClick={() => setRows(+formData.rows - 1)}><Remove /></IconButton>
-          <TextField type="number" size="small" sx={{ mx: 1 }} value={formData.rows} onChange={e => setRows(+e.target.value)} label="Rows" name="rows" autoComplete="rows" autoFocus />
+          <TextField type="number" size="small" sx={{ mx: 1 }} value={formData.rows} onChange={e => setRows(+e.target.value)} label="שורות" name="rows" autoComplete="rows" autoFocus />
           <IconButton onClick={() => setRows(+formData.rows + 1)}><Add /></IconButton>
         </FormControl>
         <FormControl sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', my: 2 }}>
           <IconButton onClick={() => setColumns(+formData.columns - 1)}><Remove /></IconButton>
-          <TextField type="number" size="small" sx={{ mx: 1 }} value={formData.columns} onChange={e => setColumns(+e.target.value)} label="Columns" name="columns" autoComplete="columns" autoFocus />
+          <TextField type="number" size="small" sx={{ mx: 1 }} value={formData.columns} onChange={e => setColumns(+e.target.value)} label="עמודות" name="columns" autoComplete="columns" autoFocus />
           <IconButton onClick={() => setColumns(+formData.columns + 1)}><Add /></IconButton>
         </FormControl>
-        <FormControlLabel sx={{ display: 'flex', justifyContent: 'center', my: 2 }} control={<Switch checked={formData.includeHeaders} onChange={setIncludeHeaders} />} label="Include Headers" />
+        <FormControlLabel sx={{ display: 'flex', justifyContent: 'center', my: 2 }} control={<Switch checked={formData.includeHeaders} onChange={setIncludeHeaders} />} label="כותרת" />
       </Box>
     </DialogContent>
     <DialogActions>
       <Button autoFocus onClick={handleClose}>
-        Cancel
+        ביטול
       </Button>
       <Button onClick={handleSubmit}>
-        Insert
+        אישור
       </Button>
     </DialogActions>
   </Dialog>;

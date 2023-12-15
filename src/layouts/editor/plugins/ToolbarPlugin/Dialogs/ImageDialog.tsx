@@ -95,31 +95,32 @@ function ImageDialog({ editor, node, open }: { editor: LexicalEditor, node: Imag
     onClose={handleClose}
     aria-labelledby="image-dialog-title"
     disableEscapeKeyDown
+    dir="rtl"
   >
     <DialogTitle id="image-dialog-title">
-      Insert Image
+      הוספת תמונה
     </DialogTitle>
     <DialogContent>
       <Box component="form" noValidate sx={{ mt: 1 }}>
-        <Typography variant="h6" sx={{ mt: 1 }}>From URL</Typography>
+        <Typography variant="h6" sx={{ mt: 1 }}>הוספת תמונה דרך קישור</Typography>
         <TextField type="url" margin="normal" size="small" fullWidth
-          value={formData.src} onChange={updateFormData} label="Image URL" name="src" autoComplete="src" autoFocus />
-        <TextField margin="normal" size="small" fullWidth value={formData.altText} onChange={updateFormData} label="Alt Text" name="altText" autoComplete="altText" />
-        <Typography variant="h6" sx={{ mt: 1 }}>From File</Typography>
+          value={formData.src} onChange={updateFormData} label="קישור לתמונה" name="src" autoComplete="src" autoFocus />
+        <TextField margin="normal" size="small" fullWidth value={formData.altText} onChange={updateFormData} label="טקסט משני" name="altText" autoComplete="altText" />
+        <Typography variant="h6" sx={{ mt: 1 }}>הוספת תמונה דרך העלאה</Typography>
         <Button variant="outlined" sx={{ my: 2 }} startIcon={<UploadFileIcon />} component="label">
-          Upload File
+          העלאת תמונה
           <input type="file" hidden accept="image/*" onChange={e => loadImage(e.target.files)} autoFocus />
         </Button>
       </Box>
     </DialogContent>
     <DialogActions>
       <Button onClick={handleClose}>
-        Cancel
+        ביטול
       </Button>
       <Button
         disabled={isDisabled}
         onClick={handleSubmit}>
-        Confirm
+        אישור
       </Button>
     </DialogActions>
   </Dialog>;

@@ -62,8 +62,8 @@ function LinkDialog({ editor, node, open }: { editor: LexicalEditor, node: LinkN
     aria-labelledby="link-dialog-title"
     disableEscapeKeyDown
   >
-    <DialogTitle id="link-dialog-title">
-      Insert Link
+    <DialogTitle dir="rtl" id="link-dialog-title">
+      הוספת קישור
     </DialogTitle>
     <DialogContent>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>

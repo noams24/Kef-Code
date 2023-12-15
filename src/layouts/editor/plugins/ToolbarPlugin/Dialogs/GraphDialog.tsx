@@ -97,10 +97,10 @@ function GraphDialog({ editor, node, open }: { editor: LexicalEditor, node: Grap
     </DialogContent>
     <DialogActions>
       <Button onClick={handleClose}>
-        Cancel
+        ביטול
       </Button>
       <Button onClick={handleSubmit}>
-        {!node ? "Insert" : "Update"}
+        {!node ? "הוספה" : "עדכן"}
       </Button>
     </DialogActions>
   </Dialog>;

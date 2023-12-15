@@ -57,7 +57,7 @@ export default function AlignTextMenu({ editor, isRTL }: { editor: LexicalEditor
           <ListItemIcon>
             <FormatAlignLeftIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Left Align</ListItemText>
+          <ListItemText>ישר לשמאל</ListItemText>
         </MenuItem>
         <MenuItem onClick={() => {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center');
@@ -66,7 +66,7 @@ export default function AlignTextMenu({ editor, isRTL }: { editor: LexicalEditor
           <ListItemIcon>
             <FormatAlignCenterIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Center Align</ListItemText>
+          <ListItemText>מרכז</ListItemText>
         </MenuItem>
         <MenuItem onClick={() => {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right');
@@ -75,7 +75,7 @@ export default function AlignTextMenu({ editor, isRTL }: { editor: LexicalEditor
           <ListItemIcon>
             <FormatAlignRightIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Right Align</ListItemText>
+          <ListItemText>ישר לימין</ListItemText>
         </MenuItem>
         <MenuItem onClick={() => {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify');
@@ -84,7 +84,7 @@ export default function AlignTextMenu({ editor, isRTL }: { editor: LexicalEditor
           <ListItemIcon>
             <FormatAlignJustifyIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Justify Align</ListItemText>
+          <ListItemText>ישר לשני הצדדים</ListItemText>
         </MenuItem>
 
         <Divider />
@@ -96,7 +96,7 @@ export default function AlignTextMenu({ editor, isRTL }: { editor: LexicalEditor
           <ListItemIcon>
             {isRTL ? <FormatIndentIncreaseIcon fontSize="small" /> : <FormatIndentDecreaseIcon fontSize="small" />}
           </ListItemIcon>
-          <ListItemText>Outdent</ListItemText>
+          <ListItemText>הגדל כניסה</ListItemText>
         </MenuItem>
         <MenuItem onClick={() => {
           editor.dispatchCommand(INDENT_CONTENT_COMMAND, undefined);
@@ -105,7 +105,7 @@ export default function AlignTextMenu({ editor, isRTL }: { editor: LexicalEditor
           <ListItemIcon>
             {isRTL ? <FormatIndentDecreaseIcon fontSize="small" /> : <FormatIndentIncreaseIcon fontSize="small" />}
           </ListItemIcon>
-          <ListItemText>Indent</ListItemText>
+          <ListItemText>הקטן כניסה</ListItemText>
         </MenuItem>
       </Menu>
     </>

@@ -112,30 +112,32 @@ export default function TextFormatToggles({ editor, sx }: { editor: LexicalEdito
   const openLinkDialog = () => editor.dispatchCommand(SET_DIALOGS_COMMAND, ({ link: { open: true } }));
 
   return (<ToggleButtonGroup size="small" sx={{ ...sx }} value={formats} onChange={handleFormat} aria-label="text formatting">
-    <ToggleButton value="bold" title={IS_APPLE ? 'Bold (⌘B)' : 'Bold (Ctrl+B)'} aria-label={`Format text as bold. Shortcut: ${IS_APPLE ? '⌘B' : 'Ctrl+B'}`}>
+    <ToggleButton value="bold" title={IS_APPLE ? 'מודגש (⌘B)' : 'מודגש (Ctrl+B)'} aria-label={`מודגש ${IS_APPLE ? '⌘B' : 'Ctrl+B'}`}>
       <FormatBold />
     </ToggleButton>
-    <ToggleButton value="italic" title={IS_APPLE ? 'Italic (⌘I)' : 'Italic (Ctrl+I)'} aria-label={`Format text as italics. Shortcut: ${IS_APPLE ? '⌘I' : 'Ctrl+I'}`}>
+    <ToggleButton value="italic" title={IS_APPLE ? 'הטה (⌘I)' : 'הטה (Ctrl+I)'} aria-label={`הטה ${IS_APPLE ? '⌘I' : 'Ctrl+I'}`}>
       <FormatItalic />
     </ToggleButton>
-    <ToggleButton value="underline" title={IS_APPLE ? 'Underline (⌘U)' : 'Underline (Ctrl+U)'} aria-label={`Format text to underlined. Shortcut: ${IS_APPLE ? '⌘U' : 'Ctrl+U'}`}>
+    <ToggleButton value="underline" title={IS_APPLE ? 'קו תחתון (⌘U)' : 'קו תחתון (Ctrl+U)'} aria-label={`קו תחתון ${IS_APPLE ? '⌘U' : 'Ctrl+U'}`}>
       <FormatUnderlined />
     </ToggleButton>
-    <ToggleButton value="code" title='Format text to inline code' aria-label='Format text to inline code'>
+    <ToggleButton value="code" title='קוד' aria-label='קוד'>
       <Code />
     </ToggleButton>
-    <ToggleButton value="strikethrough" title='Format text with strikethrough' aria-label='Format text with strikethrough'>
+    <ToggleButton value="strikethrough" title='כתב חוצה' aria-label='כתב חוצה'>
       <FormatStrikethrough />
     </ToggleButton>
-    <ToggleButton value="subscript" title='Format text with subscript' aria-label='Format text with subscript'>
+    <ToggleButton value="subscript" title='כתב תחתי' aria-label='כתב תחתי'>
       <Subscript />
     </ToggleButton>
-    <ToggleButton value="superscript" title='Format text with superscript' aria-label='Format text with superscript'>
+    <ToggleButton value="superscript" title='כתב עילי' aria-label='כתב עילי'>
       <Superscript />
     </ToggleButton>
-    <ToggleButton value="link" title='Insert link' aria-label='Insert link' onClick={openLinkDialog}>
+    <ToggleButton value="link" title='הוספת קישור' aria-label='הוספת קישור' onClick={openLinkDialog}>
       <Link />
     </ToggleButton>
+    <div title="צבע">
     <ColorPicker onColorChange={onColorChange} />
+    </div>
   </ToggleButtonGroup>)
 }
