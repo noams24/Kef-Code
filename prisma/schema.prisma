@@ -26,6 +26,11 @@ enum UserRole {
   ADMIN
 }
 
+enum SubscriptionType {
+  Monthly
+  Yearly
+}
+
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -46,22 +51,44 @@ model Account {
 }
 
 model User {
-  id                 String               @id @default(cuid())
-  name               String?
-  email              String?              @unique
-  emailVerified      DateTime?
-  username           String?              @unique
-  image              String?
-  role               UserRole             @default(USER)
-  posts              Post[]
-  sessions           Session[]
-  Comment            Comment[]
-  votes              Vote[]
-  bookmarks          Bookmark[]
-  submissions        Submissions[]
-  problemStatus      problemStatus[]
-  accounts           Account[]
-  problemsneedverify problemsneedverify[]
+  id                  String                @id @default(cuid())
+  name                String?
+  email               String?               @unique
+  emailVerified       DateTime?
+  username            String?               @unique
+  image               String?
+  subscription        Subscription?
+  subscriptionHistory SubscriptionHistory[]
+  role                UserRole              @default(USER)
+  posts               Post[]
+  sessions            Session[]
+  Comment             Comment[]
+  votes               Vote[]
+  bookmarks           Bookmark[]
+  submissions         Submissions[]
+  problemStatus       problemStatus[]
+  accounts            Account[]
+  problemsneedverify  problemsneedverify[]
+}
+
+model Subscription {
+  id               String           @id @default(cuid())
+  subscriptionType SubscriptionType
+  startDate        DateTime
+  endDate          DateTime
+  amount           Float
+  userId           String           @unique
+  user             User             @relation(fields: [userId], references: [id])
+}
+
+model SubscriptionHistory {
+  id               String           @id @default(cuid())
+  subscriptionType SubscriptionType
+  startDate        DateTime
+  endDate          DateTime
+  amount           Float
+  userId           String           @unique
+  user             User             @relation(fields: [userId], references: [id])
 }
 
 model Session {
@@ -106,8 +133,8 @@ model Comment {
   commentId     String?
   Submissions   Submissions? @relation(fields: [submissionsId], references: [id], onDelete: Cascade)
   submissionsId String?
-  Solutions  Solution? @relation(fields: [solutionId], references: [id], onDelete: Cascade)
-  solutionId String?
+  Solutions     Solution?    @relation(fields: [solutionId], references: [id], onDelete: Cascade)
+  solutionId    String?
   votes         Vote[]
 
   @@index([authorId])
@@ -137,12 +164,13 @@ model Problem {
 
 model Solution {
   id        String    @id @default(cuid())
-  problemId Int      @unique
-  problem   Problem  @relation(fields: [problemId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  problemId Int       @unique
+  problem   Problem   @relation(fields: [problemId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   videoUrl  String?
   content   Json?
+  isPremium Boolean
   comments  Comment[]
   votes     Vote[]
 }
@@ -178,8 +206,8 @@ model Vote {
   commentId    String?
   SubmissionId String?
   Submission   Submissions? @relation(fields: [SubmissionId], references: [id])
-  SolutionId String?
-  Solution   Solution? @relation(fields: [SolutionId], references: [id])
+  SolutionId   String?
+  Solution     Solution?    @relation(fields: [SolutionId], references: [id])
 
   @@index([userId])
   @@index([problemId])
