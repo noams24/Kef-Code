@@ -36,7 +36,7 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 
 .nav-link {
-  @apply block p-3 font-semibold text-dark transition hover:text-primary dark:text-darkmode-dark lg:px-2 lg:py-3;
+  @apply block p-3 font-semibold text-dark transition dark:text-darkmode-dark lg:px-2 lg:py-3;
 }
 
 .nav-dropdown {
@@ -52,7 +52,7 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 
 .nav-dropdown-link {
-  @apply block py-1 font-semibold text-dark transition hover:text-primary dark:text-darkmode-text dark:hover:text-darkmode-primary;
+  @apply block py-1 font-semibold text-dark transition dark:text-darkmode-text;
 }
 
 //theme-switcher
@@ -80,7 +80,7 @@ input#nav-toggle:checked ~ #nav-menu {
 
 // search style
 .search-icon {
-  @apply cursor-pointer p-2 text-xl text-dark hover:text-primary dark:text-darkmode-light;
+  @apply cursor-pointer p-2 text-xl text-dark dark:text-darkmode-light;
 }
 
 .search-modal {

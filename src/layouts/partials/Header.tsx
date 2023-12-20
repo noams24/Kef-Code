@@ -49,7 +49,7 @@ const Header = () => {
                       <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                     </svg>
                   </span>
-                  <ul className="nav-dropdown-list group-hover:block invisible absolute block opacity-0 group-hover:visible group-hover:opacity-100">
+                  {/* <ul className="nav-dropdown-list group-hover:block invisible absolute block opacity-0 group-hover:visible group-hover:opacity-100">
                     {menu.children?.map((child, i) => (
                       <li className="nav-dropdown-item text-right" key={`children-${i}`}>
                         <Link
@@ -60,7 +60,7 @@ const Header = () => {
                         </Link>
                       </li>
                     ))}
-                  </ul>
+                  </ul> */}
                 </li>
               ) : (
                 <li className="nav-item">
