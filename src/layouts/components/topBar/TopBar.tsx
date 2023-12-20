@@ -1,11 +1,6 @@
 "use client";
 
 import { BsList } from "react-icons/bs";
-import {
-  BiSolidChevronLeftCircle,
-  BiSolidChevronRightCircle,
-} from "react-icons/bi";
-
 import Breadcrumbs from "../Breadcrumbs";
 import Timer from "./Timer";
 import FullScreen from "./FullScreen";
@@ -36,7 +31,7 @@ const mockData = [
   },
 ];
 
-const TopBar = (problemId:any) => {
+const TopBar = (problemId: any) => {
   const pathname = usePathname().split("/");
   const course = pathname[2];
   const chapter = pathname[3];
@@ -52,7 +47,7 @@ const TopBar = (problemId:any) => {
     },
   });
 
-  function openSelect(selectData:any) {
+  function openSelect(selectData: any) {
     //TODO: display select problems: select modal or select drop down
   }
 
@@ -60,33 +55,93 @@ const TopBar = (problemId:any) => {
     <section>
       <div className="text-center mx-auto rounded px-12 my-5">
         <div className="flex justify-between gap-2 rounded bg-gradient-to-b from-body to-theme-light px-8  dark:from-darkmode-body dark:to-darkmode-theme-light">
-          <div className="flex items-center justify-between h-6 w-24 cursor-pointer">
-            {data ? (
-              <Link href={data.prevLink}>
-                <BiSolidChevronLeftCircle size={23} />
-              </Link>
-            ) : (
-              <BiSolidChevronLeftCircle size={23} />
-            )}
-
-            <div className="rounded hover:bg-gray-400 bg-gray-400">
+          <div className="flex items-center justify-between h-6 w-20 cursor-pointer">
+            <span
+              title="שאלה קודמת"
+              className="rounded border text-zinc-600 dark:text-zinc-300 border-zinc-500 hover:border-black hover:text-black dark:hover:border-white dark:hover:text-white"
+            >
               {data ? (
-                <button onClick={()=>openSelect(data)}>
+                <Link href={data.prevLink}>
+                  <svg
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                    height="22"
+                    width="22"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </Link>
+              ) : (
+                <svg
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                  height="22"
+                  width="22"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              )}
+            </span>
+            <span
+              title="עוד שאלות"
+              className="h-6 w-6 rounded border text-zinc-600 dark:text-zinc-300 border-zinc-500 hover:border-black hover:text-black dark:hover:border-white dark:hover:text-white"
+            >
+              {data ? (
+                <button onClick={() => openSelect(data)}>
                   <BsList />
                 </button>
               ) : (
-                <button onClick={()=>openSelect(mockData)}>
-                  <BsList />
+                <button>
+                <BsList />
                 </button>
               )}
-            </div>
-            {data ? (
-              <Link href={data.nextLink}>
-                <BiSolidChevronRightCircle size={23} />
-              </Link>
-            ) : (
-              <BiSolidChevronRightCircle size={23} />
-            )}
+            </span>
+            <span
+              title="שאלה הבאה"
+              className="rounded border text-zinc-600 dark:text-zinc-300 border-zinc-500 hover:border-black hover:text-black dark:hover:border-white dark:hover:text-white"
+            >
+              {data ? (
+                <Link href={data.nextLink}>
+                  <svg
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                    height="22"
+                    width="22"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </Link>
+              ) : (
+                <svg
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                  height="22"
+                  width="22"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              )}
+            </span>
           </div>
           <Breadcrumbs />
           <div className="container-right-top-bar">
