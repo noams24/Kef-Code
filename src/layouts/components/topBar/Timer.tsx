@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { FiRefreshCcw } from "react-icons/fi";
-import { TbPlayerStop } from "react-icons/tb";
+import { TbPlayerPause } from "react-icons/tb";
 import { BiPlay } from "react-icons/bi";
 type TimerProps = {};
 
@@ -40,12 +40,10 @@ const Timer: React.FC<TimerProps> = () => {
     <div>
       {showTimer ? (
         <div className="container-timer">
-          <div className="dark:text-white ">
-            {formatTime(time)}
-          </div>
+          <div className="w-16 mr-1">{formatTime(time)}</div>
           <FiRefreshCcw
-            // color="white"
-			title="אפס טיימר"
+            className="w-3 h-3"
+            title="אפס טיימר"
             onClick={() => {
               setShowTimer(false);
               setTime(0);
@@ -53,9 +51,15 @@ const Timer: React.FC<TimerProps> = () => {
             }}
           />
           {stopTimer ? (
-            <BiPlay title="הפעל טיימר" onClick={() => setStopTimer((prev) => !prev)} />
+            <BiPlay
+              title="הפעל טיימר"
+              onClick={() => setStopTimer((prev) => !prev)}
+            />
           ) : (
-            <TbPlayerStop title="עצור טיימר" onClick={() => setStopTimer((prev) => !prev)} />
+            <TbPlayerPause
+              title="עצור טיימר"
+              onClick={() => setStopTimer((prev) => !prev)}
+            />
           )}
         </div>
       ) : (
@@ -69,8 +73,8 @@ const Timer: React.FC<TimerProps> = () => {
             viewBox="0 0 24 24"
             width="0.7em"
             height="0.7em"
-            fill="gray"
-            className="h-4 w-4"
+            fill="currentColor"
+            className="h-4 w-4 text-zinc-700 dark:text-zinc-300"
           >
             <path
               fillRule="evenodd"
@@ -83,4 +87,4 @@ const Timer: React.FC<TimerProps> = () => {
     </div>
   );
 };
-export default Timer;
+export default Timer;  

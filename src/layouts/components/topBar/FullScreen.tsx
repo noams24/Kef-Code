@@ -38,7 +38,7 @@ const PreferenceNav = () => {
 	return (
 
 		<button onClick={handleFullScreen}>
-			<div className='text-gray-500 rounded-sm h-6 bg-gray-200 dark:bg-zinc-800 font-bold text-lg pt-0.5'>
+			<div className='text-zinc-700 dark:text-zinc-300 rounded-sm h-6 bg-gray-200 dark:bg-zinc-800 font-bold text-lg pt-0.5'>
 				{!isFullScreen ? <AiOutlineFullscreen title="הגדל"/> : <AiOutlineFullscreenExit title="מזער" />}
 			</div>
 		</button>
