@@ -13,11 +13,20 @@ export default async function SettingsPage() {
   const session = await getAuthSession();
 
   if (!session?.user) {
-    redirect("/sign-in");
+    return (
+      <div>
+        <h3 className="flex justify-center pt-10">עליך להתחבר לאתר כדי לראות דף זה</h3>
+      </div>
+    );
+    // redirect("/sign-in");
   }
 
-  return <AccountForm user={{
-    id: session.user.id,
-    username: session.user.username || '',
-  }}/>;
+  return (
+    <AccountForm
+      user={{
+        id: session.user.id,
+        username: session.user.username || "",
+      }}
+    />
+  );
 }
