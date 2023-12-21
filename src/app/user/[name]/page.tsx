@@ -1,6 +1,8 @@
 import { db } from "@/lib/db";
 import User from "./User";
 import SeoMeta from "@/partials/SeoMeta";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 interface ProblemObject {
   chapter: string;
@@ -45,7 +47,7 @@ const UserPage = async ({ params }: { params: { name: string } }) => {
     const data: DataObject[] = await db.submissions.findMany({
       where: {
         userId: user.id,
-        isPublic: true,
+        // isPublic: true,
       },
       orderBy: {
         updatedAt: "desc",
@@ -54,7 +56,11 @@ const UserPage = async ({ params }: { params: { name: string } }) => {
         problem: true,
       },
     });
-
+    const session = await getServerSession(authOptions);
+    let localUser = false;
+    if (session?.user.username === decodeURIComponent(params.name)) {
+      localUser = true
+    }
     return (
       <div>
         <SeoMeta
@@ -62,7 +68,7 @@ const UserPage = async ({ params }: { params: { name: string } }) => {
           meta_title={`כיף קוד - ${user.username}`}
           description={`כיף קוד - ${user.username}`}
         />
-        <User user={user} data={data} />
+        <User user={user} data={data} localUser={localUser} />
       </div>
     );
   } catch {

@@ -10,13 +10,17 @@ import { Snackbar } from "@mui/material";
 import dictionary from "@/content/dictionary.json";
 import SearchTask from "./SearchTask";
 import { DataObject, UserObject } from "./page";
+import PublicIcon from "@mui/icons-material/Public";
+import { Chip } from "@mui/material";
+import SaveIcon from '@mui/icons-material/Save';
 
 interface MyComponentProps {
   data: DataObject[];
   user: UserObject;
+  localUser: boolean;
 }
 
-const User: React.FC<MyComponentProps> = ({ user, data }) => {
+const User: React.FC<MyComponentProps> = ({ user, data, localUser }) => {
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const [solutions, setSolutions] = useState<DataObject[]>(data);
   const [searchInput, setSearchInput] = useState<string>("");
@@ -131,38 +135,49 @@ const User: React.FC<MyComponentProps> = ({ user, data }) => {
           <div className="grid grid-cols-4 gap-3">
             {solutions.map((item: any, index: any) => (
               <div
-                className="flex flex-col p-2 hover:bg-gray-100 dark:hover:bg-slate-800 border border-gray-800 dark:border-gray-400 rounded-sm"
+                className="overflow-clip p-2 hover:bg-gray-100 dark:hover:bg-slate-800 border border-gray-800 dark:border-gray-400 rounded-sm"
                 key={index}
               >
                 <Link href={`/view/${item.id}`} target="_blank">
-                  <div className="flex justify-between space-x-3 w-80">
+                  <div className="flex justify-between space-x-3 w-80 ">
                     <SiGoogledocs className="" size={30} />
-                    <div className="flex flex-col w-full gap-y-1 pr-2 ">
+                    <div className="w-full gap-y-1 pr-2 ">
                       <h5 className="font-bold font-primary">
                         {item.problem.title}
                       </h5>
                       <span className="text-sm">
                         {/* @ts-ignore */}
-                        {dictionary[item.problem.course]} -{" "}
-                        {/* @ts-ignore */}
+                        {dictionary[item.problem.course]} - {/* @ts-ignore */}
                         {dictionary[item.problem.chapter]}
                       </span>
-                      <span className="text-sm">
+                      <div className="text-sm">
                         {hebrewDateFormat(item[statusTime])}
-                      </span>
+                      </div>
                     </div>
-                    <div className="mt-12 pl-12">
-                      <button
-                        title="שיתוף"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          handleShare(item.problem.id);
-                        }}
-                      >
-                        <Share />
-                      </button>
-                    </div>
+                  </div>
+                  <div className="flex justify-between pr-2">
+                    <button
+                      title="שיתוף"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleShare(item.problem.id);
+                      }}
+                    >
+                      <Share />
+                    </button>
+                    {localUser && item.isPublic && <Chip
+                      sx={{ width: 0, flex: 1, maxWidth: "fit-content" }}
+                      icon={<PublicIcon />}
+                      label={"פורסם"}
+                      dir="ltr"
+                    />}
+                       {localUser && item.isPublic === false && <Chip
+                      sx={{ width: 0, flex: 1, maxWidth: "fit-content" }}
+                      icon={<SaveIcon />}
+                      label={"שמור"}
+                      dir="ltr"
+                    />}
                   </div>
                 </Link>
               </div>
