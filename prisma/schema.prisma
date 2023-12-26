@@ -171,8 +171,8 @@ model Solution {
   updatedAt DateTime  @updatedAt
   videoUrl  String?
   content   Json?
-  userId    String
-  user      User      @relation(fields: [userId], references: [id])
+  userId    String?
+  user      User?      @relation(fields: [userId], references: [id])
   isPremium Boolean
   comments  Comment[]
   votes     Vote[]
