@@ -69,6 +69,7 @@ model User {
   problemStatus       problemStatus[]
   accounts            Account[]
   problemsneedverify  problemsneedverify[]
+  solutions Solution[]
 }
 
 model Subscription {
@@ -170,9 +171,13 @@ model Solution {
   updatedAt DateTime  @updatedAt
   videoUrl  String?
   content   Json?
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
   isPremium Boolean
   comments  Comment[]
   votes     Vote[]
+  
+  @@index([userId])
 }
 
 model Submissions {
