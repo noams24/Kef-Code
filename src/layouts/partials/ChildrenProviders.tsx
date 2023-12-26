@@ -11,6 +11,8 @@ import {
   ReactNode,
   useContext,
 } from "react";
+import { NextUIProvider } from "@nextui-org/react";
+
 // import useMediaQuery from "@mui/material/useMediaQuery";
 import {
   createTheme,
@@ -65,7 +67,9 @@ const ChildrenProviders = ({ children }: { children: ReactNode }) => {
       <ThemProviderMui theme={themee}>
         <QueryClientProvider client={queryClient}>
           <QueryContext.Provider value={queryClient}>
-            <SessionProvider>{children}</SessionProvider>
+            <NextUIProvider>
+              <SessionProvider>{children}</SessionProvider>
+            </NextUIProvider>
           </QueryContext.Provider>
         </QueryClientProvider>
       </ThemProviderMui>
