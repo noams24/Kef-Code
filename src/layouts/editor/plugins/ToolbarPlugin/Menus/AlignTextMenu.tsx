@@ -69,7 +69,7 @@ export default function AlignTextMenu({ editor, isRTL }: { editor: LexicalEditor
           <ListItemText>מרכז</ListItemText>
         </MenuItem>
         <MenuItem onClick={() => {
-          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right');
+          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify');
           handleClose();
         }}>
           <ListItemIcon>
@@ -78,7 +78,7 @@ export default function AlignTextMenu({ editor, isRTL }: { editor: LexicalEditor
           <ListItemText>ישר לימין</ListItemText>
         </MenuItem>
         <MenuItem onClick={() => {
-          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify');
+          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right');
           handleClose();
         }}>
           <ListItemIcon>

@@ -47,7 +47,7 @@ const Breadcrumbs = ({ className }: { className?: string }) => {
                   {label}
               </Link>
             ) : (
-              <span className="text-light dark:text-darkmode-light">
+              <span className="text-light dark:text-darkmode-light font-arial font-bold">
                 {decodeURIComponent(label)}
                 {/* {label} */}
                 {/* @ts-ignore */}

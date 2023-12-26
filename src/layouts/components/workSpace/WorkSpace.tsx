@@ -1,7 +1,7 @@
 "use client";
 
 import Split from "react-split";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import playgroundTemplate from "./jsonFiles/empty.json";
 import type { EditorDocument } from "./types";
 import { type EditorState, type SerializedEditorState } from "lexical";
@@ -229,21 +229,21 @@ const Workspace: React.FC<WorkSpaceProps> = ({
       </Split>
 
       {/* Buttons */}
-      <div className="my-3 flex justify-center gap-x-2">
-        <Button
+      <div className="my-3 flex justify-center gap-x-3 pr-2">
+        <button
           onClick={() => handleSave({ jsonState, isPublic: true })}
           disabled={isLoading}
-          className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
+          className="btn-outline-primary"
         >
           פרסום פתרון
-        </Button>
-        <Button
+        </button>
+        <button
           onClick={() => handleSave({ jsonState, isPublic: false })}
           disabled={isLoading}
-          className="btn bg-white dark:bg-black btn-outline-primary btn-sm  lg:inline-block"
+          className="btn-outline-primary"
         >
           שמירה בענן
-        </Button>
+        </button>
       </div>
       {confetti && (
         <Confetti gravity={0.3} width={width - 1} height={height - 1} />
