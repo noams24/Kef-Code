@@ -1,12 +1,16 @@
 import Subscription from "./Subscription";
+import { getAuthSession } from "@/lib/auth";
+
+
 export const metadata = {
   title: "פרימיום",
   description: "פרימיום",
 };
 
-const Page = () => {
+const Page = async () => {
+  const session = await getAuthSession();
   return (
-    <Subscription/>
+    <Subscription session={session}/>
   );
 };
 
