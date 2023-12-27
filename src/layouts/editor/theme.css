@@ -14,8 +14,18 @@
   text-align: right;
 }
 
+/* .LexicalTheme__paragraph {
+  @apply m-0 mb-1 relative text-right
+} */
+
 .LexicalTheme__paragraph {
-  @apply m-0 mb-1 relative text-black dark:text-white
+  margin: 0;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  position: relative;
+  text-align: right
 }
 
 .LexicalTheme__paragraph:last-child {
@@ -181,6 +191,8 @@
   padding: 0;
   margin: 0;
   list-style-position: inside;
+  list-style-type: disc;
+  list-style-type: decimal
 }
 
 .LexicalTheme__ol2 {
