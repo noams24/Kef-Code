@@ -37,15 +37,11 @@ const Logo = ({ src }: { src?: string }) => {
   return (
     <Link href="/" className="navbar-brand inline-block">
         <Image
-          width={logo_width.replace("px", "") * 2}
-          height={logo_height.replace("px", "") * 2}
+          width={logo_width}
+          height={logo_height}
           src={logoPath}
           alt={title}
           priority
-          style={{
-            height: logo_height.replace("px", "") + "px",
-            width: logo_width.replace("px", "") + "px",
-          }}
         />
     </Link>
   );

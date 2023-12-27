@@ -20,7 +20,7 @@ export interface INavigationLink {
 
 const Header = () => {
   const { main }: { main: INavigationLink[] } = menu;
-
+    
   return (
     <header
       className="header z-30 h-20 sticky top-0 border-b border-gray-400"
@@ -88,7 +88,7 @@ const Header = () => {
 
         </ul>
         {/*Left side of the navbar */}
-        <div className="order-0 mr-10 flex items-center md:order-0 lg:ml-0">
+        <div className="order-0 flex items-center md:order-0 lg:ml-0">
           <Login />
           <ThemeSwitcher className="ml-5" />
         </div>
