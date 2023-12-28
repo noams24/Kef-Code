@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, useRef} from "react";
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from "@mui/icons-material/Close";
 import menu from "@/config/menu.json";
@@ -18,6 +18,7 @@ export interface INavigationLink {
 }
 
 const NavMenu: React.FC = () => {
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const { main }: { main: INavigationLink[] } = menu;
   const [isMobile, setIsMobile] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -27,7 +28,7 @@ const NavMenu: React.FC = () => {
   };
 
   const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+    setIsDropdownOpen(prev=>!prev);
   };
 
   useEffect(() => {
@@ -39,6 +40,18 @@ const NavMenu: React.FC = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+        toggleDropdown();
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [wrapperRef]);
 
   return (
     <nav className={` ${isMobile ? "flex justify-between order-3" : "order-1"}`} >
@@ -54,8 +67,8 @@ const NavMenu: React.FC = () => {
         </ul>
       )}
       {isMobile && isDropdownOpen && (
-        <div className="absolute top-16 right-4 bg-white dark:bg-darkmode-body p-4 border rounded shadow">
-          <ul id="nav-menu" className={`navbar-nav flex flex-col w-auto space-x-2 pb-0 xl:space-x-8`}>
+        <div className="absolute top-16 right-4 bg-white dark:bg-darkmode-body p-4 border rounded shadow" ref={wrapperRef}>
+          <ul id="nav-menu" className={`navbar-nav flex flex-col w-auto space-x-2 pb-0 xl:space-x-8`} onClick={toggleDropdown}>
             {main.map((menu, i) => (
               <MenuItem key={`menu-${i}`} menu={menu} />
             ))}
