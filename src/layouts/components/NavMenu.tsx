@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect} from "react";
 import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from "@mui/icons-material/Close";
 import menu from "@/config/menu.json";
 import MenuItem from "@/components/MenuItem";
 
@@ -42,9 +43,9 @@ const NavMenu: React.FC = () => {
   return (
     <nav className={` ${isMobile ? "flex justify-between order-3" : "order-1"}`} >
       {isMobile ? (
-        <div onClick={toggleDropdown}>
-          <MenuIcon />
-        </div>
+        <button onClick={toggleDropdown}>
+          {isDropdownOpen ? <CloseIcon /> : <MenuIcon />}
+        </button>
       ) : (
         <ul id="nav-menu" className="navbar-nav flex w-auto space-x-2 pb-0 xl:space-x-8">
           {main.map((menu, i) => (
