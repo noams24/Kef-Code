@@ -1,0 +1,68 @@
+'use client'
+import React, { useState, useEffect} from "react";
+import MenuIcon from '@mui/icons-material/Menu';
+import menu from "@/config/menu.json";
+import MenuItem from "@/components/MenuItem";
+
+export interface IChildNavigationLink {
+  name: string;
+  url: string;
+}
+
+export interface INavigationLink {
+  name: string;
+  url: string;
+  hasChildren?: boolean;
+  children?: IChildNavigationLink[];
+}
+
+const NavMenu: React.FC = () => {
+  const { main }: { main: INavigationLink[] } = menu;
+  const [isMobile, setIsMobile] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 768);
+  };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  useEffect(() => {
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  return (
+    <nav className={` ${isMobile ? "flex justify-between order-3" : "order-1"}`} >
+      {isMobile ? (
+        <div onClick={toggleDropdown}>
+          <MenuIcon />
+        </div>
+      ) : (
+        <ul id="nav-menu" className="navbar-nav flex w-auto space-x-2 pb-0 xl:space-x-8">
+          {main.map((menu, i) => (
+            <MenuItem key={`menu-${i}`} menu={menu} />
+          ))}
+        </ul>
+      )}
+      {isMobile && isDropdownOpen && (
+        <div className="absolute top-16 right-4 bg-white dark:bg-darkmode-body p-4 border rounded shadow">
+          <ul id="nav-menu" className={`navbar-nav flex flex-col w-auto space-x-2 pb-0 xl:space-x-8`}>
+            {main.map((menu, i) => (
+              <MenuItem key={`menu-${i}`} menu={menu} />
+            ))}
+          </ul>
+        </div>
+      )}
+    </nav>
+  );
+};
+
+export default NavMenu;
