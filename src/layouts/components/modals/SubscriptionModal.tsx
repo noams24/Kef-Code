@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import { Button } from "@/components/ui/Button2";
 import { X } from "lucide-react";
@@ -34,26 +34,76 @@ import {
   SelectValue,
 } from "@/components/ui/Select2";
 
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import { Snackbar } from "@mui/material";
+import Alert from "@mui/material/Alert";
+
 interface Props {
   isOpen: any;
   onOpenChange: any;
   session: any;
+  subscription: String;
 }
 
 const SubscriptionModal: React.FC<Props> = ({
   isOpen,
   onOpenChange,
   session,
+  subscription,
 }) => {
+  const monthlyPrice = 100;
+  const yearlyPrice = 600;
+
+  // const coupons = {
+  //   'כיף': 10,
+  //   "20": 20,
+  // };
+  const hardCodedDiscount = 0.9;
+
   const [modalNumber, setModalNumber] = useState(1);
   const [checked, setChecked] = useState(false);
+  const [amount, setAmount] = useState<number>(0);
+  const [couponCode, setCoupon] = useState("");
+  const [discount, setDiscount] = useState(0);
+  const [flag, setFlag] = useState<boolean>(false); //can apply discount only once
+  const [isSnackBar, setSnackBar] = useState<boolean>(false);
+
+  const applyCoupon = () => {
+    if (couponCode === "10" && !flag) {
+      setFlag(true);
+      setDiscount(amount * hardCodedDiscount);
+      setSnackBar(true);
+      setTimeout(() => {
+        setSnackBar(false);
+      }, 5000);
+    }
+  };
+
+  useEffect(() => {
+    if (subscription === "month") {
+      setAmount(monthlyPrice);
+    } else {
+      setAmount(yearlyPrice);
+    }
+  }, [subscription]);
 
   return (
     <>
+      <Snackbar
+        open={isSnackBar}
+        autoHideDuration={6000}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+      >
+        <Alert severity="success" sx={{ width: "100%" }}>
+          הקופון הופעל בהצלחה!
+        </Alert>
+      </Snackbar>
       {!session ? (
         <Modal
           dir="rtl"
-          size={"lg"}
           isDismissable={false}
           backdrop="opaque"
           isOpen={isOpen}
@@ -112,6 +162,7 @@ const SubscriptionModal: React.FC<Props> = ({
           isDismissable={false}
           backdrop="opaque"
           isOpen={isOpen}
+          onClose={()=>{setFlag(false), setDiscount(0)}}
           onOpenChange={onOpenChange}
           radius="lg"
           hideCloseButton={true}
@@ -183,15 +234,87 @@ const SubscriptionModal: React.FC<Props> = ({
                     </ModalFooter>
                   </div>
                 ) : (
-                    <ModalBody>
-                      <div className="flex justify-between">
+                  <ModalBody>
+                    <div className="flex justify-between gap-4">
+                      <div className="w-full rounded-lg bg-[#007aff4d] pt-5 px-3 my-2">
+                        <div className="rounded bg-white dark:bg-neutral-700 flex justify-start">
+                          <div className="pt-2">
+                            <WorkspacePremiumIcon />
+                          </div>
+                          <div className="pl-3">
+                            {subscription === "month" ? (
+                              <p className="pr-3">מנוי חודשי</p>
+                            ) : (
+                              <p className="pr-3">מנוי שנתי</p>
+                            )}
+                            <p className="pr-3 text-sm">₪{amount}</p>
+                          </div>
+                        </div>
+                        <p className="pt-8 text-sm">סיכום הזמנה</p>
+                        <div className="flex justify-between">
+                          <p className="pt-3 text-zinc-700 dark:text-zinc-300">
+                            מחיר מקורי
+                          </p>
+                          <p className="pt-3">₪{amount}</p>
+                        </div>
+                        {discount !== 0 ? (
+                          <div>
+                            <div className="flex justify-between">
+                              <p className="pt-3 text-zinc-700 dark:text-zinc-300">
+                                הנחה
+                              </p>
+                              <p className="pt-3">10%</p>
+                            </div>
+                            <div className="flex justify-between">
+                              <p className="pt-3.5 text-sm text-zinc-700 dark:text-zinc-300">
+                                מחיר אחרי הנחה
+                              </p>
+                              <p className="pt-3">₪{discount}</p>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="pt-16" />
+                        )}
+                        <p>קופון</p>
+                        <div className="flex gap-1">
+                          <Input
+                            id="coupon"
+                            type="text"
+                            className="font-arial"
+                            placeholder="הכנס קוד קופון"
+                            onChange={(e) => setCoupon(e.target.value)}
+                          />
+                          <button
+                            onClick={applyCoupon}
+                            className="text-xs bg-blue-500 rounded-lg px-1"
+                          >
+                            הפעל
+                          </button>
+                        </div>
+                        <div className="mt-6 relative">
+                          <hr className="border-dashed border-gray-500" />
+                          <div className="absolute -left-7 -top-3.5">
+                            <div className="h-7 w-7 rounded-full bg-gray-50 dark:bg-neutral-700" />
+                          </div>
+                          <div className="absolute -right-7 -top-3.5">
+                            <div className="h-7 w-7 rounded-full bg-white dark:bg-neutral-700" />
+                          </div>
+                        </div>
+                        <div className="flex justify-between mt-5">
+                          <p className="text-sm text-zinc-700 dark:text-zinc-300 pt-0.5">
+                            {" "}
+                            סך הכל לתשלום{" "}
+                          </p>
+                          <p>₪{discount !== 0 ? discount : amount}</p>
+                        </div>
+                      </div>
                       <Card>
                         <CardHeader>
                           <CardTitle>אמצעי תשלום</CardTitle>
-                          <CardDescription>הוספת אמצעי תשלום</CardDescription>
+                          {/* <CardDescription>הוספת אמצעי תשלום</CardDescription> */}
                         </CardHeader>
                         <CardContent className="grid gap-6">
-                          <RadioGroup
+                          {/* <RadioGroup
                             defaultValue="card"
                             className="grid grid-cols-3 gap-4"
                           >
@@ -224,7 +347,7 @@ const SubscriptionModal: React.FC<Props> = ({
                                   />
                                   <path d="M2 10h20" />
                                 </svg>
-                                Card
+                                אשראי
                               </Label>
                             </div>
                             <div>
@@ -238,7 +361,7 @@ const SubscriptionModal: React.FC<Props> = ({
                                 className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                               >
                                 <Icons.paypal className="mb-3 h-6 w-6" />
-                                Paypal
+                                פייפאל
                               </Label>
                             </div>
                             <div>
@@ -252,38 +375,44 @@ const SubscriptionModal: React.FC<Props> = ({
                                 className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                               >
                                 <Icons.apple className="mb-3 h-6 w-6" />
-                                Apple
+                                אפל
                               </Label>
                             </div>
-                          </RadioGroup>
+                          </RadioGroup> */}
                           <div className="grid gap-2">
-                            <Label htmlFor="name">שם בעל כרטיס האשראי</Label>
-                            <Input id="name" placeholder="First Last" />
+                            <Label htmlFor="name">
+                              שם מלא של בעל כרטיס האשראי
+                            </Label>
+                            <Input id="name" placeholder="שם מלא" />
                           </div>
                           <div className="grid gap-2">
                             <Label htmlFor="number">מספר כרטיס אשראי</Label>
-                            <Input id="number" placeholder="" />
+                            <Input
+                              id="number"
+                              className="font-arial"
+                              placeholder="xxxx-xxxx-xxxx-xxxx"
+                            />
                           </div>
                           <div className="grid grid-cols-3 gap-4">
                             <div className="grid gap-2">
-                              <Label htmlFor="month">תוקף</Label>
+                              <Label htmlFor="month">חודש</Label>
                               <Select>
                                 <SelectTrigger id="month">
-                                  <SelectValue placeholder="Month" />
+                                  <SelectValue placeholder="חודש" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                  <SelectItem value="1">January</SelectItem>
-                                  <SelectItem value="2">February</SelectItem>
-                                  <SelectItem value="3">March</SelectItem>
-                                  <SelectItem value="4">April</SelectItem>
-                                  <SelectItem value="5">May</SelectItem>
-                                  <SelectItem value="6">June</SelectItem>
-                                  <SelectItem value="7">July</SelectItem>
-                                  <SelectItem value="8">August</SelectItem>
-                                  <SelectItem value="9">September</SelectItem>
-                                  <SelectItem value="10">October</SelectItem>
-                                  <SelectItem value="11">November</SelectItem>
-                                  <SelectItem value="12">December</SelectItem>
+                                  <SelectItem value="1">ינואר</SelectItem>
+                                  <SelectItem value="2">פברואר</SelectItem>
+                                  <SelectItem value="3">מרץ</SelectItem>
+                                  <SelectItem value="4">אפריל</SelectItem>
+                                  <SelectItem value="5">מאי</SelectItem>
+                                  <SelectItem value="6">יוני</SelectItem>
+                                  <SelectItem value="7">יולי</SelectItem>
+                                  <SelectItem value="8">אוגוסט</SelectItem>
+                                  <SelectItem value="9">ספטמבר</SelectItem>
+                                  <SelectItem value="10">אוקטובר</SelectItem>
+                                  <SelectItem value="11">נובמבר</SelectItem>
+                                  <SelectItem value="12">דצמבר</SelectItem>
                                 </SelectContent>
                               </Select>
                             </div>
@@ -291,10 +420,10 @@ const SubscriptionModal: React.FC<Props> = ({
                               <Label htmlFor="year">שנה</Label>
                               <Select>
                                 <SelectTrigger id="year">
-                                  <SelectValue placeholder="Year" />
+                                  <SelectValue placeholder="שנה" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                  {Array.from({ length: 10 }, (_, i) => (
+                                  {Array.from({ length: 15 }, (_, i) => (
                                     <SelectItem
                                       key={i}
                                       value={`${new Date().getFullYear() + i}`}
@@ -306,7 +435,7 @@ const SubscriptionModal: React.FC<Props> = ({
                               </Select>
                             </div>
                             <div className="grid gap-2">
-                              <Label htmlFor="cvc">ספרות בגב הכרטיס</Label>
+                              <Label htmlFor="cvc">cvc</Label>
                               <Input id="cvc" placeholder="CVC" />
                             </div>
                           </div>
@@ -315,12 +444,8 @@ const SubscriptionModal: React.FC<Props> = ({
                           <Button className="w-full">תשלום</Button>
                         </CardFooter>
                       </Card>
-                      <div>
-                          <h3>מנוי חודשי</h3>
-                          <h5>₪50 לתשלום</h5>
-                        </div>
-                      </div>
-                    </ModalBody>
+                    </div>
+                  </ModalBody>
                 )}
               </>
             )}

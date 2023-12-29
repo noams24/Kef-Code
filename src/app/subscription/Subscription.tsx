@@ -3,6 +3,7 @@
 import Faqs from "@/components/Faqs";
 import { useDisclosure } from "@nextui-org/react";
 import SubscriptionModal from "@/components/modals/SubscriptionModal";
+import { useState } from "react";
 
 const faqs = [
   {
@@ -46,6 +47,7 @@ const faqs = [
 
 const Subscription = ({ session }: any) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [subscription, setSubscription] = useState<String>('')
 
   return (
     <div dir="rtl" className="flex min-h-screen pt-[30px] px-[40px]">
@@ -53,6 +55,7 @@ const Subscription = ({ session }: any) => {
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         session={session}
+        subscription={subscription}
       />
       <div className="min-w-full">
         <h1 className="flex justify-center pb-10">מנוי פרימיום</h1>
@@ -80,7 +83,7 @@ const Subscription = ({ session }: any) => {
                   התוכנית הטובה ביותר למנויים לטווח קצר
                 </p>
               </div>
-              <div className="flex justify-start pt-4">
+              <div className="flex justify-start pt-12">
                 <p className="text-[28px] leading-[63px] ">₪100</p>
                 <p className="text-[#717F87] dark:text-slate-400 text-[20px] leading-[63px] font-bold pr-2">
                   / לחודש
@@ -88,7 +91,7 @@ const Subscription = ({ session }: any) => {
               </div>
               <div className="flex justify-center">
               <button
-                onClick={onOpen}
+                onClick={()=>{setSubscription('month'), onOpen()}}
                 className=" bg-[#006EF5] rounded-[5px] h-10 w-3/4 text-[#fff] text-[14px] leading-[17px] font-semibold "
               >
                 הרשמה
@@ -127,7 +130,7 @@ const Subscription = ({ session }: any) => {
               </div>
               <div className="flex justify-center">
               <button
-                onClick={onOpen}
+                onClick={()=>{setSubscription('year'), onOpen()}}
                 className=" bg-[#006EF5] rounded-[5px] h-10 w-3/4 text-[#fff] text-[14px] leading-[17px] font-semibold "
               >
                 הרשמה
