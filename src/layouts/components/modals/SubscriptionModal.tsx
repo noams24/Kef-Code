@@ -37,6 +37,9 @@ import {
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import { Snackbar } from "@mui/material";
 import Alert from "@mui/material/Alert";
+import { useMutation } from "@tanstack/react-query";
+import { handlePayment } from "@/app/action";
+
 
 interface Props {
   isOpen: any;
@@ -86,6 +89,25 @@ const SubscriptionModal: React.FC<Props> = ({
       setAmount(yearlyPrice);
     }
   }, [subscription]);
+
+
+
+  const { mutate: onSubmit, isLoading } = useMutation({
+    mutationFn: async (values: any) => {
+      const a = await handlePayment({values, subscription, amount, discount})
+      // console.log(a)
+      // console.log("bla")
+      // const payload = { values, url };
+      // const { data } = await axios.post("/api/uploadproblem", payload);
+      // return data;
+    },
+    onError: (err) => {
+
+    },
+    onSuccess: () => {
+     
+  }
+})
 
   return (
     <>
@@ -308,6 +330,7 @@ const SubscriptionModal: React.FC<Props> = ({
                           <p>₪{discount !== 0 ? discount : amount}</p>
                         </div>
                       </div>
+                      <form action={onSubmit}>
                       <Card>
                         <CardHeader>
                           <CardTitle>אמצעי תשלום</CardTitle>
@@ -379,11 +402,12 @@ const SubscriptionModal: React.FC<Props> = ({
                               </Label>
                             </div>
                           </RadioGroup> */}
+                          
                           <div className="grid gap-2">
                             <Label htmlFor="name">
                               שם מלא של בעל כרטיס האשראי
                             </Label>
-                            <Input id="name" placeholder="שם מלא" />
+                            <Input id="name" name="name" placeholder="שם מלא" />
                           </div>
                           <div className="grid gap-2">
                             <Label htmlFor="number">מספר כרטיס אשראי</Label>
@@ -397,7 +421,7 @@ const SubscriptionModal: React.FC<Props> = ({
                             <div className="grid gap-2">
                               <Label htmlFor="month">חודש</Label>
                               <Select>
-                                <SelectTrigger id="month">
+                                <SelectTrigger id="month" name="month">
                                   <SelectValue placeholder="חודש" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -419,7 +443,7 @@ const SubscriptionModal: React.FC<Props> = ({
                             <div className="grid gap-2">
                               <Label htmlFor="year">שנה</Label>
                               <Select>
-                                <SelectTrigger id="year">
+                                <SelectTrigger id="year" name="year">
                                   <SelectValue placeholder="שנה" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -436,14 +460,15 @@ const SubscriptionModal: React.FC<Props> = ({
                             </div>
                             <div className="grid gap-2">
                               <Label htmlFor="cvc">cvc</Label>
-                              <Input id="cvc" placeholder="CVC" />
+                              <Input id="cvc" name="cvc" placeholder="CVC" />
                             </div>
                           </div>
                         </CardContent>
                         <CardFooter>
-                          <Button className="w-full">תשלום</Button>
+                          <Button type='submit' className="w-full">תשלום</Button>
                         </CardFooter>
                       </Card>
+                      </form>
                     </div>
                   </ModalBody>
                 )}
