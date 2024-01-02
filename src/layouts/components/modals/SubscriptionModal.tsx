@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import { Button } from "@/components/ui/Button2";
 import { X } from "lucide-react";
@@ -39,7 +39,7 @@ import { Snackbar } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import { useMutation } from "@tanstack/react-query";
 import { handlePayment } from "@/app/action";
-
+import { QueryContext } from "@/partials/ChildrenProviders";
 
 interface Props {
   isOpen: any;
@@ -71,6 +71,8 @@ const SubscriptionModal: React.FC<Props> = ({
   const [flag, setFlag] = useState<boolean>(false); //can apply discount only once
   const [isSnackBar, setSnackBar] = useState<boolean>(false);
 
+  const queryClient = useContext(QueryContext);
+  
   const applyCoupon = () => {
     if (couponCode === "10" && !flag) {
       setFlag(true);
@@ -90,24 +92,16 @@ const SubscriptionModal: React.FC<Props> = ({
     }
   }, [subscription]);
 
-
-
   const { mutate: onSubmit, isLoading } = useMutation({
     mutationFn: async (values: any) => {
-      const a = await handlePayment({values, subscription, amount, discount})
-      // console.log(a)
-      // console.log("bla")
-      // const payload = { values, url };
-      // const { data } = await axios.post("/api/uploadproblem", payload);
-      // return data;
-    },
-    onError: (err) => {
-
+      const payload = { values, subscription, amount, discount };
+      await handlePayment(payload);
     },
     onSuccess: () => {
-     
-  }
-})
+      queryClient.invalidateQueries({ queryKey: ["subscription"] });
+      setModalNumber(3);
+    },
+  });
 
   return (
     <>
@@ -184,7 +178,9 @@ const SubscriptionModal: React.FC<Props> = ({
           isDismissable={false}
           backdrop="opaque"
           isOpen={isOpen}
-          onClose={()=>{setFlag(false), setDiscount(0)}}
+          onClose={() => {
+            setFlag(false), setDiscount(0);
+          }}
           onOpenChange={onOpenChange}
           radius="lg"
           hideCloseButton={true}
@@ -255,7 +251,7 @@ const SubscriptionModal: React.FC<Props> = ({
                       </Button>
                     </ModalFooter>
                   </div>
-                ) : (
+                ) : modalNumber === 2 ? (
                   <ModalBody>
                     <div className="flex justify-between gap-4">
                       <div className="w-full rounded-lg bg-[#007aff4d] pt-5 px-3 my-2">
@@ -331,13 +327,13 @@ const SubscriptionModal: React.FC<Props> = ({
                         </div>
                       </div>
                       <form action={onSubmit}>
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>אמצעי תשלום</CardTitle>
-                          {/* <CardDescription>הוספת אמצעי תשלום</CardDescription> */}
-                        </CardHeader>
-                        <CardContent className="grid gap-6">
-                          {/* <RadioGroup
+                        <Card>
+                          <CardHeader>
+                            <CardTitle>אמצעי תשלום</CardTitle>
+                            {/* <CardDescription>הוספת אמצעי תשלום</CardDescription> */}
+                          </CardHeader>
+                          <CardContent className="grid gap-6">
+                            {/* <RadioGroup
                             defaultValue="card"
                             className="grid grid-cols-3 gap-4"
                           >
@@ -402,74 +398,87 @@ const SubscriptionModal: React.FC<Props> = ({
                               </Label>
                             </div>
                           </RadioGroup> */}
-                          
-                          <div className="grid gap-2">
-                            <Label htmlFor="name">
-                              שם מלא של בעל כרטיס האשראי
-                            </Label>
-                            <Input id="name" name="name" placeholder="שם מלא" />
-                          </div>
-                          <div className="grid gap-2">
-                            <Label htmlFor="number">מספר כרטיס אשראי</Label>
-                            <Input
-                              id="number"
-                              className="font-arial"
-                              placeholder="xxxx-xxxx-xxxx-xxxx"
-                            />
-                          </div>
-                          <div className="grid grid-cols-3 gap-4">
+
                             <div className="grid gap-2">
-                              <Label htmlFor="month">חודש</Label>
-                              <Select>
-                                <SelectTrigger id="month" name="month">
-                                  <SelectValue placeholder="חודש" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="1">ינואר</SelectItem>
-                                  <SelectItem value="2">פברואר</SelectItem>
-                                  <SelectItem value="3">מרץ</SelectItem>
-                                  <SelectItem value="4">אפריל</SelectItem>
-                                  <SelectItem value="5">מאי</SelectItem>
-                                  <SelectItem value="6">יוני</SelectItem>
-                                  <SelectItem value="7">יולי</SelectItem>
-                                  <SelectItem value="8">אוגוסט</SelectItem>
-                                  <SelectItem value="9">ספטמבר</SelectItem>
-                                  <SelectItem value="10">אוקטובר</SelectItem>
-                                  <SelectItem value="11">נובמבר</SelectItem>
-                                  <SelectItem value="12">דצמבר</SelectItem>
-                                </SelectContent>
-                              </Select>
+                              <Label htmlFor="name">
+                                שם מלא של בעל כרטיס האשראי
+                              </Label>
+                              <Input
+                                id="name"
+                                name="name"
+                                placeholder="שם מלא"
+                              />
                             </div>
                             <div className="grid gap-2">
-                              <Label htmlFor="year">שנה</Label>
-                              <Select>
-                                <SelectTrigger id="year" name="year">
-                                  <SelectValue placeholder="שנה" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {Array.from({ length: 15 }, (_, i) => (
-                                    <SelectItem
-                                      key={i}
-                                      value={`${new Date().getFullYear() + i}`}
-                                    >
-                                      {new Date().getFullYear() + i}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
+                              <Label htmlFor="number">מספר כרטיס אשראי</Label>
+                              <Input
+                                id="number"
+                                className="font-arial"
+                                placeholder="xxxx-xxxx-xxxx-xxxx"
+                              />
                             </div>
-                            <div className="grid gap-2">
-                              <Label htmlFor="cvc">cvc</Label>
-                              <Input id="cvc" name="cvc" placeholder="CVC" />
+                            <div className="grid grid-cols-3 gap-4">
+                              <div className="grid gap-2">
+                                <Label htmlFor="month">חודש</Label>
+                                <Select>
+                                  <SelectTrigger id="month" name="month">
+                                    <SelectValue placeholder="חודש" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="1">ינואר</SelectItem>
+                                    <SelectItem value="2">פברואר</SelectItem>
+                                    <SelectItem value="3">מרץ</SelectItem>
+                                    <SelectItem value="4">אפריל</SelectItem>
+                                    <SelectItem value="5">מאי</SelectItem>
+                                    <SelectItem value="6">יוני</SelectItem>
+                                    <SelectItem value="7">יולי</SelectItem>
+                                    <SelectItem value="8">אוגוסט</SelectItem>
+                                    <SelectItem value="9">ספטמבר</SelectItem>
+                                    <SelectItem value="10">אוקטובר</SelectItem>
+                                    <SelectItem value="11">נובמבר</SelectItem>
+                                    <SelectItem value="12">דצמבר</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                              <div className="grid gap-2">
+                                <Label htmlFor="year">שנה</Label>
+                                <Select>
+                                  <SelectTrigger id="year" name="year">
+                                    <SelectValue placeholder="שנה" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    {Array.from({ length: 15 }, (_, i) => (
+                                      <SelectItem
+                                        key={i}
+                                        value={`${
+                                          new Date().getFullYear() + i
+                                        }`}
+                                      >
+                                        {new Date().getFullYear() + i}
+                                      </SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                              <div className="grid gap-2">
+                                <Label htmlFor="cvc">cvc</Label>
+                                <Input id="cvc" name="cvc" placeholder="CVC" />
+                              </div>
                             </div>
-                          </div>
-                        </CardContent>
-                        <CardFooter>
-                          <Button type='submit' className="w-full">תשלום</Button>
-                        </CardFooter>
-                      </Card>
+                          </CardContent>
+                          <CardFooter>
+                            <Button type="submit" className="w-full">
+                              תשלום
+                            </Button>
+                          </CardFooter>
+                        </Card>
                       </form>
                     </div>
+                  </ModalBody>
+                ) : (
+                  <ModalBody>
+                    <h4 className="flex justify-center">סיום</h4>
+                    <p className="text-sm">תודה על ההזמנה!</p>
                   </ModalBody>
                 )}
               </>

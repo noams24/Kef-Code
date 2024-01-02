@@ -3,7 +3,7 @@
 import SeoMeta from "@/partials/SeoMeta";
 import PageHeader from "@/partials/PageHeader";
 import { UploadDropzone } from "@/lib/uploadthing";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { toast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";
@@ -11,13 +11,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import { getSubscription } from "../action";
+import hebrewDateFormat from "@/lib/utils/hebrewDateFormat";
+import Link from "next/link";
 
 const UsernameValidator = z.object({
-  name: z
-    .string()
-    .min(3)
-    .max(32)
-    // .regex(/^[a-zA-Z0-9_]+$/),
+  name: z.string().min(3).max(32),
+  // .regex(/^[a-zA-Z0-9_]+$/),
 });
 
 interface UserNameFormProps extends React.HTMLAttributes<HTMLFormElement> {
@@ -27,8 +27,7 @@ interface UserNameFormProps extends React.HTMLAttributes<HTMLFormElement> {
 type FormData = z.infer<typeof UsernameValidator>;
 
 const AccountForm = ({ user, className, ...props }: UserNameFormProps) => {
-
-  const router = useRouter()
+  const router = useRouter();
 
   const {
     handleSubmit,
@@ -38,6 +37,14 @@ const AccountForm = ({ user, className, ...props }: UserNameFormProps) => {
     resolver: zodResolver(UsernameValidator),
     defaultValues: {
       name: user?.username || "",
+    },
+  });
+
+  const { data: existSubscription, isFetched } = useQuery({
+    queryKey: ["subscription"],
+    queryFn: async () => {
+      const data = getSubscription(user.id);
+      return data;
     },
   });
 
@@ -69,13 +76,13 @@ const AccountForm = ({ user, className, ...props }: UserNameFormProps) => {
       toast({
         description: "שם המשתמש שונה בהצלחה",
       });
-        router.refresh()
+      router.refresh();
     },
   });
 
   const { mutate: uploadImage } = useMutation({
-    mutationFn: async ( url ) => {
-      const { data } = await axios.patch(`/api/changeUserImage/`, {url});
+    mutationFn: async (url) => {
+      const { data } = await axios.patch(`/api/changeUserImage/`, { url });
       return data;
     },
     onError: (err) => {
@@ -89,7 +96,7 @@ const AccountForm = ({ user, className, ...props }: UserNameFormProps) => {
       toast({
         description: "תמונתך שונתה בהצלחה",
       });
-        router.refresh()
+      router.refresh();
     },
   });
 
@@ -141,8 +148,8 @@ const AccountForm = ({ user, className, ...props }: UserNameFormProps) => {
               <UploadDropzone
                 className="dark:border-sky-200"
                 endpoint="imageUploader"
-                onClientUploadComplete={(res:any) => {
-                    uploadImage(res[0].fileUrl)
+                onClientUploadComplete={(res: any) => {
+                  uploadImage(res[0].fileUrl);
                 }}
                 onUploadError={(error: Error) => {
                   // Do something with the error.
@@ -151,6 +158,53 @@ const AccountForm = ({ user, className, ...props }: UserNameFormProps) => {
               />
             </div>
           </div>
+        </div>
+        <div className="pt-5">
+          <h3>המנוי שלך</h3>
+          {existSubscription ? (
+            <div>
+              <p>
+                {existSubscription.subscriptionType === "MONTH"
+                  ? "מנוי חודשי"
+                  : "מנוי שנתי"}
+              </p>
+              <div className="flex gap-2">
+                <p>תאריך התחלה: </p>
+                <span>
+                  {hebrewDateFormat(
+                    JSON.stringify(existSubscription.startDate).replaceAll(
+                      '"',
+                      "",
+                    ),
+                  )}
+                </span>
+              </div>
+              <div className="flex gap-2">
+                <p>תאריך סיום: </p>
+                <span>
+                  {hebrewDateFormat(
+                    JSON.stringify(existSubscription.endDate).replaceAll(
+                      '"',
+                      "",
+                    ),
+                  )}
+                </span>
+              </div>
+              <div className="flex gap-2">
+                <p> עלות:</p>
+                <p>{existSubscription.amount} ש"ח</p>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <p>אין לך מנוי</p>
+              <Link href={"/subscription"}>
+                <button className="bg-[#006EF5] rounded-[5px] h-10 w-32 text-[#fff] text-[14px] leading-[17px] font-semibold mt-3">
+                  שדרג לפרמיום
+                </button>
+              </Link>
+            </div>
+          )}
         </div>
       </section>
     </>

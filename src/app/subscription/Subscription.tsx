@@ -4,6 +4,8 @@ import Faqs from "@/components/Faqs";
 import { useDisclosure } from "@nextui-org/react";
 import SubscriptionModal from "@/components/modals/SubscriptionModal";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getSubscription } from "@/app/action";
 
 const faqs = [
   {
@@ -47,7 +49,15 @@ const faqs = [
 
 const Subscription = ({ session }: any) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [subscription, setSubscription] = useState<String>('')
+  const [subscription, setSubscription] = useState<String>("");
+
+  const { data: existSubscription, isFetched } = useQuery({
+    queryKey: ["subscription"],
+    queryFn: async () => {
+      const data = getSubscription(session.user.id);
+      return data;
+    },
+  });
 
   return (
     <div dir="rtl" className="flex min-h-screen pt-[30px] px-[40px]">
@@ -60,10 +70,7 @@ const Subscription = ({ session }: any) => {
       <div className="min-w-full">
         <h1 className="flex justify-center pb-10">מנוי פרימיום</h1>
         <div className="mt-[20px] grid grid-cols-2 gap-[20px] mx-20">
-          <div
-            key="1"
-            className="w-full bg-[#fff] dark:bg-darkmode-theme-light rounded-[10px] shadow-[0px 1px 2px #E1E3E5] border border-[#E1E3E5] "
-          >
+          <div className="w-full bg-[#fff] dark:bg-darkmode-theme-light rounded-[10px] shadow-[0px 1px 2px #E1E3E5] border border-[#E1E3E5] ">
             <div className="pt-[15px] px-[25px] pb-[25px]">
               <div className="flex justify-end">
                 <div className="bg-[#F6F6F7] dark:bg-blue-800 rounded-[20px] flex justify-center align-center px-[12px]">
@@ -76,7 +83,9 @@ const Subscription = ({ session }: any) => {
                 <p className="text-[19px] leading-[24px] font-bold">
                   מנוי חודשי
                 </p>
-                <p className="pr-3 text-gray-500 text-sm pt-0.5">התשלום מתבצע מדי חודש</p>
+                <p className="pr-3 text-gray-500 text-sm pt-0.5">
+                  התשלום מתבצע מדי חודש
+                </p>
               </div>
               <div>
                 <p className="pt-3 text-zinc-700 dark:text-zinc-300 text-[18px] leading-[28px] font-medium">
@@ -90,19 +99,19 @@ const Subscription = ({ session }: any) => {
                 </p>
               </div>
               <div className="flex justify-center">
-              <button
-                onClick={()=>{setSubscription('month'), onOpen()}}
-                className=" bg-[#006EF5] rounded-[5px] h-10 w-3/4 text-[#fff] text-[14px] leading-[17px] font-semibold "
-              >
-                הרשמה
-              </button>
+                <button
+                  onClick={() => {
+                    setSubscription("month"), onOpen();
+                  }}
+                  className=" bg-[#006EF5] rounded-[5px] h-10 w-3/4 text-[#fff] text-[14px] leading-[17px] font-semibold disabled:pointer-events-none disabled:opacity-70"
+                  disabled={!isFetched || existSubscription !== null}
+                >
+                  הרשמה
+                </button>
               </div>
             </div>
           </div>
-          <div
-            key="1"
-            className="w-full bg-[#fff] dark:bg-darkmode-theme-light rounded-[10px] shadow-[0px 1px 2px #E1E3E5] border-4 border-blue-500 "
-          >
+          <div className="w-full bg-[#fff] dark:bg-darkmode-theme-light rounded-[10px] shadow-[0px 1px 2px #E1E3E5] border-4 border-blue-500 ">
             <div className="pt-[15px] px-[25px] pb-[25px]">
               <div className="flex justify-end">
                 <div className="bg-[#F6F6F7] dark:bg-blue-800 rounded-[20px] flex justify-center align-center px-[12px]">
@@ -115,7 +124,9 @@ const Subscription = ({ session }: any) => {
                 <p className="text-[19px] leading-[24px] font-bold">
                   מנוי שנתי
                 </p>
-                <p className="pr-3 text-gray-500 text-sm pt-0.5">תשלום שנתי (₪600)</p>
+                <p className="pr-3 text-gray-500 text-sm pt-0.5">
+                  תשלום שנתי (₪600)
+                </p>
               </div>
               <div>
                 <p className="pt-3 text-zinc-700 dark:text-zinc-300 text-[18px] leading-[28px] font-medium">
@@ -129,12 +140,16 @@ const Subscription = ({ session }: any) => {
                 </p>
               </div>
               <div className="flex justify-center">
-              <button
-                onClick={()=>{setSubscription('year'), onOpen()}}
-                className=" bg-[#006EF5] rounded-[5px] h-10 w-3/4 text-[#fff] text-[14px] leading-[17px] font-semibold "
-              >
-                הרשמה
-              </button>
+                <button
+                  onClick={() => {
+                    setSubscription("year"), onOpen();
+                  }}
+                  className=" bg-[#006EF5] rounded-[5px] h-10 w-3/4 text-[#fff] text-[14px] leading-[17px] font-semibold disabled:pointer-events-none disabled:opacity-70"
+                  // disabled={isFetched && existSubscription ? true : false}
+                  disabled={!isFetched || existSubscription !== null}
+                >
+                  הרשמה
+                </button>
               </div>
             </div>
           </div>
