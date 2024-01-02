@@ -12,7 +12,6 @@ interface Payload {
 //GET:
 
 export const getSubscription = async (userId: string) => {
-
   try {
     const subscription = await db.subscription.findUnique({
       where: {
@@ -23,14 +22,13 @@ export const getSubscription = async (userId: string) => {
         startDate: true,
         endDate: true,
         amount: true,
-      }
-    })
-    return subscription
+      },
+    });
+    return subscription;
+  } catch {
+    return null;
   }
-  catch {
-    return null
-  }
-}
+};
 
 //SET:
 
@@ -71,4 +69,15 @@ export const handlePayment = async (payload: Payload) => {
   return "success";
 };
 
-
+export const cancelSubscription = async (userId: string) => {
+  try {
+    await db.subscription.delete({
+      where: {
+        userId,
+      },
+    });
+  } catch (error) {
+    return "failed";
+  }
+  return "success";
+};
