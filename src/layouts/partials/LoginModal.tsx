@@ -1,8 +1,6 @@
 "use client";
-// import { Icons } from '@/components/Icons'
+
 import UserAuthForm from "@/components/UserAuthForm";
-// import Link from "next/link";
-// import CloseModal from "./CloseModal";
 import { FC, useEffect, useState } from "react";
 import { Button } from "@/components/ui/Button2";
 import { X } from "lucide-react";
