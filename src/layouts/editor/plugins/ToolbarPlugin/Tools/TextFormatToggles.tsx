@@ -1,7 +1,5 @@
 "use client"
 import * as React from 'react';
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { $getSelection, $isRangeSelection, FORMAT_TEXT_COMMAND, LexicalEditor, COMMAND_PRIORITY_CRITICAL, SELECTION_CHANGE_COMMAND, TextFormatType, $isNodeSelection, } from "lexical";
 import { $patchStyleText, } from '@lexical/selection';
 import { FormatBold, FormatItalic, FormatUnderlined, Code, FormatStrikethrough, Subscript, Superscript, Link } from '@mui/icons-material';
@@ -15,6 +13,11 @@ import ColorPicker from './ColorPicker';
 import { $isMathNode, MathNode } from '../../../nodes/MathNode';
 import { $patchStyle } from '../../../nodes/utils';
 import { SET_DIALOGS_COMMAND } from '../../ToolbarPlugin'
+import { ToggleButtonGroup, ToggleButton, SvgIcon } from '@mui/material';
+
+const Highlight = () => <SvgIcon viewBox='0 -960 960 960' fontSize='small'>
+  <path xmlns="http://www.w3.org/2000/svg" d="M80 0v-160h800V0H80Zm504-480L480-584 320-424l103 104 161-160Zm-47-160 103 103 160-159-104-104-159 160Zm-84-29 216 216-189 190q-24 24-56.5 24T367-263l-27 23H140l126-125q-24-24-25-57.5t23-57.5l189-189Zm0 0 187-187q24-24 56.5-24t56.5 24l104 103q24 24 24 56.5T857-640L669-453 453-669Z" />
+</SvgIcon>;
 
 export default function TextFormatToggles({ editor, sx }: { editor: LexicalEditor, sx?: SxProps<Theme> | undefined }): JSX.Element {
   const [isLink, setIsLink] = useState(false);
@@ -120,6 +123,9 @@ export default function TextFormatToggles({ editor, sx }: { editor: LexicalEdito
     </ToggleButton>
     <ToggleButton value="underline" title={IS_APPLE ? 'קו תחתון (⌘U)' : 'קו תחתון (Ctrl+U)'} aria-label={`קו תחתון ${IS_APPLE ? '⌘U' : 'Ctrl+U'}`}>
       <FormatUnderlined />
+    </ToggleButton>
+    <ToggleButton value="highlight" title='מרקר' aria-label='Highlight selected text'>
+      <Highlight />
     </ToggleButton>
     <ToggleButton value="code" title='קוד' aria-label='קוד'>
       <Code />
