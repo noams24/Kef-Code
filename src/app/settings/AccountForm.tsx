@@ -192,7 +192,7 @@ const AccountForm = ({ user, className, ...props }: UserNameFormProps) => {
               </div>
               <div className="flex gap-2">
                 <p> עלות:</p>
-                <p>{existSubscription.amount} ש"ח</p>
+                <p>{existSubscription.amount} ₪</p>
               </div>
             </div>
           ) : (
