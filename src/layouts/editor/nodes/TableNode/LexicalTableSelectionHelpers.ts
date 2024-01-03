@@ -6,19 +6,19 @@
  *
  */
 
-import { $isTableNode, type TableNode } from './LexicalTableNode';
+import type { TableCellNode } from './LexicalTableCellNode';
+import type { TableNode } from './LexicalTableNode';
 import type { Cell, Cells, Grid } from './LexicalTableSelection';
 import type {
+  BaseSelection,
   GridSelection,
   LexicalCommand,
   LexicalEditor,
   LexicalNode,
-  NodeSelection,
   RangeSelection,
   TextFormatType,
 } from 'lexical';
 
-import { $isTableCellNode, TableCellNode } from './LexicalTableCellNode';
 import { $findMatchingParent } from '@lexical/utils';
 import {
   $createParagraphNode,
@@ -49,6 +49,8 @@ import {
 } from 'lexical';
 import invariant from '../../shared/invariant';
 
+import { $isTableCellNode } from './LexicalTableCellNode';
+import { $isTableNode } from './LexicalTableNode';
 import { TableSelection } from './LexicalTableSelection';
 import { getStyleObjectFromCSS } from '../utils';
 
@@ -623,11 +625,12 @@ export function getTableGrid(tableElement: HTMLElement): Grid {
       // @ts-expect-error: internal field
       currentNode._cell = cell;
 
-      if (cells[y] === undefined) {
-        cells[y] = [];
+      let row = cells[y];
+      if (row === undefined) {
+        row = cells[y] = [];
       }
 
-      cells[y][x] = cell;
+      row[x] = cell;
     } else {
       const child = currentNode.firstChild;
 
@@ -703,9 +706,15 @@ export function $forEachGridCell(
 
   for (let y = 0; y < cells.length; y++) {
     const row = cells[y];
+    if (!row) {
+      continue;
+    }
 
     for (let x = 0; x < row.length; x++) {
       const cell = row[x];
+      if (!cell) {
+        continue;
+      }
       const lexicalNode = $getNearestNodeFromDOMNode(cell.elem);
 
       if (lexicalNode !== null) {
@@ -864,7 +873,7 @@ const adjustFocusNodeInDirection = (
 };
 
 function $isSelectionInTable(
-  selection: null | GridSelection | RangeSelection | NodeSelection,
+  selection: null | BaseSelection,
   tableNode: TableNode,
 ): boolean {
   if ($isRangeSelection(selection) || DEPRECATED_$isGridSelection(selection)) {
@@ -967,6 +976,22 @@ function $handleArrowKey(
     ) {
       return false;
     }
+    const anchorCellTable = $findTableNode(anchorCellNode);
+    if (anchorCellTable !== tableNode && anchorCellTable != null) {
+      const anchorCellTableElement = editor.getElementByKey(
+        anchorCellTable.getKey(),
+      );
+      if (anchorCellTableElement != null) {
+        tableSelection.grid = getTableGrid(anchorCellTableElement);
+        return $handleArrowKey(
+          editor,
+          event,
+          direction,
+          anchorCellTable,
+          tableSelection,
+        );
+      }
+    }
 
     const anchorCellDom = editor.getElementByKey(anchorCellNode.__key);
     const anchorDOM = editor.getElementByKey(anchor.key);
@@ -1045,20 +1070,37 @@ function $handleArrowKey(
       focus.getNode(),
       $isTableCellNode,
     );
-    if (!$isTableCellNode(anchorCellNode) || !$isTableCellNode(focusCellNode)) {
+
+    const [tableNodeFromSelection] = selection.getNodes();
+    const tableElement = editor.getElementByKey(
+      tableNodeFromSelection.getKey(),
+    );
+    if (
+      !$isTableCellNode(anchorCellNode) ||
+      !$isTableCellNode(focusCellNode) ||
+      !$isTableNode(tableNodeFromSelection) ||
+      tableElement == null
+    ) {
       return false;
     }
+    tableSelection.updateTableGridSelection(selection);
+
+    const grid = getTableGrid(tableElement);
+    const cordsAnchor = tableNode.getCordsFromCellNode(anchorCellNode, grid);
+    const anchorCell = tableNode.getCellFromCordsOrThrow(
+      cordsAnchor.x,
+      cordsAnchor.y,
+      grid,
+    );
+    tableSelection.setAnchorCellForSelection(anchorCell);
 
     stopEvent(event);
 
     if (event.shiftKey) {
-      const cords = tableNode.getCordsFromCellNode(
-        focusCellNode,
-        tableSelection.grid,
-      );
+      const cords = tableNode.getCordsFromCellNode(focusCellNode, grid);
       return adjustFocusNodeInDirection(
         tableSelection,
-        tableNode,
+        tableNodeFromSelection,
         cords.x,
         cords.y,
         direction,

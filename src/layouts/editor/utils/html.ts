@@ -1,4 +1,3 @@
-/** @module @lexical/html */
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -22,7 +21,7 @@ import {
   $cloneWithProperties,
   $sliceSelectedTextNodeContent,
 } from '@lexical/selection';
-import { $getRoot, $isElementNode, $isTextNode } from 'lexical';
+import { $getRoot, $isElementNode, $isTextNode, isHTMLElement } from 'lexical';
 
 /**
  * How you parse your html string to get a document is left up to you. In the browser you can use the native
@@ -87,7 +86,7 @@ function $appendNodesToHTML(
   const children = $isElementNode(target) ? target.getChildren() : [];
   const { element, after } = target.exportDOM(editor);
 
-  if (!element) {
+  if (!(element && isHTMLElement(element))) {
     return false;
   }
 
@@ -242,4 +241,3 @@ function $createNodesFromDOM(
 
   return lexicalNodes;
 }
-

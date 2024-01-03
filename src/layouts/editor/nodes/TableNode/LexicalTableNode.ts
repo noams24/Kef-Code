@@ -24,6 +24,7 @@ import {
   $applyNodeReplacement,
   $getNearestNodeFromDOMNode,
   DEPRECATED_GridNode,
+  isHTMLElement,
 } from 'lexical';
 
 import { $isTableCellNode } from './LexicalTableCellNode';
@@ -83,14 +84,25 @@ export class TableNode extends DEPRECATED_GridNode {
   }
 
   exportDOM(editor: LexicalEditor): DOMExportOutput {
+    const { element } = super.exportDOM(editor);
+
+    if (element) {
+      const element_ = element as HTMLTableCellElement;
+      if (this.__style) {
+        element_.style.cssText = this.__style;
+      }
+    }
+
     return {
-      ...super.exportDOM(editor),
+      element,
       after: (tableElement) => {
         if (tableElement) {
           const newElement = tableElement.cloneNode() as ParentNode;
           const colGroup = document.createElement('colgroup');
           const tBody = document.createElement('tbody');
-          tBody.append(...tableElement.children);
+          if (isHTMLElement(tableElement)) {
+            tBody.append(...tableElement.children);
+          }
           const firstRow = this.getFirstChildOrThrow<TableRowNode>();
 
           if (!$isTableRowNode(firstRow)) {

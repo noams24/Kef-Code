@@ -8,6 +8,7 @@
  */
 
 import type {
+  BaseSelection,
   EditorState,
   ElementNode,
   GridSelection,
@@ -25,6 +26,7 @@ import {
   $getRoot,
   $getSelection,
   $isElementNode,
+  $isNodeSelection,
   $isRangeSelection,
   $isTextNode,
   COMMAND_PRIORITY_HIGH,
@@ -34,14 +36,9 @@ import {
 import * as React from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import Button from "@mui/material/Button";
-import Slider from "@mui/material/Slider";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import { $isMathNode } from "../../nodes/MathNode";
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import { AppBar, Box, Typography, Toolbar, Button, Slider } from '@mui/material';
 
 const NON_SINGLE_WIDTH_CHARS_REPLACEMENT: Readonly<Record<string, string>> =
   Object.freeze({
@@ -356,7 +353,8 @@ function printRangeSelection(selection: RangeSelection): string {
   return res;
 }
 
-function printNodeSelection(selection: NodeSelection): string {
+function printNodeSelection(selection: BaseSelection): string {
+  if (!$isNodeSelection(selection)) return '';
   return `: node\n  └ [${selection.getNodes().map(n => `${n.__key}: ${n.__type}`).join(', ')}]`;
 }
 
@@ -519,6 +517,7 @@ const FORMAT_PREDICATES = [
     node.hasFormat('superscript') && 'Superscript',
   (node: LexicalNode | RangeSelection) =>
     node.hasFormat('underline') && 'Underline',
+  (node: LexicalNode | RangeSelection) => node.hasFormat('highlight') && 'Highlight',
 ];
 
 const DETAIL_PREDICATES = [
@@ -629,7 +628,7 @@ function printSelectedCharsLine({
   isSelected: boolean;
   node: LexicalNode;
   nodeKeyDisplay: string;
-  selection: GridSelection | NodeSelection | RangeSelection | null;
+  selection: BaseSelection | null;
   typeDisplay: string;
 }) {
   // No selection or node is not selected.

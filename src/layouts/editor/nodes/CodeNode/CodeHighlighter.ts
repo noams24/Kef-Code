@@ -11,10 +11,9 @@ import type {
   LexicalEditor,
   LexicalNode,
   RangeSelection,
-  NodeSelection,
   LineBreakNode,
-  GridSelection,
   NodeKey,
+  BaseSelection,
   ElementNode,
 } from 'lexical';
 
@@ -365,10 +364,11 @@ function updateAndRetainSelection(
 
   // Calculating previous text offset (all text node prior to anchor + anchor own text offset)
   if (!isNewLineAnchor) {
-    const anchorNode: any = anchor.getNode();
+    //@ts-ignore
+    const anchorNode: ElementNode = anchor.getNode();
     textOffset =
       anchorOffset +
-      anchorNode.getPreviousSiblings().reduce((offset:any, _node:any) => {
+      anchorNode.getPreviousSiblings().reduce((offset, _node) => {
         return offset + _node.getTextContentSize();
       }, 0);
   }
@@ -464,9 +464,7 @@ function isEqual(nodeA: LexicalNode, nodeB: LexicalNode): boolean {
   );
 }
 
-function $isSelectionInCode(
-  selection: null | RangeSelection | NodeSelection | GridSelection,
-): boolean {
+function $isSelectionInCode(selection: null | BaseSelection): boolean {
   if (!$isRangeSelection(selection)) {
     return false;
   }

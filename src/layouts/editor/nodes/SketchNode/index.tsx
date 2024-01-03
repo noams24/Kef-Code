@@ -6,7 +6,7 @@
  *
  */
 
-import { DOMConversionMap, DOMConversionOutput, DOMExportOutput, LexicalEditor, LexicalNode, NodeKey, Spread, } from 'lexical';
+import { DOMConversionMap, DOMConversionOutput, DOMExportOutput, LexicalEditor, LexicalNode, NodeKey, Spread, isHTMLElement} from 'lexical';
 import { NonDeleted, ExcalidrawElement } from '@excalidraw/excalidraw/types/element/types';
 
 import { ImageNode, ImagePayload, SerializedImageNode } from '../ImageNode';
@@ -87,18 +87,22 @@ export class SketchNode extends ImageNode {
   }
 
   exportDOM(editor: LexicalEditor): DOMExportOutput {
-    const { element } = super.exportDOM(editor);
-    if (!element) return { element };
-    element.innerHTML = decodeURIComponent(this.__src.split(',')[1]);
-    const svg = element.firstElementChild!;
-    this.__width !== 'inherit' && svg.setAttribute('width', this.__width.toString());
-    this.__height !== 'inherit' && svg.setAttribute('height', this.__height.toString());
-    if (!this.__showCaption) return { element };
-    const caption = document.createElement('figcaption');
-    this.__caption.getEditorState().read(() => {
-      caption.innerHTML = $generateHtmlFromNodes(this.__caption);
-    });
-    element.appendChild(caption);
+    const element = super.createDOM(editor._config);
+    if (element && isHTMLElement(element)) {
+      const html = decodeURIComponent(this.__src.split(',')[1]);
+      element.innerHTML = html.replace(/<!-- payload-start -->\s*(.+?)\s*<!-- payload-end -->/, "");
+      const svg = element.firstElementChild!;
+      const style = svg.querySelector('style');
+      if (style) style.innerHTML = "@font-face { font-family: 'Virgil'; src: url('/fonts/Virgil.woff2') format('woff2');} @font-face { font-family: 'Cascadia'; src: url('/fonts/Cascadia.woff2') format('woff2'); }";
+      if (this.__width) svg.setAttribute('width', this.__width.toString());
+      if (this.__height) svg.setAttribute('height', this.__height.toString());
+      if (!this.__showCaption) return { element };
+      const caption = document.createElement('figcaption');
+      this.__caption.getEditorState().read(() => {
+        caption.innerHTML = $generateHtmlFromNodes(this.__caption);
+      });
+      element.appendChild(caption);
+    }
     return { element };
   }
 
