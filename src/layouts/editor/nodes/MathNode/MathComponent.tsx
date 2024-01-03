@@ -168,7 +168,32 @@ export default function MathComponent({ initialValue, nodeKey, mathfieldRef: ref
         }
       });
     });
-
+    mathfield.inlineShortcuts = {...mathfield.inlineShortcuts,
+    "בינום": "\\begin{pmatrix} \\placeholder{}  \\\\  \\placeholder{} \\end{pmatrix}",
+      "מטריצה": "\\begin{Bmatrix} \\placeholder{} & \\placeholder{} \\\\  \\placeholder{} & \\placeholder{} \\end{Bmatrix}",
+    "אפשרויות": "f(x)=\\begin{cases} \\placeholder{} &  \\placeholder{} \\text{ אם} & \\placeholder{} & \\placeholder{} \\text{ אם} \\end{cases}",
+      "לכל": "\\forall",
+      "קיים": "\\exists",
+      "לאקיים": "\\nexists",
+      "גם": "\\lor",
+      "או": "\\land",
+      "שלילה": "\\neg",
+      "אםם": "\\leftrightarrow",
+      "חיתוך": "\\cap",
+      "איחוד": "\\cup",
+      "שייך": "\\in",
+      "לאשייך": "\\notin",
+      "מוכל": "\\subseteq",
+      "ממשמוכל": "\\subset",
+      "לאמוכל": "\\nsubseteq",
+      "ממשלאמוכל": "\\subset",
+      "ריק": "\\empty",
+      "סכום": "\\displaystyle \\sum_{i=0}^n",
+      "שורש": "\\sqrt[\\placeholder{}]{\\placeholder{}}",
+      "אינטגרל": "\\int_\\placeholder{}^{\\placeholder{}}\\!\\placeholder{}\\,\\mathrm{d}x",
+      "גבול": "\\lim_{x \\to \\placeholder{}}",
+      "חץארוך": "\\xrightarrow[\\placeholder{}]{\\placeholder{}}",
+  }
   }, []);
 
   const focus = useCallback((mathfield: MathfieldElement) => {

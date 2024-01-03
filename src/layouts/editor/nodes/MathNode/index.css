@@ -7,18 +7,22 @@ math-field {
   background: transparent;
   color: inherit;
   width: 100%;
-  user-select: none;
-  pointer-events: all;
+  padding: 0;
   --selection-color: #nope;
 }
 
-math-field::part(virtual-keyboard-toggle) {
+math-field::part(virtual-keyboard-toggle),
+math-field::part(menu-toggle) {
   display: none;
 }
 
 [theme=dark] math-field {
-  --contains-highlight-background-color: rgba(255,255,255,0.1);
+  --contains-highlight-background-color: rgba(255, 255, 255, 0.1);
   --selection-background-color: rgb(95 183 255 / 50%);
+}
+
+math-field:not(:focus-within) {
+  --selection-background-color: transparent;
 }
 
 math-field.selection-active {
@@ -42,7 +46,8 @@ math-field.selection-active {
   --keyboard-zindex: 9999;
 }
 
-.MLK__plate, .MLK__layer {
+.MLK__plate,
+.MLK__layer {
   height: 100%;
 }
 
@@ -50,11 +55,11 @@ math-field.selection-active {
   margin: auto 0 !important;
 }
 
-.MLK__rows>.row div {
+.MLK__rows>.MLK__row .MLK__keycap {
   height: var(--keycap-height) !important;
 }
 
-.MLK__plate .MLK__layer:nth-of-type(3) .MLK__rows .row:first-child {
+.MLK__plate .MLK__layer:nth-of-type(3) .MLK__rows .MLK__row:first-child {
   display: none !important;
 }
 
