@@ -66,9 +66,8 @@ const Tutorial: React.FC = () => {
             <Typography sx={{textAlign: "right"}} variant="h6">{tasks[currentTask].name}</Typography>
             <List>
               {currentCheckpoints.map((checkpoint, index) => (
-                <div dir="rtl">
+                <div dir="rtl" key={`checkpoint-${index}`}>
                   <CheckpointItem
-                    key={`checkpoint-${index}`}
                     name={checkpoint.name}
                     steps={checkpoint.steps}
                     checked={!!checkpoint.checked}
