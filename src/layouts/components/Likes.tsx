@@ -145,7 +145,7 @@ const Likes = ({
   });
 
   return (
-    <div className="flex justify-center items-center mt-3 mr-20">
+    <div className="flex justify-center items-center mt-3">
       <div
         className={`${difficultyClass} inline-block rounded-[21px] bg-opacity-[.15] px-2.5 py-1 text-xs font-medium capitalize `}
       >

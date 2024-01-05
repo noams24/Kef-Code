@@ -61,6 +61,7 @@
     "html-react-parser": "^4.2.1",
     "jsdom": "^22.1.0",
     "lexical": "^0.12.5",
+    "linkedom": "^0.16.6",
     "lucide-react": "^0.259.0",
     "marked": "^5.1.0",
     "mathlive": "^0.98.5",

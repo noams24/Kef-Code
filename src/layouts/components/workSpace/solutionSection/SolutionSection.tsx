@@ -372,7 +372,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
             </div>
           ) : (
             <div className="my-2">
-              <div className="flex justify-between items-center ml-20">
+              <div className="flex justify-between items-center">
                 <p></p>
                 {loading ? (
                   <LikesSkeleton />
