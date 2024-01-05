@@ -67,8 +67,8 @@ export function UploadSolution() {
     });
   }
 
-  const document = playgroundTemplate as unknown as EditorDocument;
-  const [jsonState, setJsonState] = useState<EditorContentType>(document.data);
+  const documentt = playgroundTemplate as unknown as EditorDocument;
+  const [jsonState, setJsonState] = useState<EditorContentType>(documentt.data);
 
   const { loginToast } = useCustomToasts()
 
@@ -107,6 +107,22 @@ export function UploadSolution() {
       })
     },
   })
+// not related - save the text data as a json file
+  const handleSave = () => {
+    const json = JSON.stringify(jsonState, null, 0)
+    const filePath = '/jsonfile.json';
+
+    const blob = new Blob([json], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filePath
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
 
   return (
     <>
@@ -144,13 +160,13 @@ export function UploadSolution() {
         </form>
       </Form>
         {/*EDITOR SECTION */}
-        <div className="w-full overflow-y-auto ">
-        <Editor document={document} onChange={(editor) => onChange(editor, setJsonState)} />
+        <div className="w-full overflow-y-auto font-arial">
+        <Editor document={documentt} onChange={(editor) => onChange(editor, setJsonState)} />
         </div>
       </Split >
     
    
-      
+      <button onClick={handleSave}>שמירה</button>
     </>
   )
 }

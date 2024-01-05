@@ -45,21 +45,22 @@ import Task4 from "./Task4.json";
 import Task5 from "./Task5.json";
 import Task6 from "./Task6.json";
 import Task7 from "./Task7.json";
+import Task8 from "./Task8.json"
 import { EditorDocument } from "./types";
 
 const task1Checkpoints = [
   {
-    name: "Make the following text bold",
+    name: "הפוך את הטקסט למודגש",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Select the text
+        1. סמן את הטקסט
       </Typography>
       <Typography variant="subtitle2">
-        2. Click the
+        2. לחץ על
         <ToggleButton value="bold" size="small" sx={{ m: 1 }}>
           <FormatBoldIcon />
         </ToggleButton>
-        button in the toolbar
+        
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -79,17 +80,17 @@ const task1Checkpoints = [
     }
   },
   {
-    name: "Make the following text italic",
+    name: "הפוך את הטקסט לאיטלקי",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Select the text
+        1. סמן את הטקסט
       </Typography>
       <Typography variant="subtitle2">
-        2. Click the
+        2. לחץ על
         <ToggleButton value="italic" size="small" sx={{ m: 1 }}>
           <FormatItalicIcon />
         </ToggleButton>
-        button in the toolbar
+        
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -109,17 +110,17 @@ const task1Checkpoints = [
     }
   },
   {
-    name: "Make the following text underlined",
+    name: "הוסף לטקסט קו תחתון",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Select the text
+        1. סמן את הטקסט
       </Typography>
       <Typography variant="subtitle2">
-        2. Click the
+        2. לחץ על
         <ToggleButton value="underline" size="small" sx={{ m: 1 }}>
           <FormatUnderlinedIcon />
         </ToggleButton>
-        button in the toolbar
+        
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -139,17 +140,17 @@ const task1Checkpoints = [
     }
   },
   {
-    name: "Format the following text inline code",
+    name: "הפוך את הטקסט הבא לקוד בתוך השורה",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Select the text
+        1. סמן את הטקסט
       </Typography>
       <Typography variant="subtitle2">
-        2. Click the
+        2. לחץ על
         <ToggleButton value="code" size="small" sx={{ m: 1 }}>
           <CodeIcon />
         </ToggleButton>
-        button in the toolbar
+        
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -169,17 +170,17 @@ const task1Checkpoints = [
     }
   },
   {
-    name: "Format the following text with a strikethrough",
+    name: "הפוך את הטקסט הבא לכתב חצוי",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Select the text
+        1. סמן את הטקסט
       </Typography>
       <Typography variant="subtitle2">
-        2. Click the
+        2. לחץ על
         <ToggleButton value="strike" size="small" sx={{ m: 1 }}>
           <FormatStrikethroughIcon />
         </ToggleButton>
-        button in the toolbar
+        
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -199,17 +200,17 @@ const task1Checkpoints = [
     }
   },
   {
-    name: 'Make the word "subscript" a subscript',
+    name: 'הפוך את הטקסט הבא לכתב תחתי',
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Select the word
+        1. סמן את הטקסט
       </Typography>
       <Typography variant="subtitle2">
-        2. Click the
+        2. לחץ על
         <ToggleButton value="subscript" size="small" sx={{ m: 1 }}>
           <SubscriptIcon />
         </ToggleButton>
-        button in the toolbar
+        
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -217,7 +218,7 @@ const task1Checkpoints = [
       if (!editorState) return result;
       editorState.read(() => {
         editorState._nodeMap.forEach((node:any) => {
-          if (node.getTextContent() === "subscript") {
+          if (node.getTextContent() === "תחתי") {
             if (node.hasFormat("subscript" as any)) result = true;
           }
         });
@@ -226,17 +227,17 @@ const task1Checkpoints = [
     }
   },
   {
-    name: 'Make the word "superscript" a superscript',
+    name: 'הפוך את הטקסט הבא לכתב תחתי',
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Select the word
+        1. סמן את הטקסט
       </Typography>
       <Typography variant="subtitle2">
-        2. Click the
+        2. לחץ על
         <ToggleButton value="superscript" size="small" sx={{ m: 1 }}>
           <SuperscriptIcon />
         </ToggleButton>
-        button in the toolbar
+        
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -244,7 +245,7 @@ const task1Checkpoints = [
       if (!editorState) return result;
       editorState.read(() => {
         editorState._nodeMap.forEach((node:any) => {
-          if (node.getTextContent() === "superscript") {
+          if (node.getTextContent() === "עילי") {
             if (node.hasFormat("superscript" as any)) result = true;
           }
         });
@@ -253,20 +254,20 @@ const task1Checkpoints = [
     }
   },
   {
-    name: "Change the font color of the following text",
+    name: "שנה את צבע הטקסט",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Select the text
+        1. סמן את הטקסט
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Click the
+        2. לחץ על
         <ToggleButton value="text" size="small" sx={{ m: 1 }}>
           <FormatColorFillIcon />
         </ToggleButton>
-        button in the toolbar
+        
       </Typography>
       <Typography variant="subtitle2">
-        3. Select a text color
+        3. בחר צבע טקסט
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -286,20 +287,20 @@ const task1Checkpoints = [
     }
   },
   {
-    name: "Change the background color of the following text",
+    name: "שנה את הרקע של הטקסט",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Select the text
+        1. סמן את הטקסט
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Click the
+        2. לחץ על
         <ToggleButton value="background" size="small" sx={{ m: 1 }}>
           <FormatColorFillIcon />
         </ToggleButton>
-        button in the toolbar
+        
       </Typography>
       <Typography variant="subtitle2">
-        3. Select a background color
+        3. בחר צבע רקע לטקסט
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -322,20 +323,20 @@ const task1Checkpoints = [
 
 const task2Checkpoints = [
   {
-    name: "Change the font size of the following text to 20px",
+    name: "שנה את גודל גופן הטקסט ל-20 פיקסלים",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Select the text
+        1. סמן את הטקסט
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Click the
+        2. לחץ על
         <Select size='small' sx={{ width: 68, mx: 1 }} value={15} readOnly>
           <MenuItem key={15} value={15}>15</MenuItem>
         </Select>
-        menu in the toolbar
+        בתפריט סרגל הכלים
       </Typography>
       <Typography variant="subtitle2">
-        3. Select 20 from the menu
+        3. בחר 20 פיקסלים
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -355,20 +356,20 @@ const task2Checkpoints = [
     }
   },
   {
-    name: "Change the font family of the following text to KaTeX",
+    name: "שנה את הגופן של הטקסט ל- katex",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Select the text
+        1. סמן את הטקסט
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Click the
+        2. לחץ על
         <Select size='small' sx={{ width: 68, mx: 1 }} value='Roboto' readOnly>
           <MenuItem key='Roboto' value='Roboto'>Roboto</MenuItem>
         </Select>
-        menu in the toolbar
+        בתפריט סרגל הכלים
       </Typography>
       <Typography variant="subtitle2">
-        3. Select KaTeX from the menu
+        3. בחר KaTex מסרגל הכלים
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -388,20 +389,20 @@ const task2Checkpoints = [
     }
   },
   {
-    name: "Change the font family of the following text to Virgil",
+    name: "שנה את גופן הטקסט ל-virgil",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Select the text
+        1. סמן את הטקסט
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Click the
+        2. לחץ על
         <Select size='small' sx={{ width: 68, mx: 1 }} value='Roboto' readOnly>
           <MenuItem key='Roboto' value='Roboto'>Roboto</MenuItem>
         </Select>
-        menu in the toolbar
+        בתפריט סרגל הכלים
       </Typography>
       <Typography variant="subtitle2">
-        3. Select Virgil from the menu
+        3. בחר ב- Virgil
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -424,13 +425,13 @@ const task2Checkpoints = [
 
 const task3Checkpoints = [
   {
-    name: "Make the following text a level 3 Heading",
+    name: "הפוך את הטקסט לכותרת בגודל 3",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the text
+        1. לחץ על הטקסט
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Click the
+        2. לחץ על
         <Select value="paragraph" size='small' readOnly sx={{
           mx: 1,
           '& .MuiSelect-select': { display: 'flex', alignItems: 'center', py: 0.5 },
@@ -441,12 +442,12 @@ const task3Checkpoints = [
             <ListItemIcon>
               <ViewHeadlineIcon fontSize="small" />
             </ListItemIcon>
-            <ListItemText>Normal</ListItemText>
+            <ListItemText>פסקה</ListItemText>
           </MenuItem>
-        </Select> menu in the toolbar
+        </Select> בתפריט סרגל הכלים
       </Typography>
       <Typography variant="subtitle2">
-        3. Select <H3Icon /> Heading 3 from the menu
+        3. בחר <H3Icon /> כותרת 3 מהתפריט
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -464,13 +465,13 @@ const task3Checkpoints = [
     }
   },
   {
-    name: "Make the following items a Bulleted List",
+    name: "הפוך את הטקסט לרשימת תבליטים",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Select the text
+        1. סמן את הטקסט
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Click the
+        2. לחץ על
         <Select value="paragraph" size='small' readOnly sx={{
           mx: 1,
           '& .MuiSelect-select': { display: 'flex', alignItems: 'center', py: 0.5 },
@@ -483,10 +484,10 @@ const task3Checkpoints = [
             </ListItemIcon>
             <ListItemText>Normal</ListItemText>
           </MenuItem>
-        </Select> menu in the toolbar
+        </Select> בתפריט סרגל הכלים
       </Typography>
       <Typography variant="subtitle2">
-        3. Select <FormatListBulletedIcon sx={{ verticalAlign: "middle" }} /> Bullet List from the menu
+        3. בחר <FormatListBulletedIcon sx={{ verticalAlign: "middle" }} /> רשימת תבליטים מהתפריט
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -504,13 +505,13 @@ const task3Checkpoints = [
     }
   },
   {
-    name: "Format the following text as a Quote",
+    name: "הפוך את הטקסט הבא לציטוט",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the text
+        1. לחץ על הטקסט
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Click the
+        2. לחץ על
         <Select value="paragraph" size='small' readOnly sx={{
           mx: 1,
           '& .MuiSelect-select': { display: 'flex', alignItems: 'center', py: 0.5 },
@@ -521,12 +522,12 @@ const task3Checkpoints = [
             <ListItemIcon>
               <ViewHeadlineIcon fontSize="small" />
             </ListItemIcon>
-            <ListItemText>Normal</ListItemText>
+            <ListItemText>רגיל</ListItemText>
           </MenuItem>
-        </Select> menu in the toolbar
+        </Select> בתפריט סרגל הכלים
       </Typography>
       <Typography variant="subtitle2">
-        3. Select <FormatQuoteIcon sx={{ verticalAlign: "middle" }} /> Quote from the menu
+        3. בחר <FormatQuoteIcon sx={{ verticalAlign: "middle" }} /> ציטוט מהתפריט
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -544,13 +545,13 @@ const task3Checkpoints = [
     }
   },
   {
-    name: "Format the following text as a Code Block",
+    name: "הפוך את טקסט הבא לקוד",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Select the text
+        1. סמן את הטקסט
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Click the
+        2. לחץ על
         <Select value="paragraph" size='small' readOnly sx={{
           mx: 1,
           '& .MuiSelect-select': { display: 'flex', alignItems: 'center', py: 0.5 },
@@ -563,10 +564,10 @@ const task3Checkpoints = [
             </ListItemIcon>
             <ListItemText>Normal</ListItemText>
           </MenuItem>
-        </Select> menu in the toolbar
+        </Select> בתפריט סרגל הכלים
       </Typography>
       <Typography variant="subtitle2">
-        3. Select <CodeIcon sx={{ verticalAlign: "middle" }} /> CodeBlock from the menu
+        3. בחר <CodeIcon sx={{ verticalAlign: "middle" }} /> קוד מתוך התפריט
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -587,19 +588,19 @@ const task3Checkpoints = [
 
 const task4Checkpoints = [
   {
-    name: "Center the following text",
+    name: "מרכז את הטקסט",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the text
+        1. לחץ על הטקסט
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Click the
+        2. לחץ על
         <IconButton aria-label='Align Text'>
           <FormatAlignLeftIcon />
-        </IconButton> menu in the toolbar
+        </IconButton> בתפריט סרגל הכלים
       </Typography>
       <Typography variant="subtitle2">
-        3. Select <FormatAlignCenterIcon sx={{ verticalAlign: "middle" }} /> Align Center from the menu
+        3. בחר <FormatAlignCenterIcon sx={{ verticalAlign: "middle" }} /> מרכז מהתפריט
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -618,19 +619,19 @@ const task4Checkpoints = [
     }
   },
   {
-    name: "Right align the following text",
+    name: "ישר לימין את הטקסט",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the text
+        1. לחץ על הטקסט
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Click the
+        2. לחץ על
         <IconButton aria-label='Align Text'>
           <FormatAlignLeftIcon />
-        </IconButton> menu in the toolbar
+        </IconButton> בתפריט סרגל הכלים
       </Typography>
       <Typography variant="subtitle2">
-        3. Select <FormatAlignRightIcon sx={{ verticalAlign: "middle" }} /> Align Right from the menu
+        3. בחר <FormatAlignRightIcon sx={{ verticalAlign: "middle" }} /> ישר לימין מהתפריט
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -649,19 +650,19 @@ const task4Checkpoints = [
     }
   },
   {
-    name: "Indent the following text by 1 level",
+    name: "הגדל את כניסת הטקסט ב-1",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the text
+        1. לחץ על הטקסט
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Click the
+        2. לחץ על
         <IconButton aria-label='Align Text'>
           <FormatAlignLeftIcon />
-        </IconButton> menu in the toolbar
+        </IconButton> בתפריט סרגל הכלים
       </Typography>
       <Typography variant="subtitle2">
-        3. Select <FormatIndentIncreaseIcon sx={{ verticalAlign: "middle" }} /> Indent from the menu
+        3. בחר <FormatIndentIncreaseIcon sx={{ verticalAlign: "middle" }} /> הגדל כניסה מהתפריט
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -683,19 +684,19 @@ const task4Checkpoints = [
 
 const task5Checkpoints = [
   {
-    name: "Insert a Divider after this line",
+    name: "הוסף חוצץ",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below
+        1. לחץ על השורה הריקה
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Click the
+        2. לחץ על
         <IconButton aria-label='Insert'>
           <AddIcon />
-        </IconButton> button in the toolbar
+        </IconButton> 
       </Typography>
       <Typography variant="subtitle2">
-        3. Select <HorizontalRuleIcon sx={{ verticalAlign: "middle" }} /> Divider from the menu
+        3. בחר <HorizontalRuleIcon sx={{ verticalAlign: "middle" }} /> חוצץ מהתפריט
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -713,19 +714,19 @@ const task5Checkpoints = [
     }
   },
   {
-    name: "Insert a Math field after this line",
+    name: "הוסף בלוק מתמטיקה",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below
+        1. לחץ על השורה הריקה
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Click the
+        2. לחץ על
         <IconButton aria-label='Insert'>
           <AddIcon />
-        </IconButton> button in the toolbar
+        </IconButton> 
       </Typography>
       <Typography variant="subtitle2">
-        3. Select <FunctionsIcon sx={{ verticalAlign: "middle" }} /> Math from the menu
+        3. בחר <FunctionsIcon sx={{ verticalAlign: "middle" }} /> מתמטיקה מהתפריט
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -745,19 +746,19 @@ const task5Checkpoints = [
     }
   },
   {
-    name: "Insert a Graph after this line",
+    name: "הוסף גרף",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below
+        1. לחץ על השורה הריקה
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Click the
+        2. לחץ על
         <IconButton aria-label='Insert'>
           <AddIcon />
-        </IconButton> button in the toolbar
+        </IconButton> 
       </Typography>
       <Typography variant="subtitle2">
-        3. Select <GraphIcon /> Graph from the menu
+        3. בחר <GraphIcon /> גרף מהתפריט
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -777,19 +778,19 @@ const task5Checkpoints = [
     }
   },
   {
-    name: "Insert a Sketch after this line",
+    name: "הוסף קשקוש",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below
+        1. לחץ על השורה הריקה
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Click the
+        2. לחץ על
         <IconButton aria-label='Insert'>
           <AddIcon />
-        </IconButton> button in the toolbar
+        </IconButton> 
       </Typography>
       <Typography variant="subtitle2">
-        3. Select <BrushIcon sx={{ verticalAlign: "middle" }} /> Sketch from the menu
+        3. בחר <BrushIcon sx={{ verticalAlign: "middle" }} /> קשקוש מהתפריט
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -809,19 +810,19 @@ const task5Checkpoints = [
     }
   },
   {
-    name: "Insert an Image after this line",
+    name: "הוסף תמונה",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below
+        1. לחץ על השורה הריקה
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Click the
+        2. לחץ על
         <IconButton aria-label='Insert'>
           <AddIcon />
-        </IconButton> button in the toolbar
+        </IconButton> 
       </Typography>
       <Typography variant="subtitle2">
-        3. Select <ImageIcon sx={{ verticalAlign: "middle" }} /> Image from the menu
+        3. בחר <ImageIcon sx={{ verticalAlign: "middle" }} /> תמונה מהתפריט
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -841,19 +842,19 @@ const task5Checkpoints = [
     }
   },
   {
-    name: "Insert a Table after this line",
+    name: "הוסף טבלה",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below
+        1. לחץ על השורה הריקה
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Click the
+        2. לחץ על
         <IconButton aria-label='Insert'>
           <AddIcon />
-        </IconButton> button in the toolbar
+        </IconButton> 
       </Typography>
       <Typography variant="subtitle2">
-        3. Select <TableIcon sx={{ verticalAlign: "middle" }} /> Table from the menu
+        3. בחר <TableIcon sx={{ verticalAlign: "middle" }} /> טבלה מהתפריט
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -873,19 +874,19 @@ const task5Checkpoints = [
     }
   },
   {
-    name: "Insert a Sticky Note aside the following text",
+    name: "הוסף פתק",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the text below
+        1. לחץ על הטקסט מתחת
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Click the
+        2. לחץ על
         <IconButton aria-label='Insert'>
           <AddIcon />
-        </IconButton> button in the toolbar
+        </IconButton> 
       </Typography>
       <Typography variant="subtitle2">
-        3. Select <StickyNote2Icon sx={{ verticalAlign: "middle" }} /> Note from the menu
+        3. בחר <StickyNote2Icon sx={{ verticalAlign: "middle" }} /> פתק מהתפריט
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -909,13 +910,13 @@ const task5Checkpoints = [
 
 const task6Checkpoints = [
   {
-    name: "Insert a level 2 Heading after this line",
+    name: "הוסף כותרת בגודל 2",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below then type
+        1. לחץ על השורה הריקה וכתוב
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        ## This is a level 2 heading
+        ## זאת כותרת שנייה
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -934,13 +935,13 @@ const task6Checkpoints = [
   },
 
   {
-    name: "Insert some bold text after this line",
+    name: "הוסף טקסט מודגש",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below then type
+        1. לחץ על השורה הריקה וכתוב
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        **bold text**
+        **טקסט מודגש**
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -960,13 +961,13 @@ const task6Checkpoints = [
     }
   },
   {
-    name: "Insert some italicized text after this line",
+    name: "הוסף טקסט נטוי",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below then type
+        1. לחץ על השורה הריקה וכתוב
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        *italicized text*
+        *טקסט נטוי*
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -986,13 +987,13 @@ const task6Checkpoints = [
     }
   },
   {
-    name: "Insert a Blockquote after this line",
+    name: "הוסף בלוק ציטוט",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below then type
+        1. לחץ על השורה הריקה וכתוב
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        {'> This is a blockquote'}
+        {'> זה בלוק ציטוט'}
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -1010,13 +1011,13 @@ const task6Checkpoints = [
     }
   },
   {
-    name: "Insert a Bulleted List after this line",
+    name: "הוסף רשימת תבליטים",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below then type
+        1. לחץ על השורה הריקה וכתוב
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        {'- This is a bulleted list'}
+        {'- זה רשימת תבליטים'}
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -1034,13 +1035,13 @@ const task6Checkpoints = [
     }
   },
   {
-    name: "Insert some inline code after this line",
+    name: "הוסף קוד בתוך השורה",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below then type
+        1. לחץ על השורה הריקה וכתוב
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        {'`This is inline code`'}
+        {'`זה קוד בתוך השורה`'}
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -1060,16 +1061,16 @@ const task6Checkpoints = [
     }
   },
   {
-    name: "Insert a Code Block after this line",
+    name: "הוסף בלוק קוד",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below then type
+        1. לחץ על השורה הריקה וכתוב
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
         {'```'}
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Press Space
+        2. לחץ רווח
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -1087,16 +1088,16 @@ const task6Checkpoints = [
     }
   },
   {
-    name: "Insert a Horizontal Rule after this line",
+    name: "הוסף קו חוצץ",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below then type
+        1. לחץ על השורה הריקה וכתוב
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
         {'---'}
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Press Space
+        2. לחץ רווח
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -1114,13 +1115,13 @@ const task6Checkpoints = [
     }
   },
   {
-    name: "Insert a Link after this line",
+    name: "הוסף קישור",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below then type
+        1. לחץ על השורה הריקה וכתוב
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        {'[This is a link](https://www.example.com)'}
+        {'[זה לינק](https://www.example.com)'}
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -1140,13 +1141,13 @@ const task6Checkpoints = [
     }
   },
   {
-    name: "Insert an Image after this line",
+    name: "הוסף תמונה",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below then type
+        1. לחץ על השורה הריקה וכתוב
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        {'![Math Editor Logo](https://matheditor.me/logo.svg)'}
+        {'![תמונה](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_WXU_tgAdLUNaWXImw9Z1ezPGz9KOaH5860wiA50OwtgNMA3Q5KwiagZ9nSnrXJCJ8p8)'}
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -1166,16 +1167,16 @@ const task6Checkpoints = [
     }
   },
   {
-    name: "Insert a smile '😄' Emoji after this line",
+    name: "הוסף סמיילי '😄'",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below then type
+        1. לחץ על השורה הריקה וכתוב
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
         {':smile'}
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Pick the emoji from the List
+        2. בחר אמוגי מהרשימה
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -1195,10 +1196,10 @@ const task6Checkpoints = [
     }
   },
   {
-    name: "Insert a Math field after this line",
+    name: "הוסף בלוק מתמטיקה",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below then type
+        1. לחץ על השורה הריקה וכתוב
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
         {'$$'}
@@ -1221,10 +1222,10 @@ const task6Checkpoints = [
     }
   },
   {
-    name: "Insert a Math field with initial value y=x^2 after this line",
+    name: "הוסף בלוק מתמטיקה עם הערך y=x^2 ",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below then type
+        1. לחץ על השורה הריקה וכתוב
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
         {'$y=x^2$'}
@@ -1250,19 +1251,19 @@ const task6Checkpoints = [
 
 const task7Checkpoints = [
   {
-    name: "Insert a Graph after this line",
+    name: "הוספת גרף",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below then type
+        1. לחץ על השורה הריקה וכתוב
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        {'/plot'}
+        {'/גרף'}
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Press Enter
+        2. לחץ אנטר
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        3. Type a function then click insert button
+        3. כתוב פונקציה ואז לחץ הוספה
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -1282,19 +1283,19 @@ const task7Checkpoints = [
     }
   },
   {
-    name: "Insert a Sketch after this line",
+    name: "הוסף קשקוש",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below then type
+        1. לחץ על השורה הריקה וכתוב
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        {'/sketch'}
+        {'/קשקוש'}
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Press Enter
+        2. לחץ אנטר
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        3. Draw something then click insert button
+        3. צייר משהו ולחץ הוסף
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -1314,16 +1315,16 @@ const task7Checkpoints = [
     }
   },
   {
-    name: "Insert a 4x4 Table after this line",
+    name: "הוספה טבלה 4על4",
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
-        1. Click the empty line below then type
+        1. לחץ על השורה הריקה וכתוב
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
         {'/4x4'}
       </Typography>
       <Typography variant="subtitle2" gutterBottom>
-        2. Press Enter
+        2. לחץ אנטר
       </Typography>
     </>,
     check: (editorState?: EditorState) => {
@@ -1344,6 +1345,183 @@ const task7Checkpoints = [
   },
 ];
 
+const task8Checkpoints = [
+  {
+    name: "הוספת מטריצה",
+    steps: <>
+      <Typography variant="subtitle2" gutterBottom>
+        1.  לחץ על השורה הריקה וכתוב $$
+      </Typography>
+      <Typography variant="subtitle2" gutterBottom>
+        2. {"כתוב 'מטריצה'"} , או לחץ לחצן ימני והוסף מהתפריט שנפתח
+      </Typography>
+      <Typography variant="subtitle2" gutterBottom>
+        3. הקשר אנטר
+      </Typography>
+    </>,
+    check: (editorState?: EditorState) => {
+      let result = false;
+      if (!editorState) return result;
+      editorState.read(() => {
+        editorState._nodeMap.forEach((node:any) => {
+          if (node.__value === 1) {
+            const paragraphNode = node.getParent()?.getNextSibling();
+            if (!paragraphNode) return result;
+            const target = paragraphNode.getFirstChild();
+            if (target?.__type === "math" && target.__value.includes("Bmatrix")) result = true;
+          }
+        });
+      })
+      return result;
+    }
+  },
+  {
+    name: "הוסף חלוק למקרים",
+    steps: <>
+      <Typography variant="subtitle2" gutterBottom>
+        1. לחץ על השורה הריקה וכתוב $$
+      </Typography>
+      <Typography variant="subtitle2" gutterBottom>
+        2. {"כתוב 'אפשרויות'"}
+      </Typography>
+      <Typography variant="subtitle2" gutterBottom>
+        3. לחץ אנטר
+      </Typography>
+    </>,
+    check: (editorState?: EditorState) => {
+      let result = false;
+      if (!editorState) return result;
+      editorState.read(() => {
+        editorState._nodeMap.forEach((node:any) => {
+          if (node.__value === 2) {
+            const paragraphNode = node.getParent()?.getNextSibling();
+            if (!paragraphNode) return result;
+            const target = paragraphNode.getFirstChild();
+            if (target?.__type === "math" && target.__value.includes("cases")) result = true;
+          }
+        });
+      })
+      return result;
+    }
+  },
+  {
+    name: "הוספת סכום ",
+    steps: <>
+      <Typography variant="subtitle2" gutterBottom>
+      1. לחץ על השורה הריקה וכתוב $$
+      </Typography>
+          <Typography variant="subtitle2" gutterBottom>
+       2. {"כתוב 'סכום'"}
+      </Typography>
+       <Typography variant="subtitle2" gutterBottom>
+         3. לחץ אנטר
+      </Typography>
+    </>,
+    check: (editorState?: EditorState) => {
+      let result = false;
+      if (!editorState) return result;
+      editorState.read(() => {
+        editorState._nodeMap.forEach((node:any) => {
+          if (node.__value === 3) {
+            const paragraphNode = node.getParent()?.getNextSibling();
+            if (!paragraphNode) return result;
+            const target = paragraphNode.getFirstChild();
+            if (target?.__type === "math" && target.__value.includes("sum")) result = true;
+          }
+        });
+      })
+      return result;
+    }
+  },
+  {
+    name: "הוספת שורש ",
+    steps: <>
+      <Typography variant="subtitle2" gutterBottom>
+      1. לחץ על השורה הריקה וכתוב $$
+      </Typography>
+          <Typography variant="subtitle2" gutterBottom>
+       2. {"כתוב 'שורש'"}
+      </Typography>
+       <Typography variant="subtitle2" gutterBottom>
+         3. לחץ אנטר
+      </Typography>
+    </>,
+    check: (editorState?: EditorState) => {
+      let result = false;
+      if (!editorState) return result;
+      editorState.read(() => {
+        editorState._nodeMap.forEach((node:any) => {
+          if (node.__value === 4) {
+            const paragraphNode = node.getParent()?.getNextSibling();
+            if (!paragraphNode) return result;
+            const target = paragraphNode.getFirstChild();
+            if (target?.__type === "math" && target.__value.includes("sqrt")) result = true;
+          }
+        });
+      })
+      return result;
+    }
+  },
+  {
+    name: "הוספת אינטגרל ",
+    steps: <>
+      <Typography variant="subtitle2" gutterBottom>
+      1. לחץ על השורה הריקה וכתוב $$
+      </Typography>
+          <Typography variant="subtitle2" gutterBottom>
+       2. {"כתוב 'אינטגרל'"}
+      </Typography>
+       <Typography variant="subtitle2" gutterBottom>
+         3. לחץ אנטר
+      </Typography>
+    </>,
+    check: (editorState?: EditorState) => {
+      let result = false;
+      if (!editorState) return result;
+      editorState.read(() => {
+        editorState._nodeMap.forEach((node:any) => {
+          if (node.__value === 5) {
+            const paragraphNode = node.getParent()?.getNextSibling();
+            if (!paragraphNode) return result;
+            const target = paragraphNode.getFirstChild();
+            if (target?.__type === "math" && target.__value.includes("int")) result = true;
+          }
+        });
+      })
+      return result;
+    }
+  },
+  {
+    name: "הוספת גבול ",
+    steps: <>
+      <Typography variant="subtitle2" gutterBottom>
+      1. לחץ על השורה הריקה וכתוב $$
+      </Typography>
+          <Typography variant="subtitle2" gutterBottom>
+       2. {"כתוב 'גבול'"}
+      </Typography>
+       <Typography variant="subtitle2" gutterBottom>
+         3. לחץ אנטר
+      </Typography>
+    </>,
+    check: (editorState?: EditorState) => {
+      let result = false;
+      if (!editorState) return result;
+      editorState.read(() => {
+        editorState._nodeMap.forEach((node:any) => {
+          if (node.__value === 6) {
+            const paragraphNode = node.getParent()?.getNextSibling();
+            if (!paragraphNode) return result;
+            const target = paragraphNode.getFirstChild();
+            if (target?.__type === "math" && target.__value.includes("lim")) result = true;
+          }
+        });
+      })
+      return result;
+    }
+  },
+];
+
 const tasks = [
   Task1 as unknown,
   Task2 as unknown,
@@ -1352,6 +1530,7 @@ const tasks = [
   Task5 as unknown,
   Task6 as unknown,
   Task7 as unknown,
+  Task8 as unknown,
 ] as EditorDocument[];
 
 const checkpoints = [
@@ -1362,6 +1541,7 @@ const checkpoints = [
   task5Checkpoints,
   task6Checkpoints,
   task7Checkpoints,
+  task8Checkpoints,
 ];
 
 export { tasks, checkpoints }
