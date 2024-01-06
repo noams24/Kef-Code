@@ -55,6 +55,7 @@ export class MathNode extends DecoratorNode<JSX.Element> {
     if (style !== '') {
       dom.style.cssText = style;
     }
+    dom.style.fontSize = '18px';
     dom.style.display = 'inline-flex';
     dom.style.maxWidth = '100%';
     return dom;
