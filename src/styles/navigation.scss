@@ -12,7 +12,7 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 
 .header {
-  @apply bg-body py-0.5 dark:bg-darkmode-body;
+  @apply bg-body pt-4 dark:bg-darkmode-body;
 }
 
 // navbar items
@@ -31,9 +31,9 @@ input#nav-toggle:checked ~ #nav-menu {
   @apply text-center lg:text-left;
 }
 
-.nav-item {
+// .nav-item {
   // @apply mx-3;
-}
+// }
 
 .nav-link {
   @apply block p-3 font-semibold text-dark transition dark:text-darkmode-dark lg:px-2 lg:py-3;
