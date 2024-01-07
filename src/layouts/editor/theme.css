@@ -511,7 +511,7 @@
   }
 }
 
-.LexicalTheme__code:before {
+/* .LexicalTheme__code:before {
   background-color: #eee;
   border-right-color: #ccc;
   color: #777;
@@ -519,7 +519,7 @@
 
 .LexicalTheme__code:after {
   color: rgba(0, 0, 0, 0.5);
-}
+} */
 
 .LexicalTheme__layoutContainer {
   display: grid;

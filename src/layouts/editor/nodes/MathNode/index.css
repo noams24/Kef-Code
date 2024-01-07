@@ -9,6 +9,13 @@ math-field {
   width: 100%;
   padding: 0;
   --selection-color: #nope;
+  min-width: 11px;
+}
+
+math-field:focus-within {
+  outline: 1px solid #0b63d7;
+    border-radius: 2px;
+    background: rgba(51, 195, 252, 0.26);
 }
 
 math-field::part(virtual-keyboard-toggle),
