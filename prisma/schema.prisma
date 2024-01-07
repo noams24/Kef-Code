@@ -153,6 +153,7 @@ model Problem {
   title         String
   img           String
   difficulty    String
+  hint          String?
   solution      Solution?
   comments      Comment[]
   Submissions   Submissions[]

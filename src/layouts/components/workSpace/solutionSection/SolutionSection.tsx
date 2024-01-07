@@ -19,6 +19,7 @@ import parse from "html-react-parser";
 import Status from "@/components/Status";
 import Alert from "@mui/material/Alert";
 import { Snackbar } from "@mui/material";
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
 
 import "mathlive/static.css";
 import "@/layouts/editor/theme.css";
@@ -44,6 +45,7 @@ import DeleteSolutionModal from "@/components/modals/DeleteSolutionModal";
 import AddVideoModal from "@/components/modals/AddVideoModal";
 import { Share } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
+import Tippy from "@tippyjs/react";
 
 interface SolutionSectionProps {
   workSpaceData: any;
@@ -69,9 +71,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
   const [displayVideoModal, setVideoModal] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const { development } = useDevelop();
-  const {
-    data: soltionSectionData,
-  } = useQuery({
+  const { data: soltionSectionData } = useQuery({
     queryKey: ["solution", problemId, page, sortBy],
     queryFn: async () => {
       if (development) return null;
@@ -328,11 +328,9 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
           <div className="px-5">
             {development ? (
               solution
-            ) : 
-              
-            !workSpaceData ? <h3 className="flex justify-center mt-4">...טוען</h3>
-            :
-            workSpaceData.solutionArticle ? (
+            ) : !workSpaceData ? (
+              <h3 className="flex justify-center mt-4">...טוען</h3>
+            ) : workSpaceData.solutionArticle ? (
               <div>
                 <h4 className="mt-1.5 font-bold pt-2" dir="rtl">
                   פתרון
@@ -373,7 +371,15 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
           ) : (
             <div className="my-2">
               <div className="flex justify-between items-center">
-                <p></p>
+                {workSpaceData && workSpaceData.hint ? (
+                  <Tippy content={workSpaceData.hint} placement="right">
+                    <button className="border border-gray-500 rounded-lg text-sm p-1">
+                      הנחיה
+                    </button>
+                  </Tippy>
+                ) : (
+                  <p></p>
+                )}
                 {loading ? (
                   <LikesSkeleton />
                 ) : (

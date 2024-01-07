@@ -20,6 +20,7 @@ export async function GET(req: Request) {
             select: {
                 difficulty: true,
                 img: true,
+                hint: true,
             }
         })
         if (!problemData) return new Response('prbolemNotFound', { status: 400 })
@@ -107,6 +108,7 @@ export async function GET(req: Request) {
             content: content,
             imageUrl: problemData.img,
             difficulty: problemData.difficulty,
+            hint: problemData.hint,
             likes: likes,
             dislikes: dislikes,
             bookmark: bookmark,
