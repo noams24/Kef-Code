@@ -6,7 +6,8 @@
  *
  */
 
-import { DOMConversionMap, DOMConversionOutput, DOMExportOutput, LexicalEditor, LexicalNode, NodeKey, Spread, isHTMLElement, } from 'lexical';
+import { DOMConversionMap, DOMConversionOutput, DOMExportOutput, LexicalEditor, LexicalNode, NodeKey, Spread} from 'lexical';
+import { isHTMLElement } from '@lexical/utils';
 import { NonDeleted, ExcalidrawElement } from '@excalidraw/excalidraw/types/element/types';
 
 import { ImageNode, ImagePayload, SerializedImageNode } from '../ImageNode';
