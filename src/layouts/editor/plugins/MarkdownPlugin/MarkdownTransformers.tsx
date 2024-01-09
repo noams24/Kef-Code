@@ -19,10 +19,20 @@ import {
   Transformer,
 } from '@lexical/markdown';
 import {
+  $createTextNode,
+  $isParagraphNode,
+  $isTextNode,
+  ElementNode,
+  LexicalEditor,
+  LexicalNode,
+} from 'lexical';
+
+import {
   $createHorizontalRuleNode,
   $isHorizontalRuleNode,
   HorizontalRuleNode,
-} from '@lexical/react/LexicalHorizontalRuleNode';
+} from '../../nodes/HorizontalRuleNode';
+
 import {
   $createTableCellNode,
   $createTableNode,
@@ -35,20 +45,11 @@ import {
   TableNode,
   TableRowNode,
 } from '../../nodes/TableNode';
-import {
-  $createTextNode,
-  $isParagraphNode,
-  $isTextNode,
-  ElementNode,
-  LexicalNode,
-} from 'lexical';
-
 import { $createMathNode, $isMathNode, MathNode } from '../../nodes/MathNode';
 import { $createImageNode, $isImageNode, ImageNode } from '../../nodes/ImageNode';
-import emojiList from '../../plugins/EmojiPickerPlugin/emoji-list';
 import { $createGraphNode, $isGraphNode, GraphNode } from '../../nodes/GraphNode';
 import { $createSketchNode, $isSketchNode, SketchNode } from '../../nodes/SketchNode';
-import { $createStickyNode, $isStickyNode } from '../../nodes/StickyNode';
+import { $createStickyNode, $isStickyNode, StickyNode } from '../../nodes/StickyNode';
 import { $createCodeNode, $isCodeNode, CodeNode } from '../../nodes/CodeNode';
 
 export const HR: ElementTransformer = {
@@ -88,6 +89,8 @@ export const IMAGE: TextMatchTransformer = {
     const imageNode = $createImageNode({
       altText,
       src,
+      width: 0,
+      height: 0,
     });
     textNode.replace(imageNode);
   },
@@ -103,14 +106,14 @@ export const GRAPH: TextMatchTransformer = {
     }
     const src = node.getSrc();
     const altText = node.getType();
-    const url = src.startsWith('data:image/svg+xml')? svgtoBase64(src): src;
+    const url = src.startsWith('data:image/svg+xml') ? svgtoBase64(src) : src;
     return `![${altText}](${url})`;
   },
   importRegExp: /<graph src="([^"]+?)" value="([^"]+?)"\s?\/>\s?/,
   regExp: /<graph src="([^"]+?)" value="([^"]+?)"\s?\/>\s?$/,
   replace: (textNode, match) => {
     const [, src, value] = match;
-    const graphNode = $createGraphNode({ src, value });
+    const graphNode = $createGraphNode({ src, value, width: 0, height: 0 });
     textNode.replace(graphNode);
   },
   trigger: '>',
@@ -132,7 +135,7 @@ export const SKETCH: TextMatchTransformer = {
   regExp: /<sketch src="([^"]+?)"\s?\/>\s?$/,
   replace: (textNode, match) => {
     const [, src] = match;
-    const sketchNode = $createSketchNode({ src });
+    const sketchNode = $createSketchNode({ src, width: 0, height: 0 });
     textNode.replace(sketchNode);
   },
   trigger: '>',
@@ -163,21 +166,6 @@ const svgtoBase64 = (dataURI: string) => {
   const base64 = btoa(unescape(data));
   return `data:image/svg+xml;base64,${base64}`;
 }
-
-export const EMOJI: TextMatchTransformer = {
-  dependencies: [],
-  export: () => null,
-  importRegExp: /:([a-z0-9_]+):/,
-  regExp: /:([a-z0-9_]+):/,
-  replace: (textNode, [, name]) => {
-    const emoji = emojiList.find((e) => e.aliases.includes(name))?.emoji;
-    if (emoji) {
-      textNode.replace($createTextNode(emoji));
-    }
-  },
-  trigger: ':',
-  type: 'text-match',
-};
 
 export const MATH: TextMatchTransformer = {
   dependencies: [MathNode],
@@ -403,3 +391,21 @@ export const TRANSFORMERS: Array<Transformer> = [
   ...TEXT_MATCH_TRANSFORMERS,
   CODE,
 ];
+
+export default function createMarkdownTransformers(editor: LexicalEditor): Array<Transformer> {
+  const TRANSFORMERS: Array<Transformer> = [
+    HR,
+    MATH,
+    CHECK_LIST,
+    ...ELEMENT_TRANSFORMERS,
+    ...TEXT_FORMAT_TRANSFORMERS,
+    ...TEXT_MATCH_TRANSFORMERS,
+    CODE,
+  ];
+  if (editor.hasNode(TableNode)) TRANSFORMERS.unshift(TABLE);
+  if (editor.hasNode(ImageNode)) TRANSFORMERS.unshift(IMAGE);
+  if (editor.hasNode(GraphNode)) TRANSFORMERS.unshift(GRAPH);
+  if (editor.hasNode(SketchNode)) TRANSFORMERS.unshift(SKETCH);
+  if (editor.hasNode(StickyNode)) TRANSFORMERS.unshift(STICKY);
+  return TRANSFORMERS;
+} 

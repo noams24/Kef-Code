@@ -11,13 +11,11 @@
 import {
   $isRangeSelection,
   $setSelection,
-  GridSelection,
+  BaseSelection,
   KEY_ENTER_COMMAND,
   KEY_ESCAPE_COMMAND,
   LexicalEditor,
   NodeKey,
-  NodeSelection,
-  RangeSelection,
 } from 'lexical';
 
 import './index.css';
@@ -36,14 +34,16 @@ import {
   KEY_DELETE_COMMAND,
   SELECTION_CHANGE_COMMAND,
 } from 'lexical';
-import { Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react';
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 
 import ImageResizer from './ImageResizer';
 import { $isImageNode } from '.';
-import Typography from '@mui/material/Typography';
-import Image from 'next/image';
 
-const NestedEditor = lazy(() => import('../../NestedEditor'));
+import { editorConfig } from './config';
+import dynamic from 'next/dynamic';
+import { Typography } from '@mui/material';
+
+const NestedEditor = dynamic(() => import('@/layouts/editor/NestedEditor'), { ssr: false });
 
 function LazyImage({
   altText,
@@ -53,16 +53,14 @@ function LazyImage({
   width,
   height,
   draggable,
-  onLoad,
 }: {
   altText: string;
   className: string | null;
-  height: 'inherit' | number;
+  height: number;
   imageRef: { current: null | HTMLImageElement };
   src: string;
-  width: 'inherit' | number;
+  width: number;
   draggable: boolean
-  onLoad: () => void;
 }): JSX.Element {
   return (
     <img
@@ -70,12 +68,10 @@ function LazyImage({
       src={src}
       alt={altText}
       ref={imageRef}
-      style={{
-        height,
-        width,
-      }}
+      width={width || undefined}
+      height={height || undefined}
+      style={{ aspectRatio: (width / height) || undefined }}
       draggable={draggable}
-      onLoad={onLoad}
     />
   );
 }
@@ -86,31 +82,39 @@ export default function ImageComponent({
   nodeKey,
   width,
   height,
-  resizable,
   showCaption,
   caption,
+  element = 'img',
 }: {
   altText: string;
-  height: 'inherit' | number;
+  height: number;
   nodeKey: NodeKey;
-  resizable: boolean;
   src: string;
-  width: 'inherit' | number;
+  width: number;
   showCaption: boolean;
   caption: LexicalEditor;
+  element?: "img" | "iframe";
 }): JSX.Element {
   const imageRef = useRef<null | HTMLImageElement>(null);
   const [isSelected, setSelected, clearSelection] =
     useLexicalNodeSelection(nodeKey);
   const [isResizing, setIsResizing] = useState<boolean>(false);
   const [editor] = useLexicalComposerContext();
-  const [selection, setSelection] = useState<
-    RangeSelection | NodeSelection | GridSelection | null
-  >(null);
+  const [selection, setSelection] = useState<BaseSelection | null>(null);
   const activeEditorRef = useRef<LexicalEditor | null>(null);
 
   const onEnter = useCallback(
     (event: KeyboardEvent) => {
+      if (activeEditorRef.current === caption) {
+        if (event.shiftKey) return false;
+        $setSelection(null);
+        editor.update(() => {
+          const node = $getNodeByKey(nodeKey);
+          if (!$isImageNode(node)) return;
+          node.selectNext();
+        });
+        return true;
+      }
       const latestSelection = $getSelection();
       if (
         isSelected &&
@@ -167,7 +171,7 @@ export default function ImageComponent({
   );
 
   useEffect(() => {
-    onLoad();
+    isSelected && onLoad();
   }, [isSelected, imageRef]);
 
   useEffect(() => {
@@ -175,7 +179,6 @@ export default function ImageComponent({
     const unregister = mergeRegister(
       editor.registerUpdateListener(({ editorState }) => {
         if (isMounted) {
-          //@ts-ignore
           setSelection(editorState.read(() => $getSelection()));
         }
       }),
@@ -257,8 +260,8 @@ export default function ImageComponent({
   ]);
 
   const onResizeEnd = (
-    nextWidth: 'inherit' | number,
-    nextHeight: 'inherit' | number,
+    nextWidth: number,
+    nextHeight: number,
   ) => {
     // Delay hiding the resize bars for click case
     setTimeout(() => {
@@ -277,19 +280,17 @@ export default function ImageComponent({
   };
 
   const onLoad = () => {
-    if (isSelected) {
-      editor.getEditorState().read(() => {
-        const selection = $getSelection();
-        if (!$isRangeSelection(selection)) {
-          const rootElement = editor.getRootElement();
-          rootElement?.focus();
-          const nativeSelection = window.getSelection();
-          nativeSelection?.removeAllRanges();
-          const element = imageRef.current;
-          element?.scrollIntoView({ block: 'nearest' });
-        }
-      });
-    }
+    editor.getEditorState().read(() => {
+      const selection = $getSelection();
+      if (!$isRangeSelection(selection)) {
+        const rootElement = editor.getRootElement();
+        rootElement?.focus();
+        const nativeSelection = window.getSelection();
+        nativeSelection?.removeAllRanges();
+        const element = imageRef.current;
+        element?.scrollIntoView({ block: 'nearest' });
+      }
+    });
   }
 
   const onChange = () => {
@@ -303,48 +304,48 @@ export default function ImageComponent({
 
   const draggable = isSelected && $isNodeSelection(selection) && !isResizing;
   const isFocused = $isNodeSelection(selection) && (isSelected || isResizing);
-
   return (
-    <Suspense fallback={null}>
-      <>
-        {(resizable && $isNodeSelection(selection) && isFocused) ?
-          <ImageResizer
-            editor={editor}
-            imageRef={imageRef}
-            onResizeStart={onResizeStart}
-            onResizeEnd={onResizeEnd}
-          >
-            <LazyImage
-              className={isFocused ? `focused ${$isNodeSelection(selection) ? 'draggable' : ''}` : null}
-              src={src}
-              altText={altText}
-              imageRef={imageRef}
-              onLoad={onLoad}
-              width={width}
-              height={height}
-              draggable={draggable}
-            />
-          </ImageResizer>
-          :
+    <>
+      <ImageResizer
+        editor={editor}
+        imageRef={imageRef}
+        onResizeStart={onResizeStart}
+        onResizeEnd={onResizeEnd}
+        showResizers={isFocused}
+      >
+        {element === 'iframe' ? (
+          <iframe
+            ref={imageRef as unknown as React.Ref<HTMLIFrameElement>}
+            className={isFocused ? 'focused' : ''}
+            width={width}
+            height={height}
+            src={src}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen={true}
+            title={altText}
+          />
+        ) : (
           <LazyImage
             className={isFocused ? `focused ${$isNodeSelection(selection) ? 'draggable' : ''}` : null}
             src={src}
             altText={altText}
             imageRef={imageRef}
-            onLoad={onLoad}
             width={width}
             height={height}
             draggable={draggable}
           />
-        }
-        {showCaption && (
-          <figcaption>
-            <NestedEditor initialEditor={caption} onChange={onChange}
-              placeholder={<Typography color="text.secondary" className="nested-placeholder">Write a caption</Typography>}
-            /> 
-          </figcaption>
         )}
-      </>
-    </Suspense>
+      </ImageResizer>
+      {showCaption && (
+        <figcaption>
+          <Suspense fallback={null}>
+            <NestedEditor initialEditor={caption} initialNodes={editorConfig.nodes} onChange={onChange}
+              placeholder={<Typography color="text.secondary" className="nested-placeholder">כתוב תיאור</Typography>}
+            />
+          </Suspense>
+        </figcaption>
+      )}
+    </>
   );
 }

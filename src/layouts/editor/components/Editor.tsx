@@ -24,7 +24,7 @@ const Container: React.FC<{ document: EditorDocument, onChange?: (editorState: E
     onChange && onChange(editorState);
   }
   return (
-    <Editor initialConfig={{ editorState: JSON.stringify(document.data) }} onChange={handleChange} />
+    <Editor initialConfig={{ editorState: JSON.stringify(document.data) }} onChange={handleChange}/>
   );
 }
 

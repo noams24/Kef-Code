@@ -1,21 +1,35 @@
 "use client"
 import { $getSelection, $setSelection, LexicalEditor } from 'lexical';
 import { INSERT_SKETCH_COMMAND, InsertSketchPayload } from '../../SketchPlugin';
-import { Suspense, lazy, useEffect, useState, memo } from 'react';
+import { Suspense, useEffect, useState, memo, useCallback } from 'react';
 import LogicGates from "./SketchLibraries/Logic-Gates.json";
 import CircuitComponents from "./SketchLibraries/circuit-components.json";
 import { SketchNode } from '../../../nodes/SketchNode';
-import { ExcalidrawImperativeAPI, LibraryItems_anyVersion } from '@excalidraw/excalidraw/types/types';
-import { ImportedLibraryData } from '@excalidraw/excalidraw/types/data/types';
-import { Button, CircularProgress, Dialog, DialogActions, DialogContent, useTheme } from '@mui/material';
+import type { ExcalidrawImperativeAPI, LibraryItems_anyVersion, ExcalidrawProps } from '@excalidraw/excalidraw/types/types';
+import type { ImportedLibraryData } from '@excalidraw/excalidraw/types/data/types';
 import { SET_DIALOGS_COMMAND } from '..';
+import { getImageDimensions } from '@/layouts/editor/nodes/utils';
+// import useFixedBodyScroll from '@/hooks/useFixedBodyScroll';
+import { useTheme } from '@mui/material/styles';
+import { Button, CircularProgress, Dialog, DialogActions, DialogContent } from '@mui/material';
+import dynamic from 'next/dynamic';
 
-const Excalidraw = lazy(() => import('@excalidraw/excalidraw').then((module) => ({ default: module.Excalidraw })));
+const Excalidraw = dynamic<ExcalidrawProps>(() => import('@excalidraw/excalidraw').then((module) => ({ default: module.Excalidraw })), { ssr: false });
 
 export type ExcalidrawElementFragment = { isDeleted?: boolean; };
 
+export const useCallbackRefState = () => {
+  const [refValue, setRefValue] =
+    useState<ExcalidrawImperativeAPI | null>(null);
+  const refCallback = useCallback(
+    (value: ExcalidrawImperativeAPI | null) => setRefValue(value),
+    [],
+  );
+  return [refValue, refCallback] as const;
+};
+
 function SketchDialog({ editor, node, open }: { editor: LexicalEditor, node: SketchNode | null; open: boolean; }) {
-  const [excalidrawAPI, setExcalidrawAPI] = useState<ExcalidrawImperativeAPI | null>(null);
+  const [excalidrawAPI, excalidrawAPIRefCallback] = useCallbackRefState();
   const theme = useTheme();
 
   useEffect(() => {
@@ -47,8 +61,9 @@ function SketchDialog({ editor, node, open }: { editor: LexicalEditor, node: Ske
 
     const serialized = new XMLSerializer().serializeToString(element);
     const src = "data:image/svg+xml," + encodeURIComponent(serialized);
-
-    insertSketch({ src });
+    const dimensions = await getImageDimensions(src);
+    const showCaption = node?.getShowCaption() ?? true;
+    insertSketch({ src, showCaption, ...dimensions });
     closeDialog();
     setTimeout(() => { editor.focus() }, 0);
   };
@@ -94,12 +109,14 @@ function SketchDialog({ editor, node, open }: { editor: LexicalEditor, node: Ske
 
   const libraryItems = [...LogicGates.library, ...CircuitComponents.libraryItems] as any as LibraryItems_anyVersion;
 
+  // useFixedBodyScroll(open);
+
   return <Dialog open={open} fullScreen={true} onClose={handleClose} disableEscapeKeyDown>
     <DialogContent sx={{ display: "flex", justifyContent: "center", alignItems: "center", p: 0, overflow: "hidden" }}>
       {open &&
         <Suspense fallback={<CircularProgress size={36} disableShrink />}>
           <Excalidraw
-            ref={(api: ExcalidrawImperativeAPI) => setExcalidrawAPI(api)}
+            excalidrawAPI={excalidrawAPIRefCallback}
             initialData={{ libraryItems }}
             theme={theme.palette.mode}
           />
@@ -110,7 +127,7 @@ function SketchDialog({ editor, node, open }: { editor: LexicalEditor, node: Ske
         ביטול
       </Button>
       <Button onClick={handleSubmit}>
-        {!node ? "אישור" : "עדכן"}
+        {!node ? "אישור" : "עדכון"}
       </Button>
     </DialogActions>
   </Dialog>;

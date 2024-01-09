@@ -3,12 +3,10 @@ import { LexicalEditor, NodeKey } from 'lexical';
 import { useEffect, useState } from 'react';
 import { NonDeleted, ExcalidrawElement } from '@excalidraw/excalidraw/types/element/types';
 import ImageComponent from '../ImageNode/ImageComponent';
-import Virgil from '/public/fonts/excalidraw/Virgil.woff2';
-import Cascadia from "/public/fonts/excalidraw/Cascadia.woff2";
 
 export const encodeFonts = Promise.all([
-  fetch(Virgil).then(res => res.arrayBuffer()).then(buffer => arrayBufferToBase64Font(buffer)),
-  fetch(Cascadia).then(res => res.arrayBuffer()).then(async buffer => arrayBufferToBase64Font(buffer)),
+  fetch("/fonts/Virgil.woff2").then(res => res.arrayBuffer()).then(buffer => arrayBufferToBase64Font(buffer)),
+  fetch("/fonts/Cascadia.woff2").then(res => res.arrayBuffer()).then(async buffer => arrayBufferToBase64Font(buffer)),
 ]);
 
 const arrayBufferToBase64Font = (buffer: ArrayBuffer) => {
@@ -18,13 +16,13 @@ const arrayBufferToBase64Font = (buffer: ArrayBuffer) => {
 }
 
 export default function SketchComponent({
-  nodeKey, width, height, src, value, resizable, showCaption, caption
+  nodeKey, width, height, src, altText, value, showCaption, caption
 }: {
-  width: 'inherit' | number;
-  height: 'inherit' | number;
+  width: number;
+  height: number;
   src: string;
+  altText: string;
   nodeKey: NodeKey;
-  resizable: boolean;
   value?: NonDeleted<ExcalidrawElement>[];
   showCaption: boolean;
   caption: LexicalEditor;
@@ -49,6 +47,6 @@ export default function SketchComponent({
   }, [src]);
 
   return (
-    <ImageComponent nodeKey={nodeKey} width={width} height={height} src={source || src} altText="" resizable={resizable} showCaption={showCaption} caption={caption} />
+    <ImageComponent nodeKey={nodeKey} width={width} height={height} src={source || src} altText={altText} showCaption={showCaption} caption={caption} />
   );
 }

@@ -27,23 +27,32 @@ import ClickableLinkPlugin from './LinkPlugin/ClickableLinkPlugin';
 import ComponentPickerMenuPlugin from './ComponentPickerPlugin';
 import TabFocusPlugin from './TabFocusPlugin';
 import DragDropPaste from './DragDropPastePlugin';
-import { ColumnsPlugin } from "./ColumnsPlugin"
 // import DraggableBlockPlugin from './DraggableBlockPlugin'
 import EmojiPickerPlugin from './EmojiPickerPlugin';
 import CollapsiblePlugin from "./CollapsiblePlugin";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { TableNode } from "../nodes/TableNode";
+import { ImageNode } from "../nodes/ImageNode";
+import { SketchNode } from "../nodes/SketchNode";
+import { GraphNode } from "../nodes/GraphNode";
+import { StickyNode } from "../nodes/StickyNode";
+import { LayoutContainerNode } from "../nodes/LayoutNode";
+import { LayoutPlugin } from "./LayoutsPlugin";
+import { CollapsibleContainerNode } from "./CollapsiblePlugin/CollapsibleContainerNode";
 
 export const EditorPlugins: React.FC<{
   contentEditable: React.ReactElement;
-  placeholder?: JSX.Element | ((isEditable: boolean) => JSX.Element | null) | null| any;
-  onChange: (editorState: EditorState, editor: LexicalEditor) => void;
+  placeholder?: JSX.Element | ((isEditable: boolean) => JSX.Element | null) | null;
+  onChange?: (editorState: EditorState, editor: LexicalEditor, tags: Set<string>) => void;
 }> = ({ contentEditable, placeholder = null, onChange }) => {
+  const [editor] = useLexicalComposerContext();
   const { historyState } = useSharedHistoryContext();
 
   return (
     <>
-      <RichTextPlugin contentEditable={contentEditable} ErrorBoundary={LexicalErrorBoundary} placeholder={<div className="pointer-events-none select-none px-1 text-center relative  text-gray-500">כתוב את הפתרון שלך כאן</div>} />
+      <RichTextPlugin contentEditable={contentEditable} ErrorBoundary={LexicalErrorBoundary} placeholder={placeholder} />
       <HistoryPlugin externalHistoryState={historyState} />
-      <OnChangePlugin ignoreHistoryMergeTagChange ignoreSelectionChange onChange={onChange} />
+      {onChange && <OnChangePlugin ignoreHistoryMergeTagChange ignoreSelectionChange onChange={onChange} />}
       <ListPlugin />
       <CheckListPlugin />
       <LinkPlugin />
@@ -54,21 +63,21 @@ export const EditorPlugins: React.FC<{
       <MarkdownPlugin />
       <FloatingToolbarPlugin />
       <HorizontalRulePlugin />
-      <TablePlugin />
-      <TableCellActionMenuPlugin />
-      <TableCellResizer />
+      {editor.hasNode(TableNode) && <TablePlugin />}
+      {editor.hasNode(TableNode) && <TableCellActionMenuPlugin /> }
+      {editor.hasNode(TableNode) && <TableCellResizer /> }
       <ComponentPickerMenuPlugin />
       <EmojiPickerPlugin />
       <MathPlugin />
-      <ImagePlugin />
-      <SketchPlugin />
-      <GraphPlugin />
-      <StickyPlugin />
+      {editor.hasNode(ImageNode) && <ImagePlugin />}
+      {editor.hasNode(SketchNode) && <SketchPlugin />}
+      {editor.hasNode(GraphNode) && <GraphPlugin />}
+      {editor.hasNode(StickyNode) && <StickyPlugin />}
       <DragDropPaste />
-      <ColumnsPlugin />
+      {editor.hasNode(LayoutContainerNode) && <LayoutPlugin />}
       {/* <DraggableBlockPlugin /> */}
       <CodeHighlightPlugin />
-      <CollapsiblePlugin />
+     {editor.hasNode(CollapsibleContainerNode) && <CollapsiblePlugin />}
       <AutoLinkPlugin />
     </>
   );

@@ -13,8 +13,8 @@ import {CollapsibleContainerNode} from './plugins/CollapsiblePlugin/CollapsibleC
 import {CollapsibleContentNode} from './plugins/CollapsiblePlugin/CollapsibleContentNode';
 import {CollapsibleTitleNode} from './plugins/CollapsiblePlugin/CollapsibleTitleNode';
 import theme from "./theme";
-import { LayoutContainerNode } from "./nodes/ColumnsNode/LayoutContainerNode";
-import { LayoutItemNode } from "./nodes/ColumnsNode/LayoutItemNode";
+import { LayoutContainerNode } from "./nodes/LayoutNode";
+import { LayoutItemNode } from "./nodes/LayoutNode";
 
 export const editorConfig = {
   namespace: "matheditor",

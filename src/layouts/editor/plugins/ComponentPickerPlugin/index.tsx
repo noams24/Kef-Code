@@ -342,13 +342,13 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
         keyboardShortcut: '/טבלה',
         onSelect: openTableDialog,
       }),
-      // new ComponentPickerOption('Note', {
-      //   icon: <StickyNote2Icon />,
-      //   keywords: ['sticky', 'note', 'sticky note'],
-      //   keyboardShortcut: '/note',
-      //   onSelect: () =>
-      //     editor.dispatchCommand(INSERT_STICKY_COMMAND, undefined),
-      // }),
+      new ComponentPickerOption('פתק', {
+        icon: <StickyNote2Icon />,
+        keywords: ['sticky', 'note', 'sticky note', 'פתק'],
+        keyboardShortcut: '/פתק',
+        onSelect: () =>
+          editor.dispatchCommand(INSERT_STICKY_COMMAND, undefined),
+      }),
       new ComponentPickerOption('קיפול', {
         icon: <PlayArrowIcon />,
         keywords: ['collapse', 'collapsible', 'toggle', 'קיפול'],

@@ -92,13 +92,13 @@ export default function InsertToolMenu({ editor }: { editor: LexicalEditor }): J
           <ListItemText>טבלה</ListItemText>
           <Typography variant="body2" color="text.secondary">/טבלה</Typography>
         </MenuItem>
-        {/* <MenuItem onClick={() => { editor.dispatchCommand(INSERT_STICKY_COMMAND, undefined); handleClose(); }}>
+        <MenuItem onClick={() => { editor.dispatchCommand(INSERT_STICKY_COMMAND, undefined); handleClose(); }}>
           <ListItemIcon>
             <StickyNote2Icon fontSize="small" />
           </ListItemIcon>
-          <ListItemText>Note</ListItemText>
-          <Typography variant="body2" color="text.secondary">/note</Typography>
-        </MenuItem> */}
+          <ListItemText>פתק</ListItemText>
+          <Typography variant="body2" color="text.secondary">/פתק</Typography>
+        </MenuItem>
         <MenuItem onClick={() => { editor.dispatchCommand(INSERT_COLLAPSIBLE_COMMAND, undefined,); handleClose(); }}>
           <ListItemIcon>
             <PlayArrowIcon fontSize="small" />

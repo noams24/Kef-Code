@@ -1,48 +1,58 @@
 "use client"
 import { $getSelection, $setSelection, LexicalEditor } from 'lexical';
 import { INSERT_IMAGE_COMMAND, InsertImagePayload } from '../../ImagePlugin';
-import UploadFileIcon from '@mui/icons-material/UploadFile';
-import Box from '@mui/material/Box';
 import { useEffect, useState, memo } from 'react';
-import useTheme from '@mui/material/styles/useTheme';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import TextField from '@mui/material/TextField/TextField';
-import Typography from '@mui/material/Typography';
 
 import Compressor from 'compressorjs';
 import { ImageNode } from '../../../nodes/ImageNode';
-import DialogTitle from '@mui/material/DialogTitle';
 import { SET_DIALOGS_COMMAND } from '..';
+import { getImageDimensions } from '@/layouts/editor/nodes/utils';
+// import useFixedBodyScroll from '@/hooks/useFixedBodyScroll';
+import { useTheme } from '@mui/material/styles';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, Switch, TextField, Typography, useMediaQuery } from '@mui/material';
+import { UploadFile } from '@mui/icons-material';
 
 function ImageDialog({ editor, node, open }: { editor: LexicalEditor, node: ImageNode | null; open: boolean; }) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-  const [formData, setFormData] = useState({ src: '', altText: '' });
+  const [formData, setFormData] = useState<InsertImagePayload>({ src: '', altText: '', width: 0, height: 0, showCaption: true });
 
   useEffect(() => {
+    if (!open) return;
     if (node) {
-      setFormData({ src: node.getSrc(), altText: node.getAltText() });
+      setFormData({ src: node.getSrc(), altText: node.getAltText(), width: node.getWidth(), height: node.getHeight(), showCaption: node.getShowCaption() });
     } else {
-      setFormData({ src: '', altText: '' });
+      setFormData({ src: '', altText: '', width: 0, height: 0, showCaption: true });
     }
-  }, [node]);
+  }, [node, open]);
 
-  const updateFormData = (event: any) => {
+  const updateFormData = async (event: any) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    if (name === 'src') {
+      try {
+        const dimensions = await getImageDimensions(value);
+        setFormData({ ...formData, ...dimensions, [name]: value });
+      } catch (e) {
+        setFormData({ ...formData, [name]: value });
+      }
+    } else if (name === 'showCaption') {
+      setFormData({ ...formData, [name]: event.target.checked });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const loadImage = (files: FileList | null) => {
     const reader = new FileReader();
-    reader.onload = function () {
+    reader.onload = async function () {
       if (typeof reader.result === 'string') {
-        setFormData({ src: reader.result, altText: files![0].name.replace(/\.[^/.]+$/, "") });
+        try {
+          const dimensions = await getImageDimensions(reader.result);
+          setFormData({ src: reader.result, altText: files![0].name.replace(/\.[^/.]+$/, ""), ...dimensions, showCaption: true });
+        } catch (e) {
+          setFormData({ ...formData, src: reader.result, altText: files![0].name.replace(/\.[^/.]+$/, ""), showCaption: true });
+        }
       }
-      return '';
     };
     if (files !== null) {
       new Compressor(files[0], {
@@ -52,7 +62,7 @@ function ImageDialog({ editor, node, open }: { editor: LexicalEditor, node: Imag
           reader.readAsDataURL(result);
         },
         error(err: Error) {
-          // console.log(err.message);
+          console.log(err.message);
           reader.readAsDataURL(files[0]);
         },
       });
@@ -68,7 +78,6 @@ function ImageDialog({ editor, node, open }: { editor: LexicalEditor, node: Imag
 
   const closeDialog = () => {
     editor.dispatchCommand(SET_DIALOGS_COMMAND, { image: { open: false } })
-    setFormData({ src: '', altText: '' });
   }
 
   const restoreSelection = () => {
@@ -89,6 +98,8 @@ function ImageDialog({ editor, node, open }: { editor: LexicalEditor, node: Imag
     restoreSelection();
   }
 
+  // useFixedBodyScroll(open);
+
   return <Dialog
     open={!!open}
     fullScreen={fullScreen}
@@ -105,12 +116,15 @@ function ImageDialog({ editor, node, open }: { editor: LexicalEditor, node: Imag
         <Typography variant="h6" sx={{ mt: 1 }}>הוספת תמונה דרך קישור</Typography>
         <TextField type="url" margin="normal" size="small" fullWidth
           value={formData.src} onChange={updateFormData} label="קישור לתמונה" name="src" autoComplete="src" autoFocus />
-        <TextField margin="normal" size="small" fullWidth value={formData.altText} onChange={updateFormData} label="טקסט משני" name="altText" autoComplete="altText" />
-        <Typography variant="h6" sx={{ mt: 1 }}>הוספת תמונה דרך העלאה</Typography>
-        <Button variant="outlined" sx={{ my: 2 }} startIcon={<UploadFileIcon />} component="label">
-          העלאת תמונה
+        <Typography variant="h6" sx={{ mt: 1 }}>מקובץ</Typography>
+        <Button variant="outlined" sx={{ my: 2, gap:1 }} startIcon={<UploadFile />} component="label">
+          העלאת קובץ
           <input type="file" hidden accept="image/*" onChange={e => loadImage(e.target.files)} autoFocus />
         </Button>
+        <TextField margin="normal" size="small" fullWidth value={formData.altText} onChange={updateFormData} label="תיאור" name="altText" autoComplete="altText" />
+        <TextField margin="normal" size="small" fullWidth value={formData.width} onChange={updateFormData} label="רוחב" name="width" autoComplete="width" />
+        <TextField margin="normal" size="small" fullWidth value={formData.height} onChange={updateFormData} label="גובה" name="height" autoComplete="height" />
+        <FormControlLabel control={<Switch checked={formData.showCaption} onChange={updateFormData} />} label="הצגת תיאור" name="showCaption" />
       </Box>
     </DialogContent>
     <DialogActions>

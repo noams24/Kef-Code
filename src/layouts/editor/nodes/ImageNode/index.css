@@ -7,13 +7,37 @@
  *
  */
 
-.LexicalTheme__image .image-control-wrapper {
+ .LexicalTheme__image .image-control-wrapper {
   display: inline-flex;
   position: relative;
 }
 
 .LexicalTheme__image .image-control-wrapper--resizing {
   touch-action: none;
+}
+
+.LexicalTheme__image img {
+  min-width: 100px;
+  max-width: 100%;
+  height: auto;
+  background-color: white;
+  scroll-margin-top: 88px;
+  scroll-margin-bottom: 24px;
+}
+
+.LexicalTheme__image img.focused,
+.LexicalTheme__image iframe.focused {
+  outline: 2px solid rgb(95 183 255 / 75%);
+}
+
+.LexicalTheme__image img.focused.draggable,
+.LexicalTheme__image iframe.focused.draggable {
+  cursor: grab
+}
+
+.LexicalTheme__image img.focused.draggable:active,
+.LexicalTheme__image iframe.focused.draggable:active {
+  cursor: grabbing
 }
 
 .LexicalTheme__image .nested-contentEditable {
@@ -45,6 +69,10 @@
   position: absolute;
   padding: 0;
   color: rgb(95 183 255 / 75%) !important;
+}
+
+.LexicalTheme__image .image-resizer svg {
+  background-color: unset;
 }
 
 .LexicalTheme__image .image-resizer.image-resizer-n {
@@ -108,7 +136,7 @@
     outline: none !important;
   }
 
-  .image-control-wrapper {
+  .image-control-wrapper .image-resizer {
     display: none !important;
   }
 }

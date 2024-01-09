@@ -6,30 +6,26 @@
  *
  */
 
-import type {ElementNode, LexicalCommand, LexicalNode, NodeKey} from 'lexical';
+import type { ElementNode, LexicalCommand, LexicalNode, NodeKey } from 'lexical';
 
-import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
-import {$insertNodeToNearestRoot, mergeRegister} from '@lexical/utils';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { $insertNodeToNearestRoot, mergeRegister } from '@lexical/utils';
 import {
   $createParagraphNode,
   $getNodeByKey,
   COMMAND_PRIORITY_EDITOR,
   createCommand,
 } from 'lexical';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 
 import {
   $createLayoutContainerNode,
   $isLayoutContainerNode,
   LayoutContainerNode,
-} from '../../nodes/ColumnsNode/LayoutContainerNode'
-// } from '../../nodes/LayoutContainerNode';
-import {
   $createLayoutItemNode,
   $isLayoutItemNode,
   LayoutItemNode,
-} from '../../nodes/ColumnsNode/LayoutItemNode'
-// } from '../../nodes/LayoutItemNode';
+} from '../../nodes/LayoutNode';
 
 export const INSERT_LAYOUT_COMMAND: LexicalCommand<string> =
   createCommand<string>();
@@ -37,9 +33,9 @@ export const INSERT_LAYOUT_COMMAND: LexicalCommand<string> =
 export const UPDATE_LAYOUT_COMMAND: LexicalCommand<{
   template: string;
   nodeKey: NodeKey;
-}> = createCommand<{template: string; nodeKey: NodeKey}>();
+}> = createCommand<{ template: string; nodeKey: NodeKey }>();
 
-export function ColumnsPlugin(): null {
+export function LayoutPlugin(): null {
   const [editor] = useLexicalComposerContext();
   useEffect(() => {
     if (!editor.hasNodes([LayoutContainerNode, LayoutItemNode])) {
@@ -72,7 +68,7 @@ export function ColumnsPlugin(): null {
       ),
       editor.registerCommand(
         UPDATE_LAYOUT_COMMAND,
-        ({template, nodeKey}) => {
+        ({ template, nodeKey }) => {
           editor.update(() => {
             const container = $getNodeByKey<LexicalNode>(nodeKey);
 

@@ -9,7 +9,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { SET_DIALOGS_COMMAND } from "..";
-import { INSERT_LAYOUT_COMMAND } from "../../ColumnsPlugin";
+import { INSERT_LAYOUT_COMMAND } from "../../LayoutsPlugin";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
