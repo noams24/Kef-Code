@@ -17,7 +17,8 @@ import type {
   Spread,
 } from 'lexical';
 
-import { $createNodeSelection, $setSelection, DecoratorNode, createEditor, isHTMLElement } from 'lexical';
+import { $createNodeSelection, $setSelection, DecoratorNode, createEditor } from 'lexical';
+import { isHTMLElement } from '@lexical/utils';
 import * as React from 'react';
 import { Suspense } from 'react';
 import { editorConfig } from './config';

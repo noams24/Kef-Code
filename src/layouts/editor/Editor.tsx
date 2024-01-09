@@ -33,6 +33,7 @@ export const Editor: React.FC<{
             contentEditable={<ContentEditable className="editor-input" />}
             onChange={onChange}
           />
+          {/*@ts-ignore */}
           {editorRef && <EditorRefPlugin editorRef={editorRef} />}
           {/* {process.env.NODE_ENV === "development" && <TreeViewPlugin />} */}
         </div>

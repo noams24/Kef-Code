@@ -116,6 +116,7 @@ function SketchDialog({ editor, node, open }: { editor: LexicalEditor, node: Ske
       {open &&
         <Suspense fallback={<CircularProgress size={36} disableShrink />}>
           <Excalidraw
+          //@ts-ignore
             excalidrawAPI={excalidrawAPIRefCallback}
             initialData={{ libraryItems }}
             theme={theme.palette.mode}

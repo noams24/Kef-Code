@@ -21,8 +21,8 @@ import {
   $cloneWithProperties,
   $sliceSelectedTextNodeContent,
 } from '@lexical/selection';
-import { $getRoot, $isElementNode, $isTextNode, isHTMLElement } from 'lexical';
-
+import { $getRoot, $isElementNode, $isTextNode } from 'lexical';
+import { isHTMLElement } from '@lexical/utils';
 /**
  * How you parse your html string to get a document is left up to you. In the browser you can use the native
  * DOMParser API to generate a document (see clipboard.ts), but to use in a headless environment you can use JSDom

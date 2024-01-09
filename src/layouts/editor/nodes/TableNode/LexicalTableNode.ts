@@ -19,14 +19,13 @@ import type {
   SerializedElementNode,
 } from 'lexical';
 
-import { addClassNamesToElement } from '@lexical/utils';
+import { addClassNamesToElement, isHTMLElement } from '@lexical/utils';
 import {
   $applyNodeReplacement,
   $getNearestNodeFromDOMNode,
   DEPRECATED_GridNode,
-  isHTMLElement,
+  // isHTMLElement,
 } from 'lexical';
-
 import { $isTableCellNode } from './LexicalTableCellNode';
 import { $isTableRowNode, TableRowNode } from './LexicalTableRowNode';
 import { getTableGrid } from './LexicalTableSelectionHelpers';
@@ -88,7 +87,9 @@ export class TableNode extends DEPRECATED_GridNode {
 
     if (element) {
       const element_ = element as HTMLTableCellElement;
+      //@ts-ignore
       if (this.__style) {
+        //@ts-ignore
         element_.style.cssText = this.__style;
       }
     }
