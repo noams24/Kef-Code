@@ -113,6 +113,8 @@
   overflow-x: auto;
   position: relative;
   tab-size: 2;
+  text-align: left;
+  direction: ltr;
 }
 
 .LexicalTheme__code:before {
@@ -129,6 +131,7 @@
   text-align: right;
   min-width: 25px;
   counter-reset: line-number;
+  text-align: left;
 }
 
 .LexicalTheme__code>span:first-child,
