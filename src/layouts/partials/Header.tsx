@@ -18,7 +18,6 @@ const Header = () => {
         <div className="order-0 flex items-center md:order-0 lg:ml-0">
           <Login />
           <ThemeSwitcher className="mx-5" />
-          
         </div>
       </nav>
     </header>

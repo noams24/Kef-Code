@@ -231,13 +231,8 @@ export default function MathComponent({
       גבול: "\\lim_{x \\to \\placeholder{}}",
       חץארוך: "\\xrightarrow[\\placeholder{}]{\\placeholder{}}",
     };
-  }, []);
 
-  const focus = useCallback((mathfield: MathfieldElement) => {
-    mathfield.focus();
-    const mathVirtualKeyboard = window.mathVirtualKeyboard;
-    mathVirtualKeyboard.show({ animate: true });
-    mathVirtualKeyboard.layouts = [
+    window.mathVirtualKeyboard.layouts = [
       {
         label: "לוגיקה ותורת הקבוצות",
         rows: [
@@ -369,6 +364,12 @@ export default function MathComponent({
       "numeric",
       "symbols",
     ];
+  }, []);
+
+  const focus = useCallback((mathfield: MathfieldElement) => {
+    mathfield.focus();
+    const mathVirtualKeyboard = window.mathVirtualKeyboard;
+    mathVirtualKeyboard.show({ animate: true });
 
     const container = mathVirtualKeyboard.container;
     if (!container) return;
