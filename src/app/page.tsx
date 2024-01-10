@@ -28,8 +28,8 @@ const Home = () => {
                 <br />
                 הפלטפורמה נועדה להיות קלה לשימוש ואינטואיטיבית עם ממשק משתמש
                 המאפשר לכתוב נוסחאות מתמטיות, הוספת גרפים, איורים, תמונות, ועוד
-                הרבה פ&apos;יצרים מגניבים. בנוסף תוכלו לדפדף בקלות בין שאלות ותשובות
-                כדי ללמוד במהירות ולחסוך זמן יקר.
+                הרבה פ&apos;יצרים מגניבים. בנוסף תוכלו לדפדף בקלות בין שאלות
+                ותשובות כדי ללמוד במהירות ולחסוך זמן יקר.
                 <br />
                 למה אתם מחכים?
               </p>
@@ -159,9 +159,15 @@ const Home = () => {
                   </li>
                 </div>
               </ul>
-              <div className="flex justify-center">
+              <div className="flex justify-center gap-6 mt-6">
                 <Link
-                  className="btn inline-block btn-primary mt-5"
+                  className="btn-outline-primary inline-block pt-2"
+                  href="/playground"
+                >
+                  סביבת ניסוי
+                </Link>
+                <Link
+                  className="btn inline-block btn-primary"
                   href="/tutorial"
                 >
                   מדריך
