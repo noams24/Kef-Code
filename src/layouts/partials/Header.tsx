@@ -17,7 +17,8 @@ const Header = () => {
         {/*Left side of the navbar */}
         <div className="order-0 flex items-center md:order-0 lg:ml-0">
           <Login />
-          <ThemeSwitcher className="ml-5" />
+          <ThemeSwitcher className="mx-5" />
+          
         </div>
       </nav>
     </header>

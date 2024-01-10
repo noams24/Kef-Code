@@ -54,7 +54,7 @@ const NavMenu: React.FC = () => {
   }, [wrapperRef]);
 
   return (
-    <nav className={` ${isMobile ? "flex justify-between order-3" : "order-1"}`} >
+    <nav className={` ${isMobile ? "flex justify-start order-1" : "order-1"}`} >
       {isMobile ? (
         <button onClick={toggleDropdown}>
           {isDropdownOpen ? <CloseIcon /> : <MenuIcon />}
@@ -67,7 +67,7 @@ const NavMenu: React.FC = () => {
         </ul>
       )}
       {isMobile && isDropdownOpen && (
-        <div className="absolute top-16 right-4 bg-white dark:bg-darkmode-body p-4 border rounded shadow" ref={wrapperRef}>
+        <div className="absolute top-16 right-44 z-50 bg-white dark:bg-darkmode-body p-4 border rounded shadow" ref={wrapperRef}>
           <ul id="nav-menu" className={`navbar-nav flex flex-col w-auto space-x-2 pb-0 xl:space-x-8`} onClick={toggleDropdown}>
             {main.map((menu, i) => (
               <MenuItem key={`menu-${i}`} menu={menu} />
