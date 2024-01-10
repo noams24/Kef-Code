@@ -86,7 +86,7 @@ export function DataTableColumnHeader<TData, TValue>({
   }
 
   return (
-    <div className={cn("space-x-2 flex justify-end", className)}>
+    <div className={cn("flex justify-center pl-10", className)}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button

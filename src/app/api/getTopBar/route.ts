@@ -52,8 +52,8 @@ export async function GET(req: Request) {
 
             const newResults = {
                 problems: problems,
-                prevLink: `/courses/${course}/${chapter}/${problems[prevIndex].title.replace(' ', '-')}`,
-                nextLink: `/courses/${course}/${chapter}/${problems[nextIndex].title.replace(' ', '-')}`
+                prevLink: `/courses/${course}/${chapter}/${problems[prevIndex].title.replaceAll(' ', '-')}`,
+                nextLink: `/courses/${course}/${chapter}/${problems[nextIndex].title.replaceAll(' ', '-')}`
             }
             return new Response(JSON.stringify(newResults))
         }

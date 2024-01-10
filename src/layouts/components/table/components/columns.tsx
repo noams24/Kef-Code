@@ -77,8 +77,8 @@ export const columns: ColumnDef<Task>[] = [
     cell: ({ row }) => {
       const path = Path()
       return (
-        <div className='flex justify-end space-x-2 pr-7'>
-          <span className="max-w-[500px] truncate  font-bold font-arial">
+        <div className='flex space-x-2 justify-center'>
+          <span className="max-w-[500px] truncate font-bold font-arial">
             {/* <Link href="/courses/algebra-1/bases/1"> */}
               {/*When the website will be ready, uncomment the next row: */}
             <Link href={`/courses/${path[1]}/${path[2]}/${row.original.title.replaceAll(' ', '-')}`}> 

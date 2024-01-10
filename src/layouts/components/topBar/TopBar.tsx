@@ -65,7 +65,7 @@ const TopBar = (problemId: any) => {
                 difficulty={item.difficulty}
                 status={item.status}
                 currentQuestion={currentQuestion}
-                url={`/courses/${course}/${chapter}/${item.title}`}
+                url={`/courses/${course}/${chapter}/${item.title.replaceAll(' ', '-')}`}
               />
            </div>
           ))}

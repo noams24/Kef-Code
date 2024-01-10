@@ -61,7 +61,7 @@ const QuestionCard: React.FC<Props> = ({
                 <QuestionMarkCircledIcon />
               </div>
             )}
-            <p className="font-arial font-bold">{title}</p>
+            <p dir="rtl" className="font-arial font-bold">{title}</p>
             <p
               className={`${difficulty === "קל" && "text-green-600"}
             ${difficulty === "בינוני" && "text-yellow-600"}
