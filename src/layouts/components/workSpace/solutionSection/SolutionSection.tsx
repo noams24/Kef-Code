@@ -48,8 +48,9 @@ import Tippy from "@tippyjs/react";
 // import PdfRenderer from "@/components/PdfRenderer";
 
 import dynamic from "next/dynamic";
-const PdfRenderer = dynamic(() => import("@/components/PdfRenderer"), { ssr: false});
-
+const PdfRenderer = dynamic(() => import("@/components/PdfRenderer"), {
+  ssr: false,
+});
 
 interface SolutionSectionProps {
   workSpaceData: any;
@@ -410,10 +411,15 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
               <div className="mt-5 flex justify-center">
                 {loading ? (
                   <ImageSkeleton />
+                ) : workSpaceData?.imageUrl.endsWith("pdf") ? (
+                  <PdfRenderer url={workSpaceData?.imageUrl} />
                 ) : (
-                  <PdfRenderer url={"/images/sample.pdf"} />
-                  // <ImageDisplay imageUrl={workSpaceData?.imageUrl} />
-                )}
+                  <ImageDisplay imageUrl={workSpaceData?.imageUrl} />
+                )
+                // <div>{workSpaceData?.imageUrl}</div>
+                // <PdfRenderer url={"/images/sample.pdf"} />
+                // <ImageDisplay imageUrl={workSpaceData?.imageUrl} />
+                }
               </div>
             </div>
           )}
