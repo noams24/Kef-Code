@@ -19,7 +19,6 @@ import parse from "html-react-parser";
 import Status from "@/components/Status";
 import Alert from "@mui/material/Alert";
 import { Snackbar } from "@mui/material";
-import LightbulbIcon from '@mui/icons-material/Lightbulb';
 
 import "mathlive/static.css";
 import "@/layouts/editor/theme.css";
@@ -46,6 +45,12 @@ import AddVideoModal from "@/components/modals/AddVideoModal";
 import { Share } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
 import Tippy from "@tippyjs/react";
+// import PdfRenderer from "@/components/PdfRenderer";
+
+import dynamic from "next/dynamic";
+const PdfRenderer = dynamic(() => import("@/components/PdfRenderer"), {
+  ssr: false,
+});
 
 interface SolutionSectionProps {
   workSpaceData: any;
@@ -364,9 +369,10 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                 bookmark={undefined}
                 likeStatus={undefined}
               />
-              <ImageDisplay
+              <PdfRenderer url={"/images/sample.pdf"} />
+              {/* <ImageDisplay
                 imageUrl={"https://i.ibb.co/Gdz4BTg/problem1.png"}
-              />{" "}
+              />{" "} */}
             </div>
           ) : (
             <div className="my-2">
@@ -405,9 +411,12 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
               <div className="mt-5 flex justify-center">
                 {loading ? (
                   <ImageSkeleton />
+                ) : workSpaceData?.imageUrl.endsWith("pdf") ? (
+                  <PdfRenderer url={workSpaceData?.imageUrl} />
                 ) : (
                   <ImageDisplay imageUrl={workSpaceData?.imageUrl} />
-                )}
+                )
+                }
               </div>
             </div>
           )}
