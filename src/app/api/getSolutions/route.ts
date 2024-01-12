@@ -1,7 +1,7 @@
 import { db } from '@/lib/db'
 import { generateHtml } from "@/layouts/editor/utils/generateHtml"
-import { JSDOM } from "jsdom";
-import type { EditorDocument } from './types';
+// import { JSDOM } from "jsdom";
+// import type { EditorDocument } from './types';
 import { getAuthSession } from '@/lib/auth'
 
 export async function GET(req: Request) {
@@ -26,13 +26,13 @@ export async function GET(req: Request) {
                     votes: true,
                     comments: true,
                 },
-                
+
                 orderBy: {
                     votes: {
-                      _count: 'desc',
+                        _count: 'desc',
                     },
-                  },
-                
+                },
+
                 take: 5,
                 skip: (page - 1) * 5
             })
@@ -68,20 +68,21 @@ export async function GET(req: Request) {
         //     })
         // }
 
-        const dom = new JSDOM()
-        global.window = dom.window as unknown as Window & typeof globalThis
-        global.document = dom.window.document
-        global.DocumentFragment = dom.window.DocumentFragment
-        global.Element = dom.window.Element
-        global.navigator = dom.window.navigator
+        // const dom = new JSDOM()
+        // global.window = dom.window as unknown as Window & typeof globalThis
+        // global.document = dom.window.document
+        // global.DocumentFragment = dom.window.DocumentFragment
+        // global.Element = dom.window.Element
+        // global.navigator = dom.window.navigator
 
         let newResults: { [key: string]: any } = results
         for (let i = 0; i < results.length; i++) {
             // parse the json content to html to display the answer
-            const document = results[i].content
-            const documentt = { id: '1', data: document } as unknown as EditorDocument
-            const htmlData = await generateHtml(documentt.data);
-            newResults[i].html = htmlData
+            // const document = results[i].content
+            // const documentt = { id: '1', data: document } as unknown as EditorDocument
+            //@ts-ignore
+            // const htmlData = await generateHtml(results[i].content);
+            newResults[i].html = await generateHtml(results[i].content);
 
             //check if the user has already like the submission
             const flag = newResults[i].votes.some((obj: { userId: string | undefined; }) => obj.userId === session?.user.id);

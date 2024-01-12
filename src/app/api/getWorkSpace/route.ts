@@ -1,8 +1,8 @@
 import { db } from '@/lib/db'
 import { getAuthSession } from '@/lib/auth'
 import { generateHtml } from "@/layouts/editor/utils/generateHtml"
-import { JSDOM } from "jsdom";
-import type { EditorDocument } from '@/types'
+// import { JSDOM } from "jsdom";
+// import type { EditorDocument } from '@/types'
 
 
 export async function GET(req: Request) {
@@ -93,15 +93,17 @@ export async function GET(req: Request) {
         })
         let htmlData = null
         if (solution?.content) {
-            const dom = new JSDOM()
-            global.window = dom.window as unknown as Window & typeof globalThis
-            global.document = dom.window.document
-            global.DocumentFragment = dom.window.DocumentFragment
-            global.Element = dom.window.Element
-            global.navigator = dom.window.navigator
-            const document = solution.content
-            const documentt = { id: '1', data: document } as unknown as EditorDocument
-            htmlData = await generateHtml(documentt.data);
+            //@ts-ignore
+            htmlData = await generateHtml(solution.content)
+            // const dom = new JSDOM()
+            // global.window = dom.window as unknown as Window & typeof globalThis
+            // global.document = dom.window.document
+            // global.DocumentFragment = dom.window.DocumentFragment
+            // global.Element = dom.window.Element
+            // global.navigator = dom.window.navigator
+            // const document = solution.content
+            // const documentt = { id: '1', data: document } as unknown as EditorDocument
+            // htmlData = await generateHtml(documentt.data);
         }
 
         const result = {
