@@ -76,8 +76,6 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
     resolver: zodResolver(CustomPageValidator),
   })
 
-  console.log(errors)
-
   const { width, ref } = useResizeDetector()
 
   const handlePageSubmit = ({
@@ -89,7 +87,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
 
   return (
     <div className='w-full mt-2 border border-zinc-200 rounded-md shadow flex flex-col items-center'>
-      <div className='h-14 w-full border-b border-zinc-200 flex items-center justify-between px-2'>
+      <div className='h-14 w-full overflow-hidden border-b border-zinc-200 flex items-center justify-between px-2'>
         <div className='flex items-center gap-1.5'>
           <Button
             disabled={currPage <= 1}

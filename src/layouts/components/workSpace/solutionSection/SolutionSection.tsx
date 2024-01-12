@@ -416,9 +416,6 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                 ) : (
                   <ImageDisplay imageUrl={workSpaceData?.imageUrl} />
                 )
-                // <div>{workSpaceData?.imageUrl}</div>
-                // <PdfRenderer url={"/images/sample.pdf"} />
-                // <ImageDisplay imageUrl={workSpaceData?.imageUrl} />
                 }
               </div>
             </div>

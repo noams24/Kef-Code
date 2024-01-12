@@ -4,7 +4,7 @@ const config = require("./src/config/config.json");
 const nextConfig = {
   webpack: (config, options) => {
     config.resolve.alias.canvas = false
-    config.resolve.alias.encoding = false
+    // config.resolve.alias.encoding = false
     config.module.rules.push({
       test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
       type: "asset/resource",
