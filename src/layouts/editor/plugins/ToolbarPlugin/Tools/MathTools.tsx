@@ -26,7 +26,7 @@ const WolframIcon = () => <SvgIcon viewBox='0 0 20 20' fontSize='small'>
 </SvgIcon>;
 
 export default function MathTools({ editor, node, sx }: { editor: LexicalEditor, node: MathNode, sx?: SxProps<Theme> | undefined }) {
-  const [fontSize, setFontSize] = useState('15px');
+  const [fontSize, setFontSize] = useState('18px');
   const FONT_SIZE_OPTIONS: [string, string][] = [
     ['10px', '10'],
     ['11px', '11'],
@@ -43,7 +43,7 @@ export default function MathTools({ editor, node, sx }: { editor: LexicalEditor,
 
   useEffect(() => {
     editor.getEditorState().read(() => {
-      const fontSize = $getNodeStyleValueForProperty(node, 'font-size', '15px');
+      const fontSize = $getNodeStyleValueForProperty(node, 'font-size', '18px');
       setFontSize(fontSize);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
