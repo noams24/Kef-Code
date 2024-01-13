@@ -291,7 +291,7 @@
   transform: scale(var(--ggs, 1));
   border-radius: 2px;
   top: 2px;
-  left: 0;
+  right: 0;
   background-color: #1ccf25;
   background-repeat: no-repeat;
 }
