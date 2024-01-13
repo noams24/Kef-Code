@@ -52,7 +52,7 @@ const Tutorial: React.FC = () => {
   return (
     <>
       {/* <Helmet title="Tutorial" /> */}
-      <div className="h-[90vh] overflow-y-auto font-arial mx-44">
+      <div className="h-[90vh] overflow-y-auto font-arial mx-24">
         <Editor
           key={currentTask}
           document={tasks[currentTask]}

@@ -217,17 +217,20 @@ const task1Checkpoints = [
       let result = false;
       if (!editorState) return result;
       editorState.read(() => {
-        editorState._nodeMap.forEach((node:any) => {
-          if (node.getTextContent() === "תחתי") {
-            if (node.hasFormat("subscript" as any)) result = true;
+        editorState._nodeMap.forEach((node) => {
+          if (node.__value === 6) {
+            const paragraphNode = node.getParent()?.getNextSibling();
+            if (!paragraphNode) return result;
+            const target = paragraphNode.getFirstChild();
+            if (target && target.hasFormat("subscript")) result = true;
           }
         });
-      })
+      });
       return result;
     }
   },
   {
-    name: 'הפוך את הטקסט הבא לכתב תחתי',
+    name: 'הפוך את הטקסט הבא לכתב עילי',
     steps: <>
       <Typography variant="subtitle2" gutterBottom>
         1. סמן את הטקסט
@@ -244,12 +247,15 @@ const task1Checkpoints = [
       let result = false;
       if (!editorState) return result;
       editorState.read(() => {
-        editorState._nodeMap.forEach((node:any) => {
-          if (node.getTextContent() === "עילי") {
-            if (node.hasFormat("superscript" as any)) result = true;
+        editorState._nodeMap.forEach((node) => {
+          if (node.__value === 7) {
+            const paragraphNode = node.getParent()?.getNextSibling();
+            if (!paragraphNode) return result;
+            const target = paragraphNode.getFirstChild();
+            if (target && target.hasFormat("superscript")) result = true;
           }
         });
-      })
+      });
       return result;
     }
   },
