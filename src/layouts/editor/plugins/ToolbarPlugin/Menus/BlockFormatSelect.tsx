@@ -176,7 +176,7 @@ export function BlockFormatSelect({ editor, blockType }: {
         <ListItemIcon>
           <PlaylistAddCheckIcon fontSize="small" />
         </ListItemIcon>
-        <ListItemText>טודוליסט</ListItemText>
+        <ListItemText>{"צ'ק ליסט"}</ListItemText>
       </MenuItem>
       <MenuItem value='quote' onClick={formatQuote}>
         <ListItemIcon>

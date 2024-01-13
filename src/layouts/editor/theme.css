@@ -32,7 +32,7 @@
   margin-bottom: 0;
 }
 
-.LexicalTheme__quote {
+.LexicalTheme__quote[dir='ltr'] {
   margin: 0;
   margin-left: 20px;
   margin-bottom: 10px;
@@ -43,6 +43,19 @@
   border-left-style: solid;
   padding-left: 16px;
 }
+
+.LexicalTheme__quote[dir='rtl'] {
+  margin: 0;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  color: rgb(101, 103, 107);
+  border-right-color: rgb(206, 208, 212);
+  border-right-width: 4px;
+  border-right-style: solid;
+  padding-right: 16px;
+}
+
 
 .LexicalTheme__indent {
   --lexical-indent-base-value: 40px;
@@ -253,7 +266,20 @@
   text-decoration: line-through;
 }
 
-.LexicalTheme__listItemUnchecked:before,
+.LexicalTheme__listItemUnchecked:before{
+  display: block;
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid;
+  transform: scale(var(--ggs, 1));
+  border-radius: 2px;
+  top: 2px;
+  right: 0;
+}
+
 .LexicalTheme__listItemChecked:before {
   display: block;
   content: "";
@@ -266,12 +292,14 @@
   border-radius: 2px;
   top: 2px;
   left: 0;
+  background-color: #1ccf25;
+  background-repeat: no-repeat;
 }
 
-.LexicalTheme__listItemUnchecked[dir='rtl']:before,
-.LexicalTheme__listItemChecked[dir='rtl']:before {
-  left: auto;
-  right: 0;
+.LexicalTheme__listItemUnchecked[dir='ltr']:before,
+.LexicalTheme__listItemChecked[dir='ltr']:before {
+  left: 0;
+  right: auto;
 }
 
 .LexicalTheme__listItemUnchecked:focus:before,
@@ -291,9 +319,15 @@
   height: 10px;
   border-width: 0 2px 2px 0;
   border-style: solid;
+  border-color: black;
   transform-origin: bottom left;
   transform: rotate(45deg)
 }
+
+[theme="dark"] .LexicalTheme__listItemChecked:after {
+  border-color: #fff;
+}
+
 .LexicalTheme__listItemUnchecked[dir='rtl']:after,
 .LexicalTheme__listItemChecked[dir='rtl']:after {
   left: auto;
@@ -485,10 +519,6 @@
  }
 
 @media screen {
-  .LexicalTheme__quote {
-    @apply text-gray-400 border-l border-gray-300 dark:border-gray-700
-  }
-
  .LexicalTheme__textCode {
     @apply bg-gray-100 dark:bg-black
   }

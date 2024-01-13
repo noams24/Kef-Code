@@ -265,9 +265,9 @@ export default function ComponentPickerMenuPlugin(): JSX.Element {
         onSelect: () =>
           editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined),
       }),
-      new ComponentPickerOption('טודוליסט', {
+      new ComponentPickerOption("צ'קליסט", {
         icon: <PlaylistAddCheckIcon />,
-        keywords: ['check list', 'todo list', 'טודוליסט'],
+        keywords: ['check list', 'todo list', 'טודוליסט','ליסט','צקליסט',"צ'קליסט"],
         keyboardShortcut: '[x]',
         onSelect: () =>
           editor.dispatchCommand(INSERT_CHECK_LIST_COMMAND, undefined),
