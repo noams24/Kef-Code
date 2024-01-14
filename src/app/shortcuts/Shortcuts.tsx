@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/layouts/components/ui/Table";
 import { useEffect, useRef, useState } from "react";
-import { groupTheory, numberTheory, RelationalOperators } from "./constants";
+import { groupTheory, numberTheory, RelationalOperators, inlineShortcuts, keyboard } from "./constants";
 
 //@ts-ignore
 import(/* webpackIgnore: true */ "//unpkg.com/mathlive");
@@ -26,20 +26,27 @@ function App() {
 
   // Customize the mathfield when it is created
   useEffect(() => {
-    // mf.current.mathModeSpace = "\\,";
-    // mf.current.smartFence = true
-    // mf.current.mathVirtualKeyboardPolicy = "manual";
-    // mf.current.addEventListener("focusin", (evt) =>
-    //   window.mathVirtualKeyboard.show(),
-    // );
-    // mf.current.addEventListener("focusout", (evt) =>
-    //   window.mathVirtualKeyboard.hide(),
-    // );
-    // mf.current.inlineShortcuts = { גם: "\\lor",}
-    // console.log(mf.current)
+    //@ts-ignore
+    mf.current.addEventListener(
+      "focusin",
+      //@ts-ignore
+      (evt) => (
+        //@ts-ignore
+        (mf.current.inlineShortcuts = {
+          //@ts-ignore
+          ...mf.current.inlineShortcuts,
+          ...inlineShortcuts,
+        }),
+        //@ts-ignore
+        (window.mathVirtualKeyboard.layouts = keyboard),
+        window.mathVirtualKeyboard.show()
+      ),
+    );
+    //@ts-ignore
+    mf.current.addEventListener("focusout", (evt) =>
+      window.mathVirtualKeyboard.hide(),
+    );
   }, []);
-
-
 
   return (
     <div className="flex flex-col items-center justify-center mt-8 mb-8 gap-8">
