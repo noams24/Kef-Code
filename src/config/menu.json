@@ -1,6 +1,10 @@
 {
   "main": [
     {
+      "name": "קיצורי מקלדת",
+      "url": "/shortcuts"
+    },
+    {
       "name": "העלאת שאלה",
       "url": "/addquestion"
     },
