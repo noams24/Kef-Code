@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/layouts/components/ui/Table";
 import { useEffect, useRef, useState } from "react";
-import { groupTheory, numberTheory, RelationalOperators, inlineShortcuts, keyboard } from "./constants";
+import { groupTheory, numberTheory, relationalOperators,quantifiers, inlineShortcuts, keyboard } from "./constants";
 
 //@ts-ignore
 import(/* webpackIgnore: true */ "//unpkg.com/mathlive");
@@ -167,7 +167,7 @@ function App() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {RelationalOperators.map((obj: any, index: number) => (
+              {relationalOperators.map((obj: any, index: number) => (
                 <TableRow
                   key={index}
                   className={`${index % 2 === 0 ? "bg-gray-200 dark:bg-zinc-700" : ""
@@ -184,10 +184,7 @@ function App() {
                       {obj.latex}
                     </math-field>
                   </TableCell>
-                  <TableCell
-                    className="border-l border-gray-800 dark:border-gray-200"
-                    dir="ltr"
-                  >
+                  <TableCell className="border-l border-gray-800 dark:border-gray-200" dir="ltr">
                     {obj.shortcut}
                   </TableCell>
                   <TableCell>{obj.shortcut2}</TableCell>
@@ -196,6 +193,47 @@ function App() {
             </TableBody>
           </Table>
 
+
+          <h4 className="pt-8 pb-3">לוגיקה - תחשיב היחסים</h4>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>שם הסימן</TableHead>
+                <TableHead className="border-x border-gray-800 dark:border-gray-200">
+                  הסימן
+                </TableHead>
+                <TableHead className="border-x border-gray-800 dark:border-gray-200">
+                  הקיצור ב-LaTex
+                </TableHead>
+                <TableHead>הקיצור שלנו</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {quantifiers.map((obj: any, index: number) => (
+                <TableRow
+                  key={index}
+                  className={`${index % 2 === 0 ? "bg-gray-200 dark:bg-zinc-700" : ""
+                    }`}
+                >
+                  <TableCell className="border-l border-gray-800 dark:border-gray-200">
+                    {obj.name}
+                  </TableCell>
+                  <TableCell className="border-l border-gray-800 dark:border-gray-200 px-10">
+                    <math-field
+                      read-only={true}
+                      class="w-auto bg-transparent flex justify-center text-lg display:inline-block dark:text-white"
+                    >
+                      {obj.latex}
+                    </math-field>
+                  </TableCell>
+                  <TableCell className="border-l border-gray-800 dark:border-gray-200" dir="ltr">
+                    {obj.shortcut}
+                  </TableCell>
+                  <TableCell>{obj.shortcut2}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
 
 
         </div>

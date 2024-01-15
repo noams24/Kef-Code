@@ -23,6 +23,75 @@ export const groupTheory: any = [
     shortcut: "\\cap",
     shortcut2: "איחוד",
   },
+  {
+    name: "חיתוך",
+    latex: "\\cup",
+    shortcut: "\\cup",
+    shortcut2: "חיתוך",
+  },
+  {
+    name: "הפרש",
+    latex: "\\setminus",
+    shortcut: "\\setminus",
+    shortcut2: "הפרש",
+  },
+  {
+    name: "משלים",
+    latex: "\\^c",
+    shortcut: "\\^c",
+    shortcut2: "משלים",
+  },
+  {
+    name: "מכפלה קרטזית",
+    latex: "\\times",
+    shortcut: "\\times",
+    shortcut2: "מכפלהקרטזית",
+  },
+  {
+    name: "סוגר שמאל מסולסל",
+    latex: '\\{',
+    shortcut: '\\{',
+    shortcut2: "סוגרשמאלמסולסל",
+  },
+  {
+    name: "סוגר ימין מסולסל",
+    latex: '\\}',
+    shortcut: '\\}',
+    shortcut2: "סוגרימיןמסולסל",
+  },
+  {
+    name: "כך ש",
+    latex: "\\mid",
+    shortcut: "\\mid",
+    shortcut2: "כךש",
+  }
+];
+
+export const quantifiers: any = [
+  {
+    name: "כל",
+    latex: "\\forall",
+    shortcut: "\\forall",
+    shortcut2: "כל",
+  },
+  {
+    name: "קיים",
+    latex: "\\exists",
+    shortcut: "\\exists",
+    shortcut2: "קיים",
+  },
+  {
+    name: "אין",
+    latex: "\\nexists",
+    shortcut: "\\nexists",
+    shortcut2: "אין",
+  },
+  {
+    name: "קיים יחיד",
+    latex: "\\exists!",
+    shortcut: "\\exists!",
+    shortcut2: "קייםיחיד",
+  },
 ];
 
 export const numberTheory: any = [
@@ -52,7 +121,7 @@ export const numberTheory: any = [
   }
 ];
 
-export const RelationalOperators: any = [
+export const relationalOperators: any = [
   {
     name: "או",
     latex: "\\vee",
