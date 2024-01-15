@@ -11,8 +11,13 @@ import { Share, Print } from "@mui/icons-material";
 import { useReactToPrint } from "react-to-print";
 import { Snackbar } from "@mui/material";
 import Alert from "@mui/material/Alert";
-import dictionary from "@/content/dictionary.json"
+import dictionary from "@/content/dictionary.json";
 import Link from "next/link";
+
+import dynamic from "next/dynamic";
+const PdfRenderer = dynamic(() => import("@/components/PdfRenderer"), {
+  ssr: false,
+});
 
 const View = ({ data, children }: any) => {
   const [open, setOpen] = useState(false);
@@ -56,14 +61,17 @@ const View = ({ data, children }: any) => {
       </button>
       {/*@ts-ignore*/}
       <div className="mx-36 mt-5" ref={printRef}>
-        <div className="flex justify-center">
-          <ImageDisplay imageUrl={data.problem.img} />
+        <div dir="ltr" className="flex justify-center">
+          {data.problem.img.endsWith("pdf") ? (
+            <PdfRenderer url={data.problem.img} />
+          ) : (
+            <ImageDisplay imageUrl={data.problem.img} />
+          )}
         </div>
         <div className="pt-10 font-arial">{children}</div>
       </div>
       <AppDrawer isOpen={open} setOpen={setOpen}>
         <div dir="rtl" className="flex mt-3 border-b-2">
-          {/* <FaRegUserCircle className={"mt-2 inline-block text-2xl"} /> */}
           <UserAvatar
             user={{
               name: data.user.username || null,
@@ -85,10 +93,36 @@ const View = ({ data, children }: any) => {
         </div>
         <div className="pt-5 pr-3" dir="rtl">
           {/* @ts-ignore */}
-          <p>קורס: <Link href={`/courses/${data.problem.course}`} className="hover:text-blue-500 hover:underline">{dictionary[data.problem.course]}</Link></p>
+          <p>
+            קורס:{" "}
+            <Link
+              href={`/courses/${data.problem.course}`}
+              className="hover:text-blue-500 hover:underline"
+            >
+              {/*@ts-ignore*/}
+              {dictionary[data.problem.course]}
+            </Link>
+          </p>
           {/* @ts-ignore */}
-          <p>פרק: <Link href={`/courses/${data.problem.course}/${data.problem.chapter}`} className="hover:text-blue-500 hover:underline">{dictionary[data.problem.chapter]}</Link></p>
-          <p>שם השאלה: <Link href={`/courses/${data.problem.course}/${data.problem.chapter}/${data.problem.title}`} className="hover:text-blue-500 hover:underline">{data.problem.title}</Link></p>
+          <p>
+            פרק:{" "}
+            <Link
+              href={`/courses/${data.problem.course}/${data.problem.chapter}`}
+              className="hover:text-blue-500 hover:underline"
+            >
+              {/*@ts-ignore*/}
+              {dictionary[data.problem.chapter]}
+            </Link>
+          </p>
+          <p>
+            שם השאלה:{" "}
+            <Link
+              href={`/courses/${data.problem.course}/${data.problem.chapter}/${data.problem.title}`}
+              className="hover:text-blue-500 hover:underline"
+            >
+              {data.problem.title}
+            </Link>
+          </p>
         </div>
         <Box
           sx={{

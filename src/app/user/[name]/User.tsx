@@ -138,7 +138,7 @@ const User: React.FC<MyComponentProps> = ({ user, data, localUser }) => {
                 className="overflow-clip p-2 hover:bg-gray-100 dark:hover:bg-slate-800 border border-gray-800 dark:border-gray-400 rounded-sm"
                 key={index}
               >
-                <Link href={`/view/${item.id}`} target="_blank">
+                <Link href={`/view/${item.id}`}>
                   <div className="flex justify-between space-x-3 w-80 ">
                     <SiGoogledocs className="" size={30} />
                     <div className="w-full gap-y-1 pr-2 ">
