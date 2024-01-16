@@ -3,9 +3,11 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import Image from "next/image";
 import { useState } from "react";
 import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 
 const ImageDisplay = ({ imageUrl }: any) => {
-  const [color, setColor] = useState<"light" | "dark">("light");
+  const theme = useTheme();
+  const [color, setColor] = useState(theme.theme);
 
   const handleClick = () => {
     color === "light" ? setColor("dark") : setColor("light");

@@ -41,7 +41,7 @@ const Breadcrumbs = ({ className }: { className?: string }) => {
             {index > 0 && <span className="inlin-block ml-1.5">/</span>}
             {index !== parts.length - 1 ? (
               <Link
-                className="text-primary dark:text-darkmode-primary"
+                className="text-primary dark:text-darkmode-primary truncate"
                 {...attrs}
               >
                   {label}

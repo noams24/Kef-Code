@@ -325,7 +325,9 @@ function ToolbarPlugin() {
     ['Cascadia', 'Cascadia'],
     ['Courier New', 'Courier New'],
     ['Georgia', 'Georgia'],
-    ['Birzia', 'Birzia']
+    ['Birzia', 'Birzia'],
+    ['SalmanHabka', 'SalmanHabka'],
+    ['NivRaviv','NivRaviv']
   ];
 
   const FONT_SIZE_OPTIONS: [string, string][] = [
@@ -340,6 +342,11 @@ function ToolbarPlugin() {
     ['18px', '18'],
     ['19px', '19'],
     ['20px', '20'],
+    ['21px', '21'],
+    ['22px', '22'],
+    ['23px', '23'],
+    ['24px', '24'],
+    ['25px', '25'],
   ];
 
   const trigger = useScrollTrigger({
