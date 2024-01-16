@@ -54,7 +54,7 @@ const NavMenu = () => {
   }, [wrapperRef]);
 
   return (
-    <nav className={` ${isMobile ? "flex justify-start order-1 relative pr-6" : "order-1 pr-6"}`} >
+    <nav className={` ${isMobile ? "flex justify-start order-1 relative pr-6" : "order-1 pr-14"}`} >
       {isMobile ? (
         <button onClick={toggleDropdown}>
           {isDropdownOpen ? <CloseIcon /> : <MenuIcon />}
