@@ -291,6 +291,7 @@ function ToolbarPlugin() {
   const onFontSizeSelect = useCallback(
     (e: SelectChangeEvent) => {
       applyStyleText({ 'font-size': (e.target as HTMLSelectElement).value });
+      setTimeout(() => { editor.focus() }, 0);
     },
     [applyStyleText],
   );
@@ -299,6 +300,7 @@ function ToolbarPlugin() {
   const onFontFamilySelect = useCallback(
     (e: SelectChangeEvent) => {
       applyStyleText({ 'font-family': (e.target as HTMLSelectElement).value });
+      setTimeout(() => { editor.focus() }, 0);
     },
     [applyStyleText],
   );

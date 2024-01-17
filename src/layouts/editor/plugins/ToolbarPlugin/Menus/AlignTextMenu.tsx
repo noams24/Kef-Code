@@ -52,6 +52,7 @@ export default function AlignTextMenu({ editor, isRTL }: { editor: LexicalEditor
       >
         <MenuItem onClick={() => {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left');
+          setTimeout(() => { editor.focus() }, 0);
           handleClose();
         }}>
           <ListItemIcon>
@@ -61,6 +62,7 @@ export default function AlignTextMenu({ editor, isRTL }: { editor: LexicalEditor
         </MenuItem>
         <MenuItem onClick={() => {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center');
+          setTimeout(() => { editor.focus() }, 0);
           handleClose();
         }}>
           <ListItemIcon>
@@ -70,6 +72,7 @@ export default function AlignTextMenu({ editor, isRTL }: { editor: LexicalEditor
         </MenuItem>
         <MenuItem onClick={() => {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify');
+          setTimeout(() => { editor.focus() }, 0);
           handleClose();
         }}>
           <ListItemIcon>
@@ -79,6 +82,7 @@ export default function AlignTextMenu({ editor, isRTL }: { editor: LexicalEditor
         </MenuItem>
         <MenuItem onClick={() => {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right');
+          setTimeout(() => { editor.focus() }, 0);
           handleClose();
         }}>
           <ListItemIcon>
@@ -91,21 +95,23 @@ export default function AlignTextMenu({ editor, isRTL }: { editor: LexicalEditor
 
         <MenuItem onClick={() => {
           editor.dispatchCommand(OUTDENT_CONTENT_COMMAND, undefined);
+          setTimeout(() => { editor.focus() }, 0);
           handleClose();
         }}>
           <ListItemIcon>
             {isRTL ? <FormatIndentIncreaseIcon fontSize="small" /> : <FormatIndentDecreaseIcon fontSize="small" />}
           </ListItemIcon>
-          <ListItemText>הגדל כניסה</ListItemText>
+          <ListItemText>הקטן כניסה</ListItemText>
         </MenuItem>
         <MenuItem onClick={() => {
           editor.dispatchCommand(INDENT_CONTENT_COMMAND, undefined);
+          setTimeout(() => { editor.focus() }, 0);
           handleClose();
         }}>
           <ListItemIcon>
             {isRTL ? <FormatIndentDecreaseIcon fontSize="small" /> : <FormatIndentIncreaseIcon fontSize="small" />}
           </ListItemIcon>
-          <ListItemText>הקטן כניסה</ListItemText>
+          <ListItemText>הגדל כניסה</ListItemText>
         </MenuItem>
       </Menu>
     </>

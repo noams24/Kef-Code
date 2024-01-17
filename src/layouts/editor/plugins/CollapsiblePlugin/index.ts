@@ -277,6 +277,7 @@ export default function CollapsiblePlugin(): null {
               ),
             );
             title.select();
+            setTimeout(() => { editor.focus() }, 0);
           });
           return true;
         },

@@ -46,6 +46,7 @@ export function BlockFormatSelect({ editor, blockType }: {
         $setBlocksType(selection, () => $createParagraphNode());
       }
     });
+    setTimeout(() => { editor.focus() }, 0);
   };
 
   const formatHeading = (headingSize: HeadingTagType) => {
@@ -57,9 +58,11 @@ export function BlockFormatSelect({ editor, blockType }: {
           DEPRECATED_$isGridSelection(selection)
         ) {
           $setBlocksType(selection, () => $createHeadingNode(headingSize));
+          
         }
       });
     }
+    setTimeout(() => { editor.focus() }, 0);
   };
 
   const formatBulletList = () => {
@@ -68,22 +71,27 @@ export function BlockFormatSelect({ editor, blockType }: {
     } else {
       editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
     }
+    setTimeout(() => { editor.focus() }, 0);
   };
 
   const formatCheckList = () => {
     if (blockType !== 'check') {
       editor.dispatchCommand(INSERT_CHECK_LIST_COMMAND, undefined);
+      
     } else {
       editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
     }
+    setTimeout(() => { editor.focus() }, 0);
   };
 
   const formatNumberedList = () => {
     if (blockType !== 'number') {
       editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined);
+      
     } else {
       editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
     }
+    setTimeout(() => { editor.focus() }, 0);
   };
 
   const formatQuote = () => {
@@ -95,6 +103,7 @@ export function BlockFormatSelect({ editor, blockType }: {
           DEPRECATED_$isGridSelection(selection)
         ) {
           $setBlocksType(selection, () => $createQuoteNode());
+          setTimeout(() => { editor.focus() }, 0);
         }
       });
     }
@@ -122,6 +131,7 @@ export function BlockFormatSelect({ editor, blockType }: {
         }
       });
     }
+    setTimeout(() => { editor.focus() }, 0);
   };
   
   return (
