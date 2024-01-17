@@ -10,15 +10,12 @@ import {
   QuestionMarkCircledIcon,
   StopwatchIcon,
 } from "@radix-ui/react-icons";
+import { redirect } from "next/navigation";
 
 const Profile = async () => {
   const session = await getAuthSession();
   if (!session?.user) {
-    return (
-      <h3 className="flex justify-center">
-        רק משתמשים מחוברים יכולים לראות דף זה
-      </h3>
-    );
+    redirect("/");
   } else {
     try {
       const query = `

@@ -369,10 +369,10 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                 bookmark={undefined}
                 likeStatus={undefined}
               />
-              <PdfRenderer url={"/images/sample.pdf"} />
-              {/* <ImageDisplay
+              {/* <PdfRenderer url={"/images/sample.pdf"} /> */}
+              <ImageDisplay
                 imageUrl={"https://i.ibb.co/Gdz4BTg/problem1.png"}
-              />{" "} */}
+              />{" "}
             </div>
           ) : (
             <div className="my-2">

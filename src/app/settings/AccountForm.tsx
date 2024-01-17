@@ -237,7 +237,7 @@ const AccountForm = ({ user, className, ...props }: UserNameFormProps) => {
             </div>
           </div>
         </div>
-        <div className="pt-5">
+        {/* <div className="pt-5">
           <h3>המנוי שלך</h3>
           {existSubscription ? (
             <div>
@@ -289,7 +289,7 @@ const AccountForm = ({ user, className, ...props }: UserNameFormProps) => {
               </Link>
             </div>
           )}
-        </div>
+        </div> */}
       </section>
     </>
   );

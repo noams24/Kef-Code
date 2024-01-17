@@ -1,5 +1,5 @@
 const theme = require("./src/config/theme.json");
-const {nextui} = require("@nextui-org/react");
+// const {nextui} = require("@nextui-org/react");
 
 let font_base = Number(theme.fonts.font_size.base.replace("px", ""));
 let font_scale = Number(theme.fonts.font_size.scale);
@@ -29,7 +29,7 @@ module.exports = {
     "./src/layouts/**/*.{js,ts,jsx,tsx}",
     "./src/content/**/*.{md,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+    // "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   darkMode: "class",
   theme: {
@@ -88,7 +88,7 @@ module.exports = {
     },
   },
   plugins: [
-    [nextui()],
+    // [nextui()],
     require("@tailwindcss/typography"),
     require("@tailwindcss/forms"),
     require("tailwind-scrollbar-hide"),

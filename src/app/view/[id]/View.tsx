@@ -59,8 +59,8 @@ const View = ({ data, children }: any) => {
       >
         <AiOutlineInfoCircle className="h-8 w-8" />
       </button>
-      {/*@ts-ignore*/}
-      <div className="mx-36 mt-5" ref={printRef}>
+      
+      <div className="mx-36 mt-5" >
         <div dir="ltr" className="flex justify-center">
           {data.problem.img.endsWith("pdf") ? (
             <PdfRenderer url={data.problem.img} />
@@ -68,7 +68,8 @@ const View = ({ data, children }: any) => {
             <ImageDisplay imageUrl={data.problem.img} />
           )}
         </div>
-        <div className="pt-10 font-arial">{children}</div>
+        {/*@ts-ignore*/}
+        <div ref={printRef} className="pt-10 font-arial">{children}</div>
       </div>
       <AppDrawer isOpen={open} setOpen={setOpen}>
         <div dir="rtl" className="flex mt-3 border-b-2">
