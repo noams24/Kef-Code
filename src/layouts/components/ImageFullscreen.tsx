@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/Dialog";
 import { Button } from "./ui/button";
-import { Expand} from "lucide-react";
-import { useResizeDetector } from "react-resize-detector";
+import { Expand } from "lucide-react";
 import Image from "next/image";
+// import SimpleBar from "simplebar-react";
 
 interface ImageFullScreen {
   imageUrl: string;
@@ -11,7 +11,6 @@ interface ImageFullScreen {
 
 const ImageFullScreen = ({ imageUrl }: ImageFullScreen) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { width, ref } = useResizeDetector();
   return (
     <>
       <Dialog
@@ -28,15 +27,12 @@ const ImageFullScreen = ({ imageUrl }: ImageFullScreen) => {
           </Button>
         </DialogTrigger>
         <DialogContent className="max-w-7xl w-full z-50">
-          {/* <SimpleBar
-            autoHide={false}
-            className='max-h-[calc(100vh-10rem)] mt-6'> */}
-          <div
-            ref={ref}
-            className="flex justify-center overflow-auto max-h-[calc(100vh-10rem)] mt-6 dark:invert "
-          >
-            <Image width={1000} height={1000} src={imageUrl} alt="Image" />
-          </div>
+          {/* <SimpleBar className="max-h-[calc(100vh-10rem)] overflow-auto"> */}
+            <div className="max-h-[calc(100vh-10rem)] flex justify-center mt-6 dark:invert">
+              <div className=" overflow-auto">
+              <Image width={1000} height={1000} src={imageUrl} alt="Image" />
+              </div>
+            </div>
           {/* </SimpleBar> */}
         </DialogContent>
       </Dialog>
