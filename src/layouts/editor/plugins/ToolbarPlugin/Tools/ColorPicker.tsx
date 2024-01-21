@@ -67,14 +67,14 @@ export default function ColorPicker({ onColorChange, toggle = "togglebutton" }
     <>
       {toggle === "menuitem" && <MenuItem onClick={handleClick}>
         <ListItemText>
-          Color
+          צבע
         </ListItemText>
       </MenuItem>
       }
       {toggle === "togglebutton" && <ToggleButton size='small' value="color" onClick={handleClick} className="MuiToggleButtonGroup-grouped MuiToggleButtonGroup-groupedHorizontal">
         <FormatColorFillIcon />
       </ToggleButton>}
-      <Menu anchorEl={anchorEl} open={open} onClose={handleClose}
+      <Menu dir="rtl" anchorEl={anchorEl} open={open} onClose={handleClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         transformOrigin={{ vertical: 'top', horizontal: 'center' }}
         sx={{ 'ul': { pt: 0, display: 'flex', flexWrap: 'wrap', width: 280 } }}

@@ -466,7 +466,7 @@ function TableActionMenu({
     writingModeButton = (
       <MenuItem onClick={() => applyCellStyle({ 'writing-mode': 'horizontal-tb' })}>
         <ListItemText>
-          Make horizontal
+          הפוך לאופקי
         </ListItemText>
       </MenuItem>
     );
@@ -474,7 +474,7 @@ function TableActionMenu({
     writingModeButton = (
       <MenuItem onClick={() => applyCellStyle({ 'writing-mode': 'vertical-rl' })}>
         <ListItemText>
-          Make vertical
+          הפוך לאנכי
         </ListItemText>
       </MenuItem>
     );
@@ -483,6 +483,7 @@ function TableActionMenu({
 
   return (
     <Menu
+    dir='rtl'
       anchorEl={anchorElRef.current}
       open={true}
       onClose={handleClose}
@@ -505,59 +506,59 @@ function TableActionMenu({
       <Divider />
       <MenuItem onClick={() => insertTableRowAtSelection(false)}>
         <ListItemText>
-          Insert{' '}
-          {selectionCounts.rows === 1 ? 'row' : `${selectionCounts.rows} rows`}{' '}
-          above
+          הוסף{' '}
+          {selectionCounts.rows === 1 ? 'שורה' : `${selectionCounts.rows} שורות`}{' '}
+          מעל
         </ListItemText>
       </MenuItem>
       <MenuItem onClick={() => insertTableRowAtSelection(true)}>
         <ListItemText>
-          Insert{' '}
-          {selectionCounts.rows === 1 ? 'row' : `${selectionCounts.rows} rows`}{' '}
-          below
+          הוסף{' '}
+          {selectionCounts.rows === 1 ? 'שורה' : `${selectionCounts.rows} שורות`}{' '}
+          מתחת
         </ListItemText>
       </MenuItem>
       <MenuItem onClick={() => insertTableColumnAtSelection(false)}>
         <ListItemText>
-          Insert{' '}
-          {selectionCounts.columns === 1 ? 'column' : `${selectionCounts.columns} columns`}{' '}
-          left
+          הוסף{' '}
+          {selectionCounts.columns === 1 ? 'עמודה' : `${selectionCounts.columns} עמודות`}{' '}
+          לשמאל
         </ListItemText>
       </MenuItem>
       <MenuItem onClick={() => insertTableColumnAtSelection(true)}>
         <ListItemText>
-          Insert{' '}
-          {selectionCounts.columns === 1 ? 'column' : `${selectionCounts.columns} columns`}{' '}
-          right
+          הוסף{' '}
+          {selectionCounts.columns === 1 ? 'עמודה' : `${selectionCounts.columns} עמודות`}{' '}
+          לימין
         </ListItemText>
       </MenuItem>
       <Divider />
       <MenuItem onClick={() => deleteTableColumnAtSelection()}>
-        <ListItemText>Delete column</ListItemText>
+        <ListItemText>מחק עמודה</ListItemText>
       </MenuItem>
       <MenuItem onClick={() => deleteTableRowAtSelection()}>
-        <ListItemText>Delete row</ListItemText>
+        <ListItemText>מחק שורה</ListItemText>
       </MenuItem>
       <MenuItem onClick={() => deleteTableAtSelection()}>
-        <ListItemText>Delete table</ListItemText>
+        <ListItemText>מחק טבלה</ListItemText>
       </MenuItem>
       <Divider />
       <MenuItem onClick={() => toggleTableRowIsHeader()}>
         <ListItemText>
           {(tableCellNode.__headerState & TableCellHeaderStates.ROW) ===
             TableCellHeaderStates.ROW
-            ? 'Remove'
-            : 'Add'}{' '}
-          row header
+            ? 'מחק'
+            : 'הוסף'}{' '}
+          כותרת לשורה
         </ListItemText>
       </MenuItem>
       <MenuItem onClick={() => toggleTableColumnIsHeader()}>
         <ListItemText>
           {(tableCellNode.__headerState & TableCellHeaderStates.COLUMN) ===
             TableCellHeaderStates.COLUMN
-            ? 'Remove'
-            : 'Add'}{' '}
-          column header
+            ? 'מחק'
+            : 'הוסף'}{' '}
+          כותרת לעמודה
         </ListItemText>
       </MenuItem>
     </Menu >
@@ -642,8 +643,7 @@ function TableCellActionMenuContainer({
         const anchorRect = anchorElem.getBoundingClientRect();
 
         menuButtonDOM.style.opacity = '1';
-
-        menuButtonDOM.style.left = `${tableCellRect.right - menuRect.width - anchorRect.left}px`;
+        menuButtonDOM.style.left = `${tableCellRect.left + menuRect.width - anchorRect.left}px`;
 
         menuButtonDOM.style.top = `${tableCellRect.top - anchorRect.top + 4}px`;
       } else {
