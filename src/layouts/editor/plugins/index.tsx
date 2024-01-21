@@ -27,7 +27,7 @@ import ClickableLinkPlugin from './LinkPlugin/ClickableLinkPlugin';
 import ComponentPickerMenuPlugin from './ComponentPickerPlugin';
 import TabFocusPlugin from './TabFocusPlugin';
 import DragDropPaste from './DragDropPastePlugin';
-// import DraggableBlockPlugin from './DraggableBlockPlugin'
+import DraggableBlockPlugin from './DraggableBlockPlugin'
 import EmojiPickerPlugin from './EmojiPickerPlugin';
 import CollapsiblePlugin from "./CollapsiblePlugin";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
