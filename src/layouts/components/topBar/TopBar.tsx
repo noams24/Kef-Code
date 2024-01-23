@@ -6,7 +6,7 @@ import Timer from "./Timer";
 import FullScreen from "./FullScreen";
 import { usePathname } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { useDevelop } from "@/store/store";
+import { useDevelop, useGenerationStore } from "@/store/store";
 import axios, { AxiosError } from "axios";
 import Link from "next/link";
 import QuestionsDrawer from "./QuestionsDrawer";
@@ -41,7 +41,8 @@ const TopBar = (problemId: any) => {
   const currentQuestion = decodeURIComponent(pathname[4].replaceAll('-',' '));
   const [open, setOpen] = useState(false);
   const { development } = useDevelop();
-
+  const { setSolution } = useGenerationStore();
+  
   const { data, isLoading: isLoadingData } = useQuery({
     queryKey: ["topbar", course, chapter],
     queryFn: async () => {
@@ -79,7 +80,7 @@ const TopBar = (problemId: any) => {
               className="rounded border text-zinc-600 dark:text-zinc-300 border-zinc-500 hover:border-black hover:text-black dark:hover:border-white dark:hover:text-white"
             >
               {data ? (
-                <Link href={data.prevLink}>
+                <Link href={data.prevLink} onClick={() => setSolution(null)}>
                   <svg
                     viewBox="0 0 20 20"
                     fill="currentColor"
@@ -129,7 +130,7 @@ const TopBar = (problemId: any) => {
               className="rounded border text-zinc-600 dark:text-zinc-300 border-zinc-500 hover:border-black hover:text-black dark:hover:border-white dark:hover:text-white"
             >
               {data ? (
-                <Link href={data.nextLink}>
+                <Link href={data.nextLink} onClick={() => setSolution(null)}>
                   <svg
                     viewBox="0 0 20 20"
                     fill="currentColor"

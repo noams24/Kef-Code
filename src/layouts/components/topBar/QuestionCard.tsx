@@ -9,6 +9,8 @@ import {
   StopwatchIcon,
 } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
+import { useGenerationStore } from "@/store/store";
+
 
 interface Props {
   title: string;
@@ -26,9 +28,9 @@ const QuestionCard: React.FC<Props> = ({
   url,
 }) => {
   const { theme } = useTheme();
-
+  const { setSolution } = useGenerationStore();
   return (
-    <Link href={url}>
+    <Link href={url} onClick={() => setSolution(null)}>
       <Card
         sx={{
           border: 1,
