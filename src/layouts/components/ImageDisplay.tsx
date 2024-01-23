@@ -37,9 +37,9 @@ const ImageDisplay = ({ imageUrl }: any) => {
             onLoadingComplete={(image) => image.classList.remove("opacity-0")}
           /> */}
           <Image
-            className='object-cover rounded-md dark:invert'
-            height={1000}
-            width={1000}
+            className='object-cover rounded-md dark:invert opacity-0 transition-opacity duration-[1s]'
+            height={800}
+            width={800}
             src={imageUrl}
             alt="Image"
             onLoadingComplete={(image) => image.classList.remove("opacity-0")}
