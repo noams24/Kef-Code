@@ -10,7 +10,7 @@ export const groupTheory: any = [
     name: "לא שייך",
     latex: "\\notin",
     latexShortcut: "\\notin",
-    engShortcut: "in!",
+    engShortcut: "nin",
     hebShortcut: "לאשייך",
   },
   {
@@ -21,7 +21,7 @@ export const groupTheory: any = [
     hebShortcut: "תתקבוצה",
   },
   {
-    name: "תת-קבוצה",
+    name: "לא תת-קבוצה",
     latex: "\\nsubseteq",
     latexShortcut: "\\nsubseteq",
     engShortcut: "nsube",
@@ -73,7 +73,7 @@ export const groupTheory: any = [
   name: "לאקיים",
   latex: "\\nexists",
   latexShortcut: "\\nexists",
-  engShortcut:"!exists",
+  engShortcut:"nexists",
   hebShortcut: "אין",
 },
   {
@@ -267,6 +267,30 @@ export const inlineShortcuts: any = {
     "\\int_\\placeholder{}^{\\placeholder{}}\\!\\placeholder{}\\,\\mathrm{d}x",
   גבול: "\\lim_{x \\to \\placeholder{}}",
   חץארוך: "\\xrightarrow[\\placeholder{}]{\\placeholder{}}",
+
+  in: "\\in",
+  nin: "\\notin",
+  תתקבוצה: "\\subseteq",
+  לאתתקבוצה: "\\nsubseteq",
+  nsube: "\\nsubseteq",
+  nsub: "\\nsubset",
+  nexists: "\\nexists",
+  קרטזית: "\\times",
+  times: "\\times",
+  none: "\\varnothing",
+
+  טבעי: "\\mathbb{N}",
+  שלם: "\\mathbb{Z}",
+  רציונלי: "\\mathbb{Q}",
+  ממשי: "\\mathbb{R}",
+
+  שקילות: "\\equiv",
+  לכן: "\\therefore",
+  תוקף: "\\models",
+  יכיח: "\\vdash",
+  סתירה: "\\bot",
+
+  אינסוף: "\\infty",
 };
 
 export const keyboard: any = [

@@ -13,7 +13,7 @@ import Link from "next/link";
 import ShortcutsTable from "./Table";
 
 //@ts-ignore
-import(/* webpackIgnore: true */ "//unpkg.com/mathlive");
+import(/* webpackIgnore: true */ "//unpkg.com/mathlive/dist/mathlive.min.js");
 
 function App() {
   const [value, setValue] = useState<string>("\\sqrt{x}");
@@ -41,12 +41,8 @@ function App() {
           }),
           //@ts-ignore
           (window.mathVirtualKeyboard.layouts = keyboard),
-          window.mathVirtualKeyboard.show()
+          window.mathVirtualKeyboard.hide()
         ),
-    );
-    //@ts-ignore
-    mf.current.addEventListener("focusout", (evt) =>
-      window.mathVirtualKeyboard.hide(),
     );
   }, []);
 
