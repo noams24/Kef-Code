@@ -35,6 +35,12 @@ import { useCustomToasts } from "@/hooks/use-custom-toast";
 import { difficulties } from "@/components/table/data/data";
 import Notice from "@/shortcodes/Notice";
 
+import dynamic from "next/dynamic";
+import ImageDisplay from "@/components/ImageDisplay";
+const PdfRenderer = dynamic(() => import("@/components/PdfRenderer"), {
+  ssr: false,
+});
+
 const profileFormSchema = z.object({
   title: z
     .string({
@@ -45,8 +51,9 @@ const profileFormSchema = z.object({
     })
     .max(50, {
       message: "* שם השאלה צריך להיות עד 50 תווים",
-    }).regex(/^[a-zA-Z0-9א-ת ]+$/, {
-      message: "* שם שאלה לא תקין"
+    })
+    .regex(/^[a-zA-Z0-9א-ת ]+$/, {
+      message: "* שם שאלה לא תקין",
     }),
   course: z.string({
     required_error: "* נא לבחור קורס",
@@ -63,7 +70,7 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 export function UploadQuestion(courses: any) {
   const { loginToast } = useCustomToasts();
-  const [url, setUrl] = useState<string | undefined>();
+  const [url, setUrl] = useState<string | undefined | null>(null);
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
@@ -111,7 +118,7 @@ export function UploadQuestion(courses: any) {
         description: "השאלה נשמרה בהצלחה",
         variant: "destructive",
       });
-      window.location.reload()
+      window.location.reload();
     },
   });
 
@@ -263,6 +270,18 @@ export function UploadQuestion(courses: any) {
           </Button>
         </form>
       </Form>
+
+      {url &&
+      <div className="my-4">
+      <h4 className="flex justify-center mb-4">תצוגה מקדימה</h4>
+        {(url.endsWith("pdf") ? (
+          <PdfRenderer url={url} />
+        ) : (
+          <ImageDisplay imageUrl={url} />
+        ))}
+        </div>
+        }
+
       <UploadDropzone
         className="mb-8 dark:border-sky-200"
         endpoint="imageUploader"

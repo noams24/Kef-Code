@@ -22,7 +22,7 @@ const ImageFullScreen = ({ imageUrl }: ImageFullScreen) => {
         }}
       >
         <DialogTrigger onClick={() => setIsOpen(true)} asChild>
-          <Button variant="ghost" className="gap-1.5" aria-label="fullscreen">
+          <Button variant="ghost" className="px-0 h-5" aria-label="fullscreen">
             <Expand className="h-4 w-4" />
           </Button>
         </DialogTrigger>
