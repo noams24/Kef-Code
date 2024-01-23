@@ -1,4 +1,6 @@
 import DynamicIcon from "@/helpers/DynamicIcon";
+import Link from "next/link";
+import Image from "next/image";
 
 export interface ISocial {
   name: string;
@@ -28,6 +30,20 @@ const Social = ({
           </a>
         </li>
       ))}
+      {/* <li>
+      <Link
+            href={"https://discord.gg/Mht9WcSKqp"}
+            target="_blank"
+            className=""
+          >
+            <Image
+              src={"/images/discord.png"}
+              alt="discord"
+              width={20}
+              height={20}
+            />
+          </Link>
+      </li> */}
     </ul>
   );
 };

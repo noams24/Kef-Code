@@ -178,7 +178,7 @@ const Home = () => {
         </div>
       </section>
 
-      <div className="mb-10">
+      {/* <div className="mb-10">
         <h3 dir="rtl" className="flex justify-center">
           צרו איתנו קשר:
         </h3>
@@ -197,7 +197,7 @@ const Home = () => {
             />
           </Link>
         </div>
-      </div>
+      </div> */}
       <Footer />
     </>
   );
