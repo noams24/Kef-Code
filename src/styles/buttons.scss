@@ -17,3 +17,7 @@
 .btn-table-hover-color {
   @apply hover:border-cyan-700
 }
+
+.btn-start {
+  @apply bg-teal-500 dark:bg-teal-500 rounded-2xl text-white hover:shadow-lg hover:shadow-cyan-500/50 ;
+}

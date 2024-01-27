@@ -4,48 +4,49 @@ import SeoMeta from "@/partials/SeoMeta";
 import { FaCheck } from "react-icons/fa/index.js";
 import Link from "next/link";
 import Image from "next/image";
+import Features from "@/components/Features";
+import Editor from "@/layouts/editor/components/Editor";
+// import playgroundTemplate from "./jsonFiles/empty.json";
+import playgroundTemplate from "@/components/workSpace/jsonFiles/empty.json";
+import { EditorDocument } from "@/components/workSpace/types";
 
 const Home = () => {
   const ul1 = "מגוון שאלות ממבחנים עם פתרונות הלקוחות ";
-  const ul2 = "מתמטיקה: אינטרקציה עם ";
+  const ul2 = "אינטרקציה עם ";
   const ul3 = " על מנת לכתוב נוסחאות מתמטיות";
-  const ul4 = "גרפים: אינטרקציה עם ";
+  // const ul4 = "גרפים: אינטרקציה עם ";
   const ul5 = " על מנת לשרטט גרפים וצורות";
-  const ul6 = "איור: אינטרקציה עם ";
+  // const ul6 = "איור: אינטרקציה עם ";
   const ul7 = " על מנת לאייר כמו כתב יד";
+
+  const document = playgroundTemplate as unknown as EditorDocument;
 
   return (
     <>
       <SeoMeta />
-      <section className="section pt-7">
+
+      <section className="section-sm bg-gradient2">
         <div className="container">
-          <div className="row justify-center">
-            <div className="mb-12 text-center lg:col-7">
-              <h1 className="mb-6">כיף קוד</h1>
-              <p dir="rtl" className="mb-4 text-justify text-lg">
-                כיף קוד היא פלטפורמה לתרגול בעיות במדעי המחשב העוזרת להתכונן
-                למבחנים בצורה היעילה ביותר.
-                <br />
-                הפלטפורמה נועדה להיות קלה לשימוש ואינטואיטיבית עם ממשק משתמש
-                המאפשר לכתוב נוסחאות מתמטיות, הוספת גרפים, איורים, תמונות, ועוד
-                הרבה פ&apos;יצרים מגניבים. בנוסף תוכלו לדפדף בקלות בין שאלות
-                ותשובות כדי ללמוד במהירות ולחסוך זמן יקר.
-                <br />
-                למה אתם מחכים?
-              </p>
-              <Link className="btn btn-primary" href="/courses">
-                התחלה
-              </Link>
-            </div>
-            <div className="col-12">
-              <ImageFallback
-                src="/images/banner.png"
-                className="mx-auto"
-                width="700"
-                height="330"
-                alt="banner image"
-                priority
+          <div className="row items-center justify-between">
+            <div className="mb:md-0 mb-6 md:col-5 ">
+              <Image
+                src="/images/example.png"
+                height={800}
+                width={700}
+                alt="מה כלול בכיף קוד"
               />
+            </div>
+            <div className="md:col-7 lg:col-6 ">
+              <h2 className="mb-4 text-center">כיף קוד</h2>
+              <p dir="rtl" className="mb-4 text-justify text-lg">
+                כיף קוד היא הפלטפורמה הטובה ביותר לתרגול שאלות של מדעי המחשב
+                ומתמטיקה
+              </p>
+              <div className="flex justify-center">
+                <Link className="btn btn-start" href="/courses">
+                  התחלה
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -68,7 +69,7 @@ const Home = () => {
               <ul dir="rtl">
                 <div className="flex gap-4 items-center mb-3">
                   <FaCheck />
-                  <li> מעל 20 קורסים</li>
+                  <li> מעל 20 קורסים שונים</li>
                 </div>
                 <div className="flex gap-4 items-center mb-3">
                   <FaCheck />
@@ -85,7 +86,7 @@ const Home = () => {
                 </div>
                 <div className="flex gap-4 items-center">
                   <FaCheck />
-                  <li> תמיכה מהקהילה</li>
+                  <li> עורך טקסט להקלדה מהירה</li>
                 </div>
               </ul>
               <div className="flex justify-center">
@@ -101,7 +102,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="section-sm">
+      {/* <section className="section-sm">
         <div className="container">
           <div className="row items-center justify-between">
             <div className="mb:md-0 mb-6 md:col-5 md:order-2">
@@ -166,15 +167,100 @@ const Home = () => {
                 >
                   סביבת ניסוי
                 </Link>
-                <Link
-                  className="btn inline-block btn-primary"
-                  href="/tutorial"
-                >
+                <Link className="btn inline-block btn-primary" href="/tutorial">
                   מדריך
                 </Link>
               </div>
             </div>
           </div>
+        </div>
+      </section> */}
+
+      <section className="section-sm bg-gradient">
+        <div className="flex justify-center mb-10">
+          <div
+            className="
+            border
+            border-gray-200
+            dark:border-gray-700
+          rounded-full
+          px-3 py-1
+          text-sm
+        "
+          >
+            {"✨ פיצ'רים של עורך הטקסט"}
+          </div>
+        </div>
+        <div className="flex flex-col md:flex-row md:flex-wrap items-center gap-y-10 justify-center gap-x-5 ">
+          <Features imgUrl={"/images/illustration-webgl.png"} topText={"איור"}>
+            {ul2}
+            <Link
+              className="text-blue-500 hover:underline font-arial font-extrabold"
+              href="https://excalidraw.com"
+              target="_blank"
+            >
+              Excalidraw
+            </Link>
+            {ul7}
+          </Features>
+          <Features
+            imgUrl={"/images/illustration-mathematics.png"}
+            topText={"מתמטיקה"}
+          >
+            {ul2}
+            <Link
+              className="text-blue-500 hover:underline font-arial font-extrabold"
+              href="https://cortexjs.io/mathlive"
+              target="_blank"
+            >
+              MathLive
+            </Link>
+            {ul3}
+          </Features>
+          <Features
+            imgUrl={"/images/illustration-3d-software.png"}
+            topText={"גרפים"}
+          >
+            {ul2}
+            <Link
+              className="text-blue-500 hover:underline font-arial font-extrabold"
+              href="https://www.geogebra.org"
+              target="_blank"
+            >
+              Geogebra
+            </Link>
+            {ul5}
+          </Features>
+        </div>
+        <div className="flex justify-center my-10">
+          <div
+            className="
+            border
+            border-gray-200
+            dark:border-gray-700
+          rounded-full
+          px-3 py-1
+          text-sm
+        "
+          >
+            {"נסו בעצמכם"}
+          </div>
+        </div>
+        <div className="flex justify-center mb-10">
+          <div className="overflow-y-auto font-arial h-72 w-2/3 rounded-md border border-gray-400 dark:border-gray-400">
+            <Editor document={document} />
+          </div>
+        </div>
+        <div className="flex justify-center gap-6 mt-6">
+          <Link
+            className="btn-outline-primary inline-block pt-2"
+            href="/playground"
+          >
+            סביבת ניסוי
+          </Link>
+          <Link className="btn inline-block btn-primary" href="/tutorial">
+            מדריך
+          </Link>
         </div>
       </section>
 
