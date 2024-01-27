@@ -32,7 +32,7 @@ const Home = () => {
           <div className="block box-border max-w-xs">
             <h2 className="mb-4 text-center">כיף קוד</h2>
             <p dir="rtl" className="mb-4  text-lg">
-              הפלטפורמה הטובה ביותר לתרגול שאלות של מדעי המחשב ומתמטיקה באוניבריסטה הפתוחה
+              הפלטפורמה הטובה ביותר לתרגול שאלות של מדעי המחשב ומתמטיקה באוניברסיטה הפתוחה
             </p>
             <div className="flex justify-center">
               <Link className="btn btn-start" href="/courses">
