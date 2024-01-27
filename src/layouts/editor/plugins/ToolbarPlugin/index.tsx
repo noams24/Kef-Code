@@ -362,7 +362,6 @@ function ToolbarPlugin() {
   return (
     <>
       <AppBar sx={{zIndex:10}} className='align-items-stretch overflow-x-hidden top-0 rounded-lg' position={'sticky'}>
-        {/*<AppBar className='toolbar-appbar' elevation={trigger ? 4 : 0} position={trigger ? 'fixed' : 'static'}>*/}
         <Toolbar className="toolbar" sx={{ displayPrint: 'none', px: `${(trigger ? 1 : 0)}!important`, justifyContent: "space-between", alignItems: "center", gap: 0.5, minHeight: 54 }}>
           <Box sx={{ display: "flex" }}>
             <IconButton title={IS_APPLE ? 'בטל (⌘Z)' : 'בטל (Ctrl+Z)'} aria-label="בטל" disabled={!canUndo}
@@ -409,7 +408,7 @@ function ToolbarPlugin() {
           </Box>
         </Toolbar >
       </AppBar>
-      {trigger && <Box sx={(theme) => ({ ...theme.mixins.toolbar, displayPrint: "none" })} />}
+      {/* {trigger && <Box sx={(theme) => ({ ...theme.mixins.toolbar, displayPrint: "none" })} />} */}
       <ImageDialog editor={activeEditor} node={$isImageNode(selectedNode) ? selectedNode : null} open={dialogs.image.open} />
       <GraphDialog editor={activeEditor} node={$isGraphNode(selectedNode) ? selectedNode : null} open={dialogs.graph.open} />
       <SketchDialog editor={activeEditor} node={$isSketchNode(selectedNode) ? selectedNode : null} open={dialogs.sketch.open} />

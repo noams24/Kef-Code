@@ -24,29 +24,20 @@ const Home = () => {
   return (
     <>
       <SeoMeta />
-
-      <section className="section-sm bg-gradient2">
-        <div className="container">
-          <div className="row items-center justify-between">
-            <div className="mb:md-0 mb-6 md:col-5 ">
-              <Image
-                src="/images/example.png"
-                height={800}
-                width={700}
-                alt="מה כלול בכיף קוד"
-              />
-            </div>
-            <div className="md:col-7 lg:col-6 ">
-              <h2 className="mb-4 text-center">כיף קוד</h2>
-              <p dir="rtl" className="mb-4 text-justify text-lg">
-                כיף קוד היא הפלטפורמה הטובה ביותר לתרגול שאלות של מדעי המחשב
-                ומתמטיקה
-              </p>
-              <div className="flex justify-center">
-                <Link className="btn btn-start" href="/courses">
-                  התחלה
-                </Link>
-              </div>
+      <section className="section bg-gradient2 md:h-[790px]">
+        <div className="items-center flex justify-center gap-x-3 pt-10">
+          <div>
+            <Image src="/images/hero.png" width={500} height={500} alt="" />
+          </div>
+          <div className="block box-border max-w-xs">
+            <h2 className="mb-4 text-center">כיף קוד</h2>
+            <p dir="rtl" className="mb-4  text-lg">
+              הפלטפורמה הטובה ביותר לתרגול שאלות של מדעי המחשב ומתמטיקה באוניבריסטה הפתוחה
+            </p>
+            <div className="flex justify-center">
+              <Link className="btn btn-start" href="/courses">
+                התחלה
+              </Link>
             </div>
           </div>
         </div>
@@ -64,7 +55,7 @@ const Home = () => {
               />
             </div>
             <div className="md:col-7 lg:col-6 ">
-              <h2 className="mb-4 text-center">מה כלול בכיף קוד</h2>
+              <h2 className="mb-4 text-center">מה כלול </h2>
               <p className="mb-8 text-lg" />
               <ul dir="rtl">
                 <div className="flex gap-4 items-center mb-3">
@@ -84,9 +75,13 @@ const Home = () => {
                     </Link>
                   </li>
                 </div>
+                <div className="flex gap-4 items-center mb-3">
+                  <FaCheck />
+                  <li> סידור השאלות לפי פרקים</li>
+                </div>
                 <div className="flex gap-4 items-center">
                   <FaCheck />
-                  <li> עורך טקסט להקלדה מהירה</li>
+                  <li> עורך טקסט המותאם להקלדה מהירה</li>
                 </div>
               </ul>
               <div className="flex justify-center">
@@ -101,80 +96,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      {/* <section className="section-sm">
-        <div className="container">
-          <div className="row items-center justify-between">
-            <div className="mb:md-0 mb-6 md:col-5 md:order-2">
-              <ImageFallback
-                src="/images/service-1.png"
-                height={480}
-                width={520}
-                alt="מה כלול בכיף קוד"
-              />
-            </div>
-            <div className="md:col-7 lg:col-6 md:order-1">
-              <h2 className="mb-4 text-center">פיצ&apos;רים</h2>
-              <p className="mb-8 text-lg" />
-              <ul dir="rtl">
-                <div className="flex gap-4 items-center mb-3">
-                  <FaCheck />
-                  <li>
-                    {ul2}
-                    <Link
-                      className="text-blue-500 hover:underline"
-                      href="https://cortexjs.io/mathlive"
-                      target="_blank"
-                    >
-                      mathlive
-                    </Link>
-                    {ul3}
-                  </li>
-                </div>
-                <div className="flex gap-4 items-center mb-3">
-                  <FaCheck />
-                  <li>
-                    {ul4}
-                    <Link
-                      className="text-blue-500 hover:underline"
-                      href="https://www.geogebra.org"
-                      target="_blank"
-                    >
-                      geogebra
-                    </Link>
-                    {ul5}
-                  </li>
-                </div>
-                <div className="flex gap-4 items-center mb-3">
-                  <FaCheck />
-                  <li>
-                    {ul6}
-                    <Link
-                      className="text-blue-500 hover:underline"
-                      href="https://excalidraw.com"
-                      target="_blank"
-                    >
-                      excalidraw
-                    </Link>
-                    {ul7}
-                  </li>
-                </div>
-              </ul>
-              <div className="flex justify-center gap-6 mt-6">
-                <Link
-                  className="btn-outline-primary inline-block pt-2"
-                  href="/playground"
-                >
-                  סביבת ניסוי
-                </Link>
-                <Link className="btn inline-block btn-primary" href="/tutorial">
-                  מדריך
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
 
       <section className="section-sm bg-gradient">
         <div className="flex justify-center mb-10">
@@ -247,7 +168,7 @@ const Home = () => {
           </div>
         </div>
         <div className="flex justify-center mb-10">
-          <div className="overflow-y-auto font-arial h-72 w-2/3 rounded-md border border-gray-400 dark:border-gray-400">
+          <div className="font-arial min-h-[300px] w-2/3 max-w-2xl rounded-md border border-gray-400 dark:border-gray-400">
             <Editor document={document} />
           </div>
         </div>
@@ -263,27 +184,6 @@ const Home = () => {
           </Link>
         </div>
       </section>
-
-      {/* <div className="mb-10">
-        <h3 dir="rtl" className="flex justify-center">
-          צרו איתנו קשר:
-        </h3>
-        <div className="flex justify-center">
-          <Link
-            href={"https://discord.gg/Mht9WcSKqp"}
-            target="_blank"
-            className="rounded-full w-36 bg-indigo-300 mt-4 items-center flex justify-center gap-2"
-          >
-            דיסקורד
-            <Image
-              src={"/images/discord.png"}
-              alt="discord"
-              width={20}
-              height={20}
-            />
-          </Link>
-        </div>
-      </div> */}
       <Footer />
     </>
   );
