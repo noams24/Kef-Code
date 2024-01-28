@@ -1,14 +1,14 @@
 "use client";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import Image from "next/image";
-import { useState } from "react";
+// import { useState } from "react";
 // import { Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
+// import { useTheme } from "next-themes";
 import ImageFullScreen from "./ImageFullscreen";
 
 const ImageDisplay = ({ imageUrl }: any) => {
-  const theme = useTheme();
-  const [color, setColor] = useState(theme.theme);
+  // const theme = useTheme();
+  // const [color, setColor] = useState(theme.theme);
 
   // const handleClick = () => {
   //   color === "light" ? setColor("dark") : setColor("light");
@@ -26,24 +26,16 @@ const ImageDisplay = ({ imageUrl }: any) => {
 
       <TransformWrapper>
         <TransformComponent>
-          {/* <Image
-            className={`${
-              color === "dark" && "invert"
-            } object-cover rounded-md`}
-            height={500}
-            width={500}
-            src={imageUrl}
-            alt="Image"
-            onLoadingComplete={(image) => image.classList.remove("opacity-0")}
-          /> */}
-          <Image
-            className='object-cover rounded-md dark:invert opacity-0 transition-opacity duration-[1s]'
-            height={800}
-            width={800}
-            src={imageUrl}
-            alt="Image"
-            onLoadingComplete={(image) => image.classList.remove("opacity-0")}
-          />
+          <div>
+            <Image
+              className="object-cover rounded-md dark:invert opacity-0 transition-opacity duration-[1s]"
+              height={800}
+              width={800}
+              src={imageUrl}
+              alt="Image"
+              onLoadingComplete={(image) => image.classList.remove("opacity-0")}
+            />
+          </div>
         </TransformComponent>
       </TransformWrapper>
       <div className="pl-2">
