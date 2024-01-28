@@ -28,10 +28,7 @@ const CourseDisplay = ({
   }, []);
 
   return (
-    <>
-      <div className="flex flex-row justify-center items-center"></div>
-      <div className="relative flex items-center">
-        <div className="flex items-center w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide">
+        <div className="flex justify-center items-center w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide">
           <div>
             <MdChevronLeft
               size={40}
@@ -95,9 +92,7 @@ const CourseDisplay = ({
               onClick={handleNext}
             />
           </div>
-        </div>
       </div>
-    </>
   );
 };
 

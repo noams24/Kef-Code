@@ -2,6 +2,12 @@
   @apply bg-gradient-to-b from-[rgba(249,249,249,1)] from-[0.53%] to-white to-[83.28%] dark:from-darkmode-theme-light dark:to-darkmode-body;
 }
 
+.bg-gradient2 {
+  @apply bg-gradient-to-t from-[#e6e6e6] from-[0.53%] to-white to-[83.28%] dark:from-[#3b3b3b] dark:to-darkmode-body;
+}
+
+
+
 .rounded-sm {
   @apply rounded-[4px];
 }
