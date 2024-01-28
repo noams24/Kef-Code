@@ -1,75 +1,43 @@
 "use client";
 
 import CourseCard from "@/components/CourseCard";
-// import { Course } from "@/types";
-// import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import Pi from "./Pi";
-
-// import 'swiper/css/navigation';
-// import { useDevelop } from '@/store/store'
-// import { useQuery } from '@tanstack/react-query'
-// import axios from 'axios'
-// import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-// interface PageData {
-//   notFound?: boolean;
-//   content?: string;
-//   frontmatter: {
-//     enable?: boolean;
-//     title: string;
-//     description?: string;
-//     courses: Array<Course>;
-//   };
-// }
-
-// interface PageData {
-//   title: string;
-//   link: string;
-//   image: string;
-//   chapters: string;
-//   items: string
-// }
+import { useCallback, useRef } from "react";
 
 const CourseDisplay = ({
   data,
-  coursePercent
+  coursePercent,
 }: {
   data: any;
   coursePercent: any;
 }) => {
-  const idSelector = `slider-${data.title}`;
-  // const swiper = useSwiper();
-  // const slideLeft = () => {
-  //   let slider: any = document.getElementById(idSelector);
-  //   slider.scrollLeft = slider.scrollLeft - 500;
-  // };
+  const sliderRef = useRef(null);
+  const handlePrev = useCallback(() => {
+    if (!sliderRef.current) return;
+    //@ts-ignore
+    sliderRef.current.swiper.slidePrev();
+  }, []);
 
-  // const slideRight = () => {
-  //   let slider: any = document.getElementById(idSelector);
-  //   slider.scrollLeft = slider.scrollLeft + 500;
-  // };
-  // console.log(data)
+  const handleNext = useCallback(() => {
+    if (!sliderRef.current) return;
+    //@ts-ignore
+    sliderRef.current.swiper.slideNext();
+  }, []);
 
   return (
-    <>
-      <div className="flex flex-row justify-center items-center">
-        {/* <p className="text-3xl font-medium p-1">{data.title}</p> */}
-        {/* <p className="text-3xl font-medium p-1">קורסים במדעי המחשב</p>  */}
-      </div>
-      <div className="relative flex items-center">
-        {/* <MdChevronLeft
-          size={40}
-          onClick={slideLeft}
-          className="opacity-50 cursor-pointer hover:opacity-100"
-        /> */}
-        <div
-          id={idSelector}
-          className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide"
-        >
+        <div className="flex justify-center items-center w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth scrollbar-hide">
+          <div>
+            <MdChevronLeft
+              size={40}
+              className="opacity-50 cursor-pointer hover:opacity-100"
+              onClick={handlePrev}
+            />
+          </div>
           <Swiper
-            // modules={[Autoplay, Pagination, Navigation]}
-            // navigation={true}
+            ref={sliderRef}
             loopedSlides={2}
             centeredSlides={false}
             spaceBetween={0}
@@ -98,35 +66,33 @@ const CourseDisplay = ({
               },
             }}
           >
-            {data.map((item:any) => (
-              // ({ title, link, image, chapters, items }) => (
-                <SwiperSlide key={item.title}>
-                  <CourseCard
-                    key={item.title}
-                    link={item.link}
-                    title={item.title}
-                    image={item.image}
-                    chapters={item.chapters}
-                    items={item.items}
-                  >
-                    {!coursePercent ? null : coursePercent[item.link] ? (
-                      <Pi completed={String(coursePercent[item.link])} />
-                    ) : (
-                      <Pi completed={"0"} />
-                    )}
-                  </CourseCard>
-                </SwiperSlide>
-              ),
-            )}
+            {data.map((item: any) => (
+              <SwiperSlide key={item.title}>
+                <CourseCard
+                  key={item.title}
+                  link={item.link}
+                  title={item.title}
+                  image={item.image}
+                  chapters={item.chapters}
+                  items={item.items}
+                >
+                  {!coursePercent ? null : coursePercent[item.link] ? (
+                    <Pi completed={String(coursePercent[item.link])} />
+                  ) : (
+                    <Pi completed={"0"} />
+                  )}
+                </CourseCard>
+              </SwiperSlide>
+            ))}
           </Swiper>
-        </div>
-        {/* <MdChevronRight
-          size={40}
-          onClick={slideRight}
-          className="opacity-50 cursor-pointer hover:opacity-100"
-        /> */}
+          <div>
+            <MdChevronRight
+              size={40}
+              className="opacity-50 cursor-pointer hover:opacity-100 "
+              onClick={handleNext}
+            />
+          </div>
       </div>
-    </>
   );
 };
 

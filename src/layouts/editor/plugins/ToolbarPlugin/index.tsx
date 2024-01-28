@@ -391,7 +391,7 @@ function ToolbarPlugin() {
                   <Select title="גודל גופן" size='small' sx={{ width:65,  }} onChange={onFontSizeSelect} value={fontSize}>
                     {FONT_SIZE_OPTIONS.map(([option, text]) => <MenuItem key={option} value={option}>  {text}</MenuItem>)}
                   </Select>
-                  <TextFormatToggles editor={activeEditor} sx={{ display: { xs: "none", sm: "none", md: "none", lg: "flex" } }} />
+                  <TextFormatToggles editor={activeEditor} sx={{ display: { xs: "none", sm: "none", md: "flex", lg: "flex" } }} />
                 </>
               )}
               </Grid>

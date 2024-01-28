@@ -1,3 +1,5 @@
+"use client"
+
 import ImageFallback from "@/helpers/ImageFallback";
 import Footer from "@/partials/Footer";
 import SeoMeta from "@/partials/SeoMeta";
@@ -9,6 +11,9 @@ import Editor from "@/layouts/editor/components/Editor";
 // import playgroundTemplate from "./jsonFiles/empty.json";
 import playgroundTemplate from "@/components/workSpace/jsonFiles/empty.json";
 import { EditorDocument } from "@/components/workSpace/types";
+import Tilt from 'react-parallax-tilt';
+import TiltedImage from "@/components/TiltedImage";
+
 
 const Home = () => {
   const ul1 = "מגוון שאלות ממבחנים עם פתרונות הלקוחות ";
@@ -26,11 +31,14 @@ const Home = () => {
       <SeoMeta />
       <section className="section bg-gradient2 md:h-[790px]">
         <div className="items-center flex justify-center gap-x-3 pt-10">
-          <div>
+          {/* <Tilt glareEnable={true} glareMaxOpacity={0.8} glareColor="#ffffff" glarePosition="bottom" glareBorderRadius="20px">
+          <div style={{ height: '300px', backgroundColor: 'darkgreen' }}>
             <Image src="/images/hero.png" width={500} height={500} alt="" />
           </div>
+          </Tilt> */}
+          <TiltedImage/>
           <div className="block box-border max-w-xs">
-            <h2 className="mb-4 text-center">כיף קוד</h2>
+            <h2 className="mb-4  pl-5 text-center">כיף קוד</h2>
             <p dir="rtl" className="mb-4  text-lg">
               הפלטפורמה הטובה ביותר לתרגול שאלות של מדעי המחשב ומתמטיקה באוניברסיטה הפתוחה
             </p>
