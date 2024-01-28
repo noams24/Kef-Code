@@ -246,3 +246,32 @@
 .chapter-card-container {
   @apply border dark:bg-slate-800 dark:border-gray-500 border-gray-300 bg-white p-4 w-96 h-24 cursor-pointer flex justify-end;
 }
+
+// Bubble text
+
+.hoverText {
+  transition:
+    0.35s font-weight,
+    0.35s color;
+}
+.hoverText:hover {
+  @apply font-extrabold text-teal-500
+}
+
+/* To the right */
+.hoverText:hover + .hoverText {
+  @apply font-medium text-teal-500
+}
+
+.hoverText:hover + .hoverText + .hoverText {
+  @apply font-light
+}
+
+/* To the left */
+.hoverText:has(+ .hoverText:hover) {
+  @apply font-medium text-teal-500
+}
+
+.hoverText:has(+ .hoverText + .hoverText:hover) {
+  @apply font-light
+}

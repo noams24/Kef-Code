@@ -13,6 +13,7 @@ import playgroundTemplate from "@/components/workSpace/jsonFiles/empty.json";
 import { EditorDocument } from "@/components/workSpace/types";
 import Tilt from 'react-parallax-tilt';
 import TiltedImage from "@/components/TiltedImage";
+import BubbleText from "@/components/BubbleText";
 
 
 const Home = () => {
@@ -38,12 +39,13 @@ const Home = () => {
           </Tilt> */}
           <TiltedImage/>
           <div className="block box-border max-w-xs">
-            <h2 className="mb-4  pl-5 text-center">כיף קוד</h2>
+            {/* <h2 className="mb-4  pl-5 text-center">כיף קוד</h2> */}
+            <BubbleText />
             <p dir="rtl" className="mb-4  text-lg">
               הפלטפורמה הטובה ביותר לתרגול שאלות של מדעי המחשב ומתמטיקה באוניברסיטה הפתוחה
             </p>
             <div className="flex justify-center">
-              <Link className="btn btn-start" href="/courses">
+              <Link className="btn btn-start transition-all shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px]" href="/courses">
                 התחלה
               </Link>
             </div>
