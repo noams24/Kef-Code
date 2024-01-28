@@ -4,9 +4,9 @@
     "base_url": "https://kef-code.vercel.app/",
     "base_path": "/",
     "trailing_slash": false,
-    "favicon": "/images/favicon.png",
-    "logo": "/images/kefcodelogo.png",
-    "logo_darkmode": "/images/kefcodelogo.png",
+    "favicon": "/images/logo1.png",
+    "logo": "/images/logo1.png",
+    "logo_darkmode": "/images/logo1.png",
     "logo_width": "50",
     "logo_height": "50",
     "logo_text": "כיף קוד"
@@ -41,8 +41,8 @@
   },
 
   "metadata": {
-    "meta_author": "Themefisher",
-    "meta_image": "/images/og-image.png",
-    "meta_description": "Next Boilerplate"
+    "meta_author": "Noam",
+    "meta_image": "/images/logo1.png",
+    "meta_description": "כיף קוד"
   }
 }

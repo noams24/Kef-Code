@@ -33,24 +33,6 @@
 - Rich text: Text formatting, Copy + Paste Preformatted text, Code syntax highlighting, Insert Images, Tables and Sticky notes
 - Rich text cool features: Math, graphs, sketch
 
-### 📄 15+ Pre-designed Pages
-
-- 🏠 Homepage
-- 👤 About
-- 📞 Contact
-- 👥 Authors
-- 👤 Author Single
-- 📝 Blog
-- 📝 Blog Single
-- 🚫 Custom 404
-- 💡 Elements
-- 📄 Privacy Policy
-- 🏷️ Tags
-- 🏷️ Tag Single
-- 🗂️ Categories
-- 🗂️ Category Single
-- 🔍 Search
-
 ## 🚀 Getting Started
 
 ### 📦 Dependencies
