@@ -30,16 +30,10 @@ const Home = () => {
   return (
     <>
       <SeoMeta />
-      <section className="section bg-gradient2 md:h-[790px]">
-        <div className="items-center flex justify-center gap-x-3 pt-10">
-          {/* <Tilt glareEnable={true} glareMaxOpacity={0.8} glareColor="#ffffff" glarePosition="bottom" glareBorderRadius="20px">
-          <div style={{ height: '300px', backgroundColor: 'darkgreen' }}>
-            <Image src="/images/hero.png" width={500} height={500} alt="" />
-          </div>
-          </Tilt> */}
+      <section className="section bg-gradient2 md:h-[790px] items-center">
+        <div className="items-center flex justify-center gap-x-3 mb-10">
           <TiltedImage/>
           <div className="block box-border max-w-xs">
-            {/* <h2 className="mb-4  pl-5 text-center">כיף קוד</h2> */}
             <BubbleText />
             <p dir="rtl" className="mb-4  text-lg">
               הפלטפורמה הטובה ביותר לתרגול שאלות של מדעי המחשב ומתמטיקה באוניברסיטה הפתוחה
