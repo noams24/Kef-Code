@@ -69,13 +69,12 @@ const CourseDisplay = ({
       </div>
       <Swiper
         ref={sliderRef}
-        centeredSlides={false}
-        spaceBetween={0}
-        pagination={{ clickable: true }}
         breakpoints={breakPoints}
+        
       >
         {data.map((item: any) => (
-          <SwiperSlide key={item.title}>
+          <SwiperSlide key={item.title} >
+            <div className="flex justify-center">
             <CourseCard
               key={item.title}
               link={item.link}
@@ -90,6 +89,7 @@ const CourseDisplay = ({
                 <Pi completed={"0"} />
               )}
             </CourseCard>
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
