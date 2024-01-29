@@ -1,20 +1,19 @@
-"use client"
+"use client";
 
 import ImageFallback from "@/helpers/ImageFallback";
 import Footer from "@/partials/Footer";
 import SeoMeta from "@/partials/SeoMeta";
 import { FaCheck } from "react-icons/fa/index.js";
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 import Features from "@/components/Features";
 import Editor from "@/layouts/editor/components/Editor";
 // import playgroundTemplate from "./jsonFiles/empty.json";
 import playgroundTemplate from "@/components/workSpace/jsonFiles/empty.json";
 import { EditorDocument } from "@/components/workSpace/types";
-import Tilt from 'react-parallax-tilt';
+// import Tilt from "react-parallax-tilt";
 import TiltedImage from "@/components/TiltedImage";
 import BubbleText from "@/components/BubbleText";
-
 
 const Home = () => {
   const ul1 = "מגוון שאלות ממבחנים עם פתרונות הלקוחות ";
@@ -30,16 +29,20 @@ const Home = () => {
   return (
     <>
       <SeoMeta />
-      <section className="section bg-gradient2 md:h-[790px] items-center">
-        <div className="items-center flex justify-center gap-x-3 mb-10">
-          <TiltedImage/>
+      <section className="section bg-gradient2 sm:h-[810px] md:h-[790px] items-center">
+        <div className="items-center flex flex-wrap-reverse justify-center gap-x-3 mb-10">
+          <TiltedImage />
           <div className="block box-border max-w-xs">
             <BubbleText />
             <p dir="rtl" className="mb-4  text-lg">
-              הפלטפורמה הטובה ביותר לתרגול שאלות של מדעי המחשב ומתמטיקה באוניברסיטה הפתוחה
+              הפלטפורמה הטובה ביותר לתרגול שאלות של מדעי המחשב ומתמטיקה
+              באוניברסיטה הפתוחה
             </p>
             <div className="flex justify-center">
-              <Link className="btn btn-start transition-all shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px]" href="/courses">
+              <Link
+                className="btn btn-start transition-all shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px]"
+                href="/courses"
+              >
                 התחלה
               </Link>
             </div>
@@ -50,7 +53,7 @@ const Home = () => {
       <section className="section-sm bg-gradient">
         <div className="container">
           <div className="row items-center justify-between">
-            <div className="mb:md-0 mb-6 md:col-5 ">
+            <div className="mb:md-0 mb-6 md:col-5 sm:hidden md:block">
               <ImageFallback
                 src="/images/service-1.png"
                 height={480}
@@ -63,11 +66,15 @@ const Home = () => {
               <p className="mb-8 text-lg" />
               <ul dir="rtl">
                 <div className="flex gap-4 items-center mb-3">
-                  <FaCheck />
+                  <div>
+                    <FaCheck />
+                  </div>
                   <li> מעל 20 קורסים שונים</li>
                 </div>
                 <div className="flex gap-4 items-center mb-3">
-                  <FaCheck />
+                  <div>
+                    <FaCheck />
+                  </div>
                   <li>
                     {ul1}
                     <Link
@@ -80,11 +87,15 @@ const Home = () => {
                   </li>
                 </div>
                 <div className="flex gap-4 items-center mb-3">
-                  <FaCheck />
+                  <div>
+                    <FaCheck />
+                  </div>
                   <li> סידור השאלות לפי פרקים</li>
                 </div>
                 <div className="flex gap-4 items-center">
-                  <FaCheck />
+                  <div>
+                    <FaCheck />
+                  </div>
                   <li> עורך טקסט המותאם להקלדה מהירה</li>
                 </div>
               </ul>

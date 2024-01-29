@@ -53,7 +53,7 @@ const Courses = async () => {
         <h3 className="p-3 flex justify-center">קורסי מתמטיקה</h3>
         <CourseDisplay data={mathCourses} coursePercent={coursePercent} />
       </div>
-      <div>
+      <div className="mb-5">
         <h3 className="p-3 flex justify-center">קורסי בחירה</h3>
         <CourseDisplay data={otherCourses} coursePercent={coursePercent} />
       </div>
