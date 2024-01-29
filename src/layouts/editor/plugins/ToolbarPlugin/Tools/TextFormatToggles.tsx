@@ -92,6 +92,7 @@ export default function TextFormatToggles({ editor, sx }: { editor: LexicalEdito
   const onColorChange = useCallback((key: string, value: string) => {
     const styleKey = key === 'text' ? 'color' : 'background-color';
     applyStyleText({ [styleKey]: value });
+    setTimeout(() => { editor.focus() }, 0);
   }, [applyStyleText]);
 
   const handleFormat = (event: React.MouseEvent<HTMLElement>, newFormats: string[]) => {

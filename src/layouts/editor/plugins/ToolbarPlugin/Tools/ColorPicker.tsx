@@ -61,6 +61,7 @@ export default function ColorPicker({ onColorChange, toggle = "togglebutton" }
   };
   const onChange = (key: string, value: string) => {
     onColorChange(key, value);
+    setAnchorEl(null)
   }
 
   return (
