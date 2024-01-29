@@ -2,7 +2,7 @@
 // import { Input } from "@/components/ui/Input";
 import SeoMeta from "@/partials/SeoMeta";
 import PageHeader from "@/partials/PageHeader";
-import { UploadDropzone } from "@/lib/uploadthing";
+import { UploadDropzone } from "@/lib/uploadThingImage";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { toast } from "@/hooks/use-toast";

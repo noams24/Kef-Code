@@ -34,8 +34,12 @@ const Logo = ({ src }: { src?: string }) => {
   //     : logo;
   // const logoPath = src ? src : resolvedLogo;
 
+const scrollToTop = () => {
+  window.scrollTo(0,0)
+}
+
   return (
-    <Link href="/" className="navbar-brand inline-block">
+    <Link href="/" className="navbar-brand inline-block" onClick={scrollToTop}>
         <Image
           width={logo_width}
           height={logo_height}

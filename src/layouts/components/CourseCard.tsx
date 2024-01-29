@@ -33,15 +33,14 @@ const CourseCard = ({
             width={300}
             alt="שם הקורס"
           />
-          <div className="styletext">
-            <h2 className="text text-2xl ">{title}</h2>
+          <div className="styletext ">
+            <h2 className="text text-2xl max-w-[calc(100%-40px)]">{title}</h2>
           </div>
           <div className="stylescore">
             {/* {completed && <Pi completed={completed} />} */}
             {children}
           </div>
         </div>
-
         <div className="courseData">
           {/* <div className="flex-col text-center">
             <p className="text-2xl">{items}</p>

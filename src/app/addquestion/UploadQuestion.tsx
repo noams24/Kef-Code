@@ -27,7 +27,7 @@ import {
 // import { Textarea } from "@/components/table/registry/new-york/ui/textarea";
 import { UploadDropzone } from "@/lib/uploadthing";
 import { useState } from "react";
-import "@uploadthing/react/styles.css";
+// import "@uploadthing/react/styles.css";
 import { toast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
