@@ -32,6 +32,7 @@ export const Editor: React.FC<{
           <EditorPlugins
             contentEditable={<ContentEditable className="editor-input" />}
             onChange={onChange}
+            initialConfig={initialConfig}
           />
           {/*@ts-ignore */}
           {editorRef && <EditorRefPlugin editorRef={editorRef} />}
