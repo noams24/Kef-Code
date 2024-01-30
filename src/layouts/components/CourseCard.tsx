@@ -28,7 +28,7 @@ const CourseCard = ({
         <div className="relative w-full">
           <ImageFallback
             src={image}
-            className="object-cover rounded-md w-60 h-60 transition-opacity opacity-0 duration-[1s]"
+            className="object-cover rounded-md w-60 h-60 "
             height={300}
             width={300}
             alt="שם הקורס"

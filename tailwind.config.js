@@ -85,6 +85,32 @@ module.exports = {
         arial: ["Arial"],
         birzia: ['Birzia', 'sans-serif'],
       },
+      keyframes: {
+        slidein: {
+          from: {
+            opacity: "0",
+            transform: "translateY(-10px)",
+          },
+          to: {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+          },
+          slideFromDown: {
+            from: {
+              opacity: "0",
+              transform: "translateY(10px)",
+            },
+            to: {
+              opacity: "1",
+              transform: "translateY(0)",
+            },
+            },
+        },
+        animation: {
+          slidein: "slidein 1s ease 300ms forwards",
+          slideFromDown: "slideFromDown 1s ease 300ms forwards",
+        },
     },
   },
   plugins: [

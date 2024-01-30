@@ -14,6 +14,8 @@ import { EditorDocument } from "@/components/workSpace/types";
 // import Tilt from "react-parallax-tilt";
 import TiltedImage from "@/components/TiltedImage";
 import BubbleText from "@/components/BubbleText";
+import { useRef } from "react";
+import { useIsVisible } from "@/helpers/Visible";
 
 const Home = () => {
   const ul1 = "מגוון שאלות ממבחנים עם פתרונות הלקוחות ";
@@ -26,11 +28,18 @@ const Home = () => {
 
   const document = playgroundTemplate as unknown as EditorDocument;
 
+
+  const ref2:any = useRef();
+  const isVisible2 = useIsVisible(ref2);
+  const ref3:any = useRef();
+  const isVisible3 = useIsVisible(ref3);
+
+
   return (
     <>
       <SeoMeta />
       <section className="section bg-gradient2 sm:h-[810px] md:h-[790px] items-center">
-        <div className="items-center flex flex-wrap-reverse justify-center gap-x-3 mb-10">
+        <div className="items-center flex flex-wrap-reverse justify-center gap-x-3 mb-10 animate-slidein opacity-0">
           <TiltedImage />
           <div className="block box-border max-w-xs">
             <BubbleText />
@@ -51,8 +60,8 @@ const Home = () => {
       </section>
 
       <section className="section-sm bg-gradient">
-        <div className="container">
-          <div className="row items-center justify-between">
+        <div ref={ref2} className={`container transition-opacity ease-in duration-1000 ${isVisible2 ? "opacity-100" : "opacity-0"}`}>
+          <div className="row items-center justify-between" >
             <div className="mb:md-0 mb-6 md:col-5 sm:hidden md:block">
               <ImageFallback
                 src="/images/service-1.png"
@@ -113,6 +122,7 @@ const Home = () => {
       </section>
 
       <section className="section-sm bg-gradient">
+        <div ref={ref3} className={`opacity-0 ${isVisible3 ? "animate-slideFromDown" : "opacity-0"}`}>
         <div className="flex justify-center mb-10">
           <div
             className="
@@ -197,6 +207,7 @@ const Home = () => {
           <Link className="btn inline-block btn-primary" href="/tutorial">
             מדריך
           </Link>
+        </div>
         </div>
       </section>
       <Footer />
