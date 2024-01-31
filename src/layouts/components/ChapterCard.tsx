@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Pi from "./Pi";
-import { useMotionValue, motion, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import React, { useRef } from "react";
 
 interface ChapterCardProps {
@@ -21,16 +21,6 @@ const ChapterCard: React.FC<ChapterCardProps> = ({
   index,
   numberOfQuestions,
 }) => {
-  const ref = useRef(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const mouseXSpring = useSpring(x);
-  const mouseYSpring = useSpring(y);
-
-  const top = useTransform(mouseYSpring, [0.5, -0.5], ["40%", "60%"]);
-  const left = useTransform(mouseXSpring, [0.5, -0.5], ["60%", "70%"]);
-
   const heading = `פרק ${index + 1}: ${title}`;
 
   return (
