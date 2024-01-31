@@ -40,7 +40,7 @@ const Home = () => {
         <div className="container">
           <div className="flex sm:flex-wrap-reverse md:flex-nowrap justify-center gap-x-3 animate-slidein opacity-0 items-center md:pb-10">
             <TiltedImage />
-            <div className="max-w-xs">
+            <div className="max-w-xs md:mb-5">
               <BubbleText />
               <p dir="rtl" className="mb-4 text-lg">
                 הפלטפורמה הטובה ביותר לתרגול שאלות של מדעי המחשב ומתמטיקה
@@ -48,7 +48,7 @@ const Home = () => {
               </p>
               <div className="flex justify-center">
                 <Link
-                  className="btn btn-start transition-all shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px]"
+                  className="ml-8 btn btn-start transition-all shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px]"
                   href="/courses"
                 >
                   התחלה
