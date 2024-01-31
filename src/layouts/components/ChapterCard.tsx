@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Pi from "./Pi";
 import { motion } from "framer-motion";
-import React, { useRef } from "react";
+import React from "react";
 
 interface ChapterCardProps {
   title: string;
@@ -33,13 +33,13 @@ const ChapterCard: React.FC<ChapterCardProps> = ({
         href={`/courses/${course}/${link}`}
         className="flex flex-grow text-zinc-700 dark:text-zinc-300 hover:text-black hover:dark:text-white"
       >
-        {complete !== "-1" && complete ? 
+        {complete !== "-1" && complete ? (
           <div className="w-14 pl-4 mr-2 mt-2">
             <Pi completed={complete} />
           </div>
-          :
-          <div className="pr-8"/>
-        }
+        ) : (
+          <div className="pr-8" />
+        )}
         <div>
           <motion.span
             dir="rtl"
