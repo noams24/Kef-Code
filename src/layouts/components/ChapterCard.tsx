@@ -50,7 +50,7 @@ const ChapterCard: React.FC<ChapterCardProps> = ({
             transition={{
               type: "spring",
               staggerChildren: 0.075,
-              delayChildren: 0.25,
+              delayChildren: 0.17,
             }}
             className="relative z-10 block text-lg font-semibold transition-colors duration-500"
           >
