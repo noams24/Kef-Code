@@ -72,9 +72,9 @@ const Chapter = async ({ params }: PageProps) => {
               link={chapter.link}
               course={params.course}
               complete={
-                data && data[0] && data[0][chapter.link]
+                !data || !data[0] ? "-1" : (data[0] && data[0][chapter.link]
                   ? String(data[0][chapter.link])
-                  : "0"
+                  : "0" )
               }
               index={chapterIndex}
               numberOfQuestions={
