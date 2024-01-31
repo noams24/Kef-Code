@@ -38,7 +38,7 @@ const Home = () => {
   return (
     <>
       <SeoMeta />
-      <section className="section bg-gradient2 sm:h-[810px] md:h-[790px] items-center">
+      <section className="section bg-gradient2 sm:h-[90dvh] md:h-[92dvh] items-center">
         <div className="items-center flex flex-wrap-reverse justify-center gap-x-3 mb-10 animate-slidein opacity-0">
           <TiltedImage />
           <div className="block box-border max-w-xs">

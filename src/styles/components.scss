@@ -1,6 +1,6 @@
 // section style
 .section {
-  @apply py-24 xl:py-28;
+  @apply sm:py-10 md:py-24 xl:py-28;
   &-sm {
     @apply py-16 xl:py-20;
   }
