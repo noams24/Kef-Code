@@ -1,16 +1,9 @@
 [
     {
-    "title": "אלגברה לינארית 1",
-    "link": "algebra-1",
-    "image": "/coursesImages/Algebra1.png",
-    "chapters": "5",
-    "items": "10"
-    },
-    {
-    "title": "אלגברה לינארית 2",
-    "link": "algebra-2",
-    "image": "/coursesImages/Algebra2.png",
-    "chapters": "4",
+    "title": "אשנב למתמטיקה",
+    "link": "eshnav",
+    "image": "/coursesImages/Eshnav.png",
+    "chapters": "6",
     "items": "10"
     },
     {
@@ -21,16 +14,16 @@
     "items": "48"
     },
     {
-    "title": "הסתברות ומבוא לסטטיסטיקה",
-    "link": "probability",
-    "image": "/coursesImages/Probability.png",
-    "chapters": "3",
-    "items": "17"
+    "title": "אלגברה לינארית 1",
+    "link": "algebra-1",
+    "image": "/coursesImages/Algebra1.png",
+    "chapters": "5",
+    "items": "10"
     },
     {
-    "title": "לוגיקה למדעי המחשב",
-    "link": "logics",
-    "image": "/coursesImages/Logics.png",
+    "title": "אלגברה לינארית 2",
+    "link": "algebra-2",
+    "image": "/coursesImages/Algebra2.png",
     "chapters": "4",
     "items": "10"
     },
@@ -49,10 +42,17 @@
     "items": "10"
     },
     {
-    "title": "אשנב למתמטיקה",
-    "link": "eshnav",
-    "image": "/coursesImages/Eshnav.png",
-    "chapters": "6",
+    "title": "הסתברות ומבוא לסטטיסטיקה",
+    "link": "probability",
+    "image": "/coursesImages/Probability.png",
+    "chapters": "3",
+    "items": "17"
+    },
+    {
+    "title": "לוגיקה למדעי המחשב",
+    "link": "logics",
+    "image": "/coursesImages/Logics.png",
+    "chapters": "4",
     "items": "10"
     }
 ]

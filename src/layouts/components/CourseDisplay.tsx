@@ -21,10 +21,18 @@ const CourseDisplay = ({
     if (!sliderRef.current) return;
     //@ts-ignore
     sliderRef.current.swiper.slidePrev();
+    //@ts-ignore
+    sliderRef.current.swiper.slidePrev();
+     //@ts-ignore
+     sliderRef.current.swiper.slidePrev();
   }, []);
 
   const handleNext = useCallback(() => {
     if (!sliderRef.current) return;
+    //@ts-ignore
+    sliderRef.current.swiper.slideNext();
+    //@ts-ignore
+    sliderRef.current.swiper.slideNext();
     //@ts-ignore
     sliderRef.current.swiper.slideNext();
   }, []);

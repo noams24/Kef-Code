@@ -84,7 +84,7 @@ export function DataTableFacetedFilter<TData, TValue>({
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className={`${[isStatus ? 'w-[220px]' : 'w-[160px]']} p-0 border-none`}
+        className={`${[isStatus ? 'w-[220px]' : 'w-[160px]']} p-0 border`}
         align="center">
         <Command className="bg-body dark:bg-darkmode-body p-0 border-1 dark:border-white">
           <CommandList>
@@ -107,11 +107,16 @@ export function DataTableFacetedFilter<TData, TValue>({
                     }}
                     className="items-center justify-around"
                   >
-                    {facets?.get(option.value) && (
+                    {facets?.get(option.value) ? (
                       <span className="flex h-4 w-4 items-center justify-center font-mono text-xs">
                         {facets.get(option.value)}
                       </span>
-                    )}
+                    )
+                      :
+                      <span className="flex h-4 w-4 items-center justify-center font-mono text-xs">
+                     0
+                    </span>
+                    }
                     {option.icon && (
                       <option.icon className="h-4 w-4 text-muted-foreground" />
                     )}

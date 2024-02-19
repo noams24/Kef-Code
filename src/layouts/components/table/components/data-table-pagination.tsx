@@ -37,7 +37,7 @@ export function DataTablePagination<TData>({
             <SelectTrigger className="h-8 w-[70px] btn-table-hover-color">
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
-            <SelectContent side="top" className="bg-gray-100 dark:bg-black">
+            <SelectContent side="top" className="bg-body dark:bg-darkmode-body">
               {[10, 20, 30, 40, 50].map((pageSize) => (
                 <SelectItem key={pageSize} value={`${pageSize}`}>
                   {pageSize}
@@ -48,7 +48,7 @@ export function DataTablePagination<TData>({
         </div>
         <div className="flex w-[100px] items-center justify-center text-sm font-medium">
           עמוד {table.getState().pagination.pageIndex + 1} מתוך{" "}
-          {table.getPageCount()}
+          {table.getPageCount() === 0 ? 1 : table.getPageCount()}
         </div>
         <div className="flex items-center space-x-2">
           <Button

@@ -7,7 +7,7 @@
         "items": "5"
     },
     {
-        "title": "מבני נתונים",
+        "title": "מבני נתונים ומבוא לאלגוריתמים",
         "link": "data-structures",
         "image": "/coursesImages/DataStructures.png",
         "chapters": "5",
@@ -28,18 +28,18 @@
         "items": "17"
     },
     {
-        "title": "מערכות הפעלה",
-        "link": "operating-systems",
-        "image": "/coursesImages/OperationSystems.png",
-        "chapters": "4",
-        "items": "20"
-    },
-    {
         "title": "מעבדה בתכנות מערכות",
         "link": "programming-languages-lab",
         "image": "/coursesImages/C.png",
         "chapters": "3",
         "items": "10"
+    },
+    {
+        "title": "מערכות הפעלה",
+        "link": "operating-systems",
+        "image": "/coursesImages/OperationSystems.png",
+        "chapters": "4",
+        "items": "20"
     },
     {
         "title": "שפות תכנות",

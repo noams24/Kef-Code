@@ -43,18 +43,18 @@ const Courses = async () => {
   return (
     <div className="flex flex-col gap-y-5 p-3">
       <div>
-        <h3 className="p-3 flex justify-center">קורסי מדעי המחשב</h3>
+        <h3 className="p-3 text-zinc-700 dark:text-zinc-300 flex justify-center select-none">קורסי מדעי המחשב</h3>
         <CourseDisplay
           data={computerScienceCourses}
           coursePercent={coursePercent}
         />
       </div>
       <div>
-        <h3 className="p-3 flex justify-center">קורסי מתמטיקה</h3>
+        <h3 className="p-3 text-zinc-700 dark:text-zinc-300 flex justify-center select-none">קורסי מתמטיקה</h3>
         <CourseDisplay data={mathCourses} coursePercent={coursePercent} isMath={true}/>
       </div>
       <div className="mb-5">
-        <h3 className="p-3 flex justify-center">קורסי בחירה</h3>
+        <h3 className="p-3 text-zinc-700 dark:text-zinc-300 flex justify-center select-none">קורסי בחירה</h3>
         <CourseDisplay data={otherCourses} coursePercent={coursePercent} />
       </div>
     </div>
