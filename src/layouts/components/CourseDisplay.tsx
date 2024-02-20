@@ -20,21 +20,45 @@ const CourseDisplay = ({
   const handlePrev = useCallback(() => {
     if (!sliderRef.current) return;
     //@ts-ignore
-    sliderRef.current.swiper.slidePrev();
-    //@ts-ignore
-    sliderRef.current.swiper.slidePrev();
-     //@ts-ignore
-     sliderRef.current.swiper.slidePrev();
+    const currentBreakPoint = sliderRef.current.swiper.currentBreakpoint;
+    if (currentBreakPoint === "max") {
+      //@ts-ignore
+      sliderRef.current.swiper.slidePrev();
+    } else if (currentBreakPoint === "450") {
+      //@ts-ignore
+      sliderRef.current.swiper.slidePrev();
+      //@ts-ignore
+      sliderRef.current.swiper.slidePrev();
+    } else {
+      //@ts-ignore
+      sliderRef.current.swiper.slidePrev();
+      //@ts-ignore
+      sliderRef.current.swiper.slidePrev();
+      //@ts-ignore
+      sliderRef.current.swiper.slidePrev();
+    }
   }, []);
 
   const handleNext = useCallback(() => {
     if (!sliderRef.current) return;
     //@ts-ignore
-    sliderRef.current.swiper.slideNext();
-    //@ts-ignore
-    sliderRef.current.swiper.slideNext();
-    //@ts-ignore
-    sliderRef.current.swiper.slideNext();
+    const currentBreakPoint = sliderRef.current.swiper.currentBreakpoint;
+    if (currentBreakPoint === "max") {
+      //@ts-ignore
+      sliderRef.current.swiper.slideNext();
+    } else if (currentBreakPoint === "450") {
+      //@ts-ignore
+      sliderRef.current.swiper.slideNext();
+      //@ts-ignore
+      sliderRef.current.swiper.slideNext();
+    } else {
+      //@ts-ignore
+      sliderRef.current.swiper.slideNext();
+      //@ts-ignore
+      sliderRef.current.swiper.slideNext();
+      //@ts-ignore
+      sliderRef.current.swiper.slideNext();
+    }
   }, []);
 
   let breakPoints = {
@@ -75,28 +99,24 @@ const CourseDisplay = ({
           onClick={handlePrev}
         />
       </div>
-      <Swiper
-        ref={sliderRef}
-        breakpoints={breakPoints}
-        
-      >
+      <Swiper ref={sliderRef} breakpoints={breakPoints}>
         {data.map((item: any) => (
-          <SwiperSlide key={item.title} >
+          <SwiperSlide key={item.title}>
             <div className="flex justify-center">
-            <CourseCard
-              key={item.title}
-              link={item.link}
-              title={item.title}
-              image={item.image}
-              chapters={item.chapters}
-              items={item.items}
-            >
-              {!coursePercent ? null : coursePercent[item.link] ? (
-                <Pi completed={String(coursePercent[item.link])} />
-              ) : (
-                <Pi completed={"0"} />
-              )}
-            </CourseCard>
+              <CourseCard
+                key={item.title}
+                link={item.link}
+                title={item.title}
+                image={item.image}
+                chapters={item.chapters}
+                items={item.items}
+              >
+                {!coursePercent ? null : coursePercent[item.link] ? (
+                  <Pi completed={String(coursePercent[item.link])} />
+                ) : (
+                  <Pi completed={"0"} />
+                )}
+              </CourseCard>
             </div>
           </SwiperSlide>
         ))}
