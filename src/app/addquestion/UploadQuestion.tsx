@@ -1,16 +1,12 @@
 "use client";
 
-// import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import * as z from "zod";
-
-// import { cn } from "@/lib/utils";
 import { Button } from "@/components/table/registry/new-york/ui/button";
 import {
   Form,
   FormControl,
-  // FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -24,19 +20,32 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/table/registry/new-york/ui/select";
-// import { Textarea } from "@/components/table/registry/new-york/ui/textarea";
 import { UploadDropzone } from "@/lib/uploadthing";
 import { useState } from "react";
-// import "@uploadthing/react/styles.css";
 import { toast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { useCustomToasts } from "@/hooks/use-custom-toast";
 import { difficulties } from "@/components/table/data/data";
 import Notice from "@/shortcodes/Notice";
-
 import dynamic from "next/dynamic";
 import ImageDisplay from "@/components/ImageDisplay";
+
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/Popover";
+import { cn } from "@/lib/utils";
+import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/Command";
+
 const PdfRenderer = dynamic(() => import("@/components/PdfRenderer"), {
   ssr: false,
 });
@@ -68,10 +77,10 @@ const profileFormSchema = z.object({
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
-export function UploadQuestion(courses: any) {
+export function UploadQuestion({ courses }: any) {
   const { loginToast } = useCustomToasts();
   const [url, setUrl] = useState<string | undefined | null>(null);
-
+  const [isOpenCourses, setOpenCourses] = useState(false);
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     mode: "onChange",
@@ -122,19 +131,10 @@ export function UploadQuestion(courses: any) {
     },
   });
 
-  let mappedCourses: any = null;
-  if (Array.isArray(courses.courses)) {
-    mappedCourses = courses.courses.map((item: any, index: number) => (
-      <SelectItem key={index} value={item.courseName}>
-        {item.hebrew}
-      </SelectItem>
-    ));
-  }
-
   const [chapters, setchapters] = useState([]);
 
   function handleCourseChange(event: any) {
-    const filteredList = courses.courses.filter(
+    const filteredList = courses.filter(
       (item: { courseName: any }) => item.courseName === event,
     );
     setchapters(filteredList[0].chapters);
@@ -164,31 +164,64 @@ export function UploadQuestion(courses: any) {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="course"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="flex flex-col">
                 <FormLabel>קורס</FormLabel>
-                <Select
-                  onValueChange={(event) => {
-                    field.onChange(event);
-                    handleCourseChange(event);
-                  }}
-                  defaultValue={field.value}
-                >
-                  <FormControl className="border-gray-400">
-                    <SelectTrigger dir="rtl">
-                      <SelectValue placeholder="בחר קורס" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent
-                    dir="rtl"
-                    className="max-h-32 overflow-y-auto bg-body dark:bg-darkmode-body"
-                  >
-                    {mappedCourses}
-                  </SelectContent>
-                </Select>
+                <Popover open={isOpenCourses} onOpenChange={setOpenCourses}>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        className={cn(
+                          "w-full justify-between border-zinc-400",
+                          !field.value && "text-muted-foreground",
+                        )}
+                      >
+                        {field.value
+                          ? courses.find(
+                              (course: any) =>
+                                course.courseName === field.value,
+                            )?.hebrew
+                          : "בחר קורס"}
+                        <CaretSortIcon className="h-4 w-4 -ml-0.5 shrink-0 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="p-0">
+                    <Command>
+                      <CommandInput placeholder="חפש קורס" className="h-9" />
+                      <CommandEmpty>הקורס לא נמצא</CommandEmpty>
+                      <CommandGroup>
+                        {courses.map((course: any) => (
+                          <CommandItem
+                            value={course.hebrew}
+                            key={course.hebrew}
+                            onSelect={() => {
+                              form.setValue("course", course.courseName);
+                              handleCourseChange(course.courseName);
+                              setOpenCourses(false);
+                            }}
+                          >
+                            {course.hebrew}
+                            <CheckIcon
+                              className={cn(
+                                "ml-2 h-4 w-4",
+                                course.courseName === field.value
+                                  ? "opacity-100"
+                                  : "opacity-0",
+                              )}
+                            />
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
                 <FormMessage />
               </FormItem>
             )}
@@ -211,17 +244,16 @@ export function UploadQuestion(courses: any) {
                   </FormControl>
                   <SelectContent
                     dir="rtl"
-                    className="max-h-32 overflow-y-auto bg-body dark:bg-darkmode-body"
+                    className=" bg-body dark:bg-darkmode-body"
                   >
-                    {/* <SelectItem value="1">1</SelectItem>
-                    <SelectItem value="2">2</SelectItem>
-                    <SelectItem value="3">3</SelectItem> */}
-                    {chapters &&
-                      chapters.map((item: any, index: number) => (
-                        <SelectItem key={index} value={item.link}>
-                          {item.title}
-                        </SelectItem>
-                      ))}
+                    <div className="max-h-[400px] overflow-y-auto">
+                      {chapters &&
+                        chapters.map((item: any, index: number) => (
+                          <SelectItem key={index} value={item.link}>
+                            {item.title}
+                          </SelectItem>
+                        ))}
+                    </div>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -271,16 +303,16 @@ export function UploadQuestion(courses: any) {
         </form>
       </Form>
 
-      {url &&
-      <div className="my-4">
-      <h4 className="flex justify-center mb-4">תצוגה מקדימה</h4>
-        {(url.endsWith("pdf") ? (
-          <PdfRenderer url={url} />
-        ) : (
-          <ImageDisplay imageUrl={url} />
-        ))}
+      {url && (
+        <div className="my-4">
+          <h4 className="flex justify-center mb-4">תצוגה מקדימה</h4>
+          {url.endsWith("pdf") ? (
+            <PdfRenderer url={url} />
+          ) : (
+            <ImageDisplay imageUrl={url} />
+          )}
         </div>
-        }
+      )}
 
       <UploadDropzone
         className="mb-8 dark:border-sky-200"
@@ -293,6 +325,10 @@ export function UploadQuestion(courses: any) {
         onUploadError={(error: Error) => {
           // Do something with the error.
           alert(`ERROR! ${error.message}`);
+        }}
+        appearance={{
+          button:
+            "w-[200px] rounded-xl bg-blue-500",
         }}
       />
     </div>
