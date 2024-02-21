@@ -202,16 +202,8 @@
         "hebrew": "מתמטיקה בדידה",
         "chapters": [
             {
-                "title": "תחשיב הפסוקים",
-                "link": "propositionallogic"
-            },
-            {
-                "title": "עוצמות",
-                "link": "cardinal-numbers"
-            },
-            {
-                "title": "עצים",
-                "link": "trees"
+                "title": "שאלות אמריקאיות",
+                "link": "american-questions"
             },
             {
                 "title": "יחסי שקילות",
@@ -220,6 +212,10 @@
             {
                 "title": "פונקציות יוצרות",
                 "link": "generating-functions"
+            },
+            {
+                "title": "קומבינטוריקה",
+                "link": "combinatorics"
             },
             {
                 "title": "גרפים",
