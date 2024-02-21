@@ -228,19 +228,9 @@
         "courseName": "discrete-mathematics",
         "chapters": [
             {
-                "title": "תחשיב הפסוקים",
-                "link": "propositionallogic",
+                "title": "שאלות אמריקאיות",
+                "link": "american-questions",
                 "complete": 38
-            },
-            {
-                "title": "עוצמות",
-                "link": "cardinal-numbers",
-                "complete": 9
-            },
-            {
-                "title": "עצים",
-                "link": "trees",
-                "complete": 61
             },
             {
                 "title": "יחסי שקילות",
@@ -251,6 +241,11 @@
                 "title": "פונקציות יוצרות",
                 "link": "generating-functions",
                 "complete": 88
+            },
+            {
+                "title": "קומבינטוריקה",
+                "link": "combinatorics",
+                "complete": 81
             },
             {
                 "title": "גרפים",
