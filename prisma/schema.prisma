@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql"
+  provider     = "postgresql"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
@@ -129,7 +129,7 @@ model Comment {
   problemId Int?
 
   replyToId     String?
-  replyTo       Comment?     @relation("ReplyTo", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replyTo       Comment?     @relation("ReplyTo", fields: [replyToId], references: [id], onDelete: Restrict, onUpdate: Restrict)
   replies       Comment[]    @relation("ReplyTo")
   commentId     String?
   Submissions   Submissions? @relation(fields: [submissionsId], references: [id], onDelete: Cascade)

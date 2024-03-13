@@ -16,12 +16,12 @@ async function getChapterPercent(course: string) {
 
   try {
     const courseItems = await db.$queryRawUnsafe(
-      `select chapter, COUNT(*) as items from Problem where course = '${course}' group by chapter`,
+      `select chapter, COUNT(*) as items from public."Problem" where course = '${course}' group by chapter`,
     );
     const session = await getAuthSession();
     if (!session) return [null, courseItems]
 
-    const query = `select chapter, COUNT(*) as completed from Problem p join problemStatus ps on p.id = ps.problemId where ps.userId = '${session.user.id}' and status = 'FINISH' and course = '${course}' group by chapter`;
+    const query = `select chapter, COUNT(*) as completed from public."Problem" p join public."problemStatus" ps on p.id = ps."problemId" where ps."userId" = '${session.user.id}' and status = 'FINISH' and course = '${course}' group by chapter`;
     const chapterCompleted = await db.$queryRawUnsafe(query);
     
     let results: any = {};

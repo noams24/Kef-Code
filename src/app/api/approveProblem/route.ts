@@ -17,13 +17,6 @@ export async function POST(req: Request) {
     const img = body.data.img;
     const status = body.status;
 
-    // delete it from need verified table
-    await db.problemsneedverify.delete({
-      where: {
-        id: id,
-      },
-    });
-
     if (status === "approve") {
       await db.problem.create({
         data: {
@@ -35,6 +28,12 @@ export async function POST(req: Request) {
         },
       });
     }
+        // delete it from need verified table
+        await db.problemsneedverify.delete({
+          where: {
+            id: id,
+          },
+        });
 
     return new Response("OK");
   } catch (error) {

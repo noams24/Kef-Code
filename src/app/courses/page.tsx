@@ -15,11 +15,11 @@ async function getCoursesPercent() {
     return null;
   }
   try {
-    const query = `select course, COUNT(*) as completed from Problem p join problemStatus ps on p.id = ps.problemId where ps.userId = '${session.user.id}' and status = 'FINISH' group by course`;
+    const query = `select course, COUNT(*) as completed from public."Problem" p join public."problemStatus" ps on p.id = ps."problemId" where ps."userId" = '${session.user.id}' and status = 'FINISH' group by course`;
     const courseCompleted = await db.$queryRawUnsafe(query);
 
     const courseItems = await db.$queryRawUnsafe(
-      "select course, COUNT(*) as items from Problem group by course",
+      'select course, COUNT(*) as items from public."Problem" group by course',
     );
     let results: any = {};
     if (Array.isArray(courseCompleted) && Array.isArray(courseItems)) {
