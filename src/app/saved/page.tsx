@@ -19,7 +19,7 @@ const Profile = async () => {
   } else {
     try {
       const query = `
-    select id as problemId, course, chapter, title from Bookmark B inner join Problem P on B.problemId = P.id where B.userId = '${session.user.id}' `;
+    select id as problemId, course, chapter, title from public."Bookmark" B inner join public."Problem" P on B."problemId" = P.id where B."userId" = '${session.user.id}' `;
       let problems: any = await db.$queryRawUnsafe(query);
 
       problems.forEach((problem: { status: string }) => {
@@ -99,7 +99,8 @@ const Profile = async () => {
           </div>
         </div>
       );
-    } catch {
+    } catch(error) {
+      console.log(error)
       return <h3 className="flex justify-center">שגיאה</h3>;
     }
   }

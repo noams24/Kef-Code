@@ -65,7 +65,7 @@ export function ApproveProblem(data: any) {
           {item.img.endsWith("pdf") ? (
             <PdfRenderer url={item.img} />
           ) : (
-            <Image src={item.img} alt={item.title} className="w-42 h-42"  />
+            <Image src={item.img} alt={item.title} width={1000} height={1000} />
           )}
           </div>
           {/* <Image src={item.img} alt={item.title} className="w-42 h-42" /> */}

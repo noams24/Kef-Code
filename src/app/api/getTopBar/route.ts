@@ -30,7 +30,7 @@ export async function GET(req: Request) {
         });
 
         if (session) {
-            const query = `select id, status from Problem p join problemStatus ps on p.id = ps.problemId where course = '${course}' and chapter = '${chapter}' and ps.userId = '${session.user.id}'`
+            const query = `select id, status from public."Problem" p join public."problemStatus" ps on p.id = ps."problemId" where course = '${course}' and chapter = '${chapter}' and ps."userId" = '${session.user.id}'`
             const problemStatus = await db.$queryRawUnsafe(query)
 
             if (Array.isArray(problemStatus)) {

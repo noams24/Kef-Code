@@ -1,5 +1,5 @@
-import { promises as fs } from "fs";
-import path from "path";
+// import { promises as fs } from "fs";
+// import path from "path";
 import { z } from "zod";
 import { columns } from "@/components/table/components/columns";
 import { DataTable } from "@/components/table/components/data-table";
@@ -18,13 +18,13 @@ interface PageProps {
 }
 
 // Simulate a database read for tasks.
-async function getTasks() {
-  const data = await fs.readFile(
-    path.join(process.cwd(), "src/layouts/components/table/data/tasks.json"),
-  );
-  const tasks = JSON.parse(data.toString());
-  return z.array(taskSchema).parse(tasks);
-}
+// async function getTasks() {
+//   const data = await fs.readFile(
+//     path.join(process.cwd(), "src/layouts/components/table/data/tasks.json"),
+//   );
+//   const tasks = JSON.parse(data.toString());
+//   return z.array(taskSchema).parse(tasks);
+// }
 
 async function getData(course: string, chapter: string) {
   try {
@@ -44,6 +44,7 @@ async function getData(course: string, chapter: string) {
           title: 'desc',
       },
   })
+  // console.log(problems)
 
   // for (let i = 0; i < problems.length; i++) problems[i].status = "BEGIN"
   problems.forEach((problem: { status: string }) => {
@@ -51,9 +52,8 @@ async function getData(course: string, chapter: string) {
   });
 
   if (session) {
-      const query = `select id, status from Problem p join problemStatus ps on p.id = ps.problemId where course = '${course}' and chapter = '${chapter}' and ps.userId = '${session.user.id}'`
+      const query = `select id, status from public."Problem" p join public."problemStatus" ps on p.id = ps."problemId" where course = '${course}' and chapter = '${chapter}' and ps."userId" = '${session.user.id}'`
       const problemStatus = await db.$queryRawUnsafe(query)
-
       if (Array.isArray(problemStatus)) {
           for (const p of problemStatus) {
               const index = Number(problems.findIndex((item: { id: any }) => item.id === p.id))
@@ -70,8 +70,6 @@ async function getData(course: string, chapter: string) {
 export default async function TaskPage({ params }: PageProps) {
 
   const data = await getData(params.course, params.chapter);
-  // const tasks = await getTasks();
-
   return (
     <>
         <SeoMeta
