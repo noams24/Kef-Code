@@ -20,10 +20,6 @@ const Path = () => {
 }
 
 export const columns: ColumnDef<Task>[] = [
-  // {
-  //   id: "actions",
-  //   cell: ({ row }) => <DataTableRowActions row={row} />,
-  // },
   {
     accessorKey: "difficulty",
     header: ({ column }) => (
@@ -48,7 +44,6 @@ export const columns: ColumnDef<Task>[] = [
 
       return (
         <div className="flex justify-center items-center">
-          {/* <div>{isLoading ? 'Content is loading' : JSON.stringify(data)}</div> */}
           <span className={colorClass}>
             {difficulty.label}
           </span>
@@ -70,6 +65,21 @@ export const columns: ColumnDef<Task>[] = [
     },
   },
   {
+    accessorKey: "date",
+    header: ({ column }) => (
+      <DataTableColumnHeader className="pr-2" column={column} title="מועד" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className='flex space-x-2 justify-center'>
+          <span className="max-w-[500px] truncate font-bold font-arial"> 
+              {row.getValue("date") ? row.getValue("date") : ''}
+          </span>
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: "title",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="שם השאלה" />
@@ -79,8 +89,6 @@ export const columns: ColumnDef<Task>[] = [
       return (
         <div className='flex space-x-2 justify-center'>
           <span className="max-w-[500px] truncate font-bold font-arial">
-            {/* <Link href="/courses/algebra-1/bases/1"> */}
-              {/*When the website will be ready, uncomment the next row: */}
             <Link href={`/courses/${path[1]}/${path[2]}/${row.original.title.replaceAll(' ', '-')}`}> 
               {row.getValue("title")}
             </Link>
@@ -128,5 +136,5 @@ export const columns: ColumnDef<Task>[] = [
       const valueB = rowB.getValue(columId) as keyof typeof statusOrder
       return statusOrder[valueA] - statusOrder[valueB]
     },
-  }
+  },
 ]

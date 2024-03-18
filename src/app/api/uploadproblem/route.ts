@@ -5,11 +5,12 @@ import { db } from "@/lib/db";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const title = body.values.title.replace('-', ' ');
+    const title = body.values.title.replace("-", " ");
     const course = body.values.course;
     const chapter = body.values.chapter;
     const difficulty = body.values.difficulty;
     const img = body.url;
+    const date = body.values.date;
     const session = await getAuthSession();
     if (!session) return new Response("Unauthorized", { status: 401 });
 
@@ -26,11 +27,12 @@ export async function POST(req: Request) {
     if (session.user.role == "ADMIN") {
       await db.problem.create({
         data: {
-          title: title,
-          course: course,
-          chapter: chapter,
-          difficulty: difficulty,
-          img: img,
+          title,
+          course,
+          chapter,
+          difficulty,
+          date,
+          img,
         },
       });
     }
@@ -39,11 +41,12 @@ export async function POST(req: Request) {
     else {
       await db.problemsneedverify.create({
         data: {
-          title: title,
-          course: course,
-          chapter: chapter,
-          difficulty: difficulty,
-          img: img,
+          title,
+          course,
+          chapter,
+          difficulty,
+          date,
+          img,
           userId: session.user.id,
         },
       });

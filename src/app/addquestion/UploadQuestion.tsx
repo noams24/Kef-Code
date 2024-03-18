@@ -73,11 +73,21 @@ const profileFormSchema = z.object({
   difficulty: z.string({
     required_error: "* נא לבחור רמת קושי",
   }),
+  date: z
+    .string({
+      required_error: "* נא לבחור מועד",
+    })
+    .regex(/^[a-zA-Z0-9]+$/, {
+      message: "* שם המועד לא תקין",
+    })
+    .length(7, {
+      message: "* שם המועד לא תקין",
+    }),
 });
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
-export function UploadQuestion({ courses }: any) {
+export function UploadQuestion({ courses, session }: any) {
   const { loginToast } = useCustomToasts();
   const [url, setUrl] = useState<string | undefined | null>(null);
   const [isOpenCourses, setOpenCourses] = useState(false);
@@ -293,6 +303,20 @@ export function UploadQuestion({ courses }: any) {
             )}
           />
 
+          <FormField
+            control={form.control}
+            name="date"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>מועד</FormLabel>
+                <FormControl className="bg-transparent border-gray-400">
+                  <Input placeholder="" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <Button
             type="submit"
             disabled={isLoading}
@@ -313,24 +337,26 @@ export function UploadQuestion({ courses }: any) {
           )}
         </div>
       )}
-
-      <UploadDropzone
-        className="mb-8 dark:border-sky-200"
-        endpoint="imageUploader"
-        onClientUploadComplete={(res) => {
-          if (res) {
-            setUrl(res[0].fileUrl);
-          }
-        }}
-        onUploadError={(error: Error) => {
-          // Do something with the error.
-          alert(`ERROR! ${error.message}`);
-        }}
-        appearance={{
-          button:
-            "w-[200px] rounded-xl bg-blue-500",
-        }}
-      />
+      {session ? (
+        <UploadDropzone
+          className="mb-8 dark:border-sky-200 "
+          endpoint="imageUploader"
+          onClientUploadComplete={(res) => {
+            if (res) {
+              setUrl(res[0].fileUrl);
+            }
+          }}
+          onUploadError={(error: Error) => {
+            // Do something with the error.
+            alert(`ERROR! ${error.message}`);
+          }}
+          appearance={{
+            button: "w-[200px] rounded-xl bg-blue-500",
+          }}
+        />
+      ) : (
+        <h4 className="flex justify-end">יש להתחבר כדי להעלות שאלה</h4>
+      )}
     </div>
   );
 }

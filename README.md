@@ -27,7 +27,7 @@
 
 - Written in modern languages: React, Typescript, Tailwind CSS
 - Uses Next.js 14 app directory structure
-- Uses Prisma and MySQL for working with a Database
+- Uses Prisma and PostgreSQL for working with a Database
 - Full user authentication lifecycle with prisma and next-auth
 - Rich text: Text formatting, Copy + Paste Preformatted text, Code syntax highlighting, Insert Images, Tables, etc...
 - Rich text cool features: Math, graphs, sketch

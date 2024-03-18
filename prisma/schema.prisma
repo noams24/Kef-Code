@@ -153,6 +153,7 @@ model Problem {
   title         String
   img           String
   difficulty    String
+  date          String?
   hint          String?
   solution      Solution?
   comments      Comment[]
@@ -252,6 +253,7 @@ model problemsneedverify {
   title      String
   img        String
   difficulty String
+  date       String?
   userId     String
   user       User     @relation(fields: [userId], references: [id])
   createdAt  DateTime @default(now())

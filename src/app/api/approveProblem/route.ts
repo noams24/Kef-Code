@@ -14,26 +14,28 @@ export async function POST(req: Request) {
     const chapter = body.data.chapter;
     const title = body.data.title;
     const difficulty = body.data.difficulty;
+    const date = body.data.date;
     const img = body.data.img;
     const status = body.status;
 
     if (status === "approve") {
       await db.problem.create({
         data: {
-          title: title,
-          course: course,
-          chapter: chapter,
-          difficulty: difficulty,
-          img: img,
+          title,
+          course,
+          chapter,
+          difficulty,
+          date,
+          img,
         },
       });
     }
-        // delete it from need verified table
-        await db.problemsneedverify.delete({
-          where: {
-            id: id,
-          },
-        });
+    // delete it from need verified table
+    await db.problemsneedverify.delete({
+      where: {
+        id,
+      },
+    });
 
     return new Response("OK");
   } catch (error) {

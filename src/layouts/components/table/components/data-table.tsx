@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -14,7 +14,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
 import {
   Table,
@@ -23,27 +23,28 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../registry/new-york/ui/table"
+} from "../registry/new-york/ui/table";
 
-import { DataTablePagination } from "../components/data-table-pagination"
-import { DataTableToolbar } from "../components/data-table-toolbar"
+import { DataTablePagination } from "../components/data-table-pagination";
+import { DataTableToolbar } from "../components/data-table-toolbar";
+import Link from "next/link";
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [rowSelection, setRowSelection] = React.useState({})
+  const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({})
+    React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  )
-  const [sorting, setSorting] = React.useState<SortingState>([])
+    [],
+  );
+  const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const table = useReactTable({
     data,
@@ -65,10 +66,8 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
-  })
-  // const pathname = usePathname();
-  // const paths = pathname.split("/").filter((x) => x);
-  // console.log(paths)
+  });
+
   return (
     <div className="space-y-4">
       <DataTableToolbar table={table} />
@@ -84,10 +83,10 @@ export function DataTable<TData, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
@@ -98,13 +97,13 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className="hover:bg-slate-100 dark:hover:bg-gray-800"
+                  className="hover:bg-zinc-100 dark:hover:bg-zinc-800"
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} >
+                    <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}
@@ -118,7 +117,12 @@ export function DataTable<TData, TValue>({
                 >
                   לא נמצאו שאלות
                   <br />
-                  <a className="text-blue-500 text-decoration-line: underline" href="/addquestion">העלאת שאלה</a>
+                  <Link
+                    className="text-blue-500 text-decoration-line: underline"
+                    href="/addquestion"
+                  >
+                    העלאת שאלה
+                  </Link>
                 </TableCell>
               </TableRow>
             )}
@@ -127,5 +131,5 @@ export function DataTable<TData, TValue>({
       </div>
       <DataTablePagination table={table} />
     </div>
-  )
+  );
 }

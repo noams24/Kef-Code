@@ -71,6 +71,10 @@ export const hebrewColumnsFilter = [
   {
     value: 'difficulty',
     label: 'רמת קושי'
+  },
+  {
+    value: 'date',
+    label: 'מועד'
   }
 ]
 
