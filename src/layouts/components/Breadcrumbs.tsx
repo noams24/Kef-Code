@@ -42,7 +42,7 @@ const Breadcrumbs = () => {
   });
 
   return (
-    <div className="items-center flex justify-center">
+    <div className="items-center flex justify-center mt-6">
       <Breadcrumb>
         <BreadcrumbList>
           {parts.map(({ label, ...attrs }, index) => (
