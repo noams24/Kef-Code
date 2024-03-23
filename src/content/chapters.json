@@ -1,407 +1,412 @@
 [
-    {
-        "courseName": "intro-to-computer-science",
-        "chapters": [
-            {
-                "title": "רקורסיה",
-                "link": "recursion",
-                "complete": 87
-            },
-            {
-                "title": "יעילות",
-                "link": "efficiency",
-                "complete": 42
-            },
-            {
-                "title": "פולימורפיזם",
-                "link": "polymorphism",
-                "complete": 69
-            },
-            {
-                "title": "מבני נתונים",
-                "link": "data-structures",
-                "complete": 24
-            }
-        ]
-    },
-    {
-        "courseName": "data-structures",
-        "chapters": [
-            {
-                "title": "נוסחת נסיגה",
-                "link": "recurrence-relation",
-                "complete": 50
-            },
-            {
-                "title": "ערימות",
-                "link": "heaps",
-                "complete": 76
-            },
-            {
-                "title": "מערכים",
-                "link": "arrays",
-                "complete": 33
-            },
-            {
-                "title": "עצים בינריים",
-                "link": "binary-trees",
-                "complete": 91
-            },
-            {
-                "title": "הצעת מבני נתונים",
-                "link": "data-structures-proposal",
-                "complete": 12
-            }
-        ]
-    },
-    {
-        "courseName": "algorithms",
-        "chapters": [
-            {
-                "title": "FFT",
-                "link": "FFT",
-                "complete": 58
-            },
-            {
-                "title": "גרפים",
-                "link": "graphs",
-                "complete": 7
-            },
-            {
-                "title": "תכנון דינמי",
-                "link": "dynamic-programming",
-                "complete": 94
-            }
-        ]
-    },
-    {
-        "courseName": "computer-organization",
-        "chapters": [
-            {
-                "title": "שאלות אמריקאיות",
-                "link": "american-questions",
-                "complete": 81
-            },
-            {
-                "title": "קוד מארס",
-                "link": "mars",
-                "complete": 29
-            },
-            {
-                "title": "מעבדים",
-                "link": "processor",
-                "complete": 63
-            },
-            {
-                "title": "זיכרון",
-                "link": "memory",
-                "complete": 2
-            },
-            {
-                "title": "תרשימים",
-                "link": "diagrams",
-                "complete": 39
-            },
-            {
-                "title": "הדפסות",
-                "link": "printing",
-                "complete": 72
-            }
-        ]
-    },
-    {
-        "courseName": "operating-systems",
-        "chapters": [
-            {
-                "title": "תהליכונים",
-                "link": "thread",
-                "complete": 45
-            },
-            {
-                "title": "קיפאון",
-                "link": "freezing",
-                "complete": 13
-            },
-            {
-                "title": "דיסקים",
-                "link": "discs",
-                "complete": 96
-            },
-            {
-                "title": "דפים",
-                "link": "pages",
-                "complete": 18
-            }
-        ]
-    },
-    {
-        "courseName": "programming-languages-lab",
-        "chapters": [
-            {
-                "title": "כתיבת פונקציות",
-                "link": "writing-functions",
-                "complete": 31
-            },
-            {
-                "title": "מציאת שגיאות",
-                "link": "finding-errors",
-                "complete": 79
-            },
-            {
-                "title": "כתיבת תוכנית",
-                "link": "writing-program",
-                "complete": 84
-            }
-        ]
-    },
-    {
-        "courseName": "programming-languages",
-        "chapters": [
-            {
-                "title": "טיפוסי נתונים",
-                "link": "data-types",
-                "complete": 14
-            },
-            {
-                "title": "השלם את החסר",
-                "link": "complete-the-missing",
-                "complete": 68
-            }
-        ]
-    },
-    {
-        "courseName": "algebra-1",
-        "chapters": [
-            {
-                "title": "תת-מרחבים",
-                "link": "vector-space",
-                "complete": 93
-            },
-            {
-                "title": "הצגה טריגונומטרית",
-                "link": "trigonometric-display",
-                "complete": 25
-            },
-            {
-                "title": "העתקה לינארית",
-                "link": "linear-map",
-                "complete": 56
-            },
-            {
-                "title": "מטריצות",
-                "link": "matrics",
-                "complete": 3
-            },
-            {
-                "title": "בסיסים",
-                "link": "bases",
-                "complete": 71
-            }
-        ]
-    },
-    {
-        "courseName": "algebra-2",
-        "chapters": [
-            {
-                "title": "מכפלה פנימית",
-                "link": "inner-product-space",
-                "complete": 47
-            },
-            {
-                "title": "טרנספורמציות לינאריות",
-                "link": "linear-transformations",
-                "complete": 22
-            },
-            {
-                "title": "מציאת דרגה",
-                "link": "find degree",
-                "complete": 65
-            },
-            {
-                "title": "צורות ז'ורדן",
-                "link": "jordan-shape",
-                "complete": 94
-            }
-        ]
-    },
-    {
-        "courseName": "discrete-mathematics",
-        "chapters": [
-            {
-                "title": "שאלות אמריקאיות",
-                "link": "american-questions",
-                "complete": 38
-            },
-            {
-                "title": "יחסי שקילות",
-                "link": "equivalence-relation",
-                "complete": 47
-            },
-            {
-                "title": "פונקציות יוצרות",
-                "link": "generating-functions",
-                "complete": 88
-            },
-            {
-                "title": "קומבינטוריקה",
-                "link": "combinatorics",
-                "complete": 81
-            },
-            {
-                "title": "גרפים",
-                "link": "graphs",
-                "complete": 12
-            }
-        ]
-    },
-    {
-        "courseName": "probability",
-        "chapters": [
-            {
-                "title": "מאורעות",
-                "link": "mutually",
-                "complete": 76
-            },
-            {
-                "title": "חישוב תוחלת ושונות",
-                "link": "expected-value-variance",
-                "complete": 41
-            },
-            {
-                "title": "התפלגויות",
-                "link": "distribution",
-                "complete": 50
-            }
-        ]
-    },
-    {
-        "courseName": "logics",
-        "chapters": [
-            {
-                "title": "תחשיב הפסוקים",
-                "link": "propositional-logic",
-                "complete": 34
-            },
-            {
-                "title": "תחשיב היחסים",
-                "link": "first-order-logic",
-                "complete": 72
-            },
-            {
-                "title": "גדירות",
-                "link": "definable",
-                "complete": 18
-            },
-            {
-                "title": "הצרנת משפטים",
-                "link": "sentenses",
-                "complete": 92
-            }
-        ]
-    },
-    {
-        "courseName": "infi-1",
-        "chapters": [
-            {
-                "title": "סדרות",
-                "link": "series",
-                "complete": 8
-            },
-            {
-                "title": "רציפות",
-                "link": "continuous",
-                "complete": 29
-            },
-            {
-                "title": "גבולות",
-                "link": "limits",
-                "complete": 77
-            },
-            {
-                "title": "רציפה במידה שווה",
-                "link": "uniform-continuity",
-                "complete": 51
-            },
-            {
-                "title": "חסימות",
-                "link": "blocks",
-                "complete": 95
-            },
-            {
-                "title": "כלל לופיטל",
-                "link": "lhopital",
-                "complete": 63
-            }
-        ]
-    },
-    {
-        "courseName": "infi-2",
-        "chapters": [
-            {
-                "title": "טורים",
-                "link": "columns",
-                "complete": 36
-            },
-            {
-                "title": "התכנסות במידה שווה",
-                "link": "uniform-convergence",
-                "complete": 81
-            },
-            {
-                "title": "רציפות",
-                "link": "continuous",
-                "complete": 7
-            },
-            {
-                "title": "אינטגרלים",
-                "link": "integrals",
-                "complete": 68
-            },
-            {
-                "title": "רציפה במידה שווה",
-                "link": "uniform-continuity",
-                "complete": 42
-            },
-            {
-                "title": "חסימות",
-                "link": "blocks",
-                "complete": 19
-            }
-        ]
-    },
-    {
-        "courseName": "eshnav",
-        "chapters": [
-            {
-                "title": "תורת הקבוצות",
-                "link": "groups-theory",
-                "complete": 90
-            },
-            {
-                "title": "חבורות",
-                "link": "group",
-                "complete": 31
-            },
-            {
-                "title": "פונצקיות",
-                "link": "functions",
-                "complete": 55
-            },
-            {
-                "title": "איזומטריות",
-                "link": "isometry",
-                "complete": 10
-            },
-            {
-                "title": "אקסיומות",
-                "link": "axioms",
-                "complete": 76
-            },
-            {
-                "title": "אינדוקציה",
-                "link": "inductive-reasoning",
-                "complete": 53
-            }
-        ]
-    }
+	{
+		"courseName": "intro-to-computer-science",
+		"chapters": [
+			{
+				"title": "רקורסיה",
+				"link": "recursion",
+				"complete": 87
+			},
+			{
+				"title": "יעילות",
+				"link": "efficiency",
+				"complete": 42
+			},
+			{
+				"title": "פולימורפיזם",
+				"link": "polymorphism",
+				"complete": 69
+			},
+			{
+				"title": "מבני נתונים",
+				"link": "data-structures",
+				"complete": 24
+			}
+		]
+	},
+	{
+		"courseName": "data-structures",
+		"chapters": [
+			{
+				"title": "נוסחת נסיגה",
+				"link": "recurrence-relation",
+				"complete": 50
+			},
+			{
+				"title": "ערימות",
+				"link": "heaps",
+				"complete": 76
+			},
+			{
+				"title": "מערכים",
+				"link": "arrays",
+				"complete": 33
+			},
+			{
+				"title": "עצים בינריים",
+				"link": "binary-trees",
+				"complete": 91
+			},
+			{
+				"title": "הצעת מבני נתונים",
+				"link": "data-structures-proposal",
+				"complete": 12
+			}
+		]
+	},
+	{
+		"courseName": "algorithms",
+		"chapters": [
+			{
+				"title": "FFT",
+				"link": "FFT",
+				"complete": 58
+			},
+			{
+				"title": "גרפים",
+				"link": "graphs",
+				"complete": 7
+			},
+			{
+				"title": "תכנון דינמי",
+				"link": "dynamic-programming",
+				"complete": 94
+			}
+		]
+	},
+	{
+		"courseName": "computer-organization",
+		"chapters": [
+			{
+				"title": "שאלות אמריקאיות",
+				"link": "american-questions",
+				"complete": 81
+			},
+			{
+				"title": "קוד מארס",
+				"link": "mars",
+				"complete": 29
+			},
+			{
+				"title": "מעבדים",
+				"link": "processor",
+				"complete": 63
+			},
+			{
+				"title": "זיכרון",
+				"link": "memory",
+				"complete": 2
+			},
+			{
+				"title": "תרשימים",
+				"link": "diagrams",
+				"complete": 39
+			},
+			{
+				"title": "הדפסות",
+				"link": "printing",
+				"complete": 72
+			}
+		]
+	},
+	{
+		"courseName": "operating-systems",
+		"chapters": [
+			{
+				"title": "תהליכונים",
+				"link": "thread",
+				"complete": 45
+			},
+			{
+				"title": "קיפאון",
+				"link": "freezing",
+				"complete": 13
+			},
+			{
+				"title": "דיסקים",
+				"link": "discs",
+				"complete": 96
+			},
+			{
+				"title": "דפים",
+				"link": "pages",
+				"complete": 18
+			}
+		]
+	},
+	{
+		"courseName": "programming-languages-lab",
+		"chapters": [
+			{
+				"title": "כתיבת פונקציות",
+				"link": "writing-functions",
+				"complete": 31
+			},
+			{
+				"title": "מציאת שגיאות",
+				"link": "finding-errors",
+				"complete": 79
+			},
+			{
+				"title": "כתיבת תוכנית",
+				"link": "writing-program",
+				"complete": 84
+			}
+		]
+	},
+	{
+		"courseName": "programming-languages",
+		"chapters": [
+			{
+				"title": "טיפוסי נתונים",
+				"link": "data-types",
+				"complete": 14
+			},
+			{
+				"title": "השלם את החסר",
+				"link": "complete-the-missing",
+				"complete": 68
+			}
+		]
+	},
+	{
+		"courseName": "algebra-1",
+		"chapters": [
+			{
+				"title": "תת-מרחבים",
+				"link": "vector-space",
+				"complete": 93
+			},
+			{
+				"title": "הצגה טריגונומטרית",
+				"link": "trigonometric-display",
+				"complete": 25
+			},
+			{
+				"title": "העתקה לינארית",
+				"link": "linear-map",
+				"complete": 56
+			},
+			{
+				"title": "מטריצות",
+				"link": "matrics",
+				"complete": 3
+			},
+			{
+				"title": "בסיסים",
+				"link": "bases",
+				"complete": 71
+			}
+		]
+	},
+	{
+		"courseName": "algebra-2",
+		"chapters": [
+			{
+				"title": "מכפלה פנימית",
+				"link": "inner-product-space",
+				"complete": 47
+			},
+			{
+				"title": "טרנספורמציות לינאריות",
+				"link": "linear-transformations",
+				"complete": 22
+			},
+			{
+				"title": "מציאת דרגה",
+				"link": "find degree",
+				"complete": 65
+			},
+			{
+				"title": "צורות ז'ורדן",
+				"link": "jordan-shape",
+				"complete": 94
+			}
+		]
+	},
+	{
+		"courseName": "discrete-mathematics",
+		"chapters": [
+			{
+				"title": "שאלות אמריקאיות",
+				"link": "american-questions",
+				"complete": 38
+			},
+			{
+				"title": "יחסי שקילות",
+				"link": "equivalence-relation",
+				"complete": 47
+			},
+			{
+				"title": "פונקציות",
+				"link": "functions",
+				"complete": 40
+			},
+			{
+				"title": "פונקציות יוצרות",
+				"link": "generating-functions",
+				"complete": 88
+			},
+			{
+				"title": "קומבינטוריקה",
+				"link": "combinatorics",
+				"complete": 81
+			},
+			{
+				"title": "גרפים",
+				"link": "graphs",
+				"complete": 12
+			}
+		]
+	},
+	{
+		"courseName": "probability",
+		"chapters": [
+			{
+				"title": "מאורעות",
+				"link": "mutually",
+				"complete": 76
+			},
+			{
+				"title": "חישוב תוחלת ושונות",
+				"link": "expected-value-variance",
+				"complete": 41
+			},
+			{
+				"title": "התפלגויות",
+				"link": "distribution",
+				"complete": 50
+			}
+		]
+	},
+	{
+		"courseName": "logics",
+		"chapters": [
+			{
+				"title": "תחשיב הפסוקים",
+				"link": "propositional-logic",
+				"complete": 34
+			},
+			{
+				"title": "תחשיב היחסים",
+				"link": "first-order-logic",
+				"complete": 72
+			},
+			{
+				"title": "גדירות",
+				"link": "definable",
+				"complete": 18
+			},
+			{
+				"title": "הצרנת משפטים",
+				"link": "sentenses",
+				"complete": 92
+			}
+		]
+	},
+	{
+		"courseName": "infi-1",
+		"chapters": [
+			{
+				"title": "סדרות",
+				"link": "series",
+				"complete": 8
+			},
+			{
+				"title": "רציפות",
+				"link": "continuous",
+				"complete": 29
+			},
+			{
+				"title": "גבולות",
+				"link": "limits",
+				"complete": 77
+			},
+			{
+				"title": "רציפה במידה שווה",
+				"link": "uniform-continuity",
+				"complete": 51
+			},
+			{
+				"title": "חסימות",
+				"link": "blocks",
+				"complete": 95
+			},
+			{
+				"title": "כלל לופיטל",
+				"link": "lhopital",
+				"complete": 63
+			}
+		]
+	},
+	{
+		"courseName": "infi-2",
+		"chapters": [
+			{
+				"title": "טורים",
+				"link": "columns",
+				"complete": 36
+			},
+			{
+				"title": "התכנסות במידה שווה",
+				"link": "uniform-convergence",
+				"complete": 81
+			},
+			{
+				"title": "רציפות",
+				"link": "continuous",
+				"complete": 7
+			},
+			{
+				"title": "אינטגרלים",
+				"link": "integrals",
+				"complete": 68
+			},
+			{
+				"title": "רציפה במידה שווה",
+				"link": "uniform-continuity",
+				"complete": 42
+			},
+			{
+				"title": "חסימות",
+				"link": "blocks",
+				"complete": 19
+			}
+		]
+	},
+	{
+		"courseName": "eshnav",
+		"chapters": [
+			{
+				"title": "תורת הקבוצות",
+				"link": "groups-theory",
+				"complete": 90
+			},
+			{
+				"title": "חבורות",
+				"link": "group",
+				"complete": 31
+			},
+			{
+				"title": "פונצקיות",
+				"link": "functions",
+				"complete": 55
+			},
+			{
+				"title": "איזומטריות",
+				"link": "isometry",
+				"complete": 10
+			},
+			{
+				"title": "אקסיומות",
+				"link": "axioms",
+				"complete": 76
+			},
+			{
+				"title": "אינדוקציה",
+				"link": "inductive-reasoning",
+				"complete": 53
+			}
+		]
+	}
 ]

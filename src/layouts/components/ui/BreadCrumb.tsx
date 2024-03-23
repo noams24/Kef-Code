@@ -9,7 +9,9 @@ const Breadcrumb = React.forwardRef<
   React.ComponentPropsWithoutRef<"nav"> & {
     separator?: React.ReactNode;
   }
->(({ ...props }, ref) => <nav dir="rtl" ref={ref} aria-label="breadcrumb" {...props} />);
+>(({ ...props }, ref) => (
+  <nav dir="rtl" ref={ref} aria-label="breadcrumb" {...props} />
+));
 Breadcrumb.displayName = "Breadcrumb";
 
 const BreadcrumbList = React.forwardRef<
@@ -80,10 +82,17 @@ const BreadcrumbSeparator = ({
   <li
     role="presentation"
     aria-hidden="true"
-    className={cn("[&>svg]:size-3.5 text-zinc-800 dark:text-zinc-200 items-center", className)}
+    className={cn(
+      "[&>svg]:size-3.5 text-zinc-800 dark:text-zinc-200",
+      className,
+    )}
     {...props}
   >
-    {children ?? <ChevronLeft className="h-5 w-5"/>}
+    {children ?? (
+      <div className="items-center">
+        <ChevronLeft className="h-5 w-5" />
+      </div>
+    )}
   </li>
 );
 BreadcrumbSeparator.displayName = "BreadcrumbSeparator";
