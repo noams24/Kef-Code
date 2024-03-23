@@ -61,7 +61,7 @@ const Breadcrumbs = () => {
                 </div>
               ) : (
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="max-w-[20px] md:max-w-[250px] lg:max-w-none truncate">
+                  <BreadcrumbLink className="max-w-[200px] md:max-w-[250px] lg:max-w-none truncate">
                     {decodeURIComponent(label)}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
