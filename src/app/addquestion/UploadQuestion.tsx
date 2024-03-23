@@ -137,7 +137,8 @@ export function UploadQuestion({ courses, session }: any) {
         description: "השאלה נשמרה בהצלחה",
         variant: "destructive",
       });
-      window.location.reload();
+      setUrl(null)
+      // window.location.reload();
     },
   });
 

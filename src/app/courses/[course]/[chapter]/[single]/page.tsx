@@ -1,5 +1,4 @@
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+import { getAuthSession } from "@/lib/auth";
 import Workspace from "@/components/workSpace/WorkSpace";
 import { db } from "@/lib/db";
 import SeoMeta from "@/partials/SeoMeta";
@@ -14,7 +13,7 @@ interface PageProps {
 let solution: any = null;
 const singleProblem = async ({ params }: PageProps) => {
   const title = decodeURIComponent(params.single.replaceAll('-',' '))
-  const session = await getServerSession(authOptions);
+  const session = await getAuthSession();
   const problem = await db.problem.findFirst({
     where: {
       course: params.course,

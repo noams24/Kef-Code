@@ -85,7 +85,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
   const [content, setContent] = useState<any>(null);
   const [fetchingData, setFetchingData] = useState<boolean>(false);
   const queryClient = useContext(QueryContext);
-  
+
   //save solution to db
   const { mutate: handleSave, isLoading } = useMutation({
     mutationFn: async ({ jsonState, isPublic }: any) => {
@@ -99,6 +99,13 @@ const Workspace: React.FC<WorkSpaceProps> = ({
         if (err.response?.status === 401) {
           return loginToast();
         }
+        if (err.response?.status === 400) {
+          return toast({
+            title: "שגיאה",
+            description: "אורך הפתרון ארוך מדי",
+            variant: "destructive",
+          });
+        }
       }
       toast({
         title: "שגיאה",
@@ -108,12 +115,12 @@ const Workspace: React.FC<WorkSpaceProps> = ({
     },
     onSuccess: () => {
       setConfetti(true);
-      toast({
+      queryClient.invalidateQueries({ queryKey: ["solution"] });
+      return toast({
         title: "נשמר",
         description: "התשובה נשמרה/פורסמה בהצלחה.",
         variant: "destructive",
       });
-      queryClient.invalidateQueries({ queryKey: ["solution"] });
     },
   });
 
@@ -142,7 +149,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
     const timeoutId = setTimeout(() => {
       // Do something after 3 seconds
       setConfetti(false);
-    }, 8000);
+    }, 3000);
     return () => {
       clearTimeout(timeoutId);
     };
@@ -166,7 +173,10 @@ const Workspace: React.FC<WorkSpaceProps> = ({
   return (
     <>
       {problemId && <TopBar problemId={problemId} />}
-      <Split className={`split ${height > 900 ? 'h-[77vh]' : 'h-[70vh]'}`} minSize={0}>
+      <Split
+        className={`split ${height > 900 ? "h-[77vh]" : "h-[70vh]"}`}
+        minSize={0}
+      >
         <SolutionSection
           workSpaceData={workSpaceData}
           problemId={problemId}
