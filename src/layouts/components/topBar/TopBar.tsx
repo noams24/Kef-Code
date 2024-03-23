@@ -72,12 +72,11 @@ const TopBar = (problemId: any) => {
           ))}
           </div>
       </QuestionsDrawer>
-      <div className="text-center mx-auto rounded px-12 my-5">
-        <div className="flex justify-between gap-2 rounded bg-gradient-to-b from-body to-theme-light px-8  dark:from-darkmode-body dark:to-darkmode-theme-light">
+        <div className="h-10 items-center mx-auto px-12 my-5 flex justify-between gap-2 rounded bg-gradient-to-b from-body to-theme-light dark:from-darkmode-body dark:to-darkmode-theme-light">
           <div className="flex items-center justify-between h-6 w-20 cursor-pointer">
             <span
               title="שאלה קודמת"
-              className="rounded border text-zinc-600 dark:text-zinc-300 border-zinc-500 hover:border-black hover:text-black dark:hover:border-white dark:hover:text-white"
+              className="custom-border text-zinc-600 dark:text-zinc-300  hover:text-black dark:hover:text-white"
             >
               {data ? (
                 <Link href={data.prevLink} onClick={() => setSolution(null)}>
@@ -113,7 +112,7 @@ const TopBar = (problemId: any) => {
             </span>
             <span
               title="עוד שאלות"
-              className="h-6 w-6 rounded border text-zinc-600 dark:text-zinc-300 border-zinc-500 hover:border-black hover:text-black dark:hover:border-white dark:hover:text-white"
+              className="h-6 w-6 flex justify-center custom-border text-zinc-600 dark:text-zinc-300 hover:text-black hover:dark:text-white"
             >
               {data ? (
                 <button onClick={() => setOpen(true)}>
@@ -127,7 +126,7 @@ const TopBar = (problemId: any) => {
             </span>
             <span
               title="שאלה הבאה"
-              className="rounded border text-zinc-600 dark:text-zinc-300 border-zinc-500 hover:border-black hover:text-black dark:hover:border-white dark:hover:text-white"
+              className="custom-border text-zinc-600 dark:text-zinc-300 hover:text-black dark:hover:text-white"
             >
               {data ? (
                 <Link href={data.nextLink} onClick={() => setSolution(null)}>
@@ -163,12 +162,11 @@ const TopBar = (problemId: any) => {
             </span>
           </div>
           <Breadcrumbs />
-          <div className="container-right-top-bar">
+          <div className="flex items-center justify-around rounded-lg h-6 gap-2">
             <Timer />
             <FullScreen />
           </div>
         </div>
-      </div>
     </section>
   );
 };

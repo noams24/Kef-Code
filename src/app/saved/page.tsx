@@ -100,7 +100,7 @@ const Profile = async () => {
         </div>
       );
     } catch(error) {
-      console.log(error)
+      // console.log(error)
       return <h3 className="flex justify-center">שגיאה</h3>;
     }
   }

@@ -177,13 +177,9 @@
   @apply prose-td:relative prose-td:z-10 prose-td:px-3 prose-td:py-[18px] prose-td:dark:text-darkmode-text;
 }
 
-// container for timer and full screen icons 
-.container-right-top-bar {
-  @apply flex items-center justify-around rounded-lg h-6 cursor-pointer;
-
-  width: 4.5rem;
+.custom-border {
+  @apply rounded border border-zinc-500 hover:border-black dark:hover:border-white
 }
-
 // container for time and icons
 .container-timer {
   @apply flex items-center space-x-2 p-1.5 bg-gray-200 dark:bg-zinc-800 rounded-sm h-7 mr-3 text-zinc-700 dark:text-zinc-300;

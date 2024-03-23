@@ -57,7 +57,7 @@ export default function DragDropPaste(): null {
                   };
                 },
                 error(err) {
-                  console.log(err.message);
+                  // console.log(err.message);
                   getImageDimensions(result).then((dimensions) => {
                     editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
                       src: result,

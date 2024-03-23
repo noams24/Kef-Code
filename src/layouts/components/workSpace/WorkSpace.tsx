@@ -21,6 +21,7 @@ import { db } from "@/indexedDB";
 import { QueryContext } from "@/partials/ChildrenProviders";
 
 import "./split.css";
+import LinearProgress from "@mui/material/LinearProgress";
 
 export type EditorContentType = SerializedEditorState | undefined | any;
 
@@ -214,7 +215,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
               onChange={(editor) => onChange(editor, setJsonState, problemId)}
             />
           ) : fetchingData ? (
-            <h3 className="flex justify-center items-center ">טוען</h3>
+            <LinearProgress/>
           ) : content ? (
             <Editor
               document={{ data: content }}
@@ -233,7 +234,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
               />
             )
           ) : (
-            <h3 className="flex justify-center items-center ">טוען</h3>
+            <LinearProgress/>
           )}
         </div>
       </Split>

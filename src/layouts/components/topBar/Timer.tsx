@@ -42,7 +42,7 @@ const Timer: React.FC<TimerProps> = () => {
         <div className="container-timer">
           <div className="w-16 mr-1">{formatTime(time)}</div>
           <FiRefreshCcw
-            className="w-3 h-3"
+            className="w-3 h-3 hover:cursor-pointer"
             title="אפס טיימר"
             onClick={() => {
               setShowTimer(false);
@@ -52,11 +52,13 @@ const Timer: React.FC<TimerProps> = () => {
           />
           {stopTimer ? (
             <BiPlay
+              className="hover:cursor-pointer"
               title="הפעל טיימר"
               onClick={() => setStopTimer((prev) => !prev)}
             />
           ) : (
             <TbPlayerPause
+              className="hover:cursor-pointer"
               title="עצור טיימר"
               onClick={() => setStopTimer((prev) => !prev)}
             />
@@ -64,7 +66,7 @@ const Timer: React.FC<TimerProps> = () => {
         </div>
       ) : (
         <div
-          className="flex items-center p-1 bg-gray-200 dark:bg-zinc-800 rounded-sm h-7"
+          className="hover:cursor-pointer flex items-center p-1 bg-gray-200 dark:bg-zinc-800 rounded-sm h-7"
           onClick={() => setShowTimer(true)}
           title="התחל טיימר"
         >
@@ -87,4 +89,4 @@ const Timer: React.FC<TimerProps> = () => {
     </div>
   );
 };
-export default Timer;  
+export default Timer;
