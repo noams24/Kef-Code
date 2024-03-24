@@ -222,6 +222,10 @@
                 "link": "combinatorics"
             },
             {
+                "title": "נוסחאות נסיגה",
+                "link": "recurrence-relation"
+            },
+            {
                 "title": "גרפים",
                 "link": "graphs"
             }

@@ -253,6 +253,11 @@
 				"complete": 81
 			},
 			{
+                "title": "נוסחאות נסיגה",
+                "link": "recurrence-relation",
+				"complete": 85
+            },
+			{
 				"title": "גרפים",
 				"link": "graphs",
 				"complete": 12
