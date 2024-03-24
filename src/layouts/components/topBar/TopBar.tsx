@@ -13,26 +13,26 @@ import QuestionsDrawer from "./QuestionsDrawer";
 import { useState } from "react";
 import QuestionCard from "./QuestionCard";
 
-const mockData = [
-  {
-    id: 1,
-    title: "שאלה במטריצות",
-    difficulty: "קשה",
-    status: "FINISH",
-  },
-  {
-    id: 6,
-    title: "אי רציפות",
-    difficulty: "קל",
-    status: "BEGIN",
-  },
-  {
-    id: 24,
-    title: "משפט לופיטל",
-    difficulty: "בינוני",
-    status: "STUCK",
-  },
-];
+// const mockData = [
+//   {
+//     id: 1,
+//     title: "שאלה במטריצות",
+//     difficulty: "קשה",
+//     status: "FINISH",
+//   },
+//   {
+//     id: 6,
+//     title: "אי רציפות",
+//     difficulty: "קל",
+//     status: "BEGIN",
+//   },
+//   {
+//     id: 24,
+//     title: "משפט לופיטל",
+//     difficulty: "בינוני",
+//     status: "STUCK",
+//   },
+// ];
 
 const TopBar = (problemId: any) => {
   const pathname = usePathname().split("/");
@@ -75,7 +75,7 @@ const TopBar = (problemId: any) => {
             ))}
         </div>
       </QuestionsDrawer>
-      <div className="h-10 items-center mx-auto px-12 my-5 flex justify-between gap-2 rounded bg-gradient-to-b from-body to-theme-light dark:from-darkmode-body dark:to-darkmode-theme-light">
+      <div className="h-8 items-center mx-auto px-12 mt-5 pb-3 flex justify-between gap-2 rounded bg-gradient-to-b from-body to-theme-light dark:from-darkmode-body dark:to-darkmode-theme-light">
         <div className="flex items-center justify-between h-6 w-20 cursor-pointer">
           <span
             title="שאלה קודמת"

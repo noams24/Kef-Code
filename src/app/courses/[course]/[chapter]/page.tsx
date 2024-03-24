@@ -41,7 +41,7 @@ async function getData(course: string, chapter: string) {
         date: true,
       },
       orderBy: {
-        title: "asc",
+        date: "desc"
       },
     });
 

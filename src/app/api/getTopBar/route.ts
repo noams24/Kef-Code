@@ -20,7 +20,7 @@ export async function GET(req: Request) {
                 difficulty: true,
             },
             orderBy: {
-                difficulty: 'desc',
+                date: 'desc',
             },
         })
 
