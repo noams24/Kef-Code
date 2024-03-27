@@ -2,7 +2,7 @@
 
 import {
   ChevronDown,
-  ChevronUp,
+  // ChevronUp,
   Loader2,
   RotateCw,
   Search,
@@ -15,13 +15,13 @@ import { useToast } from "@/hooks/use-toast";
 
 import { useResizeDetector } from "react-resize-detector";
 import { Button } from "./ui/button";
-import { Input } from "./ui/Input";
+// import { Input } from "./ui/Input";
 import { useState } from "react";
 
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+// import { useForm } from "react-hook-form";
+// import { z } from "zod";
 
-import { zodResolver } from "@hookform/resolvers/zod";
+// import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
@@ -44,39 +44,39 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
   const { toast } = useToast();
 
   const [numPages, setNumPages] = useState<number>();
-  const [currPage, setCurrPage] = useState<number>(1);
+  // const [currPage, setCurrPage] = useState<number>(1);
   const [scale, setScale] = useState<number>(1);
   const [rotation, setRotation] = useState<number>(0);
   const [renderedScale, setRenderedScale] = useState<number | null>(null);
 
   const isLoading = renderedScale !== scale;
 
-  const CustomPageValidator = z.object({
-    page: z
-      .string()
-      .refine((num) => Number(num) > 0 && Number(num) <= numPages!),
-  });
+  // const CustomPageValidator = z.object({
+  //   page: z
+  //     .string()
+  //     .refine((num) => Number(num) > 0 && Number(num) <= numPages!),
+  // });
 
-  type TCustomPageValidator = z.infer<typeof CustomPageValidator>;
+  // type TCustomPageValidator = z.infer<typeof CustomPageValidator>;
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-  } = useForm<TCustomPageValidator>({
-    defaultValues: {
-      page: "1",
-    },
-    resolver: zodResolver(CustomPageValidator),
-  });
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  //   setValue,
+  // } = useForm<TCustomPageValidator>({
+  //   defaultValues: {
+  //     page: "1",
+  //   },
+  //   resolver: zodResolver(CustomPageValidator),
+  // });
 
   const { width, ref } = useResizeDetector();
 
-  const handlePageSubmit = ({ page }: TCustomPageValidator) => {
-    setCurrPage(Number(page));
-    setValue("page", String(page));
-  };
+  // const handlePageSubmit = ({ page }: TCustomPageValidator) => {
+  //   setCurrPage(Number(page));
+  //   setValue("page", String(page));
+  // };
 
   return (
     <div className="w-full border border-zinc-200 dark:border-zinc-500 rounded-md shadow items-center">
@@ -124,51 +124,52 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
 
       <div className="w-full">
         {/* <SimpleBar  autoHide={false} className="max-h-[calc(100vh-27rem)]"> */}
-          <div ref={ref} className="overflow-auto max-h-[calc(100vh-24rem)]">
-            <Document
-              loading={
-                <div className="flex justify-center">
-                  <Loader2 className="my-24 h-6 w-6 animate-spin" />
-                </div>
-              }
-              onLoadError={() => {
-                toast({
-                  title: "Error loading PDF",
-                  description: "Please try again later",
-                  variant: "destructive",
-                });
-              }}
-              onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-              file={url}
-              className=""
-            >
-              {isLoading && renderedScale ? (
-                <Page
-                  width={width ? width : 1}
-                  pageNumber={currPage}
-                  scale={scale}
-                  rotate={rotation}
-                  key={"@" + renderedScale}
-                />
-              ) : null}
-              {new Array(numPages).fill(0).map((_, i) => (
-                <Page
-                  className={cn(isLoading ? "hidden" : "-my-10 dark:invert")}
-                  width={width ? width : 1}
-                  pageNumber={i + 1}
-                  scale={scale}
-                  rotate={rotation}
-                  key={i}
-                  loading={
-                    <div className="flex justify-center">
-                      <Loader2 className="my-24 h-6 w-6 animate-spin" />
-                    </div>
-                  }
-                  onRenderSuccess={() => setRenderedScale(scale)}
-                />
-              ))}
-            </Document>
-          </div>
+        <div ref={ref} className="overflow-auto max-h-[calc(100vh-24rem)]">
+          <Document
+            loading={
+              <div className="flex justify-center">
+                <Loader2 className="my-24 h-6 w-6 animate-spin" />
+              </div>
+            }
+            onLoadError={() => {
+              toast({
+                title: "Error loading PDF",
+                description: "Please try again later",
+                variant: "destructive",
+              });
+            }}
+            onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+            file={url}
+            className=""
+          >
+            {isLoading && renderedScale ? (
+              <Page
+                width={width ? width : 1}
+                // pageNumber={currPage}
+                pageNumber={1}
+                scale={scale}
+                rotate={rotation}
+                key={"@" + renderedScale}
+              />
+            ) : null}
+            {new Array(numPages).fill(0).map((_, i) => (
+              <Page
+                className={cn(isLoading ? "hidden" : "dark:invert")}
+                width={width ? width : 1}
+                pageNumber={i + 1}
+                scale={scale}
+                rotate={rotation}
+                key={i}
+                loading={
+                  <div className="flex justify-center">
+                    <Loader2 className="my-24 h-6 w-6 animate-spin" />
+                  </div>
+                }
+                onRenderSuccess={() => setRenderedScale(scale)}
+              />
+            ))}
+          </Document>
+        </div>
         {/* </SimpleBar> */}
       </div>
     </div>
