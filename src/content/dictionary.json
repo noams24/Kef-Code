@@ -23,7 +23,6 @@
     "infi-1":"אינפי 1",
     "infi-2":"אינפי 2",
     "eshnav":"אשנב למתמטיקה",
-    
     "recursion":"רקורסיה",
     "efficiency":"יעילות",
     "polymorphism":"פולימורפיזם",
@@ -31,7 +30,7 @@
     "recurrence-relation":"נוסחאות נסיגה",
     "heaps":"ערימות",
     "arrays":"מערכים",
-    "binary-trees":"עצים בינארים",
+    "binary-trees":"עצים בינאריים",
     "data-structures-proposal":"הצעת מבני נתונים",
     "FFT":"FFT",
     "dynamic-programming":"תכנון דינמי",

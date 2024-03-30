@@ -13,6 +13,12 @@
 				"complete": 42
 			},
 			{
+                "title": "עצים בינאריים",
+                "link": "binary-trees",
+				"complete": 10
+				
+            },
+			{
 				"title": "פולימורפיזם",
 				"link": "polymorphism",
 				"complete": 69

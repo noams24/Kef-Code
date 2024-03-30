@@ -12,6 +12,10 @@
                 "link": "efficiency"
             },
             {
+                "title": "עצים בינאריים",
+                "link": "binary-trees"
+            },
+            {
                 "title": "פולימורפיזם",
                 "link": "polymorphism"
             },
@@ -38,8 +42,8 @@
                 "link": "arrays"
             },
             {
-                "title": "עצים בינריים",
-                "link": "binary trees"
+                "title": "עצים בינרים",
+                "link": "binary-trees"
             },
             {
                 "title": "הצעת מבני נתונים",
