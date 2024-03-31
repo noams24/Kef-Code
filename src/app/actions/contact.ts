@@ -18,10 +18,10 @@ export async function submitContactData (data:contactDataProps) {
     })
     
     const mailOptions = {
-        from: data.email,
+        from: process.env.EMAIL_USER,
         to: process.env.EMAIL_USER,
         subject: `Message from ${data.name}`,
-        text: data.content
+        text: `sent from ${data.email}\n \n ${data.content}`
     }
     await transporter.sendMail(mailOptions)
 }
