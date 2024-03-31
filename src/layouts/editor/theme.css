@@ -25,7 +25,8 @@
   line-height: 1.5;
   letter-spacing: 0.00938em;
   position: relative;
-  text-align: right
+  text-align: right;
+  direction: rtl;
 }
 
 .LexicalTheme__paragraph:last-child {
@@ -208,7 +209,8 @@
   margin: 0;
   list-style-position: inside;
   list-style-type: disc;
-  list-style-type: decimal
+  list-style-type: decimal;
+  direction: rtl;
 }
 
 .LexicalTheme__ol2 {
@@ -247,6 +249,7 @@
   padding: 0;
   margin: 0;
   list-style-position: inside;
+  direction: rtl;
 }
 
 .LexicalTheme__listItem {
