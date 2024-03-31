@@ -4,11 +4,6 @@
         "name": "github",
         "icon": "FaGithub",
         "link": "https://github.com/noams24/Kef-Code/"
-      },
-      {
-        "name": "discord",
-        "icon": "FaDiscord",
-        "link": "https://discord.gg/Mht9WcSKqp"
       }
     ]
   }
