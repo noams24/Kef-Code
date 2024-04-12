@@ -15,7 +15,8 @@ import { Chip } from "@mui/material";
 import SaveIcon from '@mui/icons-material/Save';
 
 interface MyComponentProps {
-  data: DataObject[];
+  // data: DataObject[];
+  data:any;
   user: UserObject;
   localUser: boolean;
 }
@@ -39,9 +40,9 @@ const User: React.FC<MyComponentProps> = ({ user, data, localUser }) => {
 
   const searchSolutions = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
-    const filteredData: DataObject[] = data.filter(
-      (solution: DataObject) =>
-        solution.problem.title?.includes(e.target.value),
+    const filteredData: any = data.filter(
+      (solution: any) =>
+        solution.title?.includes(e.target.value),
     );
     setSolutions(filteredData);
   };
@@ -52,7 +53,7 @@ const User: React.FC<MyComponentProps> = ({ user, data, localUser }) => {
       return setSolutions(
         solutions
           .slice()
-          .sort((a, b) => a.problem.title.localeCompare(b.problem.title)),
+          .sort((a, b) => a.title.localeCompare(b.title)),
       );
 
     const statusSort = status === "עודכן לאחרונה" ? "updatedAt" : "createdAt";
@@ -69,7 +70,7 @@ const User: React.FC<MyComponentProps> = ({ user, data, localUser }) => {
   const SortCoursesBy = (course: string) => {
     if (course === "הכל") return setSolutions(data);
     const sortByCourse = data.filter(
-      (solution) => (dictionary as any)[solution.problem.course] === course,
+      (solution:any) => (dictionary as any)[solution.course] === course,
     );
     setSolutions(sortByCourse);
   };
@@ -132,7 +133,7 @@ const User: React.FC<MyComponentProps> = ({ user, data, localUser }) => {
                   </select> */}
             </div>
           </div>
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             {solutions.map((item: any, index: any) => (
               <div
                 className="overflow-clip p-2 hover:bg-gray-100 dark:hover:bg-slate-800 border border-gray-800 dark:border-gray-400 rounded-sm"
@@ -143,12 +144,12 @@ const User: React.FC<MyComponentProps> = ({ user, data, localUser }) => {
                     <SiGoogledocs className="" size={30} />
                     <div className="w-full gap-y-1 pr-2 ">
                       <h5 className="font-bold font-primary">
-                        {item.problem.title}
+                        {item.title}
                       </h5>
                       <span className="text-sm">
                         {/* @ts-ignore */}
-                        {dictionary[item.problem.course]} - {/* @ts-ignore */}
-                        {dictionary[item.problem.chapter]}
+                        {dictionary[item.course]} - {/* @ts-ignore */}
+                        {dictionary[item.chapter]}
                       </span>
                       <div className="text-sm">
                         {hebrewDateFormat(item[statusTime])}
@@ -161,7 +162,7 @@ const User: React.FC<MyComponentProps> = ({ user, data, localUser }) => {
                       onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
-                        handleShare(item.problem.id);
+                        handleShare(item.id);
                       }}
                     >
                       <Share />

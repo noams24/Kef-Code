@@ -24,6 +24,7 @@ export type UserObject = {
 } | null;
 
 export interface DataObject {
+  title: any;
   content: any;
   createdAt: Date;
   updatedAt: Date;
@@ -44,25 +45,30 @@ const UserPage = async ({ params }: { params: { name: string } }) => {
     });
     if (!user) return <div>משתמש לא קיים</div>;
 
-    const data: DataObject[] = await db.submissions.findMany({
-      where: {
-        userId: user.id,
-        // isPublic: true,
-      },
-      orderBy: {
-        updatedAt: "desc",
-      },
-      include: {
-        problem: true,
-      },
-    });
+    // const data: DataObject[] = await db.submissions.findMany({
+    //   where: {
+    //     userId: user.id,
+    //     // isPublic: true,
+    //   },
+    //   orderBy: {
+    //     updatedAt: "desc",
+    //   },
+    //   include: {
+    //     problem: true,
+    //   },
+    // });
+
+
+    const query = `select * from public."Problem" p join public."Submissions" s on p.id = s."problemId" where s."userId" = '${user.id}'`
+    const data = await db.$queryRawUnsafe(query)
+
     const session = await getServerSession(authOptions);
     let localUser = false;
     if (session?.user.username === decodeURIComponent(params.name)) {
       localUser = true
     }
     return (
-      <div>
+      <div className="mx-4">
         <SeoMeta
           title={`כיף קוד - ${user.username}`}
           meta_title={`כיף קוד - ${user.username}`}
@@ -71,7 +77,8 @@ const UserPage = async ({ params }: { params: { name: string } }) => {
         <User user={user} data={data} localUser={localUser} />
       </div>
     );
-  } catch {
+  } catch (error) {
+    console.log(error);
     return <div>שגיאה</div>;
   }
 };

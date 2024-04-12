@@ -15,7 +15,7 @@ const SortButton = ({ sortSolutions, data, filterByCourse }: any) => {
 
   const getCourses = () => {
     const namesOfCourses = data.map(
-      (course: any) => (dictionary as any)[course.problem.course],
+      (course: any) => (dictionary as any)[course.course],
     );
     namesOfCourses.unshift("הכל");
     const uniqueCourses = [...new Set(namesOfCourses)];

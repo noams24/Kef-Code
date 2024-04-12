@@ -51,7 +51,7 @@ const Breadcrumbs = () => {
                 <div className="flex">
                   <BreadcrumbItem>
                     <Link
-                      className="-mr-2 text-zinc-800 dark:text-zinc-200 hover:text-black dark:hover:text-white"
+                      className="-mr-2 font-arial font-bold text-zinc-800 dark:text-zinc-200 hover:text-black dark:hover:text-white"
                       {...attrs}
                     >
                       {label}
@@ -61,7 +61,7 @@ const Breadcrumbs = () => {
                 </div>
               ) : (
                 <BreadcrumbItem>
-                  <BreadcrumbLink className="max-w-[200px] md:max-w-[250px] lg:max-w-none truncate">
+                  <BreadcrumbLink className="font-arial font-bold max-w-[200px] md:max-w-[250px] lg:max-w-none truncate">
                     {decodeURIComponent(label)}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
