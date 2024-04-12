@@ -45,28 +45,20 @@ const UserPage = async ({ params }: { params: { name: string } }) => {
     });
     if (!user) return <div>משתמש לא קיים</div>;
 
-    // const data: DataObject[] = await db.submissions.findMany({
-    //   where: {
-    //     userId: user.id,
-    //     // isPublic: true,
-    //   },
-    //   orderBy: {
-    //     updatedAt: "desc",
-    //   },
-    //   include: {
-    //     problem: true,
-    //   },
-    // });
-
-
-    const query = `select * from public."Problem" p join public."Submissions" s on p.id = s."problemId" where s."userId" = '${user.id}'`
-    const data = await db.$queryRawUnsafe(query)
-
     const session = await getServerSession(authOptions);
     let localUser = false;
     if (session?.user.username === decodeURIComponent(params.name)) {
-      localUser = true
+      localUser = true;
     }
+
+    let query = null;
+    if (localUser)
+      query = `select * from public."Problem" p join public."Submissions" s on p.id = s."problemId" where s."userId" = '${user.id}'`;
+    else
+      query = `select * from public."Problem" p join public."Submissions" s on p.id = s."problemId" where s."userId" = '${user.id}' and s."isPublic" = true`;
+
+    const data = await db.$queryRawUnsafe(query);
+
     return (
       <div className="mx-4">
         <SeoMeta
@@ -93,3 +85,16 @@ export default UserPage;
 // import { GiWorld } from "react-icons/gi";
 // import coursesData from "@/content/chapters.json";
 // import { AiOutlineCalendar } from "react-icons/ai";
+
+// const data: DataObject[] = await db.submissions.findMany({
+//   where: {
+//     userId: user.id,
+//     // isPublic: true,
+//   },
+//   orderBy: {
+//     updatedAt: "desc",
+//   },
+//   include: {
+//     problem: true,
+//   },
+// });
