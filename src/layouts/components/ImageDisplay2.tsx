@@ -8,7 +8,7 @@ const ImageDisplay = ({ imageUrl }: any) => {
       <TransformWrapper>
         <TransformComponent>
           <Image
-            className= " object-cover rounded-md"
+            className= "object-cover rounded-md dark:invert"
             height={500}
             width={500}
             src={imageUrl}

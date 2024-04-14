@@ -28,7 +28,7 @@ import {
 import { useContext } from "react";
 
 const UsernameValidator = z.object({
-  name: z.string().min(3).max(32),
+  name: z.string().min(3).max(32).regex(/^[a-zA-Z0-9_א-ת]+$/, 'שם לא תיקני')
   // .regex(/^[a-zA-Z0-9_]+$/),
 });
 
@@ -205,11 +205,6 @@ const AccountForm = ({ user, className, ...props }: UserNameFormProps) => {
                       type="text"
                       {...register("name")}
                     />
-                    {errors?.name && (
-                      <p className="px-1 text-xs text-red-600">
-                        {errors.name.message}
-                      </p>
-                    )}
                     <button
                       type="submit"
                       className="btn border-1 border-gray-200"
@@ -218,6 +213,11 @@ const AccountForm = ({ user, className, ...props }: UserNameFormProps) => {
                     </button>
                   </div>
                 </div>
+                {errors?.name && (
+                      <p className="-mt-1 text-red-600">
+                        {errors.name.message}
+                      </p>
+                    )}
               </form>
               <hr className="my-5 border-t-1 border-t-gray-400"></hr>
               <label htmlFor="name" className="form-label">

@@ -38,7 +38,7 @@ const SolutionCard: React.FC<SolutionCardProps> = ({
               onClick={(e) => {
                 e.stopPropagation();
               }}
-              href={`/user/${slugify(author)}`}
+              href={`/user/${author}`}
               target="_blank"
               className="pt-1 font-bold font-primary text-center text-lg hover:text-blue-500 dark:hover:text-blue-500"
             >
