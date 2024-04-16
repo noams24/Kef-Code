@@ -9,7 +9,7 @@ import {
   useMemo,
   useEffect,
   ReactNode,
-  useContext,
+  // useContext,
 } from "react";
 // import { NextUIProvider } from "@nextui-org/react";
 import {
@@ -18,6 +18,10 @@ import {
 } from "@mui/material/styles";
 
 import { useTheme as useThemee } from "next-themes";
+
+import { CacheProvider } from "@emotion/react";
+import createCache from "@emotion/cache";
+// import { prefixer } from 'stylis'
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
@@ -60,18 +64,23 @@ const ChildrenProviders = ({ children }: { children: ReactNode }) => {
 
   const themee = useMemo(() => createTheme({ palette: { mode } }), [mode]);
 
+  const myCache = createCache({
+    key: "my-prefix-key",
+    stylisPlugins: [],
+  });
+
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemProviderMui theme={themee}>
-        <QueryClientProvider client={queryClient}>
-          <QueryContext.Provider value={queryClient}>
-            {/* <NextUIProvider> */}
+    <CacheProvider value={myCache}>
+      <ColorModeContext.Provider value={colorMode}>
+        <ThemProviderMui theme={themee}>
+          <QueryClientProvider client={queryClient}>
+            <QueryContext.Provider value={queryClient}>
               <SessionProvider>{children}</SessionProvider>
-            {/* </NextUIProvider> */}
-          </QueryContext.Provider>
-        </QueryClientProvider>
-      </ThemProviderMui>
-    </ColorModeContext.Provider>
+            </QueryContext.Provider>
+          </QueryClientProvider>
+        </ThemProviderMui>
+      </ColorModeContext.Provider>
+    </CacheProvider>
   );
 };
 

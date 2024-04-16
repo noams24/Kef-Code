@@ -7,10 +7,9 @@ import { CommentRequest } from '@/lib/validators/comment'
 import { useCustomToasts } from '@/hooks/use-custom-toast'
 import { useMutation } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
-import { useRouter } from 'next/navigation'
-import { FC, useState } from 'react'
-import { Label } from '@/components/ui/Label'
+import { FC, useContext, useState } from 'react'
 import { TextArea } from '@/components/ui/TextArea'
+import { QueryContext } from "@/partials/ChildrenProviders";
 
 interface CreateCommentProps {
   ID: string
@@ -20,8 +19,8 @@ interface CreateCommentProps {
 
 const CreateComment: FC<CreateCommentProps> = ({ ID, type, replyToId }) => {
   const [input, setInput] = useState<string>('')
-  const router = useRouter()
   const { loginToast } = useCustomToasts()
+  const queryClient = useContext(QueryContext);
 
   const { mutate: comment, isLoading } = useMutation({
     mutationFn: async ({ ID, text, type, replyToId }: CommentRequest) => {
@@ -48,14 +47,14 @@ const CreateComment: FC<CreateCommentProps> = ({ ID, type, replyToId }) => {
       })
     },
     onSuccess: () => {
-      router.refresh()
+      queryClient.invalidateQueries({ queryKey: ["comments"] });
+      queryClient.invalidateQueries({ queryKey: ["solution"] });
       setInput('')
     },
   })
 
   return (
     <div className='grid w-full gap-1.5'>
-      {/* <Label htmlFor='comment'>התגובה שלך</Label> */}
       <div>
         <TextArea
           id='comment'
