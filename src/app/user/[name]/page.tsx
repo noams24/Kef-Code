@@ -53,7 +53,8 @@ const UserPage = async ({ params }: { params: { name: string } }) => {
 
     let query = `select * from public."Problem" p join public."Submissions" s on p.id = s."problemId" where s."userId" = '${user.id}' and s."latest" = true`
     if (!localUser)
-      query += ' and s."isPublic" = true`'
+      query += ' and s."isPublic" = true'
+    console.log(query)
     const data = await db.$queryRawUnsafe(query);
     
     return (
