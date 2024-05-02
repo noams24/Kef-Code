@@ -17,9 +17,19 @@ interface GenerationStatee {
   setPage: (solutionState: number) => void
 }
 
+interface GenerationState3 {
+  submissionState: any,
+  setSubmission: (solutionState: String | null) => void
+}
+
 export const useGenerationStoree = create<GenerationStatee>()((set) => ({
   page: 1,
   setPage: (page: number) => set({ page })
+}))
+
+export const useGenerationStore3 = create<GenerationState3>()((set) => ({
+  submissionState: null,
+  setSubmission: (submissionState: any) => set({ submissionState})
 }))
 
 export const useDevelop = create<any>()((set) => ({

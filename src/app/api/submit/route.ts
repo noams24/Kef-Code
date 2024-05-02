@@ -1,12 +1,10 @@
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-//import { submitValidator } from '@/lib/validators/submit'
 import { z } from "zod";
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    //const { problemId, content } = submitValidator.parse(body)
     const problemId: number = Number(body.problemId);
     const content = body.jsonState;
     const isPublic = body.isPublic;
@@ -19,23 +17,51 @@ export async function POST(req: Request) {
       return new Response("Content too long", { status: 400 });
     }
 
-    const exists = await db.submissions.findFirst({
+    const exists = await db.submissions.findMany({
       where: {
         userId: session.user.id,
         problemId: problemId,
       },
     });
 
-    if (exists) {
-      await db.submissions.update({
+    if (exists.length > 3) {
+      return new Response("Too many submissions", { status: 402 });
+    }
+
+    if (exists.length > 1) {
+      await db.submissions.updateMany({
+        data: {
+          latest: false,
+        },
         where: {
-          id: exists.id,
+          userId: session.user.id,
+          problemId,
+        },
+      });
+    }
+
+    if (isPublic === true) {
+      const update = await db.submissions.updateMany({
+        where: {
+          userId: session.user.id,
+          problemId,
+          isPublic: true,
         },
         data: {
           content,
-          isPublic,
         },
       });
+      if (update.count === 0) {
+        await db.submissions.create({
+          data: {
+            userId: session.user.id,
+            problemId,
+            content,
+            isPublic,
+            latest: true,
+          },
+        });
+      }
     } else {
       await db.submissions.create({
         data: {
@@ -43,49 +69,10 @@ export async function POST(req: Request) {
           problemId,
           content,
           isPublic,
+          latest: true,
         },
       });
-      // Mark the status is "FINISH"
-      // await db.problemStatus.create({
-      //   data: {
-      //     userId: session.user.id,
-      //     problemId,
-      //     status: "FINISH"
-      //   },
-      // })
     }
-
-    //IF ADMIN, SAVE THE CONTENT AS A SOLUTION ARTICLE
-    // if (session.user.role === 'ADMIN' && isPublic) {
-    //check if there is already a solution
-    // const existSolution = await db.solution.findFirst({
-    //   where: {
-    //     problemId: problemId
-    //   },
-    //   select: {
-    //     content: true
-    //   }
-    // })
-
-    // if (!existSolution) {
-    //   await db.solution.create({
-    //     data: {
-    //       problemId,
-    //       content,
-    //     },
-    //   })
-    // }
-    // else {
-    //   await db.solution.update({
-    //     where: {
-    //       problemId
-    //     },
-    //     data: {
-    //       content,
-    //     },
-    //   })
-    // }
-    // }
 
     return new Response("OK");
   } catch (error) {

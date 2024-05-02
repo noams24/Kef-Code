@@ -51,14 +51,11 @@ const UserPage = async ({ params }: { params: { name: string } }) => {
       localUser = true;
     }
 
-    let query = null;
-    if (localUser)
-      query = `select * from public."Problem" p join public."Submissions" s on p.id = s."problemId" where s."userId" = '${user.id}'`;
-    else
-      query = `select * from public."Problem" p join public."Submissions" s on p.id = s."problemId" where s."userId" = '${user.id}' and s."isPublic" = true`;
-
+    let query = `select * from public."Problem" p join public."Submissions" s on p.id = s."problemId" where s."userId" = '${user.id}' and s."latest" = true`
+    if (!localUser)
+      query += ' and s."isPublic" = true`'
     const data = await db.$queryRawUnsafe(query);
-
+    
     return (
       <div className="mx-4">
         <SeoMeta
@@ -70,31 +67,8 @@ const UserPage = async ({ params }: { params: { name: string } }) => {
       </div>
     );
   } catch (error) {
-    console.log(error);
     return <div>שגיאה</div>;
   }
 };
 
 export default UserPage;
-
-// import { humanize, slugify } from "@/lib/utils/textConverter";
-// import Image from "next/image";
-// import { BiDownload, BiShareAlt } from "react-icons/bi";
-
-// import { SlOptionsVertical } from "react-icons/sl";
-// import { GiWorld } from "react-icons/gi";
-// import coursesData from "@/content/chapters.json";
-// import { AiOutlineCalendar } from "react-icons/ai";
-
-// const data: DataObject[] = await db.submissions.findMany({
-//   where: {
-//     userId: user.id,
-//     // isPublic: true,
-//   },
-//   orderBy: {
-//     updatedAt: "desc",
-//   },
-//   include: {
-//     problem: true,
-//   },
-// });

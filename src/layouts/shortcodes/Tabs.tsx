@@ -10,7 +10,7 @@ import {
 } from "react";
 
 function Tabs({ children }: { children: ReactElement[] }) {
-  const [active, setActive] = useState(2);
+  const [active, setActive] = useState(3);
   //select tabItems
   const tabItemsRef: RefObject<HTMLElement[]> = useRef([]);
   const [defaultFocus, setDefaultFocus] = useState(false);

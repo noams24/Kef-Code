@@ -44,6 +44,10 @@ const scrollToTop = () => {
           width={logo_width}
           height={logo_height}
           src={"/images/logo1.png"}
+          style={{
+            width: '50px',
+            height: '50px',
+          }}
           // src={logoPath}
           alt={title}
           priority

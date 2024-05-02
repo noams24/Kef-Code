@@ -193,6 +193,7 @@ model Submissions {
   updatedAt DateTime  @updatedAt
   isPublic  Boolean
   videoUrl  String?
+  latest    Boolean?
   comments  Comment[]
   votes     Vote[]
 

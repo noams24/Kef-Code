@@ -33,6 +33,7 @@ type WorkSpaceProps = {
 };
 
 interface Data {
+  submissions: any;
   content: any;
   imageUrl: any;
   likes: number;
@@ -86,7 +87,6 @@ const Workspace: React.FC<WorkSpaceProps> = ({
   const [content, setContent] = useState<any>(null);
   const [fetchingData, setFetchingData] = useState<boolean>(false);
   const queryClient = useContext(QueryContext);
-
   //save solution to db
   const { mutate: handleSave, isLoading } = useMutation({
     mutationFn: async ({ jsonState, isPublic }: any) => {
@@ -100,6 +100,15 @@ const Workspace: React.FC<WorkSpaceProps> = ({
         if (err.response?.status === 401) {
           return loginToast();
         }
+
+        if (err.response?.status === 402) {
+          return toast({
+            title: "שגיאה",
+            description: "ניתן לשמור רק 3 פתרונות.",
+            variant: "destructive",
+          });
+        }
+
         if (err.response?.status === 400) {
           return toast({
             title: "שגיאה",
@@ -117,6 +126,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
     onSuccess: () => {
       setConfetti(true);
       queryClient.invalidateQueries({ queryKey: ["solution"] });
+      queryClient.invalidateQueries({ queryKey: ["workSpaceData"] });
       return toast({
         title: "נשמר",
         description: "התשובה נשמרה/פורסמה בהצלחה.",
@@ -171,11 +181,22 @@ const Workspace: React.FC<WorkSpaceProps> = ({
     getData();
   }, []);
 
+  const updateEditor = (newState: any) => {
+    const reloadEditor = () => {
+      setFetchingData(false);
+    };
+    setFetchingData(true);
+    setTimeout(reloadEditor, 1);
+    setContent(newState);
+    setJsonState(newState);
+  };
+
   return (
     <>
       {problemId && <TopBar problemId={problemId} />}
       <Split
-        className={`split ${height > 900 ? "h-[77vh]" : "h-[70vh]"}`}
+        className="split h-[70vh]"
+        // className={`split ${height > 900 ? "h-[77vh]" : "h-[70vh]"}`}
         minSize={0}
       >
         <SolutionSection
@@ -185,6 +206,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
           loading={isLoadingData}
           userId={userId}
           role={role}
+          updateEditor={updateEditor}
         />
 
         {/*EDITOR SECTION */}
@@ -215,7 +237,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
               onChange={(editor) => onChange(editor, setJsonState, problemId)}
             />
           ) : fetchingData ? (
-            <LinearProgress/>
+            <LinearProgress />
           ) : content ? (
             <Editor
               document={{ data: content }}
@@ -234,7 +256,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
               />
             )
           ) : (
-            <LinearProgress/>
+            <LinearProgress />
           )}
         </div>
       </Split>

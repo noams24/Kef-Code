@@ -11,14 +11,20 @@ export async function POST(req: Request) {
             return new Response('Unauthorized', { status: 401 })
         }
 
-        await db.submissions.update({
+        await db.submissions.delete({
             where: {
                 id: solutionId
-            },
-            data: {
-                isPublic: false
-            },
+            }
         })
+
+        // await db.submissions.update({
+        //     where: {
+        //         id: solutionId
+        //     },
+        //     data: {
+        //         isPublic: false
+        //     },
+        // })
 
         return new Response('OK')
     } catch (error) {

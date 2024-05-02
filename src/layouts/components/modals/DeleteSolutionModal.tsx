@@ -1,8 +1,9 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { Button } from "@/components/ui/Button2";
 import { X } from "lucide-react";
+import { QueryContext } from "@/partials/ChildrenProviders";
 
 interface DeleteSolutionModalProps {
   handleDelete: () => void
@@ -10,6 +11,8 @@ interface DeleteSolutionModalProps {
 }
 
 const DeleteSolutionModal: FC<DeleteSolutionModalProps> = ({handleDelete, setModal}) => {
+
+  const queryClient = useContext(QueryContext);
 
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
@@ -53,7 +56,7 @@ const DeleteSolutionModal: FC<DeleteSolutionModalProps> = ({handleDelete, setMod
                   <button onClick={() => {
                     handleDelete();
                     setModal(false);
-                    window.location.reload();
+                    queryClient.invalidateQueries({ queryKey: ["solution"] });
                   }}>מחיקה</button>
                   <button onClick={() => setModal(false)}>ביטול</button>
                 </div>

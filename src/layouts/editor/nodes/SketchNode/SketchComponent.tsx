@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 import { NonDeleted, ExcalidrawElement } from '@excalidraw/excalidraw/types/element/types';
 import ImageComponent from '../ImageNode/ImageComponent';
 
-export const encodeFonts = Promise.all([
-  fetch("/fonts/Virgil.woff2").then(res => res.arrayBuffer()).then(buffer => arrayBufferToBase64Font(buffer)),
-  fetch("/fonts/Cascadia.woff2").then(res => res.arrayBuffer()).then(async buffer => arrayBufferToBase64Font(buffer)),
-]);
+// export const encodeFonts = Promise.all([
+//   fetch("/fonts/Virgil.woff2").then(res => res.arrayBuffer()).then(buffer => arrayBufferToBase64Font(buffer)),
+//   fetch("/fonts/Cascadia.woff2").then(res => res.arrayBuffer()).then(async buffer => arrayBufferToBase64Font(buffer)),
+// ]);
 
 const arrayBufferToBase64Font = (buffer: ArrayBuffer) => {
   const bytes = new Uint8Array(buffer);
@@ -33,12 +33,12 @@ export default function SketchComponent({
   useEffect(() => {
     async function embedFonts() {
       try {
-        const [virgil, cascadia] = await encodeFonts;
-        const fonts = `@font-face { font-family: 'Virgil'; src: url('${virgil}') format('woff2');} @font-face { font-family: 'Cascadia'; src: url('${cascadia}') format('woff2'); }`;
-        const encoded = src.substring(src.indexOf(',') + 1);
-        const decoded = decodeURIComponent(encoded);
-        const serialized = decoded.replace(/<style.*?>[\s\S]*<\/style>/, `<style class="style-fonts">${fonts}</style>`);
-        setSource(`data:image/svg+xml,${encodeURIComponent(serialized)}`);
+        // const [virgil, cascadia] = await encodeFonts;
+        // const fonts = `@font-face { font-family: 'Virgil'; src: url('${virgil}') format('woff2');} @font-face { font-family: 'Cascadia'; src: url('${cascadia}') format('woff2'); }`;
+        // const encoded = src.substring(src.indexOf(',') + 1);
+        // const decoded = decodeURIComponent(encoded);
+        // const serialized = decoded.replace(/<style.*?>[\s\S]*<\/style>/, `<style class="style-fonts">${fonts}</style>`);
+        // setSource(`data:image/svg+xml,${encodeURIComponent(serialized)}`);
       } catch (e) {
         console.error(e);
       }
