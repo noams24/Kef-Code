@@ -417,7 +417,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
               />{" "}
             </div>
           ) : (
-            <div className="my-2  min-h-[55dvh]">
+            <div className="my-2 ">
               <div className="flex justify-between items-center">
                 {workSpaceData && workSpaceData.hint ? (
                   <Tippy content={workSpaceData.hint} placement="right">
