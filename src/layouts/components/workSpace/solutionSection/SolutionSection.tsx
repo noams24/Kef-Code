@@ -11,6 +11,7 @@ import Likes from "@/components/Likes";
 import Accordion from "@/shortcodes/Accordion";
 import { useGenerationStore } from "@/store/store";
 import { useGenerationStoree } from "@/store/store";
+import { useGenerationStore3 } from "@/store/store";
 import { useDevelop } from "@/store/store";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "@/hooks/use-toast";
@@ -48,6 +49,9 @@ import Tippy from "@tippyjs/react";
 // import PdfRenderer from "@/components/PdfRenderer";
 
 import dynamic from "next/dynamic";
+import hebrewDateFormat from "@/lib/utils/hebrewDateFormat";
+import SubmissionContent from "./SubmissionContent";
+import { EditorContentType } from "../WorkSpace";
 const PdfRenderer = dynamic(() => import("@/components/PdfRenderer"), {
   ssr: false,
 });
@@ -59,6 +63,7 @@ interface SolutionSectionProps {
   userId: string | undefined;
   role: string | undefined;
   loading: any;
+  updateEditor: any,
 }
 
 const SolutionSection: React.FC<SolutionSectionProps> = ({
@@ -68,14 +73,17 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
   userId,
   role,
   loading,
+  updateEditor,
 }) => {
   const { solutionState, setSolution } = useGenerationStore();
+  const { submissionState, setSubmission } = useGenerationStore3();
   const { page } = useGenerationStoree();
   const [sortBy, setSort] = useState("likes");
   const [displayDeleteModal, setDeleteModal] = useState(false);
   const [displayVideoModal, setVideoModal] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const { development } = useDevelop();
+
   const { data: soltionSectionData } = useQuery({
     queryKey: ["solution", problemId, page, sortBy],
     queryFn: async () => {
@@ -189,6 +197,8 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
     },
   });
 
+
+
   return (
     <div className="overflow-y-auto">
       {displayDeleteModal && (
@@ -218,6 +228,38 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
       </Snackbar>
 
       <Tabs>
+        <Tab name="הגשות">
+          {!userId ? (
+            <div>
+              <h3 className="flex justify-center">זמין רק למשתמשים רשומים</h3>
+            </div>
+          ) : (
+            <div>
+              {!workSpaceData ||
+              !workSpaceData.hasOwnProperty("submissions")  || workSpaceData.submissions.length === 0 ? (
+                <div className="flex justify-center min-h-10">
+                  <h3 className="my-5">אין הגשות עדיין</h3>
+                </div>
+              ) : submissionState === null ? (
+                workSpaceData.submissions.map((item: any, index: any) => (
+                  <div
+                    key={index}
+                    className="flex justify-between border my-4 rounded-md p-3 cursor-pointer"
+                    onClick={() => {
+                      setSubmission(index);
+                    }}
+                  >
+                    <p dir="rtl">{hebrewDateFormat(item.updatedAt)}</p>
+                    <div>{'פתרון מספר '}{index+1}</div>
+                    
+                  </div>
+                ))
+              ) : (
+                <SubmissionContent submissionsState={submissionState} setSubmission={setSubmission} submissionsData={workSpaceData.submissions} updateEditor={updateEditor}/>
+              )}
+            </div>
+          )}
+        </Tab>
         <Tab name="פתרונות">
           {solutionState || solutionState === 0 ? (
             <div className="px-5">
@@ -375,7 +417,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
               />{" "}
             </div>
           ) : (
-            <div className="my-2">
+            <div className="my-2  min-h-[55dvh]">
               <div className="flex justify-between items-center">
                 {workSpaceData && workSpaceData.hint ? (
                   <Tippy content={workSpaceData.hint} placement="right">
@@ -415,8 +457,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                   <PdfRenderer url={workSpaceData?.imageUrl} />
                 ) : (
                   <ImageDisplay imageUrl={workSpaceData?.imageUrl} />
-                )
-                }
+                )}
               </div>
             </div>
           )}
