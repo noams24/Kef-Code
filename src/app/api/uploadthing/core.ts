@@ -11,6 +11,13 @@ export const ourFileRouter = {
       return req;
     })
     .onUploadComplete(async ({ metadata, file }) => {}),
+    imageUploader2: f({
+      image: { maxFileSize: "2MB" },
+    })
+      .middleware(async (req) => {
+        return req;
+      })
+      .onUploadComplete(async ({ metadata, file }) => {}),
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;

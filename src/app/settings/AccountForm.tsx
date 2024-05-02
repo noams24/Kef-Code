@@ -2,7 +2,7 @@
 // import { Input } from "@/components/ui/Input";
 import SeoMeta from "@/partials/SeoMeta";
 import PageHeader from "@/partials/PageHeader";
-import { UploadDropzone } from "@/lib/uploadThingImage";
+import { UploadDropzone } from "@/lib/uploadthing";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { toast } from "@/hooks/use-toast";
@@ -26,6 +26,7 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { useContext } from "react";
+
 
 const UsernameValidator = z.object({
   name: z.string().min(3).max(32).regex(/^[a-zA-Z0-9_א-ת]+$/, 'שם לא תיקני')
@@ -225,7 +226,7 @@ const AccountForm = ({ user, className, ...props }: UserNameFormProps) => {
               </label>
               <UploadDropzone
                 className="dark:border-sky-200"
-                endpoint="imageUploader"
+                endpoint="imageUploader2"
                 onClientUploadComplete={(res: any) => {
                   uploadImage(res[0].fileUrl);
                 }}

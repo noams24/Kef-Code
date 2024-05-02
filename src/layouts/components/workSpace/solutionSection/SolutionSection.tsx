@@ -33,7 +33,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select2";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ImageSkeleton from "@/components/skeletons/ImageSkeleton";
 import LikesSkeleton from "@/components/skeletons/LikesSkeletion";
 import DescriptionCommentsSection from "@/components/comments/DescriptionCommentsSection";
@@ -46,12 +46,10 @@ import AddVideoModal from "@/components/modals/AddVideoModal";
 import { Share } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
 import Tippy from "@tippyjs/react";
-// import PdfRenderer from "@/components/PdfRenderer";
-
+import { QueryContext } from "@/partials/ChildrenProviders";
 import dynamic from "next/dynamic";
 import hebrewDateFormat from "@/lib/utils/hebrewDateFormat";
 import SubmissionContent from "./SubmissionContent";
-import { EditorContentType } from "../WorkSpace";
 const PdfRenderer = dynamic(() => import("@/components/PdfRenderer"), {
   ssr: false,
 });
@@ -83,6 +81,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
   const [displayVideoModal, setVideoModal] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const { development } = useDevelop();
+  const queryClient = useContext(QueryContext);
 
   const { data: soltionSectionData } = useQuery({
     queryKey: ["solution", problemId, page, sortBy],
@@ -101,7 +100,6 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
 
   const { mutate: deleteSolution } = useMutation({
     mutationFn: async () => {
-      // console.log(soltionSectionData[Number(solutionState)].id)
       const solutionId: any = soltionSectionData[Number(solutionState)].id;
       const { data } = await axios.post("/api/deleteSolution", { solutionId });
       return data;
@@ -114,6 +112,9 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
       });
     },
     onSuccess: () => {
+      setSolution(null)
+      queryClient.invalidateQueries({ queryKey: ["solution"] });
+      queryClient.invalidateQueries({ queryKey: ["workSpaceData"] });
       toast({
         title: "נמחק",
         description: "הפתרון נמחק בהצלחה",
