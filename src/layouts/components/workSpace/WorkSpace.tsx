@@ -195,8 +195,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
     <>
       {problemId && <TopBar problemId={problemId} />}
       <Split
-        className="split h-[70vh]"
-        // className={`split ${height > 900 ? "h-[77vh]" : "h-[70vh]"}`}
+        className={`split ${height > 900 ? "h-[77vh]" : "h-[70vh]"}`}
         minSize={0}
       >
         <SolutionSection
