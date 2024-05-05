@@ -6,12 +6,14 @@
  *
  */
 
-import type { CodeHighlightNode } from './CodeHighlightNode';
+import type {CodeHighlightNode} from '@lexical/code';
 import type {
   DOMConversionMap,
   DOMConversionOutput,
-    EditorConfig,
-    LexicalNode,
+  DOMExportOutput,
+  EditorConfig,
+  LexicalEditor,
+  LexicalNode,
   NodeKey,
   ParagraphNode,
   RangeSelection,
@@ -20,7 +22,9 @@ import type {
   TabNode,
 } from 'lexical';
 
-import { addClassNamesToElement, isHTMLElement } from '@lexical/utils';
+import './CodeHighlighterPrism';
+
+import {addClassNamesToElement, isHTMLElement} from '@lexical/utils';
 import {
   $applyNodeReplacement,
   $createLineBreakNode,
@@ -31,7 +35,6 @@ import {
   ElementNode,
 } from 'lexical';
 
-import { Prism } from './CodeHighlighterPrism';
 import {
   $createCodeHighlightNode,
   $isCodeHighlightNode,
@@ -49,7 +52,7 @@ const mapToPrismLanguage = (
   language: string | null | undefined,
 ): string | null | undefined => {
   // eslint-disable-next-line no-prototype-builtins
-  return language != null && Prism.languages.hasOwnProperty(language)
+  return language != null && window.Prism.languages.hasOwnProperty(language)
     ? language
     : undefined;
 };
@@ -113,6 +116,17 @@ export class CodeNode extends ElementNode {
     return false;
   }
 
+  exportDOM(editor: LexicalEditor): DOMExportOutput {
+    const element = document.createElement('pre');
+    addClassNamesToElement(element, editor._config.theme.code);
+    element.setAttribute('spellcheck', 'false');
+    const language = this.getLanguage();
+    if (language) {
+      element.setAttribute(LANGUAGE_DATA_ATTRIBUTE, language);
+    }
+    return {element};
+  }
+
   static importDOM(): DOMConversionMap | null {
     return {
       // Typically <pre> is used for code blocks, and <code> for inline code styles
@@ -125,9 +139,9 @@ export class CodeNode extends ElementNode {
 
         return isMultiLine
           ? {
-            conversion: convertPreElement,
-            priority: 1,
-          }
+              conversion: convertPreElement,
+              priority: 1,
+            }
           : null;
       },
       div: (node: Node) => ({
@@ -154,13 +168,7 @@ export class CodeNode extends ElementNode {
         const td = node as HTMLTableCellElement;
         const table: HTMLTableElement | null = td.closest('table');
 
-        if (isGitHubCodeCell(td)) {
-          return {
-            conversion: convertTableCellElement,
-            priority: 3,
-          };
-        }
-        if (table && isGitHubCodeTable(table)) {
+        if (isGitHubCodeCell(td) || (table && isGitHubCodeTable(table))) {
           // Return a no-op if it's a table cell in a code table, but not a code line.
           // Otherwise it'll fall back to the T
           return {
@@ -190,7 +198,7 @@ export class CodeNode extends ElementNode {
     const node = $createCodeNode(serializedNode.language);
     node.setFormat(serializedNode.format);
     node.setIndent(serializedNode.indent);
-    // node.setDirection(serializedNode.direction);
+    node.setDirection(serializedNode.direction);
     return node;
   }
 
@@ -229,7 +237,7 @@ export class CodeNode extends ElementNode {
     // If the selection is within the codeblock, find all leading tabs and
     // spaces of the current line. Create a new line that has all those
     // tabs and spaces, such that leading indentation is preserved.
-    const { anchor, focus } = selection;
+    const {anchor, focus} = selection;
     const firstPoint = anchor.isBefore(focus) ? anchor : focus;
     const firstSelectionNode = firstPoint.getNode();
     if ($isTextNode(firstSelectionNode)) {
@@ -274,7 +282,7 @@ export class CodeNode extends ElementNode {
       }
     }
     if ($isCodeNode(firstSelectionNode)) {
-      const { offset } = selection.anchor;
+      const {offset} = selection.anchor;
       firstSelectionNode.splice(offset, 0, [$createLineBreakNode()]);
       firstSelectionNode.select(offset + 1, offset + 1);
     }
@@ -321,7 +329,7 @@ function convertPreElement(domNode: Node): DOMConversionOutput {
   if (isHTMLElement(domNode)) {
     language = domNode.getAttribute(LANGUAGE_DATA_ATTRIBUTE);
   }
-  return { node: $createCodeNode(language) };
+  return {node: $createCodeNode(language)};
 }
 
 function convertDivElement(domNode: Node): DOMConversionOutput {
@@ -334,39 +342,16 @@ function convertDivElement(domNode: Node): DOMConversionOutput {
     };
   }
   return {
-    after: (childLexicalNodes) => {
-      const domParent = domNode.parentNode;
-      if (domParent != null && domNode !== domParent.lastChild) {
-        childLexicalNodes.push($createLineBreakNode());
-      }
-      return childLexicalNodes;
-    },
     node: isCode ? $createCodeNode() : null,
   };
 }
 
 function convertTableElement(): DOMConversionOutput {
-  return { node: $createCodeNode() };
+  return {node: $createCodeNode()};
 }
 
 function convertCodeNoop(): DOMConversionOutput {
-  return { node: null };
-}
-
-function convertTableCellElement(domNode: Node): DOMConversionOutput {
-  // domNode is a <td> since we matched it by nodeName
-  const cell = domNode as HTMLTableCellElement;
-
-  return {
-    after: (childLexicalNodes) => {
-      if (cell.parentNode && cell.parentNode.nextSibling) {
-        // Append newline between code lines
-        childLexicalNodes.push($createLineBreakNode());
-      }
-      return childLexicalNodes;
-    },
-    node: null,
-  };
+  return {node: null};
 }
 
 function isCodeElement(div: HTMLElement): boolean {

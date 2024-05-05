@@ -162,7 +162,7 @@
   content: counter(line-number);
   user-select: none;
   position: absolute;
-  left: 5px;
+  left: 8px;
   width: 50px;
 }
 

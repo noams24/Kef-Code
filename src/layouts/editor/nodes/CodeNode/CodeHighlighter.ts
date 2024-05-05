@@ -1,5 +1,3 @@
-// import invariant from "../../shared/invariant";
-
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -16,9 +14,11 @@ import type {
   LineBreakNode,
   NodeKey,
   RangeSelection,
-} from "lexical";
+} from 'lexical';
 
-import { mergeRegister } from "@lexical/utils";
+import './CodeHighlighterPrism';
+
+import {mergeRegister} from '@lexical/utils';
 import {
   $createLineBreakNode,
   $createTabNode,
@@ -41,10 +41,9 @@ import {
   OUTDENT_CONTENT_COMMAND,
   TabNode,
   TextNode,
-} from "lexical";
-import invariant from "../../shared/invariant";
+} from 'lexical';
+import invariant from '../../shared/invariant';
 
-import { Prism, reifyPrismLanguages } from "./CodeHighlighterPrism";
 import {
   $createCodeHighlightNode,
   $isCodeHighlightNode,
@@ -52,8 +51,8 @@ import {
   DEFAULT_CODE_LANGUAGE,
   getFirstCodeNodeOfLine,
   getLastCodeNodeOfLine,
-} from "./CodeHighlightNode";
-import { $isCodeNode, CodeNode } from "./CodeNode";
+} from './CodeHighlightNode';
+import {$isCodeNode, CodeNode} from './CodeNode';
 
 type TokenContent = string | Token | (string | Token)[];
 
@@ -70,9 +69,10 @@ export interface Tokenizer {
 export const PrismTokenizer: Tokenizer = {
   defaultLanguage: DEFAULT_CODE_LANGUAGE,
   tokenize(code: string, language?: string): (string | Token)[] {
-    return Prism.tokenize(
+    return window.Prism.tokenize(
       code,
-      Prism.languages[language || ""] || Prism.languages[this.defaultLanguage],
+      window.Prism.languages[language || ''] ||
+        window.Prism.languages[this.defaultLanguage],
     );
   },
 };
@@ -88,7 +88,7 @@ export function getStartOfCodeInLine(
     node: CodeHighlightNode | TabNode | LineBreakNode;
     offset: number;
   } = null;
-  let lastNonBlank: null | { node: CodeHighlightNode; offset: number } = null;
+  let lastNonBlank: null | {node: CodeHighlightNode; offset: number} = null;
   let node: null | CodeHighlightNode | TabNode | LineBreakNode = anchor;
   let nodeOffset = offset;
   let nodeTextContent = anchor.getTextContent();
@@ -103,7 +103,7 @@ export function getStartOfCodeInLine(
         $isCodeHighlightNode(node) ||
           $isTabNode(node) ||
           $isLineBreakNode(node),
-        "Expected a valid Code Node: CodeHighlightNode, TabNode, LineBreakNode",
+        'Expected a valid Code Node: CodeHighlightNode, TabNode, LineBreakNode',
       );
       if ($isLineBreakNode(node)) {
         last = {
@@ -118,7 +118,7 @@ export function getStartOfCodeInLine(
       nodeOffset--;
     }
     const character = nodeTextContent[nodeOffset];
-    if ($isCodeHighlightNode(node) && character !== " ") {
+    if ($isCodeHighlightNode(node) && character !== ' ') {
       lastNonBlank = {
         node,
         offset: nodeOffset,
@@ -143,7 +143,7 @@ export function getStartOfCodeInLine(
   }
   if (
     codeCharacterAtAnchorOffset !== null &&
-    codeCharacterAtAnchorOffset !== " "
+    codeCharacterAtAnchorOffset !== ' '
   ) {
     // Borderline whitespace and code, move to line beginning
     return last;
@@ -160,7 +160,7 @@ export function getStartOfCodeInLine(
 function findNextNonBlankInLine(
   anchor: LexicalNode,
   offset: number,
-): null | { node: CodeHighlightNode; offset: number } {
+): null | {node: CodeHighlightNode; offset: number} {
   let node: null | LexicalNode = anchor;
   let nodeOffset = offset;
   let nodeTextContent = anchor.getTextContent();
@@ -179,7 +179,7 @@ function findNextNonBlankInLine(
       }
     }
     if ($isCodeHighlightNode(node)) {
-      if (nodeTextContent[nodeOffset] !== " ") {
+      if (nodeTextContent[nodeOffset] !== ' ') {
         return {
           node,
           offset: nodeOffset,
@@ -196,7 +196,7 @@ export function getEndOfCodeInLine(
   const lastNode = getLastCodeNodeOfLine(anchor);
   invariant(
     !$isLineBreakNode(lastNode),
-    "Unexpected lineBreakNode in getEndOfCodeInLine",
+    'Unexpected lineBreakNode in getEndOfCodeInLine',
   );
   return lastNode;
 }
@@ -216,6 +216,30 @@ function textNodeTransform(
     // code highlight nodes converted back to normal text
     node.replace($createTextNode(node.__text));
   }
+}
+
+function updateCodeGutter(node: CodeNode, editor: LexicalEditor): void {
+  const codeElement = editor.getElementByKey(node.getKey());
+  if (codeElement === null) {
+    return;
+  }
+  const children = node.getChildren();
+  const childrenLength = children.length;
+  // @ts-ignore: internal field
+  if (childrenLength === codeElement.__cachedChildrenLength) {
+    // Avoid updating the attribute if the children length hasn't changed.
+    return;
+  }
+  // @ts-ignore:: internal field
+  codeElement.__cachedChildrenLength = childrenLength;
+  let gutter = '1';
+  let count = 1;
+  for (let i = 0; i < childrenLength; i++) {
+    if ($isLineBreakNode(children[i])) {
+      gutter += '\n' + ++count;
+    }
+  }
+  codeElement.setAttribute('data-gutter', gutter);
 }
 
 // Using `skipTransforms` to prevent extra transforms since reformatting the code
@@ -268,7 +292,7 @@ function codeNodeTransform(
           currentNode.getChildren(),
           highlightNodes,
         );
-        const { from, to, nodesForReplacement } = diffRange;
+        const {from, to, nodesForReplacement} = diffRange;
 
         if (from !== to || nodesForReplacement.length) {
           node.splice(from, to - from, nodesForReplacement);
@@ -294,22 +318,22 @@ function getHighlightNodes(
   const nodes: LexicalNode[] = [];
 
   for (const token of tokens) {
-    if (typeof token === "string") {
+    if (typeof token === 'string') {
       const partials = token.split(/(\n|\t)/);
       const partialsLength = partials.length;
       for (let i = 0; i < partialsLength; i++) {
         const part = partials[i];
-        if (part === "\n" || part === "\r\n") {
+        if (part === '\n' || part === '\r\n') {
           nodes.push($createLineBreakNode());
-        } else if (part === "\t") {
+        } else if (part === '\t') {
           nodes.push($createTabNode());
         } else if (part.length > 0) {
           nodes.push($createCodeHighlightNode(part, type));
         }
       }
     } else {
-      const { content } = token;
-      if (typeof content === "string") {
+      const {content} = token;
+      if (typeof content === 'string') {
         nodes.push(...getHighlightNodes([content], token.type));
       } else if (Array.isArray(content)) {
         nodes.push(...getHighlightNodes(content, token.type));
@@ -341,7 +365,7 @@ function updateAndRetainSelection(
   const anchor = selection.anchor;
   const anchorOffset = anchor.offset;
   const isNewLineAnchor =
-    anchor.type === "element" &&
+    anchor.type === 'element' &&
     $isLineBreakNode(node.getChildAtIndex(anchor.offset - 1));
   let textOffset = 0;
 
@@ -472,7 +496,7 @@ function $getCodeLines(
     const node = nodes[i];
     invariant(
       $isCodeHighlightNode(node) || $isTabNode(node) || $isLineBreakNode(node),
-      "Expected selection to be inside CodeBlock and consisting of CodeHighlightNode, TabNode and LineBreakNode",
+      'Expected selection to be inside CodeBlock and consisting of CodeHighlightNode, TabNode and LineBreakNode',
     );
     if ($isLineBreakNode(node)) {
       if (i !== 0 && lastLine.length > 0) {
@@ -508,7 +532,7 @@ function handleTab(shiftKey: boolean): null | LexicalCommand<void> {
       $isCodeHighlightNode(firstNode) ||
       $isTabNode(firstNode) ||
       $isLineBreakNode(firstNode),
-    "Expected selection firstNode to be CodeHighlightNode or TabNode",
+    'Expected selection firstNode to be CodeHighlightNode or TabNode',
   );
   if ($isCodeNode(firstNode)) {
     return indentOrOutdent;
@@ -577,7 +601,7 @@ function handleMultilineIndent(type: LexicalCommand<void>): boolean {
       $isCodeHighlightNode(firstNode) ||
       $isTabNode(firstNode) ||
       $isLineBreakNode(firstNode),
-    "Expected selection firstNode to be CodeHighlightNode or CodeTabNode",
+    'Expected selection firstNode to be CodeHighlightNode or CodeTabNode',
   );
   if ($isCodeNode(firstNode)) {
     // CodeNode is empty
@@ -589,7 +613,7 @@ function handleMultilineIndent(type: LexicalCommand<void>): boolean {
   const firstOfLine = getFirstCodeNodeOfLine(firstNode);
   invariant(
     firstOfLine !== null,
-    "Expected getFirstCodeNodeOfLine to return a valid Code Node",
+    'Expected getFirstCodeNodeOfLine to return a valid Code Node',
   );
   if (type === INDENT_CONTENT_COMMAND) {
     if ($isLineBreakNode(firstOfLine)) {
@@ -615,7 +639,7 @@ function handleShiftLines(
 
   // I'm not quite sure why, but it seems like calling anchor.getNode() collapses the selection here
   // So first, get the anchor and the focus, then get their nodes
-  const { anchor, focus } = selection;
+  const {anchor, focus} = selection;
   const anchorOffset = anchor.offset;
   const focusOffset = focus.offset;
   const anchorNode = anchor.getNode();
@@ -744,7 +768,7 @@ function handleMoveTo(
     return false;
   }
 
-  const { anchor, focus } = selection;
+  const {anchor, focus} = selection;
   const anchorNode = anchor.getNode();
   const focusNode = focus.getNode();
   const isMoveToStart = type === MOVE_TO_START;
@@ -759,7 +783,7 @@ function handleMoveTo(
   if (isMoveToStart) {
     const start = getStartOfCodeInLine(focusNode, focus.offset);
     if (start !== null) {
-      const { node, offset } = start;
+      const {node, offset} = start;
       if ($isLineBreakNode(node)) {
         node.selectNext(0, 0);
       } else {
@@ -783,10 +807,9 @@ export function registerCodeHighlighting(
   editor: LexicalEditor,
   tokenizer?: Tokenizer,
 ): () => void {
-  reifyPrismLanguages();
   if (!editor.hasNodes([CodeNode, CodeHighlightNode])) {
     throw new Error(
-      "CodeHighlightPlugin: CodeNode or CodeHighlightNode not registered on editor",
+      'CodeHighlightPlugin: CodeNode or CodeHighlightNode not registered on editor',
     );
   }
 
@@ -795,6 +818,18 @@ export function registerCodeHighlighting(
   }
 
   return mergeRegister(
+    editor.registerMutationListener(CodeNode, (mutations) => {
+      editor.update(() => {
+        for (const [key, type] of mutations) {
+          if (type !== 'destroyed') {
+            const node = $getNodeByKey(key);
+            if (node !== null) {
+              updateCodeGutter(node as CodeNode, editor);
+            }
+          }
+        }
+      });
+    }),
     editor.registerNodeTransform(CodeNode, (node) =>
       codeNodeTransform(node, editor, tokenizer as Tokenizer),
     ),
