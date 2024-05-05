@@ -76,10 +76,10 @@ export class MathNode extends DecoratorNode<JSX.Element> {
     return this.__mathfieldRef.current;
   }
 
-  setMathfield(mathfield: MathfieldElement) {
-    const writable = this.getWritable();
-    writable.__mathfield = mathfield;
-  }
+  // setMathfield(mathfield: MathfieldElement) {
+  //   const writable = this.getWritable();
+  //   writable.__mathfield = mathfield;
+  // }
 
   getValue(): string {
     return this.__value;
