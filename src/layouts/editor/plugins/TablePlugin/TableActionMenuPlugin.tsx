@@ -1,4 +1,3 @@
-"use client"
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -7,16 +6,14 @@
  *
  */
 
-import type {
-  DEPRECATED_GridCellNode,
-  ElementNode,
-  LexicalEditor,
-} from 'lexical';
+import type { ElementNode, LexicalEditor } from 'lexical';
 
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import useLexicalEditable from '@lexical/react/useLexicalEditable';
 import {
   $deleteTableColumn__EXPERIMENTAL,
   $deleteTableRow__EXPERIMENTAL,
+  $getNodeTriplet,
   $getTableCellNodeFromLexicalNode,
   $getTableColumnIndexFromTableCellNode,
   $getTableNodeFromLexicalNodeOrThrow,
@@ -25,12 +22,15 @@ import {
   $insertTableRow__EXPERIMENTAL,
   $isTableCellNode,
   $isTableRowNode,
+  $isTableSelection,
   $patchCellStyle,
   $unmergeCell,
-  getTableSelectionFromTableElement,
+  getTableObserverFromTableElement,
   HTMLTableElementWithWithTableSelectionState,
   TableCellHeaderStates,
   TableCellNode,
+  TableRowNode,
+  TableSelection,
 } from '../../nodes/TableNode';
 import {
   $createParagraphNode,
@@ -40,26 +40,18 @@ import {
   $isParagraphNode,
   $isRangeSelection,
   $isTextNode,
-  DEPRECATED_$getNodeTriplet,
-  DEPRECATED_$isGridCellNode,
-  DEPRECATED_$isGridSelection,
-  GridSelection,
 } from 'lexical';
-import React, { ReactPortal, useCallback, useEffect, useRef, useState } from 'react';
+import * as React from 'react';
+import { ReactPortal, useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import invariant from '../../shared/invariant';
 
 import ColorPicker from '../ToolbarPlugin/Tools/ColorPicker';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-import Box from '@mui/material/Box';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import { $patchStyle, getStyleObjectFromCSS } from '../../nodes/utils';
+import { getStyleObjectFromCSS } from '../../nodes/utils';
+import { MenuItem, ListItemText, Menu, Divider, Box, IconButton } from '@mui/material';
+import { DragIndicator } from '@mui/icons-material';
 
-function computeSelectionCount(selection: GridSelection): {
+function computeSelectionCount(selection: TableSelection): {
   columns: number;
   rows: number;
 } {
@@ -72,7 +64,7 @@ function computeSelectionCount(selection: GridSelection): {
 
 // This is important when merging cells as there is no good way to re-merge weird shapes (a result
 // of selecting merged cells and non-merged)
-function isGridSelectionRectangular(selection: GridSelection): boolean {
+function isTableSelectionRectangular(selection: TableSelection): boolean {
   const nodes = selection.getNodes();
   const currentRows: Array<number> = [];
   let currentRow = null;
@@ -116,17 +108,16 @@ function $canUnmerge(): boolean {
   const selection = $getSelection();
   if (
     ($isRangeSelection(selection) && !selection.isCollapsed()) ||
-    (DEPRECATED_$isGridSelection(selection) &&
-      !selection.anchor.is(selection.focus)) ||
-    (!$isRangeSelection(selection) && !DEPRECATED_$isGridSelection(selection))
+    ($isTableSelection(selection) && !selection.anchor.is(selection.focus)) ||
+    (!$isRangeSelection(selection) && !$isTableSelection(selection))
   ) {
     return false;
   }
-  const [cell] = DEPRECATED_$getNodeTriplet(selection.anchor);
+  const [cell] = $getNodeTriplet(selection.anchor);
   return cell.__colSpan > 1 || cell.__rowSpan > 1;
 }
 
-function $cellContainsEmptyParagraph(cell: DEPRECATED_GridCellNode): boolean {
+function $cellContainsEmptyParagraph(cell: TableCellNode): boolean {
   if (cell.getChildrenSize() !== 1) {
     return false;
   }
@@ -153,11 +144,8 @@ function currentCellStyle(
 ): Record<string, string> | null {
   return editor.getEditorState().read(() => {
     const selection = $getSelection();
-    if (
-      $isRangeSelection(selection) ||
-      DEPRECATED_$isGridSelection(selection)
-    ) {
-      const [cell] = DEPRECATED_$getNodeTriplet(selection.anchor);
+    if ($isRangeSelection(selection) || $isTableSelection(selection)) {
+      const [cell] = $getNodeTriplet(selection.anchor);
       if ($isTableCellNode(cell)) {
         const css = cell.getStyle();
         if (!css) return null;
@@ -168,7 +156,6 @@ function currentCellStyle(
     return null;
   });
 }
-
 
 type TableCellActionMenuProps = Readonly<{
   anchorElRef: { current: null | HTMLElement };
@@ -211,11 +198,11 @@ function TableActionMenu({
     editor.getEditorState().read(() => {
       const selection = $getSelection();
       // Merge cells
-      if (DEPRECATED_$isGridSelection(selection)) {
+      if ($isTableSelection(selection)) {
         const currentSelectionCounts = computeSelectionCount(selection);
         updateSelectionCounts(computeSelectionCount(selection));
         setCanMergeCells(
-          isGridSelectionRectangular(selection) &&
+          isTableSelectionRectangular(selection) &&
           (currentSelectionCounts.columns > 1 ||
             currentSelectionCounts.rows > 1),
         );
@@ -241,7 +228,7 @@ function TableActionMenu({
           throw new Error('Expected to find tableElement in DOM');
         }
 
-        const tableSelection = getTableSelectionFromTableElement(tableElement);
+        const tableSelection = getTableObserverFromTableElement(tableElement);
         if (tableSelection !== null) {
           tableSelection.clearHighlight();
         }
@@ -258,13 +245,13 @@ function TableActionMenu({
   const mergeTableCellsAtSelection = () => {
     editor.update(() => {
       const selection = $getSelection();
-      if (DEPRECATED_$isGridSelection(selection)) {
+      if ($isTableSelection(selection)) {
         const { columns, rows } = computeSelectionCount(selection);
         const nodes = selection.getNodes();
-        let firstCell: null | DEPRECATED_GridCellNode = null;
+        let firstCell: null | TableCellNode = null;
         for (let i = 0; i < nodes.length; i++) {
           const node = nodes[i];
-          if (DEPRECATED_$isGridCellNode(node)) {
+          if ($isTableCellNode(node)) {
             if (firstCell === null) {
               node.setColSpan(columns).setRowSpan(rows);
               firstCell = node;
@@ -276,7 +263,7 @@ function TableActionMenu({
               ) {
                 firstChild.remove();
               }
-            } else if (DEPRECATED_$isGridCellNode(firstCell)) {
+            } else if ($isTableCellNode(firstCell)) {
               const isEmpty = $cellContainsEmptyParagraph(node);
               if (!isEmpty) {
                 firstCell.append(...node.getChildren());
@@ -386,7 +373,14 @@ function TableActionMenu({
       const tableColumnIndex =
         $getTableColumnIndexFromTableCellNode(tableCellNode);
 
-      const tableRows = tableNode.getChildren();
+      const tableRows = tableNode.getChildren<TableRowNode>();
+      const maxRowsLength = Math.max(
+        ...tableRows.map((row) => row.getChildren().length),
+      );
+
+      if (tableColumnIndex >= maxRowsLength || tableColumnIndex < 0) {
+        throw new Error('Expected table cell to be inside of table row.');
+      }
 
       for (let r = 0; r < tableRows.length; r++) {
         const tableRow = tableRows[r];
@@ -396,9 +390,9 @@ function TableActionMenu({
         }
 
         const tableCells = tableRow.getChildren();
-
-        if (tableColumnIndex >= tableCells.length || tableColumnIndex < 0) {
-          throw new Error('Expected table cell to be inside of table row.');
+        if (tableColumnIndex >= tableCells.length) {
+          // if cell is outside of bounds for the current row (for example various merge cell cases) we shouldn't highlight it
+          continue;
         }
 
         const tableCell = tableCells[tableColumnIndex];
@@ -427,20 +421,22 @@ function TableActionMenu({
     (styles: Record<string, string>) => {
       editor.update(() => {
         const selection = $getSelection();
-        if (
-          $isRangeSelection(selection) ||
-          DEPRECATED_$isGridSelection(selection)
-        ) {
-          const [cell] = DEPRECATED_$getNodeTriplet(selection.anchor);
+        if ($isRangeSelection(selection) || $isTableSelection(selection)) {
+          const [cell] = $getNodeTriplet(selection.anchor);
           if ($isTableCellNode(cell)) {
             $patchCellStyle([cell], styles);
+          }
+
+          if ($isTableSelection(selection)) {
+            const nodes = selection.getNodes();
+            const cells = nodes.filter($isTableCellNode);
+            $patchCellStyle(cells, styles);
           }
         }
       });
     },
     [editor],
   );
-
 
   let mergeCellButton: null | JSX.Element = null;
   if (canMergeCells) {
@@ -603,7 +599,7 @@ function TableCellActionMenuContainer({
         selection.anchor.getNode(),
       );
 
-      if (tableCellNodeFromSelection == null) {
+      if (tableCellNodeFromSelection == null || !$isTableCellNode(tableCellNodeFromSelection)) {
         setTableMenuCellNode(null);
         return;
       }
@@ -643,7 +639,7 @@ function TableCellActionMenuContainer({
         const anchorRect = anchorElem.getBoundingClientRect();
 
         menuButtonDOM.style.opacity = '1';
-        menuButtonDOM.style.left = `${tableCellRect.left + menuRect.width - anchorRect.left}px`;
+        menuButtonDOM.style.left = `${tableCellRect.left + menuRect.width - 28 - anchorRect.left}px`;
 
         menuButtonDOM.style.top = `${tableCellRect.top - anchorRect.top + 4}px`;
       } else {
@@ -663,7 +659,7 @@ function TableCellActionMenuContainer({
   }, [prevTableCellDOM, tableCellNode]);
 
   return (
-    <Box sx={{ position: 'absolute', displayPrint: 'none' }} ref={menuButtonRef}>
+    <Box sx={{ position: 'absolute', displayPrint: 'none', zIndex: 1 }} ref={menuButtonRef}>
       {tableCellNode != null && (
         <>
           <IconButton size="small" ref={menuRootRef}
@@ -671,7 +667,7 @@ function TableCellActionMenuContainer({
               e.stopPropagation();
               setIsMenuOpen(!isMenuOpen);
             }}>
-            <DragIndicatorIcon fontSize='inherit' />
+            <DragIndicator fontSize='inherit' />
           </IconButton>
           {isMenuOpen && (
             <TableActionMenu
@@ -692,10 +688,13 @@ export default function TableActionMenuPlugin({
 }: {
   anchorElem?: HTMLElement;
 }): null | ReactPortal {
-  return (createPortal(
-    <TableCellActionMenuContainer
-      anchorElem={anchorElem}
-    />,
+  const isEditable = useLexicalEditable();
+  return createPortal(
+    isEditable ? (
+      <TableCellActionMenuContainer
+        anchorElem={anchorElem}
+      />
+    ) : null,
     anchorElem,
-  )) as React.ReactPortal;
+  );
 }

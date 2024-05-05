@@ -6,13 +6,12 @@
  *
  */
 
+import type { CodeHighlightNode } from './CodeHighlightNode';
 import type {
   DOMConversionMap,
   DOMConversionOutput,
-  DOMExportOutput,
-  EditorConfig,
-  LexicalEditor,
-  LexicalNode,
+    EditorConfig,
+    LexicalNode,
   NodeKey,
   ParagraphNode,
   RangeSelection,
@@ -20,39 +19,24 @@ import type {
   Spread,
   TabNode,
 } from 'lexical';
-import type { CodeHighlightNode } from '@lexical/code';
-
-import 'prismjs/components/prism-clike';
-import 'prismjs/components/prism-javascript';
-import 'prismjs/components/prism-markup';
-import 'prismjs/components/prism-markdown';
-import 'prismjs/components/prism-c';
-import 'prismjs/components/prism-css';
-import 'prismjs/components/prism-objectivec';
-import 'prismjs/components/prism-sql';
-import 'prismjs/components/prism-python';
-import 'prismjs/components/prism-rust';
-import 'prismjs/components/prism-swift';
-import 'prismjs/components/prism-typescript';
-import 'prismjs/components/prism-java';
-import 'prismjs/components/prism-cpp';
 
 import { addClassNamesToElement, isHTMLElement } from '@lexical/utils';
 import {
   $applyNodeReplacement,
   $createLineBreakNode,
   $createParagraphNode,
-  ElementNode,
-  $isTabNode,
   $createTabNode,
+  $isTabNode,
   $isTextNode,
+  ElementNode,
 } from 'lexical';
+
+import { Prism } from './CodeHighlighterPrism';
 import {
-  $isCodeHighlightNode,
   $createCodeHighlightNode,
+  $isCodeHighlightNode,
   getFirstCodeNodeOfLine,
 } from './CodeHighlightNode';
-import * as Prism from 'prismjs';
 
 export type SerializedCodeNode = Spread<
   {
@@ -206,7 +190,7 @@ export class CodeNode extends ElementNode {
     const node = $createCodeNode(serializedNode.language);
     node.setFormat(serializedNode.format);
     node.setIndent(serializedNode.indent);
-    node.setDirection(serializedNode.direction);
+    // node.setDirection(serializedNode.direction);
     return node;
   }
 
@@ -260,7 +244,9 @@ export class CodeNode extends ElementNode {
           let spaces = 0;
           const text = node.getTextContent();
           const textSize = node.getTextContentSize();
-          for (; spaces < textSize && text[spaces] === ' '; spaces++);
+          while (spaces < textSize && text[spaces] === ' ') {
+            spaces++;
+          }
           if (spaces !== 0) {
             insertNodes.push($createCodeHighlightNode(' '.repeat(spaces)));
           }

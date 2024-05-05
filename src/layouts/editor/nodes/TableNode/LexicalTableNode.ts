@@ -7,7 +7,6 @@
  */
 
 import type { TableCellNode } from './LexicalTableCellNode';
-import type { Cell, Grid } from './LexicalTableSelection';
 import type {
   DOMConversionMap,
   DOMConversionOutput,
@@ -17,32 +16,40 @@ import type {
   LexicalNode,
   NodeKey,
   SerializedElementNode,
+  Spread,
 } from 'lexical';
 
 import { addClassNamesToElement, isHTMLElement } from '@lexical/utils';
 import {
   $applyNodeReplacement,
   $getNearestNodeFromDOMNode,
-  DEPRECATED_GridNode,
-  // isHTMLElement,
+  ElementNode,
 } from 'lexical';
-import { $isTableCellNode } from './LexicalTableCellNode';
-import { $isTableRowNode, TableRowNode } from './LexicalTableRowNode';
-import { getTableGrid } from './LexicalTableSelectionHelpers';
 
-export type SerializedTableNode = SerializedElementNode;
+import { $isTableCellNode } from './LexicalTableCellNode';
+import { TableDOMCell, TableDOMTable } from './LexicalTableObserver';
+import { $isTableRowNode, TableRowNode } from './LexicalTableRowNode';
+import { getTable } from './LexicalTableSelectionHelpers';
+
+export type SerializedTableNode = Spread<
+  {
+    style?: string;
+  },
+  SerializedElementNode
+>;
 
 /** @noInheritDoc */
-export class TableNode extends DEPRECATED_GridNode {
+export class TableNode extends ElementNode {
   /** @internal */
-  __grid?: Grid;
-
+  __style?: string;
   static getType(): string {
     return 'table';
   }
 
   static clone(node: TableNode): TableNode {
-    return new TableNode(node.__key);
+    const tableNode = new TableNode(node.__key);
+    tableNode.__style = node.__style;
+    return tableNode;
   }
 
   static importDOM(): DOMConversionMap | null {
@@ -55,16 +62,19 @@ export class TableNode extends DEPRECATED_GridNode {
   }
 
   static importJSON(_serializedNode: SerializedTableNode): TableNode {
-    return $createTableNode();
+    const tableNode = $createTableNode();
+    tableNode.__style = _serializedNode.style;
+    return tableNode;
   }
 
   constructor(key?: NodeKey) {
     super(key);
   }
 
-  exportJSON(): SerializedElementNode {
+  exportJSON(): SerializedTableNode {
     return {
       ...super.exportJSON(),
+      style: this.__style,
       type: 'table',
       version: 1,
     };
@@ -75,11 +85,17 @@ export class TableNode extends DEPRECATED_GridNode {
 
     addClassNamesToElement(tableElement, config.theme.table);
 
+    if (this.__style) {
+      tableElement.style.cssText = this.__style;
+    }
+
     return tableElement;
   }
 
-  updateDOM(): boolean {
-    return false;
+  updateDOM(prevNode: TableNode): boolean {
+    return (
+      this.__style !== prevNode.__style
+    );
   }
 
   exportDOM(editor: LexicalEditor): DOMExportOutput {
@@ -87,9 +103,7 @@ export class TableNode extends DEPRECATED_GridNode {
 
     if (element) {
       const element_ = element as HTMLTableCellElement;
-      //@ts-ignore
       if (this.__style) {
-        //@ts-ignore
         element_.style.cssText = this.__style;
       }
     }
@@ -125,11 +139,6 @@ export class TableNode extends DEPRECATED_GridNode {
     };
   }
 
-  // TODO 0.10 deprecate
-  canExtractContents(): false {
-    return false;
-  }
-
   canBeEmpty(): false {
     return false;
   }
@@ -138,20 +147,33 @@ export class TableNode extends DEPRECATED_GridNode {
     return true;
   }
 
+  getStyle(): string | undefined {
+    const self = this.getLatest();
+    return self.__style;
+  }
+
+  setStyle(style: string): this {
+    const self = this.getWritable();
+    self.__style = style;
+    return self;
+  }
+
   getCordsFromCellNode(
     tableCellNode: TableCellNode,
-    grid: Grid,
+    table: TableDOMTable,
   ): { x: number; y: number } {
-    const { rows, cells } = grid;
+    const { rows, domRows } = table;
 
     for (let y = 0; y < rows; y++) {
-      const row = cells[y];
+      const row = domRows[y];
 
       if (row == null) {
-        throw new Error(`Row not found at y:${y}`);
+        continue;
       }
 
-      const x = row.findIndex(({ elem }) => {
+      const x = row.findIndex((cell) => {
+        if (!cell) return;
+        const { elem } = cell;
         const cellNode = $getNearestNodeFromDOMNode(elem);
         return cellNode === tableCellNode;
       });
@@ -164,10 +186,14 @@ export class TableNode extends DEPRECATED_GridNode {
     throw new Error('Cell not found in table.');
   }
 
-  getCellFromCords(x: number, y: number, grid: Grid): Cell | null {
-    const { cells } = grid;
+  getDOMCellFromCords(
+    x: number,
+    y: number,
+    table: TableDOMTable,
+  ): null | TableDOMCell {
+    const { domRows } = table;
 
-    const row = cells[y];
+    const row = domRows[y];
 
     if (row == null) {
       return null;
@@ -182,8 +208,12 @@ export class TableNode extends DEPRECATED_GridNode {
     return cell;
   }
 
-  getCellFromCordsOrThrow(x: number, y: number, grid: Grid): Cell {
-    const cell = this.getCellFromCords(x, y, grid);
+  getDOMCellFromCordsOrThrow(
+    x: number,
+    y: number,
+    table: TableDOMTable,
+  ): TableDOMCell {
+    const cell = this.getDOMCellFromCords(x, y, table);
 
     if (!cell) {
       throw new Error('Cell not found at cords.');
@@ -192,8 +222,12 @@ export class TableNode extends DEPRECATED_GridNode {
     return cell;
   }
 
-  getCellNodeFromCords(x: number, y: number, grid: Grid): TableCellNode | null {
-    const cell = this.getCellFromCords(x, y, grid);
+  getCellNodeFromCords(
+    x: number,
+    y: number,
+    table: TableDOMTable,
+  ): null | TableCellNode {
+    const cell = this.getDOMCellFromCords(x, y, table);
 
     if (cell == null) {
       return null;
@@ -208,8 +242,12 @@ export class TableNode extends DEPRECATED_GridNode {
     return null;
   }
 
-  getCellNodeFromCordsOrThrow(x: number, y: number, grid: Grid): TableCellNode {
-    const node = this.getCellNodeFromCords(x, y, grid);
+  getCellNodeFromCordsOrThrow(
+    x: number,
+    y: number,
+    table: TableDOMTable,
+  ): TableCellNode {
+    const node = this.getCellNodeFromCords(x, y, table);
 
     if (!node) {
       throw new Error('Node at cords not TableCellNode.');
@@ -227,17 +265,17 @@ export class TableNode extends DEPRECATED_GridNode {
   }
 }
 
-export function $getElementGridForTableNode(
+export function $getElementForTableNode(
   editor: LexicalEditor,
   tableNode: TableNode,
-): Grid {
+): TableDOMTable {
   const tableElement = editor.getElementByKey(tableNode.getKey());
 
   if (tableElement == null) {
     throw new Error('Table Element Not Found');
   }
 
-  return getTableGrid(tableElement);
+  return getTable(tableElement);
 }
 
 export function convertTableElement(_domNode: Node): DOMConversionOutput {

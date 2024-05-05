@@ -26,7 +26,7 @@
   letter-spacing: 0.00938em;
   position: relative;
   text-align: right;
-  direction: rtl;
+  /* direction: rtl; */
 }
 
 .LexicalTheme__paragraph:last-child {

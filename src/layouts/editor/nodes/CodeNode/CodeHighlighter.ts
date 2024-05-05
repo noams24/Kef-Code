@@ -1,3 +1,5 @@
+// import invariant from "../../shared/invariant";
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -7,59 +9,42 @@
  */
 
 import type {
+  BaseSelection,
   LexicalCommand,
   LexicalEditor,
   LexicalNode,
-  RangeSelection,
   LineBreakNode,
   NodeKey,
-  BaseSelection,
-  ElementNode,
-} from 'lexical';
+  RangeSelection,
+} from "lexical";
 
-import * as Prism from 'prismjs';
-
-import 'prismjs/components/prism-clike';
-import 'prismjs/components/prism-javascript';
-import 'prismjs/components/prism-markup';
-import 'prismjs/components/prism-markdown';
-import 'prismjs/components/prism-c';
-import 'prismjs/components/prism-css';
-import 'prismjs/components/prism-objectivec';
-import 'prismjs/components/prism-sql';
-import 'prismjs/components/prism-python';
-import 'prismjs/components/prism-rust';
-import 'prismjs/components/prism-swift';
-import 'prismjs/components/prism-typescript';
-import 'prismjs/components/prism-java';
-import 'prismjs/components/prism-cpp';
-import 'prismjs/components/prism-csharp';
-
-import { mergeRegister } from '@lexical/utils';
+import { mergeRegister } from "@lexical/utils";
 import {
   $createLineBreakNode,
+  $createTabNode,
   $createTextNode,
   $getNodeByKey,
   $getSelection,
+  $insertNodes,
   $isLineBreakNode,
-  $createTabNode,
   $isRangeSelection,
+  $isTabNode,
   $isTextNode,
   COMMAND_PRIORITY_LOW,
-  INSERT_TAB_COMMAND,
   INDENT_CONTENT_COMMAND,
+  INSERT_TAB_COMMAND,
   KEY_ARROW_DOWN_COMMAND,
   KEY_ARROW_UP_COMMAND,
+  KEY_TAB_COMMAND,
   MOVE_TO_END,
   MOVE_TO_START,
-  $insertNodes,
   OUTDENT_CONTENT_COMMAND,
-  KEY_TAB_COMMAND,
-  TextNode,
-  $isTabNode,
   TabNode,
-} from 'lexical';
+  TextNode,
+} from "lexical";
+import invariant from "../../shared/invariant";
 
+import { Prism, reifyPrismLanguages } from "./CodeHighlighterPrism";
 import {
   $createCodeHighlightNode,
   $isCodeHighlightNode,
@@ -67,10 +52,8 @@ import {
   DEFAULT_CODE_LANGUAGE,
   getFirstCodeNodeOfLine,
   getLastCodeNodeOfLine,
-} from './CodeHighlightNode';
-
-import { $isCodeNode, CodeNode } from './CodeNode';
-import invariant from '../../shared/invariant';
+} from "./CodeHighlightNode";
+import { $isCodeNode, CodeNode } from "./CodeNode";
 
 type TokenContent = string | Token | (string | Token)[];
 
@@ -89,7 +72,7 @@ export const PrismTokenizer: Tokenizer = {
   tokenize(code: string, language?: string): (string | Token)[] {
     return Prism.tokenize(
       code,
-      Prism.languages[language || ''] || Prism.languages[this.defaultLanguage],
+      Prism.languages[language || ""] || Prism.languages[this.defaultLanguage],
     );
   },
 };
@@ -118,9 +101,9 @@ export function getStartOfCodeInLine(
       }
       invariant(
         $isCodeHighlightNode(node) ||
-        $isTabNode(node) ||
-        $isLineBreakNode(node),
-        'Expected a valid Code Node: CodeHighlightNode, TabNode, LineBreakNode',
+          $isTabNode(node) ||
+          $isLineBreakNode(node),
+        "Expected a valid Code Node: CodeHighlightNode, TabNode, LineBreakNode",
       );
       if ($isLineBreakNode(node)) {
         last = {
@@ -135,7 +118,7 @@ export function getStartOfCodeInLine(
       nodeOffset--;
     }
     const character = nodeTextContent[nodeOffset];
-    if ($isCodeHighlightNode(node) && character !== ' ') {
+    if ($isCodeHighlightNode(node) && character !== " ") {
       lastNonBlank = {
         node,
         offset: nodeOffset,
@@ -160,7 +143,7 @@ export function getStartOfCodeInLine(
   }
   if (
     codeCharacterAtAnchorOffset !== null &&
-    codeCharacterAtAnchorOffset !== ' '
+    codeCharacterAtAnchorOffset !== " "
   ) {
     // Borderline whitespace and code, move to line beginning
     return last;
@@ -196,7 +179,7 @@ function findNextNonBlankInLine(
       }
     }
     if ($isCodeHighlightNode(node)) {
-      if (nodeTextContent[nodeOffset] !== ' ') {
+      if (nodeTextContent[nodeOffset] !== " ") {
         return {
           node,
           offset: nodeOffset,
@@ -213,7 +196,7 @@ export function getEndOfCodeInLine(
   const lastNode = getLastCodeNodeOfLine(anchor);
   invariant(
     !$isLineBreakNode(lastNode),
-    'Unexpected lineBreakNode in getEndOfCodeInLine',
+    "Unexpected lineBreakNode in getEndOfCodeInLine",
   );
   return lastNode;
 }
@@ -311,14 +294,14 @@ function getHighlightNodes(
   const nodes: LexicalNode[] = [];
 
   for (const token of tokens) {
-    if (typeof token === 'string') {
+    if (typeof token === "string") {
       const partials = token.split(/(\n|\t)/);
       const partialsLength = partials.length;
       for (let i = 0; i < partialsLength; i++) {
         const part = partials[i];
-        if (part === '\n' || part === '\r\n') {
+        if (part === "\n" || part === "\r\n") {
           nodes.push($createLineBreakNode());
-        } else if (part === '\t') {
+        } else if (part === "\t") {
           nodes.push($createTabNode());
         } else if (part.length > 0) {
           nodes.push($createCodeHighlightNode(part, type));
@@ -326,7 +309,7 @@ function getHighlightNodes(
       }
     } else {
       const { content } = token;
-      if (typeof content === 'string') {
+      if (typeof content === "string") {
         nodes.push(...getHighlightNodes([content], token.type));
       } else if (Array.isArray(content)) {
         nodes.push(...getHighlightNodes(content, token.type));
@@ -358,14 +341,13 @@ function updateAndRetainSelection(
   const anchor = selection.anchor;
   const anchorOffset = anchor.offset;
   const isNewLineAnchor =
-    anchor.type === 'element' &&
+    anchor.type === "element" &&
     $isLineBreakNode(node.getChildAtIndex(anchor.offset - 1));
   let textOffset = 0;
 
   // Calculating previous text offset (all text node prior to anchor + anchor own text offset)
   if (!isNewLineAnchor) {
-    //@ts-ignore
-    const anchorNode: ElementNode = anchor.getNode();
+    const anchorNode = anchor.getNode();
     textOffset =
       anchorOffset +
       anchorNode.getPreviousSiblings().reduce((offset, _node) => {
@@ -490,7 +472,7 @@ function $getCodeLines(
     const node = nodes[i];
     invariant(
       $isCodeHighlightNode(node) || $isTabNode(node) || $isLineBreakNode(node),
-      'Expected selection to be inside CodeBlock and consisting of CodeHighlightNode, TabNode and LineBreakNode',
+      "Expected selection to be inside CodeBlock and consisting of CodeHighlightNode, TabNode and LineBreakNode",
     );
     if ($isLineBreakNode(node)) {
       if (i !== 0 && lastLine.length > 0) {
@@ -523,10 +505,10 @@ function handleTab(shiftKey: boolean): null | LexicalCommand<void> {
   const firstNode = selectionNodes[0];
   invariant(
     $isCodeNode(firstNode) ||
-    $isCodeHighlightNode(firstNode) ||
-    $isTabNode(firstNode) ||
-    $isLineBreakNode(firstNode),
-    'Expected selection firstNode to be CodeHighlightNode or TabNode',
+      $isCodeHighlightNode(firstNode) ||
+      $isTabNode(firstNode) ||
+      $isLineBreakNode(firstNode),
+    "Expected selection firstNode to be CodeHighlightNode or TabNode",
   );
   if ($isCodeNode(firstNode)) {
     return indentOrOutdent;
@@ -592,10 +574,10 @@ function handleMultilineIndent(type: LexicalCommand<void>): boolean {
   const firstNode = selectionNodes[0];
   invariant(
     $isCodeNode(firstNode) ||
-    $isCodeHighlightNode(firstNode) ||
-    $isTabNode(firstNode) ||
-    $isLineBreakNode(firstNode),
-    'Expected selection firstNode to be CodeHighlightNode or CodeTabNode',
+      $isCodeHighlightNode(firstNode) ||
+      $isTabNode(firstNode) ||
+      $isLineBreakNode(firstNode),
+    "Expected selection firstNode to be CodeHighlightNode or CodeTabNode",
   );
   if ($isCodeNode(firstNode)) {
     // CodeNode is empty
@@ -607,7 +589,7 @@ function handleMultilineIndent(type: LexicalCommand<void>): boolean {
   const firstOfLine = getFirstCodeNodeOfLine(firstNode);
   invariant(
     firstOfLine !== null,
-    'Expected getFirstCodeNodeOfLine to return a valid Code Node',
+    "Expected getFirstCodeNodeOfLine to return a valid Code Node",
   );
   if (type === INDENT_CONTENT_COMMAND) {
     if ($isLineBreakNode(firstOfLine)) {
@@ -726,8 +708,8 @@ function handleShiftLines(
 
   const maybeInsertionPoint =
     $isCodeHighlightNode(sibling) ||
-      $isTabNode(sibling) ||
-      $isLineBreakNode(sibling)
+    $isTabNode(sibling) ||
+    $isLineBreakNode(sibling)
       ? arrowIsUp
         ? getFirstCodeNodeOfLine(sibling)
         : getLastCodeNodeOfLine(sibling)
@@ -801,9 +783,10 @@ export function registerCodeHighlighting(
   editor: LexicalEditor,
   tokenizer?: Tokenizer,
 ): () => void {
+  reifyPrismLanguages();
   if (!editor.hasNodes([CodeNode, CodeHighlightNode])) {
     throw new Error(
-      'CodeHighlightPlugin: CodeNode or CodeHighlightNode not registered on editor',
+      "CodeHighlightPlugin: CodeNode or CodeHighlightNode not registered on editor",
     );
   }
 
