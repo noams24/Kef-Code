@@ -6,7 +6,6 @@
  *
  */
 
-// eslint-disable-next-line simple-import-sort/imports
 import 'prismjs';
 
 import 'prismjs/components/prism-clike';
