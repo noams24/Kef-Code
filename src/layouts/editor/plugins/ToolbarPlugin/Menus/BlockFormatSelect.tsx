@@ -1,36 +1,40 @@
 "use client"
-import { DEPRECATED_$isGridSelection, LexicalEditor } from 'lexical';
+import type { LexicalEditor } from 'lexical';
 import { $createCodeNode } from '../../../nodes/CodeNode';
-import { INSERT_CHECK_LIST_COMMAND, INSERT_ORDERED_LIST_COMMAND, INSERT_UNORDERED_LIST_COMMAND, REMOVE_LIST_COMMAND } from '@lexical/list';
+import { INSERT_CHECK_LIST_COMMAND, INSERT_ORDERED_LIST_COMMAND, INSERT_UNORDERED_LIST_COMMAND } from '../../../nodes/ListNode';
 import { $createHeadingNode, $createQuoteNode, HeadingTagType, } from '@lexical/rich-text';
 import { $setBlocksType } from '@lexical/selection';
 import { $createParagraphNode, $getSelection, $isRangeSelection } from 'lexical';
 
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
-import CodeIcon from '@mui/icons-material/Code';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import ViewHeadlineIcon from '@mui/icons-material/ViewHeadline';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
-import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
-import { blockTypeToBlockName } from '../index';
+import { Select, MenuItem, ListItemIcon, ListItemText, SvgIcon } from '@mui/material';
+import { ViewHeadline, FormatListBulleted, FormatListNumbered, PlaylistAddCheck, FormatQuote, Code } from '@mui/icons-material';
+import { $isTableSelection } from '@/layouts/editor/nodes/TableNode';
 
-import SvgIcon from '@mui/material/SvgIcon';
-const H1Icon = () => <SvgIcon viewBox='0 96 960 960' fontSize='small'>
+const H1 = () => <SvgIcon viewBox='0 96 960 960' fontSize='small'>
   <path xmlns="http://www.w3.org/2000/svg" d="M200 776V376h60v170h180V376h60v400h-60V606H260v170h-60Zm500 0V436h-80v-60h140v400h-60Z" />
 </SvgIcon>;
-const H2Icon = () => <SvgIcon viewBox='0 96 960 960' fontSize='small'>
+const H2 = () => <SvgIcon viewBox='0 96 960 960' fontSize='small'>
   <path xmlns="http://www.w3.org/2000/svg" d="M120 776V376h60v170h180V376h60v400h-60V606H180v170h-60Zm420 0V606q0-24.75 17.625-42.375T600 546h180V436H540v-60h240q25 0 42.5 17.625T840 436v110q0 24.75-17.625 42.375T780 606H600v110h240v60H540Z" />
 </SvgIcon>;
-const H3Icon = () => <SvgIcon viewBox='0 96 960 960' fontSize='small'>
+const H3 = () => <SvgIcon viewBox='0 96 960 960' fontSize='small'>
   <path xmlns="http://www.w3.org/2000/svg" d="M120 776V376h60v170h180V376h60v400h-60V606H180v170h-60Zm420 0v-60h240V606H620v-60h160V436H540v-60h240q25 0 42.5 17.625T840 436v280q0 24.75-17.625 42.375T780 776H540Z" />
 </SvgIcon>;
-const H4Icon = () => <SvgIcon viewBox='0 96 960 960' fontSize='small'>
+const H4 = () => <SvgIcon viewBox='0 96 960 960' fontSize='small'>
   <path xmlns="http://www.w3.org/2000/svg" d="M120 776V376h60v170h180V376h60v400h-60V606H180v170h-60Zm620 0V646H540V376h60v210h140V376h60v210h80v60h-80v130h-60Z" />
 </SvgIcon>;
+
+const blockTypeToBlockName = {
+  bullet: 'Bulleted List',
+  check: 'Check List',
+  code: 'Code Block',
+  quote: 'Quote',
+  h1: 'Heading 1',
+  h2: 'Heading 2',
+  h3: 'Heading 3',
+  h4: 'Heading 4',
+  number: 'Numbered List',
+  paragraph: 'Normal',
+};
 
 export function BlockFormatSelect({ editor, blockType }: {
   blockType: keyof typeof blockTypeToBlockName;
@@ -41,12 +45,11 @@ export function BlockFormatSelect({ editor, blockType }: {
       const selection = $getSelection();
       if (
         $isRangeSelection(selection) ||
-        DEPRECATED_$isGridSelection(selection)
+        $isTableSelection(selection)
       ) {
-        $setBlocksType(selection, () => $createParagraphNode());
+        $setBlocksType(selection as any, () => $createParagraphNode());
       }
     });
-    setTimeout(() => { editor.focus() }, 0);
   };
 
   const formatHeading = (headingSize: HeadingTagType) => {
@@ -55,43 +58,36 @@ export function BlockFormatSelect({ editor, blockType }: {
         const selection = $getSelection();
         if (
           $isRangeSelection(selection) ||
-          DEPRECATED_$isGridSelection(selection)
+          $isTableSelection(selection)
         ) {
-          $setBlocksType(selection, () => $createHeadingNode(headingSize));
-          
+          $setBlocksType(selection as any, () => $createHeadingNode(headingSize));
         }
       });
     }
-    setTimeout(() => { editor.focus() }, 0);
   };
 
   const formatBulletList = () => {
     if (blockType !== 'bullet') {
       editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
     } else {
-      editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
+      formatParagraph();
     }
-    setTimeout(() => { editor.focus() }, 0);
   };
 
   const formatCheckList = () => {
     if (blockType !== 'check') {
       editor.dispatchCommand(INSERT_CHECK_LIST_COMMAND, undefined);
-      
     } else {
-      editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
+      formatParagraph();
     }
-    setTimeout(() => { editor.focus() }, 0);
   };
 
   const formatNumberedList = () => {
     if (blockType !== 'number') {
       editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined);
-      
     } else {
-      editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
+      formatParagraph();
     }
-    setTimeout(() => { editor.focus() }, 0);
   };
 
   const formatQuote = () => {
@@ -100,10 +96,9 @@ export function BlockFormatSelect({ editor, blockType }: {
         const selection = $getSelection();
         if (
           $isRangeSelection(selection) ||
-          DEPRECATED_$isGridSelection(selection)
+          $isTableSelection(selection)
         ) {
-          $setBlocksType(selection, () => $createQuoteNode());
-          setTimeout(() => { editor.focus() }, 0);
+          $setBlocksType(selection as any, () => $createQuoteNode());
         }
       });
     }
@@ -116,10 +111,10 @@ export function BlockFormatSelect({ editor, blockType }: {
 
         if (
           $isRangeSelection(selection) ||
-          DEPRECATED_$isGridSelection(selection)
+          $isTableSelection(selection)
         ) {
           if (selection.isCollapsed()) {
-            $setBlocksType(selection, () => $createCodeNode());
+            $setBlocksType(selection as any, () => $createCodeNode());
           } else {
             const textContent = selection.getTextContent();
             const codeNode = $createCodeNode();
@@ -131,74 +126,73 @@ export function BlockFormatSelect({ editor, blockType }: {
         }
       });
     }
-    setTimeout(() => { editor.focus() }, 0);
   };
   
   return (
     <Select value={blockType} aria-label="Formatting options for text style" size='small' sx={{
-      '& .MuiSelect-select': { display: 'flex', alignItems: 'center', py: 0.5 },
-      '& .MuiListItemIcon-root': { mr: { sm: 0.5 }, minWidth: 20 },
-      '& .MuiListItemText-root': { display: { xs: "none", sm: "flex" } }
+      '& .MuiSelect-select': { display: 'flex !important', alignItems: 'center', py: 0.5 },
+      '& .MuiListItemIcon-root': { mr: { md: 0.5 }, minWidth: 20 },
+      '& .MuiListItemText-root': { display: { xs: "none", md: "flex" } }
     }}>
       <MenuItem value='paragraph' onClick={formatParagraph}>
         <ListItemIcon>
-          <ViewHeadlineIcon fontSize="small" />
+          <ViewHeadline fontSize="small" />
         </ListItemIcon>
-        <ListItemText>פסקה</ListItemText>
+        <ListItemText>Normal</ListItemText>
       </MenuItem>
       <MenuItem value='h1' onClick={() => formatHeading('h1')}>
         <ListItemIcon>
-          <H1Icon />
+          <H1 />
         </ListItemIcon>
-        <ListItemText>כותרת 1</ListItemText>
+        <ListItemText>Heading 1</ListItemText>
       </MenuItem>
       <MenuItem value='h2' onClick={() => formatHeading('h2')}>
         <ListItemIcon>
-          <H2Icon />
+          <H2 />
         </ListItemIcon>
-        <ListItemText>כותרת 2</ListItemText>
+        <ListItemText>Heading 2</ListItemText>
       </MenuItem>
       <MenuItem value='h3' onClick={() => formatHeading('h3')}>
         <ListItemIcon>
-          <H3Icon />
+          <H3 />
         </ListItemIcon>
-        <ListItemText>כותרת 3</ListItemText>
+        <ListItemText>Heading 3</ListItemText>
       </MenuItem>
       <MenuItem value='h4' onClick={() => formatHeading('h4')}>
         <ListItemIcon>
-          <H4Icon />
+          <H4 />
         </ListItemIcon>
-        <ListItemText>כותרת 4</ListItemText>
+        <ListItemText>Heading 4</ListItemText>
       </MenuItem>
       <MenuItem value='bullet' onClick={formatBulletList}>
         <ListItemIcon>
-          <FormatListBulletedIcon fontSize="small" />
+          <FormatListBulleted fontSize="small" />
         </ListItemIcon>
-        <ListItemText>תבליטים</ListItemText>
+        <ListItemText>Bullet List</ListItemText>
       </MenuItem>
       <MenuItem value='number' onClick={formatNumberedList}>
         <ListItemIcon>
-          <FormatListNumberedIcon fontSize="small" />
+          <FormatListNumbered fontSize="small" />
         </ListItemIcon>
-        <ListItemText>מספור</ListItemText>
+        <ListItemText>Numbered List</ListItemText>
       </MenuItem>
       <MenuItem value='check' onClick={formatCheckList}>
         <ListItemIcon>
-          <PlaylistAddCheckIcon fontSize="small" />
+          <PlaylistAddCheck fontSize="small" />
         </ListItemIcon>
-        <ListItemText>{"צ'ק ליסט"}</ListItemText>
+        <ListItemText>Check List</ListItemText>
       </MenuItem>
       <MenuItem value='quote' onClick={formatQuote}>
         <ListItemIcon>
-          <FormatQuoteIcon fontSize="small" />
+          <FormatQuote fontSize="small" />
         </ListItemIcon>
-        <ListItemText>ציטוט</ListItemText>
+        <ListItemText>Quote</ListItemText>
       </MenuItem>
       <MenuItem value='code' onClick={formatCode}>
         <ListItemIcon>
-          <CodeIcon fontSize="small" />
+          <Code fontSize="small" />
         </ListItemIcon>
-        <ListItemText>קוד</ListItemText>
+        <ListItemText>CodeBlock</ListItemText>
       </MenuItem>
     </Select>
   );

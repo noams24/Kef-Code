@@ -11,10 +11,10 @@ import type { Spread } from 'lexical';
 import { addClassNamesToElement } from '@lexical/utils';
 import {
   $applyNodeReplacement,
-  DEPRECATED_GridRowNode,
   DOMConversionMap,
   DOMConversionOutput,
   EditorConfig,
+  ElementNode,
   LexicalNode,
   NodeKey,
   SerializedElementNode,
@@ -24,13 +24,13 @@ import { PIXEL_VALUE_REG_EXP } from './constants';
 
 export type SerializedTableRowNode = Spread<
   {
-    height: number;
+    height?: number;
   },
   SerializedElementNode
 >;
 
 /** @noInheritDoc */
-export class TableRowNode extends DEPRECATED_GridRowNode {
+export class TableRowNode extends ElementNode {
   /** @internal */
   __height?: number;
 
@@ -60,9 +60,10 @@ export class TableRowNode extends DEPRECATED_GridRowNode {
     this.__height = height;
   }
 
-  exportJSON(): SerializedElementNode {
+  exportJSON(): SerializedTableRowNode {
     return {
       ...super.exportJSON(),
+      ...(this.getHeight() && { height: this.getHeight() }),
       type: 'tablerow',
       version: 1,
     };
@@ -84,13 +85,13 @@ export class TableRowNode extends DEPRECATED_GridRowNode {
     return true;
   }
 
-  setHeight(height: number): number | null | undefined {
+  setHeight(height: number): number | undefined {
     const self = this.getWritable();
     self.__height = height;
     return this.__height;
   }
 
-  getHeight(): number | null | undefined {
+  getHeight(): number | undefined {
     return this.getLatest().__height;
   }
 

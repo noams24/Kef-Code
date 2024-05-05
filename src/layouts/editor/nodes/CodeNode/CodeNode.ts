@@ -6,6 +6,7 @@
  *
  */
 
+import type {CodeHighlightNode} from '@lexical/code';
 import type {
   DOMConversionMap,
   DOMConversionOutput,
@@ -20,39 +21,25 @@ import type {
   Spread,
   TabNode,
 } from 'lexical';
-import type { CodeHighlightNode } from '@lexical/code';
 
-import 'prismjs/components/prism-clike';
-import 'prismjs/components/prism-javascript';
-import 'prismjs/components/prism-markup';
-import 'prismjs/components/prism-markdown';
-import 'prismjs/components/prism-c';
-import 'prismjs/components/prism-css';
-import 'prismjs/components/prism-objectivec';
-import 'prismjs/components/prism-sql';
-import 'prismjs/components/prism-python';
-import 'prismjs/components/prism-rust';
-import 'prismjs/components/prism-swift';
-import 'prismjs/components/prism-typescript';
-import 'prismjs/components/prism-java';
-import 'prismjs/components/prism-cpp';
+import './CodeHighlighterPrism';
 
-import { addClassNamesToElement, isHTMLElement } from '@lexical/utils';
+import {addClassNamesToElement, isHTMLElement} from '@lexical/utils';
 import {
   $applyNodeReplacement,
   $createLineBreakNode,
   $createParagraphNode,
-  ElementNode,
-  $isTabNode,
   $createTabNode,
+  $isTabNode,
   $isTextNode,
+  ElementNode,
 } from 'lexical';
+
 import {
-  $isCodeHighlightNode,
   $createCodeHighlightNode,
+  $isCodeHighlightNode,
   getFirstCodeNodeOfLine,
 } from './CodeHighlightNode';
-import * as Prism from 'prismjs';
 
 export type SerializedCodeNode = Spread<
   {
@@ -65,7 +52,7 @@ const mapToPrismLanguage = (
   language: string | null | undefined,
 ): string | null | undefined => {
   // eslint-disable-next-line no-prototype-builtins
-  return language != null && Prism.languages.hasOwnProperty(language)
+  return language != null && window.Prism.languages.hasOwnProperty(language)
     ? language
     : undefined;
 };
@@ -129,6 +116,17 @@ export class CodeNode extends ElementNode {
     return false;
   }
 
+  exportDOM(editor: LexicalEditor): DOMExportOutput {
+    const element = document.createElement('pre');
+    addClassNamesToElement(element, editor._config.theme.code);
+    element.setAttribute('spellcheck', 'false');
+    const language = this.getLanguage();
+    if (language) {
+      element.setAttribute(LANGUAGE_DATA_ATTRIBUTE, language);
+    }
+    return {element};
+  }
+
   static importDOM(): DOMConversionMap | null {
     return {
       // Typically <pre> is used for code blocks, and <code> for inline code styles
@@ -141,9 +139,9 @@ export class CodeNode extends ElementNode {
 
         return isMultiLine
           ? {
-            conversion: convertPreElement,
-            priority: 1,
-          }
+              conversion: convertPreElement,
+              priority: 1,
+            }
           : null;
       },
       div: (node: Node) => ({
@@ -170,13 +168,7 @@ export class CodeNode extends ElementNode {
         const td = node as HTMLTableCellElement;
         const table: HTMLTableElement | null = td.closest('table');
 
-        if (isGitHubCodeCell(td)) {
-          return {
-            conversion: convertTableCellElement,
-            priority: 3,
-          };
-        }
-        if (table && isGitHubCodeTable(table)) {
+        if (isGitHubCodeCell(td) || (table && isGitHubCodeTable(table))) {
           // Return a no-op if it's a table cell in a code table, but not a code line.
           // Otherwise it'll fall back to the T
           return {
@@ -245,7 +237,7 @@ export class CodeNode extends ElementNode {
     // If the selection is within the codeblock, find all leading tabs and
     // spaces of the current line. Create a new line that has all those
     // tabs and spaces, such that leading indentation is preserved.
-    const { anchor, focus } = selection;
+    const {anchor, focus} = selection;
     const firstPoint = anchor.isBefore(focus) ? anchor : focus;
     const firstSelectionNode = firstPoint.getNode();
     if ($isTextNode(firstSelectionNode)) {
@@ -260,7 +252,9 @@ export class CodeNode extends ElementNode {
           let spaces = 0;
           const text = node.getTextContent();
           const textSize = node.getTextContentSize();
-          for (; spaces < textSize && text[spaces] === ' '; spaces++);
+          while (spaces < textSize && text[spaces] === ' ') {
+            spaces++;
+          }
           if (spaces !== 0) {
             insertNodes.push($createCodeHighlightNode(' '.repeat(spaces)));
           }
@@ -288,7 +282,7 @@ export class CodeNode extends ElementNode {
       }
     }
     if ($isCodeNode(firstSelectionNode)) {
-      const { offset } = selection.anchor;
+      const {offset} = selection.anchor;
       firstSelectionNode.splice(offset, 0, [$createLineBreakNode()]);
       firstSelectionNode.select(offset + 1, offset + 1);
     }
@@ -335,7 +329,7 @@ function convertPreElement(domNode: Node): DOMConversionOutput {
   if (isHTMLElement(domNode)) {
     language = domNode.getAttribute(LANGUAGE_DATA_ATTRIBUTE);
   }
-  return { node: $createCodeNode(language) };
+  return {node: $createCodeNode(language)};
 }
 
 function convertDivElement(domNode: Node): DOMConversionOutput {
@@ -348,39 +342,16 @@ function convertDivElement(domNode: Node): DOMConversionOutput {
     };
   }
   return {
-    after: (childLexicalNodes) => {
-      const domParent = domNode.parentNode;
-      if (domParent != null && domNode !== domParent.lastChild) {
-        childLexicalNodes.push($createLineBreakNode());
-      }
-      return childLexicalNodes;
-    },
     node: isCode ? $createCodeNode() : null,
   };
 }
 
 function convertTableElement(): DOMConversionOutput {
-  return { node: $createCodeNode() };
+  return {node: $createCodeNode()};
 }
 
 function convertCodeNoop(): DOMConversionOutput {
-  return { node: null };
-}
-
-function convertTableCellElement(domNode: Node): DOMConversionOutput {
-  // domNode is a <td> since we matched it by nodeName
-  const cell = domNode as HTMLTableCellElement;
-
-  return {
-    after: (childLexicalNodes) => {
-      if (cell.parentNode && cell.parentNode.nextSibling) {
-        // Append newline between code lines
-        childLexicalNodes.push($createLineBreakNode());
-      }
-      return childLexicalNodes;
-    },
-    node: null,
-  };
+  return {node: null};
 }
 
 function isCodeElement(div: HTMLElement): boolean {

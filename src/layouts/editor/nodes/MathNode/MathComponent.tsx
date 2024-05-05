@@ -18,6 +18,7 @@ import { mergeRegister } from "@lexical/utils";
 import type { MathfieldElement, MathfieldElementAttributes } from "mathlive";
 import { inlineShortcuts, keyboard } from "@/app/shortcuts/constants";
 import "./index.css";
+import { $isMathNode } from ".";
 
 type CustomElement<T> = Partial<T & DOMAttributes<T>>;
 
@@ -122,7 +123,7 @@ export default function MathComponent({
         editor.update(() => {
           if (value === initialValue) return;
           const node = $getNodeByKey(nodeKey);
-          if (!node) return;
+          if (!$isMathNode(node)) return;
           node.setValue(value);
         });
         if (event.inputType === "insertLineBreak") {
@@ -201,8 +202,11 @@ export default function MathComponent({
       });
     });
 
-    mathfield.inlineShortcuts = {...mathfield.inlineShortcuts, ...inlineShortcuts}
-    window.mathVirtualKeyboard.layouts = keyboard
+    mathfield.inlineShortcuts = {
+      ...mathfield.inlineShortcuts,
+      ...inlineShortcuts,
+    };
+    window.mathVirtualKeyboard.layouts = keyboard;
   }, []);
 
   const focus = useCallback((mathfield: MathfieldElement) => {

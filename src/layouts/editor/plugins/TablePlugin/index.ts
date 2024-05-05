@@ -1,4 +1,3 @@
-"use client"
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -10,13 +9,9 @@
 import type {
   HTMLTableElementWithWithTableSelectionState,
   InsertTableCommandPayload,
-  TableSelection,
+  TableObserver,
 } from '../../nodes/TableNode';
-import type {
-  ElementNode,
-  LexicalNode,
-  NodeKey,
-} from 'lexical';
+import type { NodeKey } from 'lexical';
 
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
@@ -38,17 +33,11 @@ import {
 import { useEffect } from 'react';
 import invariant from '../../shared/invariant';
 
-// TODO extract to utils
-function $insertFirst(parent: ElementNode, node: LexicalNode): void {
-  const firstChild = parent.getFirstChild();
-  if (firstChild !== null) {
-    firstChild.insertBefore(node);
-  } else {
-    parent.append(node);
-  }
-}
-
-export function TablePlugin(): JSX.Element | null {
+export function TablePlugin({
+  hasTabHandler = true,
+}: {
+  hasTabHandler?: boolean;
+}): JSX.Element | null {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
@@ -81,7 +70,7 @@ export function TablePlugin(): JSX.Element | null {
   }, [editor]);
 
   useEffect(() => {
-    const tableSelections = new Map<NodeKey, TableSelection>();
+    const tableSelections = new Map<NodeKey, TableObserver>();
 
     const initializeTableNode = (tableNode: TableNode) => {
       const nodeKey = tableNode.getKey();
@@ -93,6 +82,7 @@ export function TablePlugin(): JSX.Element | null {
           tableNode,
           tableElement,
           editor,
+          hasTabHandler,
         );
         tableSelections.set(nodeKey, tableSelection);
       }

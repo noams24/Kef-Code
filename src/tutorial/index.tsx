@@ -1,6 +1,6 @@
 import ToggleButton from "@mui/material/ToggleButton";
 import Typography from "@mui/material/Typography";
-import { type EditorState } from "lexical";
+import { TextNode, type EditorState } from "lexical";
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
 import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
@@ -218,11 +218,8 @@ const task1Checkpoints = [
       if (!editorState) return result;
       editorState.read(() => {
         editorState._nodeMap.forEach((node) => {
-          if (node.__value === 6) {
-            const paragraphNode = node.getParent()?.getNextSibling();
-            if (!paragraphNode) return result;
-            const target = paragraphNode.getFirstChild();
-            if (target && target.hasFormat("subscript")) result = true;
+          if (node.getTextContent() === "subscript") {
+            if ((node as TextNode).hasFormat("subscript")) result = true;
           }
         });
       });
@@ -248,11 +245,8 @@ const task1Checkpoints = [
       if (!editorState) return result;
       editorState.read(() => {
         editorState._nodeMap.forEach((node) => {
-          if (node.__value === 7) {
-            const paragraphNode = node.getParent()?.getNextSibling();
-            if (!paragraphNode) return result;
-            const target = paragraphNode.getFirstChild();
-            if (target && target.hasFormat("superscript")) result = true;
+          if (node.getTextContent() === "superscript") {
+            if ((node as TextNode).hasFormat("superscript")) result = true;
           }
         });
       });
