@@ -244,11 +244,12 @@
   padding: 0;
   margin: 0;
   list-style-position: inside;
-  direction: rtl;
+  /* direction: rtl; */
 }
 
 .LexicalTheme__listItem {
-  margin: 8px 0;
+  margin: 8px 16px;
+  text-align: start;
 }
 
 .LexicalTheme__listItemChecked,
