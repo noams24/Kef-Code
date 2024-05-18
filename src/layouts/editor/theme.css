@@ -127,14 +127,17 @@
   overflow-x: auto;
   position: relative;
   tab-size: 2;
+  text-align: left;
+  direction: ltr;
 }
 
 .LexicalTheme__code:before {
-  content: attr(data-gutter);
+  content: attr(data-gutter) ;
   position: absolute;
   background-color: #eee;
   left: 0;
   top: 0;
+  bottom: 0;
   border-right: 1px solid #ccc;
   padding: 8px;
   color: #777;
