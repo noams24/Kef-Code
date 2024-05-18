@@ -33,7 +33,7 @@ export const useGenerationStore3 = create<GenerationState3>()((set) => ({
 }))
 
 export const useDevelop = create<any>()((set) => ({
-  development: process.env.NODE_ENV !== "development",
+  development: process.env.NODE_ENV === "development",
   setDevelop: (development: string) => set({ development })
 }))
 
