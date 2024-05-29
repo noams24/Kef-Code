@@ -1,5 +1,6 @@
 "use client";
 
+import useWindowSize from "@/hooks/useWindowSize";
 import {
   KeyboardEvent,
   ReactElement,
@@ -14,6 +15,7 @@ function Tabs({ children }: { children: ReactElement[] }) {
   //select tabItems
   const tabItemsRef: RefObject<HTMLElement[]> = useRef([]);
   const [defaultFocus, setDefaultFocus] = useState(false);
+  const { width, height } = useWindowSize();
 
   useEffect(() => {
     if (defaultFocus) {
@@ -58,7 +60,7 @@ function Tabs({ children }: { children: ReactElement[] }) {
       {children.map((data: ReactElement, index: number) => (
         <div
           key={index}
-          className={`tab-content ${index === active ? "block" : "hidden"}`}
+          className={`tab-content ${height > 900 ? "min-h-[78dvh]" : "min-h-[76.5dvh]"}  ${index === active ? "block" : "hidden"} my-2`}
         >
           {data.props.children}
         </div>

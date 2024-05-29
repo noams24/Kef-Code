@@ -38,7 +38,7 @@ import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import { Snackbar } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import { useMutation } from "@tanstack/react-query";
-import { handlePayment } from "@/app/action";
+import { handlePayment } from "@/lib/actions/action";
 import { QueryContext } from "@/partials/ChildrenProviders";
 
 interface Props {

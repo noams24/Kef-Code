@@ -227,7 +227,6 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
           הקישור הועתק
         </Alert>
       </Snackbar>
-
       <Tabs>
         <Tab name="הגשות">
           {!userId ? (
@@ -339,7 +338,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                   <Feed data={soltionSectionData} />
                 </>
               ) : (
-                <h3 className="flex justify-center mt-5">אין פתרונות להצגה</h3>
+                <h3 className="flex justify-center">אין פתרונות להצגה</h3>
               )}
 
               {soltionSectionData && workSpaceData && (
@@ -397,7 +396,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                 </Accordion>
               </div>
             ) : (
-              <h3 className="flex justify-center mt-5 mb-5">אין פתרון עדיין</h3>
+              <h3 className="flex justify-center">אין פתרון עדיין</h3>
             )}
           </div>
         </Tab>
@@ -418,7 +417,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
               />{" "}
             </div>
           ) : (
-            <div className="my-2 ">
+            <div>
               <div className="flex justify-between items-center">
                 {workSpaceData && workSpaceData.hint ? (
                   <Tippy content={workSpaceData.hint} placement="right">

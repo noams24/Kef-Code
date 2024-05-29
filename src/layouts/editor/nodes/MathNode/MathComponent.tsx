@@ -16,7 +16,8 @@ import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { useLexicalNodeSelection } from "@lexical/react/useLexicalNodeSelection";
 import { mergeRegister } from "@lexical/utils";
 import type { MathfieldElement, MathfieldElementAttributes } from "mathlive";
-import { inlineShortcuts, keyboard } from "@/app/shortcuts/constants";
+// import { inlineShortcuts, keyboard } from "@/app/shortcuts/constants";
+import { inlineShortcuts, keyboard } from "@/app/(site)/shortcuts/constants";
 import "./index.css";
 import { $isMathNode } from ".";
 
