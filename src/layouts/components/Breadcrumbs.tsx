@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/BreadCrumb";
 
 const Breadcrumbs = () => {
+
   const pathname = usePathname();
   const paths = pathname.split("/").filter((x) => x);
   let parts = [
@@ -40,9 +41,12 @@ const Breadcrumbs = () => {
         "aria-label": pathname === href ? "page" : undefined,
       });
   });
+  
+  // parts = parts.length >= 5 ? parts.slice(2,5) : parts
+  parts = parts.length >= 5 ? parts.slice(1,5) : parts
 
   return (
-    <div className="items-center flex justify-center">
+    <div className="flex justify-center items-center">
       <Breadcrumb>
         <BreadcrumbList>
           {parts.map(({ label, ...attrs }, index) => (
@@ -70,7 +74,7 @@ const Breadcrumbs = () => {
           ))}
         </BreadcrumbList>
       </Breadcrumb>
-    </div>
+      </div>
   );
 };
 

@@ -195,7 +195,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
     <>
       {problemId && <TopBar problemId={problemId} />}
       <Split
-        className={`split ${height > 900 ? "h-[77vh]" : "h-[70vh]"}`}
+        className={`split ${height > 900 ? "h-[88dvh]" : "h-[85dvh]"}`}
         minSize={0}
       >
         <SolutionSection
@@ -209,27 +209,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
         />
 
         {/*EDITOR SECTION */}
-        <div className="w-full overflow-y-auto font-arial">
-          {/* {development || !userId ? (
-            <Editor
-              document={document}
-              onChange={(editor) => onChange(editor, setJsonState, problemId)}
-            />
-          ) : !isLoadingData && workSpaceData ? (
-            workSpaceData.content?.content ? (
-              <Editor
-                document={{ data: workSpaceData.content.content }}
-                onChange={(editor) => onChange(editor, setJsonState, problemId)}
-              />
-            ) : (
-              <Editor
-                document={document}
-                onChange={(editor) => onChange(editor, setJsonState, problemId)}
-              />
-            )
-          ) : (
-            <h3 className="flex justify-center items-center ">טוען</h3>
-          )} */}
+        <div className="w-full overflow-y-auto font-arial border rounded-lg border-border dark:border-darkmode-border">
           {development ? (
             <Editor
               document={document}

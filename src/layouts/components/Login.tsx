@@ -1,30 +1,22 @@
-import { authOptions } from '@/lib/auth'
-import { getServerSession } from 'next-auth'
+'use client'
+// import { authOptions, getAuthSession } from '@/lib/auth'
+// import { getServerSession } from 'next-auth'
 import { UserAccountNav } from '@/components/UserAccountNav'
-import Link from "next/link";
+// import Link from "next/link";
 import LoginModal from '@/partials/LoginModal';
+import { useSession } from "next-auth/react";
 
-const Login: React.FC<{}> = async () => {
-  let session = undefined
-  // const develop = (process.env.NODE_ENV === "development")
-    try{
-      session = await getServerSession(authOptions);
-    }
-    catch{
-      
-    }
+const Login: React.FC<{}> =  () => {
+      const session = useSession()
+
     return (
       <>
-      {session?.user ? (
-          <UserAccountNav user={session.user} />
+      
+
+      {(session && session.data && session.data.user) ? (
+          <UserAccountNav user={session.data.user} />
         ) : (
           <LoginModal/>
-          //   <Link
-          //   className="btn btn-outline-primary btn-sm hidden lg:inline-block"
-          //   href="/sign-in"
-          // >
-          //   כניסה
-          // </Link>
         )} 
       </>
     );
@@ -32,3 +24,4 @@ const Login: React.FC<{}> = async () => {
 
   export default Login;
   
+  {/*@ts-ignore */}

@@ -12,6 +12,9 @@ import Link from "next/link";
 import QuestionsDrawer from "./QuestionsDrawer";
 import { useState } from "react";
 import QuestionCard from "./QuestionCard";
+import Logo from "../Logo";
+import Login from "../Login";
+import ThemeSwitcher from "../ThemeSwitcher";
 
 // const mockData = [
 //   {
@@ -76,7 +79,11 @@ const TopBar = (problemId: any) => {
         </div>
       </QuestionsDrawer>
       <div className="h-8 items-center mx-auto px-12 mt-5 pb-3 flex justify-between gap-2 rounded bg-gradient-to-b from-body to-theme-light dark:from-darkmode-body dark:to-darkmode-theme-light">
-        <div className="flex items-center justify-between h-6 w-20 cursor-pointer">
+        <div className="flex items-center justify-between h-6 w-20 cursor-pointer gap-2">
+          <div className="order-0 flex items-center md:order-0 lg:ml-0">
+            <Login />
+            <ThemeSwitcher className="mx-5" />
+          </div>
           <span
             title="שאלה קודמת"
             className="custom-border text-zinc-600 dark:text-zinc-300  hover:text-black dark:hover:text-white"
@@ -115,14 +122,14 @@ const TopBar = (problemId: any) => {
           </span>
           <span
             title="עוד שאלות"
-            className="h-6 w-6 flex justify-center custom-border text-zinc-600 dark:text-zinc-300 hover:text-black hover:dark:text-white"
+            className="h-6  flex justify-center custom-border text-zinc-600 dark:text-zinc-300 hover:text-black hover:dark:text-white"
           >
             {data ? (
-              <button onClick={() => setOpen(true)}>
+              <button className="px-[3px]" onClick={() => setOpen(true)}>
                 <BsList />
               </button>
             ) : (
-              <button>
+              <button className="px-[3px]">
                 <BsList />
               </button>
             )}
@@ -164,10 +171,16 @@ const TopBar = (problemId: any) => {
             )}
           </span>
         </div>
+        {/* <BreadcrumbCompact /> */}
+        <div className="-mr-10">
         <Breadcrumbs />
+        </div>
         <div className="flex items-center justify-around rounded-lg h-6 gap-2">
-          <Timer />
-          <FullScreen />
+          <div className="flex gap-2 mr-5">
+            <Timer />
+            <FullScreen />
+          </div>
+          <Logo isSmall={true} />
         </div>
       </div>
     </section>
