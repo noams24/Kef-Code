@@ -110,8 +110,6 @@
 
 .LexicalTheme__link:hover {
   @apply text-blue-500 dark:text-blue-500 underline cursor-pointer
-  /* text-decoration: underline;
-  cursor: pointer; */
 }
 
 .LexicalTheme__code {
