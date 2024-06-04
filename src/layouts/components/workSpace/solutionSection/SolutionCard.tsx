@@ -42,7 +42,7 @@ const SolutionCard: React.FC<SolutionCardProps> = ({
               target="_blank"
               className="pt-1 font-bold font-primary text-center text-lg hover:text-blue-500 dark:hover:text-blue-500"
             >
-              {humanize(author)}
+              {author}
             </Link>
           </div>
           <div className="flex justify-center items-center text-sm mb-1">

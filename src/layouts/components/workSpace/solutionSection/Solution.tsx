@@ -99,11 +99,11 @@ const Solution: React.FC<SolutionProps> = ({ data, userId }) => {
           />
           <div className="mr-1">
             <Link
-              href={`/user/${slugify(data.user.username)}`}
+              href={`/user/${data.user.username}`}
               className="mr-4 font-primary font-bold text-center text-lg hover:text-blue-500 dark:hover:text-blue-500"
               target="_blank"
             >
-              {humanize(data.user.username)}
+              {data.user.username}
             </Link>
             <div className="flex">
               <span className="mr-4">{hebrewDateFormat(data.createdAt)}</span>

@@ -159,7 +159,7 @@
   white-space: pre-wrap;
   text-align: end;
   left: 0;
-  padding-right: 2px;
+  padding-right: 3px;
   min-width: 25px;
   @apply text-gray-700 dark:text-gray-200 opacity-30
 }

@@ -81,12 +81,12 @@ const View = ({ data, children }: any) => {
             className="h-12 w-12"
           />
           <div className="mr-1">
-            <a
-              href={`/user/${slugify(data.user.username)}`}
+            <Link
+              href={`/user/${data.user.username}`}
               className="mr-4 font-bold font-primary text-center text-lg hover:text-blue-500 dark:hover:text-blue-500"
             >
-              {humanize(data.user.username)}
-            </a>
+              {data.user.username}
+            </Link>
             <div className="flex">
               <span className="mr-4">{hebrewDateFormat(data.createdAt)}</span>
             </div>
@@ -119,7 +119,7 @@ const View = ({ data, children }: any) => {
             שם השאלה:{" "}
             <Link
               href={`/courses/${data.problem.course}/${data.problem.chapter}/${data.problem.title}`}
-              className="hover:text-blue-500 hover:underline"
+              className="hover:text-blue-500 hover:underline font-arial font-bold"
             >
               {data.problem.title}
             </Link>
