@@ -50,7 +50,7 @@ interface Data {
 async function onChange(
   state: EditorState,
   setJsonState: React.Dispatch<React.SetStateAction<EditorContentType>>,
-  problemId: any,
+  problemId: any
 ) {
   state.read(() => {
     if (state.isEmpty()) {
@@ -209,7 +209,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
         />
 
         {/*EDITOR SECTION */}
-        <div className="w-full overflow-y-auto font-arial border rounded-lg border-border dark:border-darkmode-border">
+        <div className="flex flex-col w-full overflow-y-auto font-arial border rounded-lg border-border dark:border-darkmode-border relative">
           {development ? (
             <Editor
               document={document}

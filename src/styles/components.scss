@@ -263,3 +263,7 @@
 .hoverText:has(+ .hoverText + .hoverText:hover) {
   @apply font-light
 }
+
+.muiAppBar {
+  @apply  overflow-x-auto top-0 rounded-lg bg-white dark:bg-darkmode-theme-light
+}

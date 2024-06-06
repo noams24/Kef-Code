@@ -246,6 +246,7 @@ code {
 
 ::-webkit-scrollbar {
   width: 10px;
+  height: 8px;
 }
 
 [theme="dark"] ::-webkit-scrollbar-track {
@@ -255,7 +256,6 @@ code {
 ::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 0.5rem;
-  
 }
 
 [theme="dark"] ::-webkit-scrollbar-thumb:hover {

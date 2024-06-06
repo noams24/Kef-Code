@@ -28,15 +28,15 @@ export const Editor: React.FC<{
     <LexicalComposer initialConfig={{ ...editorConfig, ...initialConfig }}>
       <>
         <ToolbarPlugin />
-        <div className="mt-3 mx-8">
-          <EditorPlugins
-            contentEditable={<ContentEditable className="editor-input" />}
-            onChange={onChange}
-          />
-          {/*@ts-ignore */}
-          {editorRef && <EditorRefPlugin editorRef={editorRef} />}
-          {/* {process.env.NODE_ENV === "development" && <TreeViewPlugin />} */}
-        </div>
+        <EditorPlugins
+          contentEditable={
+            <ContentEditable className="editor-input" />
+          }
+          onChange={onChange}
+        />
+        {/*@ts-ignore */}
+        {editorRef && <EditorRefPlugin editorRef={editorRef} />}
+        {/* {process.env.NODE_ENV === "development" && <TreeViewPlugin />} */}
       </>
     </LexicalComposer>
   );

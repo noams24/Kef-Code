@@ -1,6 +1,7 @@
-.editor-container {
-  margin: 1rem auto;
-}
+/* .editor-container:has(.editor-input) {
+  display: flex;
+  flex-direction: column;
+} */
 
 .editor-input {
   flex: 1;
@@ -11,6 +12,7 @@
   tab-size: 1;
   outline: 0;
   caret-color: #444;
+  @apply mt-3 mx-4
 }
 
 [theme="dark"] .editor-input {
@@ -23,12 +25,13 @@
   overflow: hidden;
   position: absolute;
   text-overflow: ellipsis;
-  top: 15px;
-  left: 10px;
+  top: 93px;
+  right: 17.5px;
   font-size: 15px;
   user-select: none;
   display: inline-block;
   pointer-events: none;
+  direction: rtl;
 }
 
 .tree-view-output {

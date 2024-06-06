@@ -206,7 +206,7 @@ const Home = () => {
             </div>
           </div>
           <div className="flex justify-center mb-10">
-            <div className="font-arial min-h-[500px] w-2/3 max-w-2xl rounded-md border border-gray-400 dark:border-gray-400">
+            <div className="font-arial min-h-[500px] w-2/3 max-w-2xl rounded-md border border-gray-400 dark:border-gray-400 flex flex-col relative">
               <Editor document={document} />
             </div>
           </div>

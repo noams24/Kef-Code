@@ -50,7 +50,11 @@ export const EditorPlugins: React.FC<{
 
   return (
     <>
-      <RichTextPlugin contentEditable={contentEditable} ErrorBoundary={LexicalErrorBoundary} placeholder={placeholder} />
+      <RichTextPlugin contentEditable={contentEditable} ErrorBoundary={LexicalErrorBoundary} placeholder={
+      <p className="editor-placeholder">
+         כתוב / כדי לראות את כל הפקודות
+      </p>}
+       />
       <HistoryPlugin externalHistoryState={historyState} />
       {onChange && <OnChangePlugin ignoreHistoryMergeTagChange ignoreSelectionChange onChange={onChange} />}
       <ListPlugin />

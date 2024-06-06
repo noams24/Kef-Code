@@ -361,8 +361,8 @@ function ToolbarPlugin() {
   const showTextTools = (!showMathTools && !showImageTools) || $isStickyNode(selectedNode);
   return (
     <>
-      <AppBar sx={{zIndex:10}} className='align-items-stretch overflow-x-hidden top-0 rounded-lg' position={'sticky'}>
-        <Toolbar className="toolbar" sx={{ displayPrint: 'none', px: `${(trigger ? 1 : 0)}!important`, justifyContent: "space-between", alignItems: "center", gap: 0.5, minHeight: 54 }}>
+      <AppBar sx={{zIndex:10, background: "white"}} className='muiAppBar' position={'sticky'}>
+        <Toolbar sx={{ displayPrint: 'none', px: `${(trigger ? 1 : 0)}!important`, justifyContent: "space-between", alignItems: "center", gap: 0.5, minHeight: 54 }}>
           <Box sx={{ display: "flex" }}>
             <IconButton title={IS_APPLE ? 'בטל (⌘Z)' : 'בטל (Ctrl+Z)'} aria-label="בטל" disabled={!canUndo}
               onClick={() => { activeEditor.dispatchCommand(UNDO_COMMAND, undefined); }}>
@@ -385,10 +385,10 @@ function ToolbarPlugin() {
                 </Select>
               ) : (
                 <>
-                  <Select title="גופן" size='small' sx={{ width: 100 }} onChange={onFontFamilySelect} value={fontFamily}>
+                  <Select title="גופן" size='small' sx={{ width: 80 }} onChange={onFontFamilySelect} value={fontFamily}>
                     {FONT_FAMILY_OPTIONS.map(([option, text]) => <MenuItem key={option} value={option}>  {text}</MenuItem>)}
                   </Select>
-                  <Select title="גודל גופן" size='small' sx={{ width:65,  }} onChange={onFontSizeSelect} value={fontSize}>
+                  <Select title="גודל גופן" size='small' sx={{ maxWidth: 100 }} onChange={onFontSizeSelect} value={fontSize}>
                     {FONT_SIZE_OPTIONS.map(([option, text]) => <MenuItem key={option} value={option}>  {text}</MenuItem>)}
                   </Select>
                   <TextFormatToggles editor={activeEditor} sx={{ display: { xs: "none", sm: "none", md: "flex", lg: "flex" } }} />
