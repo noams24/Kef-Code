@@ -91,14 +91,7 @@ const CourseDisplay = ({
   }
 
   return (
-    <div className="flex justify-center items-center w-full">
-      <div>
-        <MdChevronLeft
-          size={40}
-          className="opacity-50 cursor-pointer hover:opacity-100"
-          onClick={handlePrev}
-        />
-      </div>
+    <>
       <Swiper ref={sliderRef} breakpoints={breakPoints}>
         {data.map((item: any) => (
           <SwiperSlide key={item.title}>
@@ -121,14 +114,23 @@ const CourseDisplay = ({
           </SwiperSlide>
         ))}
       </Swiper>
-      <div>
-        <MdChevronRight
-          size={40}
-          className="opacity-50 cursor-pointer hover:opacity-100"
-          onClick={handleNext}
-        />
+      <div className="flex justify-between items-center w-full">
+        <div>
+          <MdChevronLeft
+            size={40}
+            className="opacity-50 cursor-pointer hover:opacity-100"
+            onClick={handlePrev}
+          />
+        </div>
+        <div>
+          <MdChevronRight
+            size={40}
+            className="opacity-50 cursor-pointer hover:opacity-100"
+            onClick={handleNext}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
