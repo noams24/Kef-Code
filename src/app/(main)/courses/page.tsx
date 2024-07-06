@@ -44,7 +44,7 @@ const Courses = async () => {
   return (
     <>
     <Header/>
-    <div className="flex flex-col p-3">
+    <div className="flex flex-col p-3  bg-zinc-100 dark:bg-zinc-800 ">
       <div>
         <h3 className="p-3 text-zinc-700 dark:text-zinc-300 flex justify-center select-none">קורסי מדעי המחשב</h3>
         <CourseDisplay
