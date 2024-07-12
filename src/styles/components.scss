@@ -8,12 +8,12 @@
 
 // container
 .container {
-  @apply mx-auto max-w-[1320px] ;
+  @apply mx-auto max-w-[1320px];
 }
 
 // form style
 .form-input {
-  @apply w-full text-right rounded border-transparent bg-theme-light px-6 py-4 text-dark placeholder:text-light focus:border-primary focus:ring-transparent dark:border-darkmode-border dark:bg-darkmode-theme-light dark:text-darkmode-light;
+  @apply w-full rounded border-transparent bg-theme-light px-6 py-4 text-right text-dark placeholder:text-light focus:border-primary focus:ring-transparent dark:border-darkmode-border dark:bg-darkmode-theme-light dark:text-darkmode-light;
 }
 
 .form-label {
@@ -88,14 +88,14 @@
 
 // tab
 .tab {
-  @apply overflow-hidden rounded-lg border border-border dark:border-darkmode-border;
+  @apply overflow-hidden;
   &-nav {
     @apply flex justify-center border-b border-border bg-theme-light dark:border-darkmode-border dark:bg-darkmode-theme-light;
     @apply m-0 #{!important};
     @apply list-none #{!important};
 
     &-item {
-      @apply cursor-pointer border-b-[3px] border-border py-2 text-lg text-dark dark:text-white opacity-80 dark:border-light;
+      @apply cursor-pointer border-b-[3px] border-border py-2 text-lg text-dark opacity-80 dark:border-light dark:text-white;
       @apply my-0 #{!important};
       @apply px-8 #{!important};
 
@@ -105,7 +105,7 @@
     }
   }
   &-content {
-    @apply px-3 ;
+    @apply px-3;
     &-panel {
       @apply p-8;
       p {
@@ -178,11 +178,11 @@
 }
 
 .custom-border {
-  @apply rounded border border-zinc-500 hover:border-black dark:hover:border-white
+  @apply rounded border border-zinc-500 hover:border-black dark:hover:border-white;
 }
 // container for time and icons
 .container-timer {
-  @apply w-[8rem] flex items-center space-x-2 p-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-sm h-7 text-zinc-700 dark:text-zinc-300 border border-zinc-400 dark:border-zinc-600;
+  @apply flex h-7 w-[8rem] items-center space-x-2 rounded-sm border border-zinc-400 bg-zinc-200 p-1.5 text-zinc-700 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-300;
 }
 
 // color for each difficulty
@@ -203,36 +203,34 @@
   @apply ml-2 h-4 w-4;
 }
 
-.chapter-page-container { 
+.chapter-page-container {
   box-shadow:
-  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
-  0 12.5px 10px rgba(0, 0, 0, 0.06),
-  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
-  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
-  0 100px 80px rgba(0, 0, 0, 0.12);
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
   border-radius: 5px;
 
-  @apply mx-96 flex flex-col w-[410px] items-center border border-gray-800 rounded-lg p-4 m-3
+  @apply m-3 mx-96 flex w-[410px] flex-col items-center rounded-lg border border-gray-800 p-4;
 }
 
-.chapter-page-container-dark { 
+.chapter-page-container-dark {
   box-shadow:
-  0 2.8px 2.2px rgba(124, 205, 240, 0.034),
-  0 6.7px 5.3px rgba(169, 203, 217, 0.048),
-  0 12.5px 10px rgba(141, 232, 230, 0.06),
-  0 22.3px 17.9px rgba(97, 177, 237, 0.072),
-  0 41.8px 33.4px rgba(180, 210, 237, 0.086),
-  0 20px 10px rgba(87, 109, 109, 0.12);
+    0 2.8px 2.2px rgba(124, 205, 240, 0.034),
+    0 6.7px 5.3px rgba(169, 203, 217, 0.048),
+    0 12.5px 10px rgba(141, 232, 230, 0.06),
+    0 22.3px 17.9px rgba(97, 177, 237, 0.072),
+    0 41.8px 33.4px rgba(180, 210, 237, 0.086),
+    0 20px 10px rgba(87, 109, 109, 0.12);
   border-radius: 5px;
 
-  @apply mx-96 flex flex-col w-[410px] items-center border border-gray-500 rounded-lg p-4 m-3
+  @apply m-3 mx-96 flex w-[410px] flex-col items-center rounded-lg border border-gray-500 p-4;
 }
-
-
 
 .chapter-card-container {
-  @apply border bg-zinc-50 dark:bg-zinc-800 dark:border-gray-500 border-gray-300 pt-5 w-96 h-24 flex justify-end;
+  @apply flex h-24 w-96 justify-end border border-gray-300 bg-zinc-50 pt-5 dark:border-gray-500 dark:bg-zinc-800;
 }
 
 // Bubble text
@@ -243,27 +241,27 @@
     0.35s color;
 }
 .hoverText:hover {
-  @apply font-extrabold text-teal-500
+  @apply font-extrabold text-teal-500;
 }
 
 /* To the right */
 .hoverText:hover + .hoverText {
-  @apply font-medium text-teal-500
+  @apply font-medium text-teal-500;
 }
 
 .hoverText:hover + .hoverText + .hoverText {
-  @apply font-light
+  @apply font-light;
 }
 
 /* To the left */
 .hoverText:has(+ .hoverText:hover) {
-  @apply font-medium text-teal-500
+  @apply font-medium text-teal-500;
 }
 
 .hoverText:has(+ .hoverText + .hoverText:hover) {
-  @apply font-light
+  @apply font-light;
 }
 
 .muiAppBar {
-  @apply  overflow-x-auto top-0 rounded-lg bg-white dark:bg-darkmode-theme-light
+  @apply top-0 overflow-x-auto rounded-lg bg-white dark:bg-darkmode-theme-light;
 }

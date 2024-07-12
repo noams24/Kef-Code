@@ -1,28 +1,28 @@
-"use client";
+'use client';
 
-import Tab from "@/shortcodes/Tab";
-import Tabs from "@/shortcodes/Tabs";
-import Solution from "./Solution";
-import Feed from "./Feed";
-import Pagination from "./Pagination";
-import Youtube from "@/shortcodes/Youtube";
-import ImageDisplay from "@/components/ImageDisplay";
-import Likes from "@/components/Likes";
-import Accordion from "@/shortcodes/Accordion";
-import { useGenerationStore } from "@/store/store";
-import { useGenerationStoree } from "@/store/store";
-import { useGenerationStore3 } from "@/store/store";
-import { useDevelop } from "@/store/store";
-import { useQuery } from "@tanstack/react-query";
-import { toast } from "@/hooks/use-toast";
-import axios from "axios";
-import parse from "html-react-parser";
-import Status from "@/components/Status";
-import Alert from "@mui/material/Alert";
-import { Snackbar } from "@mui/material";
+import Tab from '@/shortcodes/Tab';
+import Tabs from '@/shortcodes/Tabs';
+import Solution from './Solution';
+import Feed from './Feed';
+import Pagination from './Pagination';
+import Youtube from '@/shortcodes/Youtube';
+import ImageDisplay from '@/components/ImageDisplay';
+import Likes from '@/components/Likes';
+import Accordion from '@/shortcodes/Accordion';
+import { useGenerationStore } from '@/store/store';
+import { useGenerationStoree } from '@/store/store';
+import { useGenerationStore3 } from '@/store/store';
+import { useDevelop } from '@/store/store';
+import { useQuery } from '@tanstack/react-query';
+import { toast } from '@/hooks/use-toast';
+import axios from 'axios';
+import parse from 'html-react-parser';
+import Status from '@/components/Status';
+import Alert from '@mui/material/Alert';
+import { Snackbar } from '@mui/material';
 
-import "mathlive/static.css";
-import "@/layouts/editor/theme.css";
+import 'mathlive/static.css';
+import '@/layouts/editor/theme.css';
 
 import {
   Select,
@@ -32,25 +32,25 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/Select2";
-import { useContext, useState } from "react";
-import ImageSkeleton from "@/components/skeletons/ImageSkeleton";
-import LikesSkeleton from "@/components/skeletons/LikesSkeletion";
-import DescriptionCommentsSection from "@/components/comments/DescriptionCommentsSection";
-import { useMutation } from "@tanstack/react-query";
-import { BsFillTrash3Fill } from "react-icons/bs";
-import { RxVideo } from "react-icons/rx";
-import { FaFileUpload } from "react-icons/fa";
-import DeleteSolutionModal from "@/components/modals/DeleteSolutionModal";
-import AddVideoModal from "@/components/modals/AddVideoModal";
-import { Share } from "@mui/icons-material";
-import CloseIcon from "@mui/icons-material/Close";
-import Tippy from "@tippyjs/react";
-import { QueryContext } from "@/partials/ChildrenProviders";
-import dynamic from "next/dynamic";
-import hebrewDateFormat from "@/lib/utils/hebrewDateFormat";
-import SubmissionContent from "./SubmissionContent";
-const PdfRenderer = dynamic(() => import("@/components/PdfRenderer"), {
+} from '@/components/ui/Select2';
+import { useContext, useState } from 'react';
+import ImageSkeleton from '@/components/skeletons/ImageSkeleton';
+import LikesSkeleton from '@/components/skeletons/LikesSkeletion';
+import DescriptionCommentsSection from '@/components/comments/DescriptionCommentsSection';
+import { useMutation } from '@tanstack/react-query';
+import { BsFillTrash3Fill } from 'react-icons/bs';
+import { RxVideo } from 'react-icons/rx';
+import { FaFileUpload } from 'react-icons/fa';
+import DeleteSolutionModal from '@/components/modals/DeleteSolutionModal';
+import AddVideoModal from '@/components/modals/AddVideoModal';
+import { Share } from '@mui/icons-material';
+import CloseIcon from '@mui/icons-material/Close';
+import Tippy from '@tippyjs/react';
+import { QueryContext } from '@/partials/ChildrenProviders';
+import dynamic from 'next/dynamic';
+import hebrewDateFormat from '@/lib/utils/hebrewDateFormat';
+import SubmissionContent from './SubmissionContent';
+const PdfRenderer = dynamic(() => import('@/components/PdfRenderer'), {
   ssr: false,
 });
 
@@ -61,7 +61,7 @@ interface SolutionSectionProps {
   userId: string | undefined;
   role: string | undefined;
   loading: any;
-  updateEditor: any,
+  updateEditor: any;
 }
 
 const SolutionSection: React.FC<SolutionSectionProps> = ({
@@ -76,7 +76,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
   const { solutionState, setSolution } = useGenerationStore();
   const { submissionState, setSubmission } = useGenerationStore3();
   const { page } = useGenerationStoree();
-  const [sortBy, setSort] = useState("likes");
+  const [sortBy, setSort] = useState('likes');
   const [displayDeleteModal, setDeleteModal] = useState(false);
   const [displayVideoModal, setVideoModal] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
@@ -84,7 +84,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
   const queryClient = useContext(QueryContext);
 
   const { data: soltionSectionData } = useQuery({
-    queryKey: ["solution", problemId, page, sortBy],
+    queryKey: ['solution', problemId, page, sortBy],
     queryFn: async () => {
       if (development) return null;
       const query = `/api/getSolutions?problemId=${problemId}&page=${page}&sortBy=${sortBy}`;
@@ -101,24 +101,24 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
   const { mutate: deleteSolution } = useMutation({
     mutationFn: async () => {
       const solutionId: any = soltionSectionData[Number(solutionState)].id;
-      const { data } = await axios.post("/api/deleteSolution", { solutionId });
+      const { data } = await axios.post('/api/deleteSolution', { solutionId });
       return data;
     },
-    onError: (err) => {
+    onError: err => {
       toast({
-        title: "שגיאה",
-        description: "לא ניתן למחוק פתרון כרגע, נסה שוב מאוחר יותר.",
-        variant: "destructive",
+        title: 'שגיאה',
+        description: 'לא ניתן למחוק פתרון כרגע, נסה שוב מאוחר יותר.',
+        variant: 'destructive',
       });
     },
     onSuccess: () => {
-      setSolution(null)
-      queryClient.invalidateQueries({ queryKey: ["solution"] });
-      queryClient.invalidateQueries({ queryKey: ["workSpaceData"] });
+      setSolution(null);
+      queryClient.invalidateQueries({ queryKey: ['solution'] });
+      queryClient.invalidateQueries({ queryKey: ['workSpaceData'] });
       toast({
-        title: "נמחק",
-        description: "הפתרון נמחק בהצלחה",
-        variant: "destructive",
+        title: 'נמחק',
+        description: 'הפתרון נמחק בהצלחה',
+        variant: 'destructive',
       });
     },
   });
@@ -127,21 +127,21 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
     mutationFn: async () => {
       // console.log(soltionSectionData[Number(solutionState)].id)
       const solutionId: any = soltionSectionData[Number(solutionState)].id;
-      const { data } = await axios.post("/api/deleteSolution", { solutionId });
+      const { data } = await axios.post('/api/deleteSolution', { solutionId });
       return data;
     },
-    onError: (err) => {
+    onError: err => {
       toast({
-        title: "שגיאה",
-        description: "לא ניתן למחוק פתרון כרגע, נסה שוב מאוחר יותר.",
-        variant: "destructive",
+        title: 'שגיאה',
+        description: 'לא ניתן למחוק פתרון כרגע, נסה שוב מאוחר יותר.',
+        variant: 'destructive',
       });
     },
     onSuccess: () => {
       toast({
-        title: "נמחק",
-        description: "הפתרון נמחק בהצלחה",
-        variant: "destructive",
+        title: 'נמחק',
+        description: 'הפתרון נמחק בהצלחה',
+        variant: 'destructive',
       });
     },
   });
@@ -159,7 +159,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
       .writeText(
         `https://kef-code.vercel.app/view/${
           soltionSectionData[Number(solutionState)].id
-        }`,
+        }`
       )
       .then(() => {
         setIsCopied(true);
@@ -179,29 +179,27 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
         values,
         jsonState: soltionSectionData[Number(solutionState)].content,
       };
-      const { data } = await axios.post("/api/uploadSolution", payload);
+      const { data } = await axios.post('/api/uploadSolution', payload);
       return data;
     },
-    onError: (err) => {
+    onError: err => {
       toast({
-        title: "שגיאה",
-        description: "לא ניתן לשמור את התשובה כרגע",
-        variant: "destructive",
+        title: 'שגיאה',
+        description: 'לא ניתן לשמור את התשובה כרגע',
+        variant: 'destructive',
       });
     },
     onSuccess: () => {
       toast({
-        title: "נשמר",
-        description: "התשובה נשמרה בהצלחה",
-        variant: "destructive",
+        title: 'נשמר',
+        description: 'התשובה נשמרה בהצלחה',
+        variant: 'destructive',
       });
     },
   });
 
-
-
   return (
-    <div className="overflow-y-auto">
+    <div className="overflow-y-auto rounded-lg border border-border font-arial dark:border-darkmode-border">
       {displayDeleteModal && (
         <DeleteSolutionModal
           handleDelete={deleteSolution}
@@ -219,11 +217,11 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
         open={isCopied}
         autoHideDuration={6000}
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "center",
+          vertical: 'top',
+          horizontal: 'center',
         }}
       >
-        <Alert severity="success" sx={{ width: "100%" }}>
+        <Alert severity="success" sx={{ width: '100%' }}>
           הקישור הועתק
         </Alert>
       </Snackbar>
@@ -236,26 +234,34 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
           ) : (
             <div>
               {!workSpaceData ||
-              !workSpaceData.hasOwnProperty("submissions")  || workSpaceData.submissions.length === 0 ? (
-                <div className="flex justify-center min-h-10">
+              !workSpaceData.hasOwnProperty('submissions') ||
+              workSpaceData.submissions.length === 0 ? (
+                <div className="flex min-h-10 justify-center">
                   <h3 className="my-5">אין הגשות עדיין</h3>
                 </div>
               ) : submissionState === null ? (
                 workSpaceData.submissions.map((item: any, index: any) => (
                   <div
                     key={index}
-                    className="flex justify-between border my-4 rounded-md p-3 cursor-pointer"
+                    className="my-4 flex cursor-pointer justify-between rounded-md border p-3"
                     onClick={() => {
                       setSubmission(index);
                     }}
                   >
                     <p dir="rtl">{hebrewDateFormat(item.updatedAt)}</p>
-                    <div>{'פתרון מספר '}{index+1}</div>
-                    
+                    <div>
+                      {'פתרון מספר '}
+                      {index + 1}
+                    </div>
                   </div>
                 ))
               ) : (
-                <SubmissionContent submissionsState={submissionState} setSubmission={setSubmission} submissionsData={workSpaceData.submissions} updateEditor={updateEditor}/>
+                <SubmissionContent
+                  submissionsState={submissionState}
+                  setSubmission={setSubmission}
+                  submissionsData={workSpaceData.submissions}
+                  updateEditor={updateEditor}
+                />
               )}
             </div>
           )}
@@ -263,7 +269,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
         <Tab name="פתרונות">
           {solutionState || solutionState === 0 ? (
             <div className="px-5">
-              <div className="sticky flex justify-between top-0 my-3">
+              <div className="sticky top-0 my-3 flex justify-between">
                 <button
                   title="חזרה"
                   onClick={() => setSolution(null)}
@@ -275,7 +281,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                   soltionSectionData[Number(solutionState)].userId ===
                     userId && (
                     <div>
-                      {role === "ADMIN" && (
+                      {role === 'ADMIN' && (
                         <button
                           title="הפוך לפתרון רשמי"
                           onClick={() => AdminAddSolution()}
@@ -294,7 +300,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                         title="מחיקת פתרון"
                         onClick={() => setDeleteModal(true)}
                       >
-                        {" "}
+                        {' '}
                         <BsFillTrash3Fill className="h-5 w-5 text-red-600" />
                       </button>
                     </div>
@@ -317,8 +323,8 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
             <div>
               {soltionSectionData && soltionSectionData.length !== 0 ? (
                 <>
-                  <div className="mt-3 dark:text-white text-center" dir="rtl">
-                    <Select onValueChange={(e) => sortData(e)}>
+                  <div className="mt-3 text-center dark:text-white" dir="rtl">
+                    <Select onValueChange={e => sortData(e)}>
                       <SelectTrigger className="w-[100px]">
                         <SelectValue placeholder="מיין לפי" />
                       </SelectTrigger>
@@ -352,12 +358,12 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
         <Tab name="פתרון רשמי">
           {workSpaceData && workSpaceData.videoUrl && (
             <div className="px-5">
-              <h4 className="mt-1.5 font-bold pt-2" dir="rtl">
+              <h4 className="mt-1.5 pt-2 font-bold" dir="rtl">
                 סרטון הסבר
               </h4>
-              <hr className="my-4 h-0.5 rounded bg-zinc-200 border-0 dark:bg-zinc-700" />
-              <div className="flex justify-center items-center">
-                <Youtube id={workSpaceData.videoUrl} title={"פתרון"} />
+              <hr className="my-4 h-0.5 rounded border-0 bg-zinc-200 dark:bg-zinc-700" />
+              <div className="flex items-center justify-center">
+                <Youtube id={workSpaceData.videoUrl} title={'פתרון'} />
               </div>
             </div>
           )}
@@ -376,13 +382,13 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
             {development ? (
               solution
             ) : !workSpaceData ? (
-              <h3 className="flex justify-center mt-4">...טוען</h3>
+              <h3 className="mt-4 flex justify-center">...טוען</h3>
             ) : workSpaceData.solutionArticle ? (
               <div>
-                <h4 className="mt-1.5 font-bold pt-2" dir="rtl">
+                <h4 className="mt-1.5 pt-2 font-bold" dir="rtl">
                   פתרון
                 </h4>
-                <hr className="my-4 h-0.5 rounded bg-zinc-200 border-0 dark:bg-zinc-700" />
+                <hr className="my-4 h-0.5 rounded border-0 bg-zinc-200 dark:bg-zinc-700" />
                 <div className="font-arial">
                   {parse(workSpaceData.solutionArticle)}
                 </div>
@@ -405,7 +411,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
             <div>
               <Likes
                 problemId={problemId}
-                difficulty={"קל"}
+                difficulty={'קל'}
                 likes={5}
                 dislikes={2}
                 bookmark={undefined}
@@ -413,15 +419,15 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
               />
               {/* <PdfRenderer url={"/images/sample.pdf"} /> */}
               <ImageDisplay
-                imageUrl={"https://i.ibb.co/Gdz4BTg/problem1.png"}
-              />{" "}
+                imageUrl={'https://i.ibb.co/Gdz4BTg/problem1.png'}
+              />{' '}
             </div>
           ) : (
             <div>
-              <div className="flex justify-between items-center">
+              <div className="flex items-center justify-between">
                 {workSpaceData && workSpaceData.hint ? (
                   <Tippy content={workSpaceData.hint} placement="right">
-                    <button className="border border-gray-500 rounded-lg text-sm p-1">
+                    <button className="rounded-lg border border-gray-500 p-1 text-sm">
                       הנחיה
                     </button>
                   </Tippy>
@@ -435,10 +441,10 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                     problemId={problemId}
                     difficulty={workSpaceData?.difficulty}
                     likes={Number(
-                      workSpaceData?.likes ? workSpaceData.likes : 0,
+                      workSpaceData?.likes ? workSpaceData.likes : 0
                     )}
                     dislikes={Number(
-                      workSpaceData?.dislikes ? workSpaceData.dislikes : 0,
+                      workSpaceData?.dislikes ? workSpaceData.dislikes : 0
                     )}
                     bookmark={workSpaceData?.bookmark}
                     likeStatus={workSpaceData?.likeStatus}
@@ -453,7 +459,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
               <div className="mt-3 flex justify-center">
                 {loading ? (
                   <ImageSkeleton />
-                ) : workSpaceData?.imageUrl.endsWith("pdf") ? (
+                ) : workSpaceData?.imageUrl.endsWith('pdf') ? (
                   <PdfRenderer url={workSpaceData?.imageUrl} />
                 ) : (
                   <ImageDisplay imageUrl={workSpaceData?.imageUrl} />

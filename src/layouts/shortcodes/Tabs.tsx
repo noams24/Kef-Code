@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import useWindowSize from "@/hooks/useWindowSize";
+import useWindowSize from '@/hooks/useWindowSize';
 import {
   KeyboardEvent,
   ReactElement,
@@ -8,7 +8,7 @@ import {
   useEffect,
   useRef,
   useState,
-} from "react";
+} from 'react';
 
 function Tabs({ children }: { children: ReactElement[] }) {
   const [active, setActive] = useState(3);
@@ -29,11 +29,11 @@ function Tabs({ children }: { children: ReactElement[] }) {
 
   //change tab item on click
   const handleKeyDown = (event: KeyboardEvent<EventTarget>, index: number) => {
-    if (event.key === "Enter" || event.key === " ") {
+    if (event.key === 'Enter' || event.key === ' ') {
       setActive(index);
-    } else if (event.key === "ArrowRight") {
+    } else if (event.key === 'ArrowRight') {
       setActive((active + 1) % children.length);
-    } else if (event.key === "ArrowLeft") {
+    } else if (event.key === 'ArrowLeft') {
       setActive((active - 1 + children.length) % children.length);
     }
   };
@@ -44,13 +44,13 @@ function Tabs({ children }: { children: ReactElement[] }) {
         {children.map((item: ReactElement, index: number) => (
           <li
             key={index}
-            className={`tab-nav-item ${index === active && "active"}`}
+            className={`tab-nav-item ${index === active && 'active'}`}
             role="tab"
             tabIndex={index === active ? 0 : -1}
             onClick={() => setActive(index)}
-            onKeyDown={(e) => handleKeyDown(e, index)}
+            onKeyDown={e => handleKeyDown(e, index)}
             //@ts-ignore
-            ref={(ref) => (tabItemsRef.current[index] = ref)}
+            ref={ref => (tabItemsRef.current[index] = ref)}
           >
             {item.props.name}
           </li>
@@ -60,7 +60,7 @@ function Tabs({ children }: { children: ReactElement[] }) {
       {children.map((data: ReactElement, index: number) => (
         <div
           key={index}
-          className={`tab-content ${height > 900 ? "min-h-[78dvh]" : "min-h-[76.5dvh]"}  ${index === active ? "block" : "hidden"} my-2`}
+          className={`tab-content ${index === active ? 'block' : 'hidden'} my-2`}
         >
           {data.props.children}
         </div>
