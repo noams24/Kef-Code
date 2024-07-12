@@ -8,7 +8,12 @@ import { Toaster } from '@/components/ui/Toaster'
 import Birzia from 'next/font/local';
 import { Inter } from 'next/font/google';
 
+const FirstTime = dynamic(() => import('@/components/modals/FirstTime'), {
+  ssr: false,
+});
+
 import "@/styles/main.scss";
+import dynamic from "next/dynamic";
 
 const birzia = Birzia({
   src: [
@@ -82,6 +87,7 @@ export default function RootLayout({
         <TwSizeIndicator />
         <Providers>
           {/* <Header/> */}
+          <FirstTime />
           <main>{children}</main>
           {/* <Footer/> */}
           <Toaster/>

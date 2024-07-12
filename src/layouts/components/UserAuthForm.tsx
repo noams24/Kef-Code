@@ -26,6 +26,10 @@ const UserAuthForm: FC<UserAuthFormProps> = ({ className, ...props }) => {
         variant: 'destructive',
       })
     } finally {
+      const firstItemState = localStorage.getItem('firstTime') || '0'
+      if (firstItemState === '0') {
+        localStorage.setItem('firstTime', '1')
+      }
       setIsLoading(false)
     }
   }

@@ -91,7 +91,21 @@ const CourseDisplay = ({
   }
 
   return (
-    <>
+    <div className="relative">
+      <div className="absolute left-0 top-[115px] z-50 bg-zinc-200/90 dark:bg-zinc-800/90 rounded-full border border-black dark:border-zinc-500">
+        <MdChevronLeft
+          size={40}
+          className="opacity-50 cursor-pointer hover:opacity-100"
+          onClick={handlePrev}
+        />
+      </div>
+      <div className="absolute right-0 top-[115px] z-50 bg-zinc-200/90 dark:bg-zinc-800/90 rounded-full border border-black dark:border-zinc-500">
+        <MdChevronRight
+          size={40}
+          className="opacity-50 cursor-pointer hover:opacity-100"
+          onClick={handleNext}
+        />
+      </div>
       <Swiper ref={sliderRef} breakpoints={breakPoints}>
         {data.map((item: any) => (
           <SwiperSlide key={item.title}>
@@ -114,23 +128,11 @@ const CourseDisplay = ({
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="flex justify-between items-center w-full">
-        <div>
-          <MdChevronLeft
-            size={40}
-            className="opacity-50 cursor-pointer hover:opacity-100"
-            onClick={handlePrev}
-          />
-        </div>
-        <div>
-          <MdChevronRight
-            size={40}
-            className="opacity-50 cursor-pointer hover:opacity-100"
-            onClick={handleNext}
-          />
-        </div>
-      </div>
-    </>
+      {/* <div className="flex justify-between items-center w-full">
+
+
+      </div> */}
+    </div>
   );
 };
 
