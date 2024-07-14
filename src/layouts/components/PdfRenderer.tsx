@@ -1,40 +1,28 @@
-"use client";
+'use client';
 
-import {
-  ChevronDown,
-  // ChevronUp,
-  Loader2,
-  RotateCw,
-  Search,
-} from "lucide-react";
-import { Document, Page, pdfjs } from "react-pdf";
-
-import "react-pdf/dist/Page/AnnotationLayer.css";
-import "react-pdf/dist/Page/TextLayer.css";
-import { useToast } from "@/hooks/use-toast";
-
-import { useResizeDetector } from "react-resize-detector";
-import { Button } from "./ui/button";
-// import { Input } from "./ui/Input";
-import { useState } from "react";
-
-// import { useForm } from "react-hook-form";
-// import { z } from "zod";
-
-// import { zodResolver } from "@hookform/resolvers/zod";
-import { cn } from "@/lib/utils";
+import { useToast } from '@/hooks/use-toast';
+import { cn } from '@/lib/utils';
+import { ChevronDown, Loader2, RotateCw, Search } from 'lucide-react';
+import { useState } from 'react';
+import { Document, Page, pdfjs } from 'react-pdf';
+import 'react-pdf/dist/Page/AnnotationLayer.css';
+import 'react-pdf/dist/Page/TextLayer.css';
+import { useResizeDetector } from 'react-resize-detector';
+import { Button } from './ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./ui/DropDownMenu";
+} from './ui/DropDownMenu';
 
-// import SimpleBar from "simplebar-react";
-import PdfFullscreen from "./PdfFullscreen";
-// import 'simplebar-react/dist/simplebar.min.css';
+import PdfFullscreen from './PdfFullscreen';
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+// pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+//   'pdfjs-dist/build/pdf.worker.min.mjs',
+//   import.meta.url
+// ).toString();
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.mjs`;
 
 interface PdfRendererProps {
   url: string;
@@ -50,37 +38,11 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
   const [renderedScale, setRenderedScale] = useState<number | null>(null);
 
   const isLoading = renderedScale !== scale;
-
-  // const CustomPageValidator = z.object({
-  //   page: z
-  //     .string()
-  //     .refine((num) => Number(num) > 0 && Number(num) <= numPages!),
-  // });
-
-  // type TCustomPageValidator = z.infer<typeof CustomPageValidator>;
-
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  //   setValue,
-  // } = useForm<TCustomPageValidator>({
-  //   defaultValues: {
-  //     page: "1",
-  //   },
-  //   resolver: zodResolver(CustomPageValidator),
-  // });
-
   const { width, ref } = useResizeDetector();
 
-  // const handlePageSubmit = ({ page }: TCustomPageValidator) => {
-  //   setCurrPage(Number(page));
-  //   setValue("page", String(page));
-  // };
-
   return (
-    <div className="w-full border border-zinc-200 dark:border-zinc-500 rounded-md shadow items-center">
-      <div className="h-10 w-full border-b border-zinc-200 dark:border-zinc-500 flex justify-between items-center px-2">
+    <div className="w-full items-center rounded-md border border-zinc-200 shadow dark:border-zinc-500">
+      <div className="flex h-10 w-full items-center justify-between border-b border-zinc-200 px-2 dark:border-zinc-500">
         <div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -111,7 +73,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
         </div>
         <div>
           <Button
-            onClick={() => setRotation((prev) => prev + 90)}
+            onClick={() => setRotation(prev => prev + 90)}
             variant="ghost"
             aria-label="rotate 90 degrees"
           >
@@ -123,8 +85,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
       </div>
 
       <div className="w-full">
-        {/* <SimpleBar  autoHide={false} className="max-h-[calc(100vh-27rem)]"> */}
-        <div ref={ref} className="overflow-auto max-h-[calc(100vh-24rem)]">
+        <div ref={ref} className="max-h-[calc(100vh-24rem)] overflow-auto">
           <Document
             loading={
               <div className="flex justify-center">
@@ -133,9 +94,9 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
             }
             onLoadError={() => {
               toast({
-                title: "Error loading PDF",
-                description: "Please try again later",
-                variant: "destructive",
+                title: 'Error loading PDF',
+                description: 'Please try again later',
+                variant: 'destructive',
               });
             }}
             onLoadSuccess={({ numPages }) => setNumPages(numPages)}
@@ -149,12 +110,12 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
                 pageNumber={1}
                 scale={scale}
                 rotate={rotation}
-                key={"@" + renderedScale}
+                key={'@' + renderedScale}
               />
             ) : null}
             {new Array(numPages).fill(0).map((_, i) => (
               <Page
-                className={cn(isLoading ? "hidden" : "dark:invert")}
+                className={cn(isLoading ? 'hidden' : 'dark:invert')}
                 width={width ? width : 1}
                 pageNumber={i + 1}
                 scale={scale}
@@ -170,7 +131,6 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
             ))}
           </Document>
         </div>
-        {/* </SimpleBar> */}
       </div>
     </div>
   );
