@@ -53,7 +53,7 @@ const AdminStuff = ({ problemData }: any) => {
   return (
     <div>
       <Split className="split h-[70dvh] border" minSize={0}>
-        <div>
+        <div className="overflow-auto">
           {problemData?.img.endsWith('pdf') ? (
             <PdfRenderer url={problemData?.img} />
           ) : (
