@@ -424,7 +424,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
             </div>
           ) : (
             <div>
-              <div className="flex items-center justify-between">
+              <div className="-mt-2 flex items-center justify-between">
                 {workSpaceData && workSpaceData.hint ? (
                   <Tippy content={workSpaceData.hint} placement="right">
                     <button className="rounded-lg border border-gray-500 p-1 text-sm">
@@ -456,7 +456,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                   <div className="ml-20"> </div>
                 )}
               </div>
-              <div className="mt-3 flex justify-center">
+              <div className="mt-2 flex justify-center">
                 {loading ? (
                   <ImageSkeleton />
                 ) : workSpaceData?.imageUrl.endsWith('pdf') ? (

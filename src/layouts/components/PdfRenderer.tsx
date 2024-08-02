@@ -47,7 +47,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button className="gap-1.5" aria-label="zoom" variant="ghost">
-                <Search className="h-4 w-4" />
+                {/* <Search className="h-4 w-4" /> */}
                 {scale * 100}%
                 <ChevronDown className="h-3 w-3 opacity-50" />
               </Button>
@@ -85,7 +85,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
       </div>
 
       <div className="w-full">
-        <div ref={ref} className="max-h-[calc(100dvh-20rem)] overflow-auto">
+        <div ref={ref} className="max-h-[calc(100dvh-16rem)] overflow-auto">
           <Document
             loading={
               <div className="flex justify-center">
