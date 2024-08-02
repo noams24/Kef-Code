@@ -18,9 +18,10 @@ export async function GET(req: Request) {
         difficulty: true,
         img: true,
         hint: true,
+        solutionStart: true,
       },
     });
-    if (!problemData) return new Response("prbolemNotFound", { status: 400 });
+    if (!problemData) return new Response("problemNotFound", { status: 400 });
 
     const likes: number = await db.vote.count({
       where: {
@@ -79,7 +80,7 @@ export async function GET(req: Request) {
       });
     }
 
-    // get solution article and videourl:
+    // get solution article and video url:
     const solution = await db.solution.findFirst({
       where: {
         problemId: problemId,
@@ -101,7 +102,7 @@ export async function GET(req: Request) {
       //@ts-ignore
       htmlData = await generateHtml(solution.content);
     }
-
+    
     const result = {
       submissions,
       content,
@@ -116,6 +117,7 @@ export async function GET(req: Request) {
       videoUrl: solution?.videoUrl,
       solutionId: solution?.id,
       totalSubmissions: totalSubmissions,
+      solutionStart: problemData.solutionStart
     };
     return new Response(JSON.stringify(result));
   } catch (error) {

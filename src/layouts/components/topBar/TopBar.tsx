@@ -16,27 +16,6 @@ import QuestionCard from './QuestionCard';
 import QuestionsDrawer from './QuestionsDrawer';
 import Timer from './Timer';
 
-// const mockData = [
-//   {
-//     id: 1,
-//     title: "שאלה במטריצות",
-//     difficulty: "קשה",
-//     status: "FINISH",
-//   },
-//   {
-//     id: 6,
-//     title: "אי רציפות",
-//     difficulty: "קל",
-//     status: "BEGIN",
-//   },
-//   {
-//     id: 24,
-//     title: "משפט לופיטל",
-//     difficulty: "בינוני",
-//     status: "STUCK",
-//   },
-// ];
-
 const TopBar = (problemId: any) => {
   const pathname = usePathname().split('/');
   const course = pathname[2];
@@ -185,3 +164,24 @@ const TopBar = (problemId: any) => {
 };
 
 export default TopBar;
+
+// const mockData = [
+//   {
+//     id: 1,
+//     title: "שאלה במטריצות",
+//     difficulty: "קשה",
+//     status: "FINISH",
+//   },
+//   {
+//     id: 6,
+//     title: "אי רציפות",
+//     difficulty: "קל",
+//     status: "BEGIN",
+//   },
+//   {
+//     id: 24,
+//     title: "משפט לופיטל",
+//     difficulty: "בינוני",
+//     status: "STUCK",
+//   },
+// ];
