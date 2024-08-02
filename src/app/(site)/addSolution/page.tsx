@@ -1,12 +1,11 @@
-import { UploadSolution } from "@/components/UploadSolution"
-import SeoMeta from "@/partials/SeoMeta";
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+import { UploadSolution } from '@/components/UploadSolution';
+import SeoMeta from '@/partials/SeoMeta';
+import { getAuthSession } from '@/lib/auth';
 
 const AddSolution = async () => {
-  const session = await getServerSession(authOptions)
+  const session = await getAuthSession();
   if (session?.user.role !== 'ADMIN') {
-    throw new Error('Unauthorized')
+    throw new Error('Unauthorized');
   }
 
   return (
@@ -16,7 +15,7 @@ const AddSolution = async () => {
         meta_title="add Solution"
         description="add Solution"
       />
-      <UploadSolution/>
+      <UploadSolution />
     </>
   );
 };

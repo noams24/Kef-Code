@@ -1,27 +1,28 @@
-"use client";
+'use client';
 
-import Split from "react-split";
-// import { Button } from "@/components/ui/button";
-import playgroundTemplate from "./jsonFiles/empty.json";
-import type { EditorDocument } from "./types";
-import { type EditorState, type SerializedEditorState } from "lexical";
-import React, { useState, useEffect, useContext } from "react";
-import { useMutation } from "@tanstack/react-query";
-import axios, { AxiosError } from "axios";
-import { useCustomToasts } from "@/hooks/use-custom-toast";
-import { toast } from "@/hooks/use-toast";
-import { useQuery } from "@tanstack/react-query";
-import Confetti from "react-confetti";
-import Editor from "@/layouts/editor/components/Editor";
-import useWindowSize from "@/hooks/useWindowSize";
-import SolutionSection from "./solutionSection/SolutionSection";
-import { useDevelop } from "@/store/store";
-import TopBar from "../topBar/TopBar";
-import { db } from "@/indexedDB";
-import { QueryContext } from "@/partials/ChildrenProviders";
+import Split from 'react-split';
+import { useCustomToasts } from '@/hooks/use-custom-toast';
+import { toast } from '@/hooks/use-toast';
+import useWindowSize from '@/hooks/useWindowSize';
+import { db } from '@/indexedDB';
+import Editor from '@/layouts/editor/components/Editor';
+import { QueryContext } from '@/partials/ChildrenProviders';
+import { useDevelop } from '@/store/store';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import axios, { AxiosError } from 'axios';
+import { type EditorState, type SerializedEditorState } from 'lexical';
+import React, { useContext, useEffect, useState } from 'react';
+import Confetti from 'react-confetti';
+import TopBar from '../topBar/TopBar';
+import playgroundTemplate from './jsonFiles/empty.json';
+import SolutionSection from './solutionSection/SolutionSection';
+import type { EditorDocument } from './types';
+import LinearProgress from '@mui/material/LinearProgress';
 
-import "./split.css";
-import LinearProgress from "@mui/material/LinearProgress";
+import './split.css';
+import { Avatar } from '../ui/Avatar';
+import { UserAvatar } from '../UserAvatar';
+import Link from 'next/link';
 
 export type EditorContentType = SerializedEditorState | undefined | any;
 
@@ -45,6 +46,7 @@ interface Data {
   solutionArticle?: any;
   videoUrl?: any;
   totalSubmissions: number;
+  solutionStart: any;
 }
 
 async function onChange(
@@ -60,7 +62,7 @@ async function onChange(
     setJsonState(state.toJSON());
   });
   try {
-    const exists = await db.data.where("id").equals(problemId).toArray();
+    const exists = await db.data.where('id').equals(problemId).toArray();
     if (exists.length > 0) {
       await db.data.update(problemId, { content: state.toJSON() });
     } else {
@@ -92,10 +94,10 @@ const Workspace: React.FC<WorkSpaceProps> = ({
     mutationFn: async ({ jsonState, isPublic }: any) => {
       const payload: any = { problemId, jsonState, isPublic };
 
-      const { data } = await axios.post("/api/submit", payload);
+      const { data } = await axios.post('/api/submit', payload);
       return data;
     },
-    onError: (err) => {
+    onError: err => {
       if (err instanceof AxiosError) {
         if (err.response?.status === 401) {
           return loginToast();
@@ -103,62 +105,51 @@ const Workspace: React.FC<WorkSpaceProps> = ({
 
         if (err.response?.status === 402) {
           return toast({
-            title: "שגיאה",
-            description: "ניתן לשמור רק 3 פתרונות.",
-            variant: "destructive",
+            title: 'שגיאה',
+            description: 'ניתן לשמור רק 3 פתרונות.',
+            variant: 'destructive',
           });
         }
 
         if (err.response?.status === 400) {
           return toast({
-            title: "שגיאה",
-            description: "אורך הפתרון ארוך מדי",
-            variant: "destructive",
+            title: 'שגיאה',
+            description: 'אורך הפתרון ארוך מדי',
+            variant: 'destructive',
           });
         }
       }
       toast({
-        title: "שגיאה",
-        description: "לא ניתן לשמור/לפרסם את הפתרון כרגע, נסה שוב מאוחר יותר",
-        variant: "destructive",
+        title: 'שגיאה',
+        description: 'לא ניתן לשמור/לפרסם את הפתרון כרגע, נסה שוב מאוחר יותר',
+        variant: 'destructive',
       });
     },
     onSuccess: () => {
       setConfetti(true);
-      queryClient.invalidateQueries({ queryKey: ["solution"] });
-      queryClient.invalidateQueries({ queryKey: ["workSpaceData"] });
+      queryClient.invalidateQueries({ queryKey: ['solution'] });
+      queryClient.invalidateQueries({ queryKey: ['workSpaceData'] });
       return toast({
-        title: "נשמר",
-        description: "התשובה נשמרה/פורסמה בהצלחה.",
-        variant: "destructive",
+        title: 'נשמר',
+        description: 'התשובה נשמרה/פורסמה בהצלחה.',
+        variant: 'destructive',
       });
     },
   });
 
   // get data from the db
-  const {
-    data: workSpaceData,
-    isLoading: isLoadingData,
-    isPreviousData,
-  } = useQuery({
-    queryKey: ["workSpaceData", problemId],
+  const { data: workSpaceData, isLoading: isLoadingData } = useQuery({
+    queryKey: ['workSpaceData', problemId],
     queryFn: async () => {
       if (development) return null;
       const query = `/api/getWorkSpace?problemId=${problemId}`;
       const { data } = await axios.get(query);
-      //   const newData = {
-      //     id: "1",
-      //     name: "1",
-      //     data: data.content.content,
-      //   };
-      // }
       return data as Data;
     },
   });
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      // Do something after 3 seconds
       setConfetti(false);
     }, 3000);
     return () => {
@@ -170,7 +161,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
     async function getData() {
       try {
         setFetchingData(true);
-        const exists = await db.data.where("id").equals(problemId).toArray();
+        const exists = await db.data.where('id').equals(problemId).toArray();
         if (exists.length > 0) {
           setContent(exists[0].content);
           setJsonState(exists[0].content);
@@ -190,12 +181,11 @@ const Workspace: React.FC<WorkSpaceProps> = ({
     setContent(newState);
     setJsonState(newState);
   };
-
   return (
     <>
       {problemId && <TopBar problemId={problemId} />}
       <Split
-        className={`split ${height > 900 ? "h-[88dvh]" : "h-[85dvh]"}`}
+        className={`split ${height > 900 ? 'h-[88dvh]' : 'h-[85dvh]'}`}
         minSize={0}
       >
         <SolutionSection
@@ -209,29 +199,34 @@ const Workspace: React.FC<WorkSpaceProps> = ({
         />
 
         {/*EDITOR SECTION */}
-        <div className="flex flex-col w-full overflow-y-auto font-arial border rounded-lg border-border dark:border-darkmode-border relative">
+        <div className="relative flex w-full flex-col overflow-y-auto rounded-lg border border-border font-arial dark:border-darkmode-border">
           {development ? (
             <Editor
               document={document}
-              onChange={(editor) => onChange(editor, setJsonState, problemId)}
+              onChange={editor => onChange(editor, setJsonState, problemId)}
             />
           ) : fetchingData ? (
             <LinearProgress />
           ) : content ? (
             <Editor
               document={{ data: content }}
-              onChange={(editor) => onChange(editor, setJsonState, problemId)}
+              onChange={editor => onChange(editor, setJsonState, problemId)}
             />
           ) : !isLoadingData && workSpaceData ? (
             workSpaceData.content?.content ? (
               <Editor
                 document={{ data: workSpaceData.content.content }}
-                onChange={(editor) => onChange(editor, setJsonState, problemId)}
+                onChange={editor => onChange(editor, setJsonState, problemId)}
+              />
+            ) : workSpaceData.solutionStart ? (
+              <Editor
+                document={{ data: workSpaceData.solutionStart }}
+                onChange={editor => onChange(editor, setJsonState, problemId)}
               />
             ) : (
               <Editor
                 document={document}
-                onChange={(editor) => onChange(editor, setJsonState, problemId)}
+                onChange={editor => onChange(editor, setJsonState, problemId)}
               />
             )
           ) : (
@@ -259,6 +254,31 @@ const Workspace: React.FC<WorkSpaceProps> = ({
       </div>
       {confetti && (
         <Confetti gravity={0.3} width={width - 1} height={height - 1} />
+      )}
+
+      {role === 'ADMIN' && (
+        <div className="absolute bottom-3 left-3 flex">
+          <Link
+            href={`/adminstuff?problemId=${problemId}`}
+            title="admin stuff"
+            target="_blank"
+          >
+            <UserAvatar
+              user={{ name: 'admin' || null, image: null }}
+              className="h-8 w-8"
+            />
+          </Link>
+          <Link
+            href={`/addSolution?problemId=${problemId}`}
+            title="add solution"
+            target="_blank"
+          >
+            <UserAvatar
+              user={{ name: 'admin' || null, image: null }}
+              className="h-8 w-8"
+            />
+          </Link>
+        </div>
       )}
     </>
   );

@@ -155,6 +155,7 @@ model Problem {
   difficulty    String
   date          String?
   hint          String?
+  solutionStart Json?
   solution      Solution?
   comments      Comment[]
   Submissions   Submissions[]

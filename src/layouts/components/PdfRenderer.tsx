@@ -85,7 +85,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
       </div>
 
       <div className="w-full">
-        <div ref={ref} className="max-h-[calc(100vh-24rem)] overflow-auto">
+        <div ref={ref} className="max-h-[calc(100dvh-20rem)] overflow-auto">
           <Document
             loading={
               <div className="flex justify-center">
