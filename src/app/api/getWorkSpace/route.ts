@@ -1,12 +1,12 @@
-import { db } from "@/lib/db";
-import { getAuthSession } from "@/lib/auth";
-import { generateHtml } from "@/layouts/editor/utils/generateHtml";
+import { db } from '@/lib/db';
+import { getAuthSession } from '@/lib/auth';
+import { generateHtml } from '@/layouts/editor/utils/generateHtml';
 
 export async function GET(req: Request) {
   try {
     const url = new URL(req.url);
-    const problemId: number = Number(url.searchParams.get("problemId"));
-    if (!problemId) return new Response("Invalid query", { status: 400 });
+    const problemId: number = Number(url.searchParams.get('problemId'));
+    if (!problemId) return new Response('Invalid query', { status: 400 });
     const session = await getAuthSession();
     const userId = session?.user.id;
 
@@ -21,19 +21,19 @@ export async function GET(req: Request) {
         solutionStart: true,
       },
     });
-    if (!problemData) return new Response("problemNotFound", { status: 400 });
+    if (!problemData) return new Response('problemNotFound', { status: 400 });
 
     const likes: number = await db.vote.count({
       where: {
         problemId,
-        type: "LIKE",
+        type: 'LIKE',
       },
     });
 
     const dislikes: number = await db.vote.count({
       where: {
         problemId,
-        type: "DISLIKE",
+        type: 'DISLIKE',
       },
     });
 
@@ -54,11 +54,11 @@ export async function GET(req: Request) {
           updatedAt: true,
         },
         orderBy: {
-          createdAt: "desc",
+          createdAt: 'desc',
         },
       });
       content = rawSubmissions[0]?.content;
-      submissions = await processSubmissions(rawSubmissions)
+      submissions = await processSubmissions(rawSubmissions);
 
       const getBookmark = await db.bookmark.findFirst({
         where: {
@@ -95,6 +95,7 @@ export async function GET(req: Request) {
     const totalSubmissions = await db.submissions.count({
       where: {
         problemId: problemId,
+        isPublic: true,
       },
     });
     let htmlData = null;
@@ -102,7 +103,7 @@ export async function GET(req: Request) {
       //@ts-ignore
       htmlData = await generateHtml(solution.content);
     }
-    
+
     const result = {
       submissions,
       content,
@@ -117,21 +118,29 @@ export async function GET(req: Request) {
       videoUrl: solution?.videoUrl,
       solutionId: solution?.id,
       totalSubmissions: totalSubmissions,
-      solutionStart: problemData.solutionStart
+      solutionStart: problemData.solutionStart,
     };
     return new Response(JSON.stringify(result));
   } catch (error) {
-    return new Response("Could not get data", { status: 500 });
+    return new Response('Could not get data', { status: 500 });
   }
 }
 
 async function processSubmissions(rawSubmissions: any) {
-    const submissions = await Promise.all(
-      rawSubmissions.slice().reverse().map(async (item:any) => {
+  const submissions = await Promise.all(
+    rawSubmissions
+      .slice()
+      .reverse()
+      .map(async (item: any) => {
         const htmlData = await generateHtml(item.content);
-        return { id: item.id, html: htmlData, content: item.content, updatedAt: item.updatedAt };
+        return {
+          id: item.id,
+          html: htmlData,
+          content: item.content,
+          updatedAt: item.updatedAt,
+        };
       })
-    );
-  
-    return submissions;
-  }
+  );
+
+  return submissions;
+}
