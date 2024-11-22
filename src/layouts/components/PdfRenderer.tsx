@@ -41,7 +41,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
   const { width, ref } = useResizeDetector();
 
   return (
-    <div className="w-full items-center rounded-md border border-zinc-200 shadow dark:border-zinc-500">
+    <div className="w-full max-w-[700px] items-center rounded-md border border-zinc-200 shadow dark:border-zinc-500">
       <div className="flex h-10 w-full items-center justify-between border-b border-zinc-200 px-2 dark:border-zinc-500">
         <div>
           <DropdownMenu>
