@@ -185,7 +185,8 @@ const Workspace: React.FC<WorkSpaceProps> = ({
     <>
       {problemId && <TopBar problemId={problemId} />}
       <Split
-        className={`split ${height > 900 ? 'h-[88dvh]' : 'h-[85dvh]'}`}
+        // className={`split ${height > 900 ? 'h-[88dvh]' : 'h-[85dvh]'}`}
+        className={`split h-[85vh]`}
         minSize={0}
       >
         <SolutionSection
@@ -264,7 +265,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
             target="_blank"
           >
             <UserAvatar
-              user={{ name: 'admin' || null, image: null }}
+              user={{ name: 'admin', image: null }}
               className="h-8 w-8"
             />
           </Link>
@@ -274,7 +275,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
             target="_blank"
           >
             <UserAvatar
-              user={{ name: 'admin' || null, image: null }}
+              user={{ name: 'admin', image: null }}
               className="h-8 w-8"
             />
           </Link>

@@ -31,6 +31,11 @@ enum SubscriptionType {
   YEAR
 }
 
+enum NotificationType {
+  LIKE
+  COMMENT
+}
+
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -70,6 +75,7 @@ model User {
   accounts            Account[]
   problemsneedverify  problemsneedverify[]
   solutions Solution[]
+  notifications notifications[]
 }
 
 model Subscription {
@@ -260,5 +266,18 @@ model problemsneedverify {
   user       User     @relation(fields: [userId], references: [id])
   createdAt  DateTime @default(now())
 
+  @@index([userId])
+}
+
+model notifications {
+  id          String   @id @default(cuid())
+  userId      String  
+  User        User    @relation(fields: [userId], references: [id])
+  type       NotificationType
+  message     String
+  link        String
+  isRead      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  
   @@index([userId])
 }

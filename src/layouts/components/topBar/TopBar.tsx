@@ -15,6 +15,7 @@ import FullScreen from './FullScreen';
 import QuestionCard from './QuestionCard';
 import QuestionsDrawer from './QuestionsDrawer';
 import Timer from './Timer';
+import Notifications from './Notifications';
 
 const TopBar = (problemId: any) => {
   const pathname = usePathname().split('/');
@@ -56,9 +57,10 @@ const TopBar = (problemId: any) => {
       </QuestionsDrawer>
       <div className="mx-auto mt-5 flex h-8 items-center justify-between gap-2 rounded bg-gradient-to-b from-body to-theme-light px-12 pb-3 dark:from-darkmode-body dark:to-darkmode-theme-light">
         <div className="flex h-6 w-20 cursor-pointer items-center justify-between gap-2">
-          <div className="order-0 flex items-center md:order-0 lg:ml-0">
+          <div className="order-0 flex items-center gap-2 md:order-0 lg:ml-0">
             <Login />
-            <ThemeSwitcher className="mx-5" />
+            <Notifications />
+            <ThemeSwitcher className="mx-2" />
           </div>
           <span
             title="שאלה קודמת"
@@ -164,24 +166,3 @@ const TopBar = (problemId: any) => {
 };
 
 export default TopBar;
-
-// const mockData = [
-//   {
-//     id: 1,
-//     title: "שאלה במטריצות",
-//     difficulty: "קשה",
-//     status: "FINISH",
-//   },
-//   {
-//     id: 6,
-//     title: "אי רציפות",
-//     difficulty: "קל",
-//     status: "BEGIN",
-//   },
-//   {
-//     id: 24,
-//     title: "משפט לופיטל",
-//     difficulty: "בינוני",
-//     status: "STUCK",
-//   },
-// ];

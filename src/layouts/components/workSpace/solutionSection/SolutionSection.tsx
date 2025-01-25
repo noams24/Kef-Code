@@ -1,29 +1,36 @@
 'use client';
 
-import Tab from '@/shortcodes/Tab';
-import Tabs from '@/shortcodes/Tabs';
-import Solution from './Solution';
-import Feed from './Feed';
-import Pagination from './Pagination';
-import Youtube from '@/shortcodes/Youtube';
 import ImageDisplay from '@/components/ImageDisplay';
 import Likes from '@/components/Likes';
-import Accordion from '@/shortcodes/Accordion';
-import { useGenerationStore } from '@/store/store';
-import { useGenerationStoree } from '@/store/store';
-import { useGenerationStore3 } from '@/store/store';
-import { useDevelop } from '@/store/store';
-import { useQuery } from '@tanstack/react-query';
+import Status from '@/components/Status';
 import { toast } from '@/hooks/use-toast';
+import Accordion from '@/shortcodes/Accordion';
+import Tab from '@/shortcodes/Tab';
+import Tabs from '@/shortcodes/Tabs';
+import Youtube from '@/shortcodes/Youtube';
+import {
+  useDevelop,
+  useGenerationStore,
+  useGenerationStore3,
+  useGenerationStoree,
+} from '@/store/store';
+import { Snackbar } from '@mui/material';
+import Alert from '@mui/material/Alert';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import parse from 'html-react-parser';
-import Status from '@/components/Status';
-import Alert from '@mui/material/Alert';
-import { Snackbar } from '@mui/material';
+import Feed from './Feed';
+import Pagination from './Pagination';
+import Solution from './Solution';
 
-import 'mathlive/static.css';
 import '@/layouts/editor/theme.css';
+import 'mathlive/static.css';
 
+import DescriptionCommentsSection from '@/components/comments/DescriptionCommentsSection';
+import AddVideoModal from '@/components/modals/AddVideoModal';
+import DeleteSolutionModal from '@/components/modals/DeleteSolutionModal';
+import ImageSkeleton from '@/components/skeletons/ImageSkeleton';
+import LikesSkeleton from '@/components/skeletons/LikesSkeletion';
 import {
   Select,
   SelectContent,
@@ -33,23 +40,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/Select2';
-import { useContext, useState } from 'react';
-import ImageSkeleton from '@/components/skeletons/ImageSkeleton';
-import LikesSkeleton from '@/components/skeletons/LikesSkeletion';
-import DescriptionCommentsSection from '@/components/comments/DescriptionCommentsSection';
-import { useMutation } from '@tanstack/react-query';
-import { BsFillTrash3Fill } from 'react-icons/bs';
-import { RxVideo } from 'react-icons/rx';
-import { FaFileUpload } from 'react-icons/fa';
-import DeleteSolutionModal from '@/components/modals/DeleteSolutionModal';
-import AddVideoModal from '@/components/modals/AddVideoModal';
+import hebrewDateFormat from '@/lib/utils/hebrewDateFormat';
+import { QueryContext } from '@/partials/ChildrenProviders';
 import { Share } from '@mui/icons-material';
 import CloseIcon from '@mui/icons-material/Close';
+import { useMutation } from '@tanstack/react-query';
 import Tippy from '@tippyjs/react';
-import { QueryContext } from '@/partials/ChildrenProviders';
 import dynamic from 'next/dynamic';
-import hebrewDateFormat from '@/lib/utils/hebrewDateFormat';
+import { useContext, useState } from 'react';
+import { BsFillTrash3Fill } from 'react-icons/bs';
+import { FaFileUpload } from 'react-icons/fa';
+import { RxVideo } from 'react-icons/rx';
 import SubmissionContent from './SubmissionContent';
+import { useSearchParams } from 'next/navigation';
+
 const PdfRenderer = dynamic(() => import('@/components/PdfRenderer'), {
   ssr: false,
 });
@@ -81,14 +85,36 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
   const [displayVideoModal, setVideoModal] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const { development } = useDevelop();
+  const [displaySubmissionFlag, setFlag] = useState(false);
   const queryClient = useContext(QueryContext);
+
+  const searchParams = useSearchParams();
+  const submissionParam = searchParams.get('submission');
 
   const { data: soltionSectionData } = useQuery({
     queryKey: ['solution', problemId, page, sortBy],
     queryFn: async () => {
       if (development) return null;
       const query = `/api/getSolutions?problemId=${problemId}&page=${page}&sortBy=${sortBy}`;
-      const { data } = await axios.get(query);
+      const payload = { displaySubmission: submissionParam };
+      const { data } = await axios.post(query, payload);
+
+      if (!displaySubmissionFlag && submissionParam) {
+        setFlag(true);
+        const index = data.findIndex(
+          (item: any) => item.id === submissionParam
+        );
+        const tabSolutions = document.getElementById('tab-1');
+        if (tabSolutions) {
+          tabSolutions.click();
+          tabSolutions.style.outline = 'none';
+          setTimeout(() => {
+            setSolution(index.toString());
+            // setSolution('0');
+          }, 200);
+        }
+      }
+
       return data;
     },
     keepPreviousData: true,

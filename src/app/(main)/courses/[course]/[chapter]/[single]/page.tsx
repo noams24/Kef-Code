@@ -1,7 +1,7 @@
-import { getAuthSession } from "@/lib/auth";
-import Workspace from "@/components/workSpace/WorkSpace";
-import { db } from "@/lib/db";
-import SeoMeta from "@/partials/SeoMeta";
+import { getAuthSession } from '@/lib/auth';
+import Workspace from '@/components/workSpace/WorkSpace';
+import { db } from '@/lib/db';
+import SeoMeta from '@/partials/SeoMeta';
 
 interface PageProps {
   params: {
@@ -12,7 +12,7 @@ interface PageProps {
 }
 let solution: any = null;
 const singleProblem = async ({ params }: PageProps) => {
-  const title = decodeURIComponent(params.single.replaceAll('-',' '))
+  const title = decodeURIComponent(params.single.replaceAll('-', ' '));
   const session = await getAuthSession();
   const problem = await db.problem.findFirst({
     where: {
@@ -28,8 +28,8 @@ const singleProblem = async ({ params }: PageProps) => {
   if (!problem) return <h1 className="flex justify-center">השאלה לא קיימת</h1>;
 
   return (
-    <>
-        <SeoMeta
+    <div className="max-h-screen overflow-hidden">
+      <SeoMeta
         // @ts-ignore
         title={`כיף קוד - ${title}`}
         // @ts-ignore
@@ -43,17 +43,18 @@ const singleProblem = async ({ params }: PageProps) => {
         userId={session?.user.id}
         role={session?.user.role}
       />
-    </>
+    </div>
   );
 };
 
-singleProblem.getLayout = function getLayout(page:any){
-  
-  return <>
-  
-  {page}<h1>BLA</h1></> 
-    
-}
+singleProblem.getLayout = function getLayout(page: any) {
+  return (
+    <>
+      {page}
+      <h1>BLA</h1>
+    </>
+  );
+};
 
 export default singleProblem;
 

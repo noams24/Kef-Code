@@ -2,7 +2,7 @@ import { db } from '@/lib/db';
 import { generateHtml } from '@/layouts/editor/utils/generateHtml';
 import { getAuthSession } from '@/lib/auth';
 
-export async function GET(req: Request) {
+export async function POST(req: Request) {
   const url = new URL(req.url);
   const problemId = Number(url.searchParams.get('problemId'));
   const page = Number(url.searchParams.get('page'));
@@ -52,6 +52,32 @@ export async function GET(req: Request) {
         skip: (page - 1) * 5,
       });
     }
+    const body = await req.json();
+    const displaySubmission = body.displaySubmission;
+
+    let additionalResult = null;
+    if (displaySubmission) {
+      additionalResult = await db.submissions.findFirst({
+        where: {
+          problemId,
+          isPublic: true,
+        },
+        include: {
+          user: true,
+          votes: true,
+          comments: true,
+        },
+      });
+    }
+
+    //add it to the result in the last index
+    if (
+      additionalResult &&
+      !results.some(result => result.id === additionalResult.id)
+    ) {
+      results.push(additionalResult);
+    }
+
     if (!results) return new Response('No results', { status: 401 });
 
     let newResults: { [key: string]: any } = results;
