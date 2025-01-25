@@ -30,7 +30,7 @@ const TopBar = ({ problemId, session }: any) => {
     queryKey: ['topbar', course, chapter],
     queryFn: async () => {
       if (development) return null;
-      const query = `/api/getTopBar?course=${course}&chapter=${chapter}&problemId=${problemId.problemId}`;
+      const query = `/api/getTopBar?course=${course}&chapter=${chapter}&problemId=${problemId}`;
       const { data } = await axios.get(query);
       return data;
     },

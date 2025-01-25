@@ -51,7 +51,7 @@ const PostComment: FC<PostCommentProps> = ({
 
   const { mutate: postComment, isLoading } = useMutation({
     mutationFn: async ({ ID, type, text, replyToId }: CommentRequest) => {
-      const link = window.location.pathname;
+      const link = window.location.pathname + `&submission=${ID}`;
       const payload: CommentRequest = { ID, type, text, replyToId, link };
       const { data } = await axios.patch(`/api/comment/problem`, payload);
       return data;
