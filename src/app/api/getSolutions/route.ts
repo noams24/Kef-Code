@@ -52,12 +52,12 @@ export async function POST(req: Request) {
         skip: (page - 1) * 5,
       });
     }
+
     const body = await req.json();
     const displaySubmission = body.displaySubmission;
 
-    let additionalResult = null;
-    if (displaySubmission) {
-      additionalResult = await db.submissions.findFirst({
+    if (displaySubmission && !results.some(result => result.id)) {
+      const additionalResult = await db.submissions.findFirst({
         where: {
           problemId,
           isPublic: true,
@@ -68,14 +68,9 @@ export async function POST(req: Request) {
           comments: true,
         },
       });
-    }
-
-    //add it to the result in the last index
-    if (
-      additionalResult &&
-      !results.some(result => result.id === additionalResult.id)
-    ) {
-      results.push(additionalResult);
+      if (additionalResult) {
+        results.push(additionalResult);
+      }
     }
 
     if (!results) return new Response('No results', { status: 401 });
