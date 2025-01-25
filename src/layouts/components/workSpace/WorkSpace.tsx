@@ -31,6 +31,7 @@ type WorkSpaceProps = {
   solution: any;
   userId: string | undefined;
   role: string | undefined;
+  session: any;
 };
 
 interface Data {
@@ -79,6 +80,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
   solution,
   userId,
   role,
+  session,
 }) => {
   const { loginToast } = useCustomToasts();
   const document = playgroundTemplate as unknown as EditorDocument;
@@ -183,7 +185,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
   };
   return (
     <>
-      {problemId && <TopBar problemId={problemId} />}
+      {problemId && <TopBar problemId={problemId} session={session} />}
       <Split
         // className={`split ${height > 900 ? 'h-[88dvh]' : 'h-[85dvh]'}`}
         className={`split h-[85vh]`}

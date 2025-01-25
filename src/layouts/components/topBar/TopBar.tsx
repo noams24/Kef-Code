@@ -17,7 +17,7 @@ import QuestionsDrawer from './QuestionsDrawer';
 import Timer from './Timer';
 import Notifications from './Notifications';
 
-const TopBar = (problemId: any) => {
+const TopBar = ({ problemId, session }: any) => {
   const pathname = usePathname().split('/');
   const course = pathname[2];
   const chapter = pathname[3];
@@ -59,7 +59,7 @@ const TopBar = (problemId: any) => {
         <div className="flex h-6 w-20 cursor-pointer items-center justify-between gap-2">
           <div className="order-0 flex items-center gap-2 md:order-0 lg:ml-0">
             <Login />
-            <Notifications />
+            {session && <Notifications />}
             <ThemeSwitcher className="mx-2" />
           </div>
           <span

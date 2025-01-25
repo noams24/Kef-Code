@@ -42,6 +42,7 @@ const singleProblem = async ({ params }: PageProps) => {
         solution={solution}
         userId={session?.user.id}
         role={session?.user.role}
+        session={session}
       />
     </div>
   );

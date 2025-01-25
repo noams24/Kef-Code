@@ -129,7 +129,7 @@ const Notifications = () => {
           ))}
 
         {notifications.length === 0 && (
-          <div className="py-6 text-center text-gray-500">No notifications</div>
+          <div className="py-6 text-center text-gray-500">אין התראות</div>
         )}
       </DropdownMenuContent>
     </DropdownMenu>
