@@ -23,6 +23,7 @@ import './split.css';
 import { Avatar } from '../ui/Avatar';
 import { UserAvatar } from '../UserAvatar';
 import Link from 'next/link';
+import MonacoEditor from '../MonacoEditor';
 
 export type EditorContentType = SerializedEditorState | undefined | any;
 
@@ -183,6 +184,11 @@ const Workspace: React.FC<WorkSpaceProps> = ({
     setContent(newState);
     setJsonState(newState);
   };
+
+  const handleMonacoEditorChange = (value: string | undefined, event: any) => {
+    console.log(value);
+  };
+
   return (
     <>
       {problemId && <TopBar problemId={problemId} session={session} />}
@@ -202,7 +208,8 @@ const Workspace: React.FC<WorkSpaceProps> = ({
         />
 
         {/*EDITOR SECTION */}
-        <div className="relative flex w-full flex-col overflow-y-auto rounded-lg border border-border font-arial dark:border-darkmode-border">
+        <MonacoEditor initialCode="public static void main" />
+        {/* <div className="relative flex w-full flex-col overflow-y-auto rounded-lg border border-border font-arial dark:border-darkmode-border">
           {development ? (
             <Editor
               document={document}
@@ -235,7 +242,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
           ) : (
             <LinearProgress />
           )}
-        </div>
+        </div> */}
       </Split>
 
       {/* Buttons */}
