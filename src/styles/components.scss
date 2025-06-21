@@ -213,7 +213,7 @@
     0 100px 80px rgba(0, 0, 0, 0.12);
   border-radius: 5px;
 
-  @apply m-3 mx-96 flex w-[410px] flex-col items-center rounded-lg border border-gray-800 p-4;
+  @apply m-3 mx-96 flex w-[430px] flex-col items-center rounded-lg border border-gray-800 p-4;
 }
 
 .chapter-page-container-dark {
@@ -226,11 +226,11 @@
     0 20px 10px rgba(87, 109, 109, 0.12);
   border-radius: 5px;
 
-  @apply m-3 mx-96 flex w-[410px] flex-col items-center rounded-lg border border-gray-500 p-4;
+  @apply m-3 mx-96 flex w-[430px] flex-col items-center rounded-lg border border-gray-500 p-4;
 }
 
 .chapter-card-container {
-  @apply flex h-24 w-96 justify-end border border-gray-300 bg-zinc-50 pt-5 dark:border-gray-500 dark:bg-zinc-800;
+  @apply flex h-24 w-[400px] justify-end border border-gray-300 bg-zinc-50 pt-5 dark:border-gray-500 dark:bg-zinc-800;
 }
 
 // Bubble text

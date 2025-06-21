@@ -20,9 +20,6 @@ const singleProblem = async ({ params }: PageProps) => {
       chapter: params.chapter,
       title: title,
     },
-    select: {
-      id: true,
-    },
   });
 
   if (!problem) return <h1 className="flex justify-center">השאלה לא קיימת</h1>;
@@ -43,6 +40,7 @@ const singleProblem = async ({ params }: PageProps) => {
         userId={session?.user.id}
         role={session?.user.role}
         session={session}
+        problem={problem}
       />
     </div>
   );

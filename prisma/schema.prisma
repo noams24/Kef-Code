@@ -157,10 +157,12 @@ model Problem {
   course        String
   chapter       String
   title         String
-  img           String
+  img           String?
   difficulty    String
   date          String?
   hint          String?
+  description String?
+  solutionMD String?
   solutionStart Json?
   solution      Solution?
   comments      Comment[]

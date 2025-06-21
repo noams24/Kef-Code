@@ -20,7 +20,7 @@ import type { EditorDocument } from './types';
 import LinearProgress from '@mui/material/LinearProgress';
 
 import './split.css';
-import { Avatar } from '../ui/Avatar';
+// import { Avatar } from '../ui/Avatar';
 import { UserAvatar } from '../UserAvatar';
 import Link from 'next/link';
 
@@ -32,22 +32,19 @@ type WorkSpaceProps = {
   userId: string | undefined;
   role: string | undefined;
   session: any;
+  problem: any;
 };
 
 interface Data {
   submissions: any;
   content: any;
-  imageUrl: any;
   likes: number;
   dislikes: number;
-  difficulty: String;
   bookmark: boolean | undefined;
   likeStatus: any;
   solutionId?: String;
   solutionArticle?: any;
-  videoUrl?: any;
   totalSubmissions: number;
-  solutionStart: any;
 }
 
 async function onChange(
@@ -81,6 +78,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
   userId,
   role,
   session,
+  problem,
 }) => {
   const { loginToast } = useCustomToasts();
   const document = playgroundTemplate as unknown as EditorDocument;
@@ -186,11 +184,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
   return (
     <>
       {problemId && <TopBar problemId={problemId} session={session} />}
-      <Split
-        // className={`split ${height > 900 ? 'h-[88dvh]' : 'h-[85dvh]'}`}
-        className={`split h-[85vh]`}
-        minSize={0}
-      >
+      <Split className={`split h-[85vh]`} minSize={0}>
         <SolutionSection
           workSpaceData={workSpaceData}
           problemId={problemId}
@@ -199,6 +193,7 @@ const Workspace: React.FC<WorkSpaceProps> = ({
           userId={userId}
           role={role}
           updateEditor={updateEditor}
+          problem={problem}
         />
 
         {/*EDITOR SECTION */}
@@ -221,9 +216,9 @@ const Workspace: React.FC<WorkSpaceProps> = ({
                 document={{ data: workSpaceData.content.content }}
                 onChange={editor => onChange(editor, setJsonState, problemId)}
               />
-            ) : workSpaceData.solutionStart ? (
+            ) : problem.solutionStart ? (
               <Editor
-                document={{ data: workSpaceData.solutionStart }}
+                document={{ data: problem.solutionStart }}
                 onChange={editor => onChange(editor, setJsonState, problemId)}
               />
             ) : (

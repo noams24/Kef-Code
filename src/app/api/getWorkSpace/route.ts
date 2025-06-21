@@ -10,19 +10,6 @@ export async function GET(req: Request) {
     const session = await getAuthSession();
     const userId = session?.user.id;
 
-    const problemData = await db.problem.findFirst({
-      where: {
-        id: problemId,
-      },
-      select: {
-        difficulty: true,
-        img: true,
-        hint: true,
-        solutionStart: true,
-      },
-    });
-    if (!problemData) return new Response('problemNotFound', { status: 400 });
-
     const likes: number = await db.vote.count({
       where: {
         problemId,
@@ -107,9 +94,6 @@ export async function GET(req: Request) {
     const result = {
       submissions,
       content,
-      imageUrl: problemData.img,
-      difficulty: problemData.difficulty,
-      hint: problemData.hint,
       likes: likes,
       dislikes: dislikes,
       bookmark: bookmark,
@@ -118,7 +102,6 @@ export async function GET(req: Request) {
       videoUrl: solution?.videoUrl,
       solutionId: solution?.id,
       totalSubmissions: totalSubmissions,
-      solutionStart: problemData.solutionStart,
     };
     return new Response(JSON.stringify(result));
   } catch (error) {
