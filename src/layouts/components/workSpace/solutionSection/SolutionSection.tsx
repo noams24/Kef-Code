@@ -449,7 +449,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                 ) : (
                   <Likes
                     problemId={problemId}
-                    difficulty={workSpaceData?.difficulty}
+                    difficulty={problem.difficulty}
                     likes={Number(
                       workSpaceData?.likes ? workSpaceData.likes : 0
                     )}
