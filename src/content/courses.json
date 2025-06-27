@@ -1,0 +1,162 @@
+{
+  "קורסי מדעי המחשב": [
+    {
+      "title": "מבוא למדעי המחשב",
+      "link": "intro-to-computer-science",
+      "image": "/coursesImages/IntroToCS.png",
+      "chapters": "4",
+      "items": "131"
+    },
+    {
+      "title": "מבני נתונים ומבוא לאלגוריתמים",
+      "link": "data-structures",
+      "image": "/coursesImages/DataStructures.png",
+      "chapters": "5",
+      "items": "0"
+    },
+    {
+      "title": "אלגוריתמים",
+      "link": "algorithms",
+      "image": "/coursesImages/Algorithms.png",
+      "chapters": "3",
+      "items": "0"
+    },
+    {
+      "title": "ארגון המחשב",
+      "link": "computer-organization",
+      "image": "/coursesImages/ComputerOrganization.png",
+      "chapters": "6",
+      "items": "0"
+    },
+    {
+      "title": "מעבדה בתכנות מערכות",
+      "link": "programming-languages-lab",
+      "image": "/coursesImages/C.png",
+      "chapters": "3",
+      "items": "0"
+    },
+    {
+      "title": "מערכות הפעלה",
+      "link": "operating-systems",
+      "image": "/coursesImages/OperationSystems.png",
+      "chapters": "4",
+      "items": "0"
+    },
+    {
+      "title": "שפות תכנות",
+      "link": "programming-languages",
+      "image": "/coursesImages/ProgrammingLanguages.png",
+      "chapters": "2",
+      "items": "0"
+    }
+  ],
+  "קורסי מתמטיקה": [
+    {
+      "title": "אשנב למתמטיקה",
+      "link": "eshnav",
+      "image": "/coursesImages/Eshnav.png",
+      "chapters": "6",
+      "items": "102"
+    },
+    {
+      "title": "מתמטיקה בדידה",
+      "link": "discrete-mathematics",
+      "image": "/coursesImages/Bdida.png",
+      "chapters": "5",
+      "items": "164"
+    },
+    {
+      "title": "אינפי 1",
+      "link": "infi-1",
+      "image": "/coursesImages/Infi1.png",
+      "chapters": "6",
+      "items": "113"
+    },
+    {
+      "title": "אינפי 2",
+      "link": "infi-2",
+      "image": "/coursesImages/Infi2.png",
+      "chapters": "5",
+      "items": "0"
+    },
+    {
+      "title": "אלגברה לינארית 1",
+      "link": "algebra-1",
+      "image": "/coursesImages/Algebra1.png",
+      "chapters": "5",
+      "items": "0"
+    },
+    {
+      "title": "אלגברה לינארית 2",
+      "link": "algebra-2",
+      "image": "/coursesImages/Algebra2.png",
+      "chapters": "4",
+      "items": "0"
+    },
+    {
+      "title": "הסתברות ומבוא לסטטיסטיקה",
+      "link": "probability",
+      "image": "/coursesImages/Probability.png",
+      "chapters": "3",
+      "items": "0"
+    },
+    {
+      "title": "לוגיקה למדעי המחשב",
+      "link": "logics",
+      "image": "/coursesImages/Logics.png",
+      "chapters": "4",
+      "items": "0"
+    }
+  ],
+  "קורסי בחירה": [
+    {
+      "title": "מערכות בסיסי-נתונים",
+      "link": "database-system-concepts",
+      "image": "/coursesImages/Database.png",
+      "chapters": "0",
+      "items": "0"
+    },
+    {
+      "title": "גרפיקה ממוחשבת",
+      "link": "computer-graphics",
+      "image": "/coursesImages/ComputerGraphics.png",
+      "chapters": "0",
+      "items": "0"
+    },
+    {
+      "title": "מבוא לרשתות תקשורת מחשבים",
+      "link": "computer-networks",
+      "image": "/coursesImages/ComputerNetworks.png",
+      "chapters": "0",
+      "items": "0"
+    },
+    {
+      "title": "כריית מידע",
+      "link": "data-mining",
+      "image": "/coursesImages/DataMining.png",
+      "chapters": "0",
+      "items": "0"
+    },
+    {
+      "title": "מבוא לבינה מלאכותית",
+      "link": "intro-to-ai",
+      "image": "/coursesImages/IntroToAI.png",
+      "chapters": "0",
+      "items": "0"
+    },
+    {
+      "title": "תורת הקודים",
+      "link": "coding-theory",
+      "image": "/coursesImages/CodingTheory.png",
+      "chapters": "0",
+      "items": "0"
+    },
+    {
+      "title": "אנליזה נומרית 1",
+      "link": "numerical-analysis-1",
+      "image": "/coursesImages/NumericAnalysis.png",
+      "chapters": "0",
+      "items": "0"
+    }
+  ]
+}

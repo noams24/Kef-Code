@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import CourseCard from "@/components/CourseCard";
-import { MdChevronLeft, MdChevronRight } from "react-icons/md";
-import Pi from "./Pi";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import { useCallback, useRef } from "react";
+import CourseCard from '@/components/CourseCard';
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
+import Pi from './Pi';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import { useCallback, useRef } from 'react';
 
 const CourseDisplay = ({
   data,
@@ -21,10 +21,10 @@ const CourseDisplay = ({
     if (!sliderRef.current) return;
     //@ts-ignore
     const currentBreakPoint = sliderRef.current.swiper.currentBreakpoint;
-    if (currentBreakPoint === "max") {
+    if (currentBreakPoint === 'max') {
       //@ts-ignore
       sliderRef.current.swiper.slidePrev();
-    } else if (currentBreakPoint === "450") {
+    } else if (currentBreakPoint === '450') {
       //@ts-ignore
       sliderRef.current.swiper.slidePrev();
       //@ts-ignore
@@ -43,10 +43,10 @@ const CourseDisplay = ({
     if (!sliderRef.current) return;
     //@ts-ignore
     const currentBreakPoint = sliderRef.current.swiper.currentBreakpoint;
-    if (currentBreakPoint === "max") {
+    if (currentBreakPoint === 'max') {
       //@ts-ignore
       sliderRef.current.swiper.slideNext();
-    } else if (currentBreakPoint === "450") {
+    } else if (currentBreakPoint === '450') {
       //@ts-ignore
       sliderRef.current.swiper.slideNext();
       //@ts-ignore
@@ -92,17 +92,17 @@ const CourseDisplay = ({
 
   return (
     <div className="relative">
-      <div className="absolute left-0 top-[115px] z-50 bg-zinc-200/90 dark:bg-zinc-800/90 rounded-full border border-black dark:border-zinc-500">
+      <div className="absolute left-0 top-[115px] z-50 rounded-full border border-black bg-zinc-200/90 dark:border-zinc-500 dark:bg-zinc-800/90">
         <MdChevronLeft
           size={40}
-          className="opacity-50 cursor-pointer hover:opacity-100"
+          className="cursor-pointer opacity-50 hover:opacity-100"
           onClick={handlePrev}
         />
       </div>
-      <div className="absolute right-0 top-[115px] z-50 bg-zinc-200/90 dark:bg-zinc-800/90 rounded-full border border-black dark:border-zinc-500">
+      <div className="absolute right-0 top-[115px] z-50 rounded-full border border-black bg-zinc-200/90 dark:border-zinc-500 dark:bg-zinc-800/90">
         <MdChevronRight
           size={40}
-          className="opacity-50 cursor-pointer hover:opacity-100"
+          className="cursor-pointer opacity-50 hover:opacity-100"
           onClick={handleNext}
         />
       </div>
@@ -121,17 +121,13 @@ const CourseDisplay = ({
                 {!coursePercent ? null : coursePercent[item.link] ? (
                   <Pi completed={String(coursePercent[item.link])} />
                 ) : (
-                  <Pi completed={"0"} />
+                  <Pi completed={'0'} />
                 )}
               </CourseCard>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
-      {/* <div className="flex justify-between items-center w-full">
-
-
-      </div> */}
     </div>
   );
 };
