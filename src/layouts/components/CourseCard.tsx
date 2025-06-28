@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Link from "next/link";
+import Link from 'next/link';
 // import Pi from "./Pi";
-import "../../styles/courseCard.scss";
-import Image from "next/image";
+import '../../styles/courseCard.scss';
+import Image from 'next/image';
 // import ImageFallback from "@/helpers/ImageFallback";
 
 interface Props {
@@ -21,7 +21,7 @@ const CourseCard = ({
   image,
   chapters,
   items,
-  children
+  children,
 }: Props) => {
   return (
     <Link href={`courses/${link}`}>
@@ -29,15 +29,17 @@ const CourseCard = ({
         <div className="relative w-full">
           <Image
             src={image}
-            className="select-none object-cover rounded-md w-60 h-60 transition-opacity opacity-0 duration-[0.5s]"
+            className="h-60 w-60 select-none rounded-md object-cover opacity-0 transition-opacity duration-[0.5s]"
             height={300}
             width={300}
             alt="שם הקורס"
-            onLoad={(img) => img.currentTarget.classList.remove("opacity-0")}
+            onLoad={img => img.currentTarget.classList.remove('opacity-0')}
             priority
           />
-          <div className="styletext ">
-            <h2 className="text text-2xl max-w-[calc(100%-40px)] select-none">{title}</h2>
+          <div className="styletext">
+            <h2 className="text max-w-[calc(100%-40px)] select-none text-2xl">
+              {title}
+            </h2>
           </div>
           <div className="stylescore">
             {/* {completed && <Pi completed={completed} />} */}
@@ -45,10 +47,10 @@ const CourseCard = ({
           </div>
         </div>
         <div className="courseData">
-          {/* <div className="flex-col text-center">
+          <div className="flex-col text-center">
             <p className="text-2xl">{items}</p>
             <p className="text-xs text-gray-500">שאלות</p>
-          </div> */}
+          </div>
           <div className="flex-col text-center">
             <p className="text-2xl">{chapters}</p>
             <p className="text-xs text-gray-500">פרקים</p>

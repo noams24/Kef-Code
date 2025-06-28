@@ -45,7 +45,7 @@ import { QueryContext } from '@/partials/ChildrenProviders';
 import { Share } from '@mui/icons-material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useMutation } from '@tanstack/react-query';
-import Tippy from '@tippyjs/react';
+// import Tippy from '@tippyjs/react';
 import dynamic from 'next/dynamic';
 import { useContext, useState } from 'react';
 import { BsFillTrash3Fill } from 'react-icons/bs';
@@ -53,6 +53,7 @@ import { FaFileUpload } from 'react-icons/fa';
 import { RxVideo } from 'react-icons/rx';
 import SubmissionContent from './SubmissionContent';
 import { useSearchParams } from 'next/navigation';
+import MathContent from '@/components/MathContent';
 
 const PdfRenderer = dynamic(() => import('@/components/PdfRenderer'), {
   ssr: false,
@@ -66,6 +67,7 @@ interface SolutionSectionProps {
   role: string | undefined;
   loading: any;
   updateEditor: any;
+  problem: any;
 }
 
 const SolutionSection: React.FC<SolutionSectionProps> = ({
@@ -76,6 +78,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
   role,
   loading,
   updateEditor,
+  problem,
 }) => {
   const { solutionState, setSolution } = useGenerationStore();
   const { submissionState, setSubmission } = useGenerationStore3();
@@ -223,7 +226,6 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
       });
     },
   });
-
   return (
     <div className="overflow-y-auto rounded-lg border border-border font-arial dark:border-darkmode-border">
       {displayDeleteModal && (
@@ -393,22 +395,13 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
               </div>
             </div>
           )}
-
-          {/* {development ? (
-              <Youtube id="B1J6Ou4q8vE" title={"פתרון"} />
-            ) : workSpaceData && workSpaceData.videoUrl ? (
-              <div>
-                <h4 className="font-bold pt-2" dir="rtl">סרטון הסבר</h4>
-                <hr className="my-4 h-0.5 rounded bg-zinc-200 border-0 dark:bg-zinc-700"/>
-              <Youtube id={workSpaceData.videoUrl} title={"פתרון"} />
-              </div>
-            ) : null} */}
-          {/* </div> */}
           <div className="px-5">
             {development ? (
               solution
             ) : !workSpaceData ? (
               <h3 className="mt-4 flex justify-center">...טוען</h3>
+            ) : problem.solutionMD ? (
+              <MathContent content={problem.solutionMD} />
             ) : workSpaceData.solutionArticle ? (
               <div>
                 <h4 className="mt-1.5 pt-2 font-bold" dir="rtl">
@@ -443,29 +436,20 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                 bookmark={undefined}
                 likeStatus={undefined}
               />
-              {/* <PdfRenderer url={"/images/sample.pdf"} /> */}
               <ImageDisplay
                 imageUrl={'https://i.ibb.co/Gdz4BTg/problem1.png'}
-              />{' '}
+              />
             </div>
           ) : (
             <div>
               <div className="-mt-2 flex items-center justify-between">
-                {workSpaceData && workSpaceData.hint ? (
-                  <Tippy content={workSpaceData.hint} placement="right">
-                    <button className="rounded-lg border border-gray-500 p-1 text-sm">
-                      הנחיה
-                    </button>
-                  </Tippy>
-                ) : (
-                  <p></p>
-                )}
+                <div></div>
                 {loading ? (
                   <LikesSkeleton />
                 ) : (
                   <Likes
                     problemId={problemId}
-                    difficulty={workSpaceData?.difficulty}
+                    difficulty={problem.difficulty}
                     likes={Number(
                       workSpaceData?.likes ? workSpaceData.likes : 0
                     )}
@@ -483,12 +467,12 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                 )}
               </div>
               <div className="mt-2 flex justify-center">
-                {loading ? (
-                  <ImageSkeleton />
-                ) : workSpaceData?.imageUrl.endsWith('pdf') ? (
+                {problem?.description != null ? (
+                  <MathContent content={problem.description} />
+                ) : problem?.img.endsWith('pdf') ? (
                   <PdfRenderer url={workSpaceData?.imageUrl} />
                 ) : (
-                  <ImageDisplay imageUrl={workSpaceData?.imageUrl} />
+                  <ImageDisplay imageUrl={problem?.img} />
                 )}
               </div>
             </div>
@@ -501,6 +485,11 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
               userId={userId}
             />
           </Accordion>
+          {problem.hint && (
+            <Accordion className="mt-8" title="הנחיה">
+              <MathContent content={problem.hint} />
+            </Accordion>
+          )}
         </Tab>
       </Tabs>
     </div>

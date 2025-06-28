@@ -1,15 +1,11 @@
-// import { promises as fs } from "fs";
-// import path from "path";
-import { z } from "zod";
-import { columns } from "@/components/table/components/columns";
-import { DataTable } from "@/components/table/components/data-table";
-import { taskSchema } from "@/components/table/data/schema";
-import PageHeader from "@/partials/PageHeader";
-import { getAuthSession } from "@/lib/auth";
-import { db } from "@/lib/db";
-import dictionary from "@/content/dictionary.json";
-import SeoMeta from "@/partials/SeoMeta";
-import Header from "@/partials/Header";
+import { columns } from '@/components/table/components/columns';
+import { DataTable } from '@/components/table/components/data-table';
+import PageHeader from '@/partials/PageHeader';
+import { getAuthSession } from '@/lib/auth';
+import { db } from '@/lib/db';
+import dictionary from '@/content/dictionary.json';
+import SeoMeta from '@/partials/SeoMeta';
+import Header from '@/partials/Header';
 
 interface PageProps {
   params: {
@@ -17,15 +13,6 @@ interface PageProps {
     chapter: string;
   };
 }
-
-// Simulate a database read for tasks.
-// async function getTasks() {
-//   const data = await fs.readFile(
-//     path.join(process.cwd(), "src/layouts/components/table/data/tasks.json"),
-//   );
-//   const tasks = JSON.parse(data.toString());
-//   return z.array(taskSchema).parse(tasks);
-// }
 
 async function getData(course: string, chapter: string) {
   try {
@@ -42,12 +29,12 @@ async function getData(course: string, chapter: string) {
         date: true,
       },
       orderBy: {
-        date: "desc",
+        date: 'desc',
       },
     });
 
     problems.forEach((problem: { status: string }) => {
-      problem.status = "BEGIN";
+      problem.status = 'BEGIN';
     });
 
     if (session) {
@@ -56,7 +43,7 @@ async function getData(course: string, chapter: string) {
       if (Array.isArray(problemStatus)) {
         for (const p of problemStatus) {
           const index = Number(
-            problems.findIndex((item: { id: any }) => item.id === p.id),
+            problems.findIndex((item: { id: any }) => item.id === p.id)
           );
           problems[index].status = p.status;
         }
@@ -83,10 +70,8 @@ export default async function TaskPage({ params }: PageProps) {
       />
       <Header />
       <PageHeader title={params.chapter} />
-      <div className="p-10 w-auto flex justify-center">
+      <div className="flex w-auto justify-center p-10">
         {data && <DataTable data={data} columns={columns} />}
-        {/* <DataTable data={tasks} columns={columns} /> */}
-        {/* {data && data[0] ? <DataTable data={data} columns={columns} /> : <DataTable data={tasks} columns={columns} />} */}
       </div>
     </>
   );
