@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import rehypeMathjax from 'rehype-mathjax/browser';
 import remarkBreaks from 'remark-breaks';
+import '../../styles/md_code.scss';
 
 interface MathProps {
   content: string;
@@ -33,7 +34,7 @@ const MathContent: FunctionComponent<MathProps> = ({ content }) => {
     }
   }, [content]);
   return (
-    <div dir="rtl" className="text-right">
+    <div dir="rtl" className="math-content text-right">
       <ReactMarkdown
         rehypePlugins={[rehypeMathjax]}
         remarkPlugins={[remarkMath, remarkBreaks]}

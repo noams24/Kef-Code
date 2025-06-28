@@ -1,0 +1,50 @@
+.math-content {
+  --inline-code-bg: #f6f8fa;
+  --inline-code-color: #24292f;
+  --code-block-bg: #f6f8fa;
+  --code-block-color: #24292f;
+}
+
+.math-content code {
+  background-color: var(--inline-code-bg, #f6f8fa);
+  color: var(--inline-code-color, #24292f);
+  padding: 0.2em 0.4em;
+  border-radius: 6px;
+  font-size: 0.97em;
+  font-family: 'Fira Mono', 'Consolas', 'Menlo', 'Monaco', monospace;
+  white-space: pre-wrap;
+  box-shadow: 0 1px 2px 0 rgba(27, 31, 35, 0.04);
+  text-align: left !important;
+  direction: ltr;
+}
+
+.math-content pre {
+  background-color: var(--code-block-bg, #282c34);
+  color: var(--code-block-color, #e1e4e8);
+  padding: 1.1em 1.2em;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.3em 0;
+  font-size: 1.01em;
+  font-family: 'Fira Mono', 'Consolas', 'Menlo', 'Monaco', monospace;
+  box-shadow: 0 2px 8px 0 rgba(27, 31, 35, 0.08);
+  border: 1px solid #d0d7de;
+  text-align: left !important;
+  direction: ltr;
+}
+
+.math-content pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+}
+
+[theme='dark'] .math-content,
+.math-content.dark {
+  --inline-code-bg: #282c34;
+  --inline-code-color: #ffab70;
+  --code-block-bg: #282c34;
+  --code-block-color: #e1e4e8;
+}
