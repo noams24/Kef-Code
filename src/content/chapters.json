@@ -1,5 +1,5 @@
-[
-  {
+{
+  "intro-to-computer-science": {
     "courseName": "intro-to-computer-science",
     "chapters": [
       {
@@ -29,7 +29,7 @@
       }
     ]
   },
-  {
+  "data-structures": {
     "courseName": "data-structures",
     "chapters": [
       {
@@ -59,7 +59,7 @@
       }
     ]
   },
-  {
+  "algorithms": {
     "courseName": "algorithms",
     "chapters": [
       {
@@ -79,7 +79,7 @@
       }
     ]
   },
-  {
+  "computer-organization": {
     "courseName": "computer-organization",
     "chapters": [
       {
@@ -114,7 +114,7 @@
       }
     ]
   },
-  {
+  "operating-systems": {
     "courseName": "operating-systems",
     "chapters": [
       {
@@ -139,7 +139,7 @@
       }
     ]
   },
-  {
+  "programming-languages-lab": {
     "courseName": "programming-languages-lab",
     "chapters": [
       {
@@ -159,7 +159,7 @@
       }
     ]
   },
-  {
+  "programming-languages": {
     "courseName": "programming-languages",
     "chapters": [
       {
@@ -174,7 +174,7 @@
       }
     ]
   },
-  {
+  "algebra-1": {
     "courseName": "algebra-1",
     "chapters": [
       {
@@ -204,7 +204,7 @@
       }
     ]
   },
-  {
+  "algebra-2": {
     "courseName": "algebra-2",
     "chapters": [
       {
@@ -229,7 +229,7 @@
       }
     ]
   },
-  {
+  "discrete-mathematics": {
     "courseName": "discrete-mathematics",
     "chapters": [
       {
@@ -269,7 +269,7 @@
       }
     ]
   },
-  {
+  "probability": {
     "courseName": "probability",
     "chapters": [
       {
@@ -289,7 +289,7 @@
       }
     ]
   },
-  {
+  "logics": {
     "courseName": "logics",
     "chapters": [
       {
@@ -314,7 +314,7 @@
       }
     ]
   },
-  {
+  "infi-1": {
     "courseName": "infi-1",
     "chapters": [
       {
@@ -364,7 +364,7 @@
       }
     ]
   },
-  {
+  "infi-2": {
     "courseName": "infi-2",
     "chapters": [
       {
@@ -399,7 +399,7 @@
       }
     ]
   },
-  {
+  "eshnav": {
     "courseName": "eshnav",
     "chapters": [
       {
@@ -434,4 +434,4 @@
       }
     ]
   }
-]
+}
