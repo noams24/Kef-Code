@@ -44,7 +44,7 @@ const Courses = async () => {
 
   const { data: coursesJson, error } = await supabase.storage
     .from('files')
-    .download('courses/courses.json');
+    .download(`courses/courses.json?t=${Date.now()}`);
   if (error || !coursesJson) {
     throw new Error('Failed to load courses.json');
   }

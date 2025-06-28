@@ -47,7 +47,7 @@ const Chapter = async ({ params }: PageProps) => {
   const supabase = createClient(supabaseUrl, supabaseKey);
   const { data: coursesJson, error } = await supabase.storage
     .from('files')
-    .download('courses/chapters.json');
+    .download(`courses/chapters.json?t=${Date.now()}`);
   if (error || !coursesJson) {
     throw new Error('Failed to load courses.json');
   }
