@@ -1,25 +1,15 @@
-import { buttonVariants } from '@/components/ui/Button2'
-import { toast } from '@/hooks/use-toast'
-import LoginModal from '@/partials/LoginModal'
-import Link from 'next/link'
+import { toast } from '@/hooks/use-toast';
+import LoginModal from '@/partials/LoginModal';
 
 export const useCustomToasts = () => {
-  const loginToast = () => {
+  const loginToast = (description?: string) => {
     const { dismiss } = toast({
       title: 'שגיאת התחברות',
-      description: 'אתה צריך להיות מחובר כדי לשמור',
+      description: description ?? 'אתה צריך להיות מחובר כדי לשמור',
       variant: 'destructive',
-      action: (
-        // <Link
-        //   onClick={() => dismiss()}
-        //   href='/sign-in'
-        //   className={buttonVariants({ variant: 'outline' })}>
-        //   כניסה
-        // </Link>
-        <LoginModal/>
-      ),
-    })
-  }
+      action: <LoginModal />,
+    });
+  };
 
-  return { loginToast }
-}
+  return { loginToast };
+};

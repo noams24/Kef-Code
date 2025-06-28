@@ -4,16 +4,20 @@ import {
   KeyboardEvent,
   ReactElement,
   RefObject,
+  useContext,
   useEffect,
   useRef,
   useState,
 } from 'react';
+import { useCustomToasts } from '@/hooks/use-custom-toast';
+import { SessionContext } from '@/partials/ChildrenProviders';
 
 function Tabs({ children }: { children: ReactElement[] }) {
   const [active, setActive] = useState(3);
-  //select tabItems
   const tabItemsRef: RefObject<HTMLElement[]> = useRef([]);
   const [defaultFocus, setDefaultFocus] = useState(false);
+  const { loginToast } = useCustomToasts();
+  const session = useContext(SessionContext);
 
   useEffect(() => {
     if (defaultFocus) {
@@ -36,6 +40,17 @@ function Tabs({ children }: { children: ReactElement[] }) {
     }
   };
 
+  const handleClick = (index: number) => {
+    if (index === active) return;
+    if (index == 2) {
+      if (!session) {
+        loginToast('רק משתמשים מחוברים יכולים לגשת לכרטיסייה זו');
+        return;
+      }
+    }
+    setActive(index);
+  };
+
   return (
     <div className="tab">
       <ul className="tab-nav" role="tablist">
@@ -45,7 +60,7 @@ function Tabs({ children }: { children: ReactElement[] }) {
             className={`tab-nav-item ${index === active && 'active'}`}
             role="tab"
             tabIndex={index === active ? 0 : -1}
-            onClick={() => setActive(index)}
+            onClick={() => handleClick(index)}
             onKeyDown={e => handleKeyDown(e, index)}
             //@ts-ignore
             ref={ref => (tabItemsRef.current[index] = ref)}

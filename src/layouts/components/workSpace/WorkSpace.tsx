@@ -6,7 +6,7 @@ import { toast } from '@/hooks/use-toast';
 import useWindowSize from '@/hooks/useWindowSize';
 import { db } from '@/indexedDB';
 import Editor from '@/layouts/editor/components/Editor';
-import { QueryContext } from '@/partials/ChildrenProviders';
+import { QueryContext, SessionContext } from '@/partials/ChildrenProviders';
 import { useDevelop } from '@/store/store';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
@@ -20,7 +20,6 @@ import type { EditorDocument } from './types';
 import LinearProgress from '@mui/material/LinearProgress';
 
 import './split.css';
-// import { Avatar } from '../ui/Avatar';
 import { UserAvatar } from '../UserAvatar';
 import Link from 'next/link';
 
@@ -182,103 +181,105 @@ const Workspace: React.FC<WorkSpaceProps> = ({
     setJsonState(newState);
   };
   return (
-    <>
-      {problemId && <TopBar problemId={problemId} session={session} />}
-      <Split className={`split h-[85vh]`} minSize={0}>
-        <SolutionSection
-          workSpaceData={workSpaceData}
-          problemId={problemId}
-          solution={solution}
-          loading={isLoadingData}
-          userId={userId}
-          role={role}
-          updateEditor={updateEditor}
-          problem={problem}
-        />
+    <SessionContext.Provider value={session}>
+      <>
+        {problemId && <TopBar problemId={problemId} session={session} />}
+        <Split className={`split h-[85vh]`} minSize={0}>
+          <SolutionSection
+            workSpaceData={workSpaceData}
+            problemId={problemId}
+            solution={solution}
+            loading={isLoadingData}
+            userId={userId}
+            role={role}
+            updateEditor={updateEditor}
+            problem={problem}
+          />
 
-        {/*EDITOR SECTION */}
-        <div className="relative flex w-full flex-col overflow-y-auto rounded-lg border border-border font-arial dark:border-darkmode-border">
-          {development ? (
-            <Editor
-              document={document}
-              onChange={editor => onChange(editor, setJsonState, problemId)}
-            />
-          ) : fetchingData ? (
-            <LinearProgress />
-          ) : content ? (
-            <Editor
-              document={{ data: content }}
-              onChange={editor => onChange(editor, setJsonState, problemId)}
-            />
-          ) : !isLoadingData && workSpaceData ? (
-            workSpaceData.content?.content ? (
-              <Editor
-                document={{ data: workSpaceData.content.content }}
-                onChange={editor => onChange(editor, setJsonState, problemId)}
-              />
-            ) : problem.solutionStart ? (
-              <Editor
-                document={{ data: problem.solutionStart }}
-                onChange={editor => onChange(editor, setJsonState, problemId)}
-              />
-            ) : (
+          {/*EDITOR SECTION */}
+          <div className="relative flex w-full flex-col overflow-y-auto rounded-lg border border-border font-arial dark:border-darkmode-border">
+            {development ? (
               <Editor
                 document={document}
                 onChange={editor => onChange(editor, setJsonState, problemId)}
               />
-            )
-          ) : (
-            <LinearProgress />
-          )}
-        </div>
-      </Split>
+            ) : fetchingData ? (
+              <LinearProgress />
+            ) : content ? (
+              <Editor
+                document={{ data: content }}
+                onChange={editor => onChange(editor, setJsonState, problemId)}
+              />
+            ) : !isLoadingData && workSpaceData ? (
+              workSpaceData.content?.content ? (
+                <Editor
+                  document={{ data: workSpaceData.content.content }}
+                  onChange={editor => onChange(editor, setJsonState, problemId)}
+                />
+              ) : problem.solutionStart ? (
+                <Editor
+                  document={{ data: problem.solutionStart }}
+                  onChange={editor => onChange(editor, setJsonState, problemId)}
+                />
+              ) : (
+                <Editor
+                  document={document}
+                  onChange={editor => onChange(editor, setJsonState, problemId)}
+                />
+              )
+            ) : (
+              <LinearProgress />
+            )}
+          </div>
+        </Split>
 
-      {/* Buttons */}
-      <div className="my-3 flex justify-center gap-x-3 pr-2">
-        <button
-          onClick={() => handleSave({ jsonState, isPublic: true })}
-          disabled={isLoading}
-          className="btn-outline-primary"
-        >
-          פרסום פתרון
-        </button>
-        <button
-          onClick={() => handleSave({ jsonState, isPublic: false })}
-          disabled={isLoading}
-          className="btn-outline-primary"
-        >
-          שמירה בענן
-        </button>
-      </div>
-      {confetti && (
-        <Confetti gravity={0.3} width={width - 1} height={height - 1} />
-      )}
-
-      {role === 'ADMIN' && (
-        <div className="absolute bottom-3 left-3 flex">
-          <Link
-            href={`/adminstuff?problemId=${problemId}`}
-            title="admin stuff"
-            target="_blank"
+        {/* Buttons */}
+        <div className="my-3 flex justify-center gap-x-3 pr-2">
+          <button
+            onClick={() => handleSave({ jsonState, isPublic: true })}
+            disabled={isLoading}
+            className="btn-outline-primary"
           >
-            <UserAvatar
-              user={{ name: 'admin', image: null }}
-              className="h-8 w-8"
-            />
-          </Link>
-          <Link
-            href={`/addSolution?problemId=${problemId}`}
-            title="add solution"
-            target="_blank"
+            פרסום פתרון
+          </button>
+          <button
+            onClick={() => handleSave({ jsonState, isPublic: false })}
+            disabled={isLoading}
+            className="btn-outline-primary"
           >
-            <UserAvatar
-              user={{ name: 'admin', image: null }}
-              className="h-8 w-8"
-            />
-          </Link>
+            שמירה בענן
+          </button>
         </div>
-      )}
-    </>
+        {confetti && (
+          <Confetti gravity={0.3} width={width - 1} height={height - 1} />
+        )}
+
+        {role === 'ADMIN' && (
+          <div className="absolute bottom-3 left-3 flex">
+            <Link
+              href={`/adminstuff?problemId=${problemId}`}
+              title="admin stuff"
+              target="_blank"
+            >
+              <UserAvatar
+                user={{ name: 'admin', image: null }}
+                className="h-8 w-8"
+              />
+            </Link>
+            <Link
+              href={`/addSolution?problemId=${problemId}`}
+              title="add solution"
+              target="_blank"
+            >
+              <UserAvatar
+                user={{ name: 'admin', image: null }}
+                className="h-8 w-8"
+              />
+            </Link>
+          </div>
+        )}
+      </>
+    </SessionContext.Provider>
   );
 };
 export default Workspace;
