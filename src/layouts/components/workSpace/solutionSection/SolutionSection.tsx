@@ -470,7 +470,7 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
                 {problem?.description != null ? (
                   <MathContent content={problem.description} />
                 ) : problem?.img.endsWith('pdf') ? (
-                  <PdfRenderer url={workSpaceData?.imageUrl} />
+                  <PdfRenderer url={problem?.img} />
                 ) : (
                   <ImageDisplay imageUrl={problem?.img} />
                 )}
