@@ -75,7 +75,7 @@ const Chapter = async ({ params }: PageProps) => {
       {/* @ts-ignore */}
       <PageHeader title={params.course} />
       <div className="flex justify-center">
-        <div className="chapter-page-container dark:chapter-page-container-dark m-3 mx-96 flex w-[410px] flex-col items-center rounded-lg border border-gray-800 p-4 dark:border-gray-500">
+        <div className="chapter-page-container dark:chapter-page-container-dark m-3 mx-96 flex flex-col items-center rounded-lg border border-gray-800 p-4 dark:border-gray-500">
           {course.chapters.map((chapter: any, chapterIndex: any) => (
             <ChapterCard
               key={chapterIndex} // Use a unique key for each component in the list
