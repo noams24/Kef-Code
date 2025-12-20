@@ -54,6 +54,7 @@ import { RxVideo } from 'react-icons/rx';
 import SubmissionContent from './SubmissionContent';
 import { useSearchParams } from 'next/navigation';
 import MathContent from '@/components/MathContent';
+import C1 from './C1';
 
 const PdfRenderer = dynamic(() => import('@/components/PdfRenderer'), {
   ssr: false,
@@ -400,6 +401,8 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
               solution
             ) : !workSpaceData ? (
               <h3 className="mt-4 flex justify-center">...טוען</h3>
+            ) : problem.solutionC1 ? (
+              <C1 content={problem.solutionC1}></C1>
             ) : problem.solutionMD ? (
               <MathContent content={problem.solutionMD} />
             ) : workSpaceData.solutionArticle ? (

@@ -8,46 +8,18 @@ datasource db {
   relationMode = "prisma"
 }
 
-enum voteType {
-  LIKE
-  DISLIKE
-}
-
-enum Status {
-  BEGIN
-  ONGOING
-  STUCK
-  FINISH
-}
-
-enum UserRole {
-  USER
-  COADMIN
-  ADMIN
-}
-
-enum SubscriptionType {
-  MONTH
-  YEAR
-}
-
-enum NotificationType {
-  LIKE
-  COMMENT
-}
-
 model Account {
   id                String  @id @default(cuid())
   userId            String
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -62,9 +34,9 @@ model User {
   emailVerified       DateTime?
   username            String?               @unique
   image               String?
+  role                UserRole              @default(USER)
   subscription        Subscription?
   subscriptionHistory SubscriptionHistory[]
-  role                UserRole              @default(USER)
   posts               Post[]
   sessions            Session[]
   Comment             Comment[]
@@ -74,8 +46,8 @@ model User {
   problemStatus       problemStatus[]
   accounts            Account[]
   problemsneedverify  problemsneedverify[]
-  solutions Solution[]
-  notifications notifications[]
+  solutions           Solution[]
+  notifications       notifications[]
 }
 
 model Subscription {
@@ -115,8 +87,8 @@ model Post {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   authorId  String
-  author    User      @relation(fields: [authorId], references: [id])
   course    String
+  author    User      @relation(fields: [authorId], references: [id])
   comments  Comment[]
   Vote      Vote[]
 
@@ -124,24 +96,23 @@ model Post {
 }
 
 model Comment {
-  id        String   @id @default(cuid())
-  text      String
-  createdAt DateTime @default(now())
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  String
-  post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId    String?
-  problem   Problem? @relation(fields: [problemId], references: [id], onDelete: Cascade)
-  problemId Int?
-
+  id            String       @id @default(cuid())
+  text          String
+  createdAt     DateTime     @default(now())
+  authorId      String
+  postId        String?
+  problemId     Int?
   replyToId     String?
+  commentId     String?
+  submissionsId String?
+  solutionId    String?
+  author        User         @relation(fields: [authorId], references: [id])
+  post          Post?        @relation(fields: [postId], references: [id], onDelete: Cascade)
+  problem       Problem?     @relation(fields: [problemId], references: [id], onDelete: Cascade)
   replyTo       Comment?     @relation("ReplyTo", fields: [replyToId], references: [id], onDelete: Restrict, onUpdate: Restrict)
   replies       Comment[]    @relation("ReplyTo")
-  commentId     String?
   Submissions   Submissions? @relation(fields: [submissionsId], references: [id], onDelete: Cascade)
-  submissionsId String?
   Solutions     Solution?    @relation(fields: [solutionId], references: [id], onDelete: Cascade)
-  solutionId    String?
   votes         Vote[]
 
   @@index([authorId])
@@ -159,11 +130,12 @@ model Problem {
   title         String
   img           String?
   difficulty    String
-  date          String?
   hint          String?
-  description String?
-  solutionMD String?
+  date          String?
   solutionStart Json?
+  description   String?
+  solutionMD    String?
+  solutionC1    String?
   solution      Solution?
   comments      Comment[]
   Submissions   Submissions[]
@@ -177,32 +149,32 @@ model Problem {
 model Solution {
   id        String    @id @default(cuid())
   problemId Int       @unique
-  problem   Problem   @relation(fields: [problemId], references: [id])
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   videoUrl  String?
   content   Json?
   userId    String?
-  user      User?      @relation(fields: [userId], references: [id])
   isPremium Boolean
+  problem   Problem   @relation(fields: [problemId], references: [id])
+  user      User?     @relation(fields: [userId], references: [id])
   comments  Comment[]
   votes     Vote[]
-  
+
   @@index([userId])
 }
 
 model Submissions {
   id        String    @id @default(cuid())
   userId    String
-  user      User      @relation(fields: [userId], references: [id])
   problemId Int
-  problem   Problem   @relation(fields: [problemId], references: [id])
   content   Json
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   isPublic  Boolean
   videoUrl  String?
   latest    Boolean?
+  user      User      @relation(fields: [userId], references: [id])
+  problem   Problem   @relation(fields: [problemId], references: [id])
   comments  Comment[]
   votes     Vote[]
 
@@ -214,16 +186,16 @@ model Vote {
   id           String       @id @default(cuid())
   type         voteType
   userId       String
-  user         User         @relation(fields: [userId], references: [id])
   problemId    Int?
-  problem      Problem?     @relation(fields: [problemId], references: [id])
   postId       String?
-  post         Post?        @relation(fields: [postId], references: [id], onDelete: Cascade)
-  Comment      Comment?     @relation(fields: [commentId], references: [id])
   commentId    String?
   SubmissionId String?
-  Submission   Submissions? @relation(fields: [SubmissionId], references: [id])
   SolutionId   String?
+  user         User         @relation(fields: [userId], references: [id])
+  problem      Problem?     @relation(fields: [problemId], references: [id])
+  post         Post?        @relation(fields: [postId], references: [id], onDelete: Cascade)
+  Comment      Comment?     @relation(fields: [commentId], references: [id])
+  Submission   Submissions? @relation(fields: [SubmissionId], references: [id])
   Solution     Solution?    @relation(fields: [SolutionId], references: [id])
 
   @@index([userId])
@@ -236,8 +208,8 @@ model Vote {
 
 model Bookmark {
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
   problemId Int
+  user      User     @relation(fields: [userId], references: [id])
   problem   Problem? @relation(fields: [problemId], references: [id])
 
   @@id([problemId, userId])
@@ -247,10 +219,10 @@ model Bookmark {
 
 model problemStatus {
   problemId Int
-  problem   Problem @relation(fields: [problemId], references: [id])
   userId    String
-  user      User    @relation(fields: [userId], references: [id])
   status    Status  @default(BEGIN)
+  problem   Problem @relation(fields: [problemId], references: [id])
+  user      User    @relation(fields: [userId], references: [id])
 
   @@unique([problemId, userId])
   @@index([userId])
@@ -263,23 +235,51 @@ model problemsneedverify {
   title      String
   img        String
   difficulty String
-  date       String?
   userId     String
-  user       User     @relation(fields: [userId], references: [id])
   createdAt  DateTime @default(now())
+  date       String?
+  user       User     @relation(fields: [userId], references: [id])
 
   @@index([userId])
 }
 
 model notifications {
-  id          String   @id @default(cuid())
-  userId      String  
-  User        User    @relation(fields: [userId], references: [id])
-  type       NotificationType
-  message     String
-  link        String
-  isRead      Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  
+  id        String           @id @default(cuid())
+  userId    String
+  message   String
+  link      String
+  isRead    Boolean          @default(false)
+  createdAt DateTime         @default(now())
+  type      NotificationType
+  User      User             @relation(fields: [userId], references: [id])
+
   @@index([userId])
+}
+
+enum voteType {
+  LIKE
+  DISLIKE
+}
+
+enum Status {
+  BEGIN
+  ONGOING
+  STUCK
+  FINISH
+}
+
+enum UserRole {
+  USER
+  COADMIN
+  ADMIN
+}
+
+enum SubscriptionType {
+  MONTH
+  YEAR
+}
+
+enum NotificationType {
+  LIKE
+  COMMENT
 }
