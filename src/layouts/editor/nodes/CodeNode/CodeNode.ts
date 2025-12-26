@@ -6,7 +6,7 @@
  *
  */
 
-import type {CodeHighlightNode} from '@lexical/code';
+import type { CodeHighlightNode } from '@lexical/code';
 import type {
   DOMConversionMap,
   DOMConversionOutput,
@@ -24,7 +24,7 @@ import type {
 
 import './CodeHighlighterPrism';
 
-import {addClassNamesToElement, isHTMLElement} from '@lexical/utils';
+import { addClassNamesToElement, isHTMLElement } from '@lexical/utils';
 import {
   $applyNodeReplacement,
   $createLineBreakNode,
@@ -49,7 +49,7 @@ export type SerializedCodeNode = Spread<
 >;
 
 const mapToPrismLanguage = (
-  language: string | null | undefined,
+  language: string | null | undefined
 ): string | null | undefined => {
   // eslint-disable-next-line no-prototype-builtins
   return language != null && window.Prism.languages.hasOwnProperty(language)
@@ -82,9 +82,13 @@ export class CodeNode extends ElementNode {
     return new CodeNode(node.__language, node.__key);
   }
 
+  // constructor(language?: string | null | undefined, key?: NodeKey) {
+  //   super(key);
+  //   this.__language = mapToPrismLanguage(language);
+  // }
   constructor(language?: string | null | undefined, key?: NodeKey) {
     super(key);
-    this.__language = mapToPrismLanguage(language);
+    this.__language = language || undefined;
   }
 
   // View
@@ -101,7 +105,7 @@ export class CodeNode extends ElementNode {
   updateDOM(
     prevNode: CodeNode,
     dom: HTMLElement,
-    config: EditorConfig,
+    config: EditorConfig
   ): boolean {
     const language = this.__language;
     const prevLanguage = prevNode.__language;
@@ -124,7 +128,7 @@ export class CodeNode extends ElementNode {
     if (language) {
       element.setAttribute(LANGUAGE_DATA_ATTRIBUTE, language);
     }
-    return {element};
+    return { element };
   }
 
   static importDOM(): DOMConversionMap | null {
@@ -214,7 +218,7 @@ export class CodeNode extends ElementNode {
   // Mutation
   insertNewAfter(
     selection: RangeSelection,
-    restoreSelection = true,
+    restoreSelection = true
   ): null | ParagraphNode | CodeHighlightNode | TabNode {
     const children = this.getChildren();
     const childrenLength = children.length;
@@ -237,7 +241,7 @@ export class CodeNode extends ElementNode {
     // If the selection is within the codeblock, find all leading tabs and
     // spaces of the current line. Create a new line that has all those
     // tabs and spaces, such that leading indentation is preserved.
-    const {anchor, focus} = selection;
+    const { anchor, focus } = selection;
     const firstPoint = anchor.isBefore(focus) ? anchor : focus;
     const firstSelectionNode = firstPoint.getNode();
     if ($isTextNode(firstSelectionNode)) {
@@ -282,7 +286,7 @@ export class CodeNode extends ElementNode {
       }
     }
     if ($isCodeNode(firstSelectionNode)) {
-      const {offset} = selection.anchor;
+      const { offset } = selection.anchor;
       firstSelectionNode.splice(offset, 0, [$createLineBreakNode()]);
       firstSelectionNode.select(offset + 1, offset + 1);
     }
@@ -297,7 +301,7 @@ export class CodeNode extends ElementNode {
   collapseAtStart(): boolean {
     const paragraph = $createParagraphNode();
     const children = this.getChildren();
-    children.forEach((child) => paragraph.append(child));
+    children.forEach(child => paragraph.append(child));
     this.replace(paragraph);
     return true;
   }
@@ -313,13 +317,13 @@ export class CodeNode extends ElementNode {
 }
 
 export function $createCodeNode(
-  language?: string | null | undefined,
+  language?: string | null | undefined
 ): CodeNode {
   return $applyNodeReplacement(new CodeNode(language));
 }
 
 export function $isCodeNode(
-  node: LexicalNode | null | undefined,
+  node: LexicalNode | null | undefined
 ): node is CodeNode {
   return node instanceof CodeNode;
 }
@@ -329,7 +333,7 @@ function convertPreElement(domNode: Node): DOMConversionOutput {
   if (isHTMLElement(domNode)) {
     language = domNode.getAttribute(LANGUAGE_DATA_ATTRIBUTE);
   }
-  return {node: $createCodeNode(language)};
+  return { node: $createCodeNode(language) };
 }
 
 function convertDivElement(domNode: Node): DOMConversionOutput {
@@ -347,11 +351,11 @@ function convertDivElement(domNode: Node): DOMConversionOutput {
 }
 
 function convertTableElement(): DOMConversionOutput {
-  return {node: $createCodeNode()};
+  return { node: $createCodeNode() };
 }
 
 function convertCodeNoop(): DOMConversionOutput {
-  return {node: null};
+  return { node: null };
 }
 
 function isCodeElement(div: HTMLElement): boolean {
@@ -370,7 +374,7 @@ function isCodeChildElement(node: HTMLElement): boolean {
 }
 
 function isGitHubCodeCell(
-  cell: HTMLTableCellElement,
+  cell: HTMLTableCellElement
 ): cell is HTMLTableCellElement {
   return cell.classList.contains('js-file-line');
 }

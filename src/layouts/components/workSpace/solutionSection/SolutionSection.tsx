@@ -402,7 +402,8 @@ const SolutionSection: React.FC<SolutionSectionProps> = ({
             ) : !workSpaceData ? (
               <h3 className="mt-4 flex justify-center">...טוען</h3>
             ) : problem.solutionC1 ? (
-              <C1 content={problem.solutionC1}></C1>
+              workSpaceData &&
+              !loading && <C1 content={problem.solutionC1}></C1>
             ) : problem.solutionMD ? (
               <MathContent content={problem.solutionMD} />
             ) : workSpaceData.solutionArticle ? (

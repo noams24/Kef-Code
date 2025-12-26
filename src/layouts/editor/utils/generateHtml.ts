@@ -16,10 +16,12 @@ export const generateHtml = (data: SerializedEditorState) =>
       global.document = dom.document;
       global.DocumentFragment = dom.DocumentFragment;
       global.Element = dom.Element;
-      Object.assign(global, {
-        window: dom.window,
-        navigator: { ...dom.navigator, language: 'en-US' },
-        MathfieldElement: { isFunction: () => false },
+      (global as any).window = dom.window;
+      (global as any).MathfieldElement = { isFunction: () => false };
+      Object.defineProperty(global, 'navigator', {
+        value: { ...dom.window.navigator, language: 'en-US' },
+        writable: true,
+        configurable: true,
       });
     }
     try {
