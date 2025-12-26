@@ -40,7 +40,7 @@ import { $isTableSelection } from './LexicalTableSelection';
 export function $createTableNodeWithDimensions(
   rowCount: number,
   columnCount: number,
-  includeHeaders: InsertTableCommandPayloadHeaders = true,
+  includeHeaders: InsertTableCommandPayloadHeaders = true
 ): TableNode {
   const tableNode = $createTableNode();
 
@@ -74,9 +74,9 @@ export function $createTableNodeWithDimensions(
 }
 
 export function $getTableCellNodeFromLexicalNode(
-  startingNode: LexicalNode,
+  startingNode: LexicalNode
 ): TableCellNode | null {
-  const node = $findMatchingParent(startingNode, (n) => $isTableCellNode(n));
+  const node = $findMatchingParent(startingNode, n => $isTableCellNode(n));
 
   if ($isTableCellNode(node)) {
     return node;
@@ -86,9 +86,9 @@ export function $getTableCellNodeFromLexicalNode(
 }
 
 export function $getTableRowNodeFromTableCellNodeOrThrow(
-  startingNode: LexicalNode,
+  startingNode: LexicalNode
 ): TableRowNode {
-  const node = $findMatchingParent(startingNode, (n) => $isTableRowNode(n));
+  const node = $findMatchingParent(startingNode, n => $isTableRowNode(n));
 
   if ($isTableRowNode(node)) {
     return node;
@@ -98,9 +98,9 @@ export function $getTableRowNodeFromTableCellNodeOrThrow(
 }
 
 export function $getTableNodeFromLexicalNodeOrThrow(
-  startingNode: LexicalNode,
+  startingNode: LexicalNode
 ): TableNode {
-  const node = $findMatchingParent(startingNode, (n) => $isTableNode(n));
+  const node = $findMatchingParent(startingNode, n => $isTableNode(n));
 
   if ($isTableNode(node)) {
     return node;
@@ -110,18 +110,18 @@ export function $getTableNodeFromLexicalNodeOrThrow(
 }
 
 export function $getTableRowIndexFromTableCellNode(
-  tableCellNode: TableCellNode,
+  tableCellNode: TableCellNode
 ): number {
   const tableRowNode = $getTableRowNodeFromTableCellNodeOrThrow(tableCellNode);
   const tableNode = $getTableNodeFromLexicalNodeOrThrow(tableRowNode);
-  return tableNode.getChildren().findIndex((n) => n.is(tableRowNode));
+  return tableNode.getChildren().findIndex(n => n.is(tableRowNode));
 }
 
 export function $getTableColumnIndexFromTableCellNode(
-  tableCellNode: TableCellNode,
+  tableCellNode: TableCellNode
 ): number {
   const tableRowNode = $getTableRowNodeFromTableCellNodeOrThrow(tableCellNode);
-  return tableRowNode.getChildren().findIndex((n) => n.is(tableCellNode));
+  return tableRowNode.getChildren().findIndex(n => n.is(tableCellNode));
 }
 
 export type TableCellSiblings = {
@@ -133,7 +133,7 @@ export type TableCellSiblings = {
 
 export function $getTableCellSiblingsFromTableCellNode(
   tableCellNode: TableCellNode,
-  table: TableDOMTable,
+  table: TableDOMTable
 ): TableCellSiblings {
   const tableNode = $getTableNodeFromLexicalNodeOrThrow(tableCellNode);
   const { x, y } = tableNode.getCordsFromCellNode(tableCellNode, table);
@@ -147,7 +147,7 @@ export function $getTableCellSiblingsFromTableCellNode(
 
 export function $removeTableRowAtIndex(
   tableNode: TableNode,
-  indexToDelete: number,
+  indexToDelete: number
 ): TableNode {
   const tableRows = tableNode.getChildren();
 
@@ -165,7 +165,7 @@ export function $insertTableRow(
   targetIndex: number,
   shouldInsertAfter = true,
   rowCount: number,
-  table: TableDOMTable,
+  table: TableDOMTable
 ): TableNode {
   const tableRows = tableNode.getChildren();
 
@@ -186,12 +186,12 @@ export function $insertTableRow(
 
         invariant(
           $isTableCellNode(tableCellFromTargetRow),
-          'Expected table cell',
+          'Expected table cell'
         );
 
         const { above, below } = $getTableCellSiblingsFromTableCellNode(
           tableCellFromTargetRow,
-          table,
+          table
         );
 
         let headerState = TableCellHeaderStates.NO_STATUS;
@@ -229,7 +229,7 @@ export function $insertTableRow(
 
 const getHeaderState = (
   currentState: TableCellHeaderState,
-  possibleState: TableCellHeaderState,
+  possibleState: TableCellHeaderState
 ): TableCellHeaderState => {
   if (
     currentState === TableCellHeaderStates.BOTH ||
@@ -244,7 +244,7 @@ export function $insertTableRow__EXPERIMENTAL(insertAfter = true): void {
   const selection = $getSelection();
   invariant(
     $isRangeSelection(selection) || $isTableSelection(selection),
-    'Expected a RangeSelection or GridSelection',
+    'Expected a RangeSelection or GridSelection'
   );
   const focus = selection.focus.getNode();
   const [focusCell, , grid] = $getNodeTriplet(focus);
@@ -263,11 +263,11 @@ export function $insertTableRow__EXPERIMENTAL(insertAfter = true): void {
 
         const headerState = getHeaderState(
           currentCellHeaderState,
-          TableCellHeaderStates.COLUMN,
+          TableCellHeaderStates.COLUMN
         );
 
         newRow.append(
-          $createTableCellNode(headerState).append($createParagraphNode()),
+          $createTableCellNode(headerState).append($createParagraphNode())
         );
       } else {
         cell.setRowSpan(cell.__rowSpan + 1);
@@ -276,7 +276,7 @@ export function $insertTableRow__EXPERIMENTAL(insertAfter = true): void {
     const focusEndRowNode = grid.getChildAtIndex(focusEndRow);
     invariant(
       $isTableRowNode(focusEndRowNode),
-      'focusEndRow is not a TableRowNode',
+      'focusEndRow is not a TableRowNode'
     );
     focusEndRowNode.insertAfter(newRow);
   } else {
@@ -290,11 +290,11 @@ export function $insertTableRow__EXPERIMENTAL(insertAfter = true): void {
 
         const headerState = getHeaderState(
           currentCellHeaderState,
-          TableCellHeaderStates.COLUMN,
+          TableCellHeaderStates.COLUMN
         );
 
         newRow.append(
-          $createTableCellNode(headerState).append($createParagraphNode()),
+          $createTableCellNode(headerState).append($createParagraphNode())
         );
       } else {
         cell.setRowSpan(cell.__rowSpan + 1);
@@ -303,7 +303,7 @@ export function $insertTableRow__EXPERIMENTAL(insertAfter = true): void {
     const focusStartRowNode = grid.getChildAtIndex(focusStartRow);
     invariant(
       $isTableRowNode(focusStartRowNode),
-      'focusEndRow is not a TableRowNode',
+      'focusEndRow is not a TableRowNode'
     );
     focusStartRowNode.insertBefore(newRow);
   }
@@ -314,7 +314,7 @@ export function $insertTableColumn(
   targetIndex: number,
   shouldInsertAfter = true,
   columnCount: number,
-  table: TableDOMTable,
+  table: TableDOMTable
 ): TableNode {
   const tableRows = tableNode.getChildren();
 
@@ -335,7 +335,7 @@ export function $insertTableColumn(
 
         const { left, right } = $getTableCellSiblingsFromTableCellNode(
           targetCell,
-          table,
+          table
         );
 
         let headerState = TableCellHeaderStates.NO_STATUS;
@@ -372,7 +372,7 @@ export function $insertTableColumn__EXPERIMENTAL(insertAfter = true): void {
   const selection = $getSelection();
   invariant(
     $isRangeSelection(selection) || $isTableSelection(selection),
-    'Expected a RangeSelection or GridSelection',
+    'Expected a RangeSelection or GridSelection'
   );
   const anchor = selection.anchor.getNode();
   const focus = selection.focus.getNode();
@@ -381,7 +381,7 @@ export function $insertTableColumn__EXPERIMENTAL(insertAfter = true): void {
   const [gridMap, focusCellMap, anchorCellMap] = $computeTableMap(
     grid,
     focusCell,
-    anchorCell,
+    anchorCell
   );
   const rowCount = gridMap.length;
   const startColumn = insertAfter
@@ -393,14 +393,14 @@ export function $insertTableColumn__EXPERIMENTAL(insertAfter = true): void {
   const gridFirstChild = grid.getFirstChild();
   invariant(
     $isTableRowNode(gridFirstChild),
-    'Expected firstTable child to be a row',
+    'Expected firstTable child to be a row'
   );
   let firstInsertedCell: null | TableCellNode = null;
   function $createTableCellNodeForInsertTableColumn(
-    headerState: TableCellHeaderState = TableCellHeaderStates.NO_STATUS,
+    headerState: TableCellHeaderState = TableCellHeaderStates.NO_STATUS
   ) {
     const cell = $createTableCellNode(headerState).append(
-      $createParagraphNode(),
+      $createParagraphNode()
     );
     if (firstInsertedCell === null) {
       firstInsertedCell = cell;
@@ -413,7 +413,7 @@ export function $insertTableColumn__EXPERIMENTAL(insertAfter = true): void {
       const currentRow = loopRow.getNextSibling();
       invariant(
         $isTableRowNode(currentRow),
-        'Expected row nextSibling to be a row',
+        'Expected row nextSibling to be a row'
       );
       loopRow = currentRow;
     }
@@ -426,13 +426,13 @@ export function $insertTableColumn__EXPERIMENTAL(insertAfter = true): void {
 
     const headerState = getHeaderState(
       currentCellHeaderState,
-      TableCellHeaderStates.ROW,
+      TableCellHeaderStates.ROW
     );
 
     if (insertAfterColumn < 0) {
       $insertFirst(
         loopRow,
-        $createTableCellNodeForInsertTableColumn(headerState),
+        $createTableCellNodeForInsertTableColumn(headerState)
       );
       continue;
     }
@@ -457,7 +457,7 @@ export function $insertTableColumn__EXPERIMENTAL(insertAfter = true): void {
         }
       }
       insertAfterCell.insertAfter(
-        $createTableCellNodeForInsertTableColumn(headerState),
+        $createTableCellNodeForInsertTableColumn(headerState)
       );
     } else {
       currentCell.setColSpan(currentCell.__colSpan + 1);
@@ -470,7 +470,7 @@ export function $insertTableColumn__EXPERIMENTAL(insertAfter = true): void {
 
 export function $deleteTableColumn(
   tableNode: TableNode,
-  targetIndex: number,
+  targetIndex: number
 ): TableNode {
   const tableRows = tableNode.getChildren();
 
@@ -495,7 +495,7 @@ export function $deleteTableRow__EXPERIMENTAL(): void {
   const selection = $getSelection();
   invariant(
     $isRangeSelection(selection) || $isTableSelection(selection),
-    'Expected a RangeSelection or GridSelection',
+    'Expected a RangeSelection or GridSelection'
   );
   const anchor = selection.anchor.getNode();
   const focus = selection.focus.getNode();
@@ -504,7 +504,7 @@ export function $deleteTableRow__EXPERIMENTAL(): void {
   const [gridMap, anchorCellMap, focusCellMap] = $computeTableMap(
     grid,
     anchorCell,
-    focusCell,
+    focusCell
   );
   const { startRow: anchorStartRow } = anchorCellMap;
   const { startRow: focusStartRow } = focusCellMap;
@@ -517,7 +517,7 @@ export function $deleteTableRow__EXPERIMENTAL(): void {
   const columnCount = gridMap[0].length;
   const nextRow = gridMap[focusEndRow + 1];
   const nextRowNode: null | TableRowNode = grid.getChildAtIndex(
-    focusEndRow + 1,
+    focusEndRow + 1
   );
   for (let row = focusEndRow; row >= anchorStartRow; row--) {
     for (let column = columnCount - 1; column >= 0; column--) {
@@ -553,7 +553,7 @@ export function $deleteTableRow__EXPERIMENTAL(): void {
     invariant(
       $isTableRowNode(rowNode),
       'Expected GridNode childAtIndex(%s) to be RowNode',
-      String(row),
+      String(row)
     );
     rowNode.remove();
   }
@@ -571,7 +571,7 @@ export function $deleteTableColumn__EXPERIMENTAL(): void {
   const selection = $getSelection();
   invariant(
     $isRangeSelection(selection) || $isTableSelection(selection),
-    'Expected a RangeSelection or GridSelection',
+    'Expected a RangeSelection or GridSelection'
   );
   const anchor = selection.anchor.getNode();
   const focus = selection.focus.getNode();
@@ -580,14 +580,15 @@ export function $deleteTableColumn__EXPERIMENTAL(): void {
   const [gridMap, anchorCellMap, focusCellMap] = $computeTableMap(
     grid,
     anchorCell,
-    focusCell,
+    focusCell
   );
   const { startColumn: anchorStartColumn } = anchorCellMap;
-  const { startRow: focusStartRow, startColumn: focusStartColumn } = focusCellMap;
+  const { startRow: focusStartRow, startColumn: focusStartColumn } =
+    focusCellMap;
   const startColumn = Math.min(anchorStartColumn, focusStartColumn);
   const endColumn = Math.max(
     anchorStartColumn + anchorCell.__colSpan - 1,
-    focusStartColumn + focusCell.__colSpan - 1,
+    focusStartColumn + focusCell.__colSpan - 1
   );
   const selectedColumnCount = endColumn - startColumn + 1;
   const columnCount = gridMap[0].length;
@@ -607,8 +608,8 @@ export function $deleteTableColumn__EXPERIMENTAL(): void {
           // Overflowing left
           cell.setColSpan(
             cell.__colSpan -
-            // Possible overflow right too
-            Math.min(selectedColumnCount, cell.__colSpan - overflowLeft),
+              // Possible overflow right too
+              Math.min(selectedColumnCount, cell.__colSpan - overflowLeft)
           );
         }
       } else if (cellStartColumn + cell.__colSpan - 1 > endColumn) {
@@ -656,7 +657,7 @@ export function $unmergeCell(): void {
   const selection = $getSelection();
   invariant(
     $isRangeSelection(selection) || $isTableSelection(selection),
-    'Expected a RangeSelection or GridSelection',
+    'Expected a RangeSelection or GridSelection'
   );
   const anchor = selection.anchor.getNode();
   const [cell, row, grid] = $getNodeTriplet(anchor);
@@ -678,7 +679,7 @@ export function $unmergeCell(): void {
       currentRowNode = (currentRowNode || row).getNextSibling();
       invariant(
         $isTableRowNode(currentRowNode),
-        'Expected row next sibling to be a row',
+        'Expected row next sibling to be a row'
       );
       let insertAfterCell: null | TableCellNode = null;
       for (let column = 0; column < startColumn; column++) {
@@ -695,13 +696,13 @@ export function $unmergeCell(): void {
         for (let j = 0; j < colSpan; j++) {
           $insertFirst(
             currentRowNode,
-            $createTableCellNode(TableCellHeaderStates.NO_STATUS),
+            $createTableCellNode(TableCellHeaderStates.NO_STATUS)
           );
         }
       } else {
         for (let j = 0; j < colSpan; j++) {
           insertAfterCell.insertAfter(
-            $createTableCellNode(TableCellHeaderStates.NO_STATUS),
+            $createTableCellNode(TableCellHeaderStates.NO_STATUS)
           );
         }
       }
@@ -713,7 +714,7 @@ export function $unmergeCell(): void {
 export function $computeTableMap(
   grid: TableNode,
   cellA: TableCellNode,
-  cellB: TableCellNode,
+  cellB: TableCellNode
 ): [TableMapType, TableMapValueType, TableMapValueType] {
   const tableMap: TableMapType = [];
   let cellAValue: null | TableMapValueType = null;
@@ -750,14 +751,14 @@ export function $computeTableMap(
     const row = gridChildren[i];
     invariant(
       $isTableRowNode(row),
-      'Expected GridNode children to be TableRowNode',
+      'Expected GridNode children to be TableRowNode'
     );
     const rowChildren = row.getChildren();
     let j = 0;
     for (const cell of rowChildren) {
       invariant(
         $isTableCellNode(cell),
-        'Expected TableRowNode children to be TableCellNode',
+        'Expected TableRowNode children to be TableCellNode'
       );
       while (!isEmpty(i, j)) {
         j++;
@@ -772,7 +773,7 @@ export function $computeTableMap(
 }
 
 export function $getNodeTriplet(
-  source: PointType | LexicalNode | TableCellNode,
+  source: PointType | LexicalNode | TableCellNode
 ): [TableCellNode, TableRowNode, TableNode] {
   let cell: TableCellNode;
   if (source instanceof TableCellNode) {
@@ -781,26 +782,26 @@ export function $getNodeTriplet(
     const cell_ = $findMatchingParent(source, $isTableCellNode);
     invariant(
       $isTableCellNode(cell_),
-      'Expected to find a parent TableCellNode',
+      'Expected to find a parent TableCellNode'
     );
     cell = cell_;
   } else {
     const cell_ = $findMatchingParent(source.getNode(), $isTableCellNode);
     invariant(
       $isTableCellNode(cell_),
-      'Expected to find a parent TableCellNode',
+      'Expected to find a parent TableCellNode'
     );
     cell = cell_;
   }
   const row = cell.getParent();
   invariant(
     $isTableRowNode(row),
-    'Expected TableCellNode to have a parent TableRowNode',
+    'Expected TableCellNode to have a parent TableRowNode'
   );
   const grid = row.getParent();
   invariant(
     $isTableNode(grid),
-    'Expected TableRowNode to have a parent GridNode',
+    'Expected TableRowNode to have a parent GridNode'
   );
   return [cell, row, grid];
 }
@@ -885,7 +886,7 @@ export function getCSSFromStyleObject(styles: Record<string, string>): string {
 
 export function $patchCellStyle(
   nodes: TableCellNode[],
-  patch: Record<string, string | null>,
+  patch: Record<string, string | null>
 ): void {
   for (const node of nodes) {
     const cssText = node.getStyle();
@@ -899,7 +900,7 @@ export function $patchCellStyle(
         }
         return styles;
       },
-      { ...prevStyles } || {},
+      { ...prevStyles }
     );
     const newCSSText = getCSSFromStyleObject(newStyles);
     node.setStyle(newCSSText);

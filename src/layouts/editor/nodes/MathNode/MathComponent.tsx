@@ -1,5 +1,5 @@
-"use client";
-import { DOMAttributes } from "react";
+'use client';
+import { DOMAttributes } from 'react';
 import {
   $createRangeSelection,
   $getSelection,
@@ -9,24 +9,24 @@ import {
   BaseSelection,
   NodeKey,
   RangeSelection,
-} from "lexical";
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $getNodeByKey } from "lexical";
-import { useCallback, useEffect, useLayoutEffect, useState } from "react";
-import { useLexicalNodeSelection } from "@lexical/react/useLexicalNodeSelection";
-import { mergeRegister } from "@lexical/utils";
-import type { MathfieldElement, MathfieldElementAttributes } from "mathlive";
+} from 'lexical';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { $getNodeByKey } from 'lexical';
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import { useLexicalNodeSelection } from '@lexical/react/useLexicalNodeSelection';
+import { mergeRegister } from '@lexical/utils';
+import type { MathfieldElement, MathfieldElementAttributes } from 'mathlive';
 // import { inlineShortcuts, keyboard } from "@/app/shortcuts/constants";
-import { inlineShortcuts, keyboard } from "@/app/(site)/shortcuts/constants";
-import "./index.css";
-import { $isMathNode } from ".";
+import { inlineShortcuts, keyboard } from '@/app/(site)/shortcuts/constants';
+import './index.css';
+import { $isMathNode } from '.';
 
 type CustomElement<T> = Partial<T & DOMAttributes<T>>;
 
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      ["math-field"]: CustomElement<MathfieldElementAttributes>;
+      ['math-field']: CustomElement<MathfieldElementAttributes>;
     }
   }
 }
@@ -65,7 +65,7 @@ export default function MathComponent({
         if ($isRangeSelection(newSelection)) {
           setLastRangeSelection(newSelection);
         }
-      }),
+      })
     );
   }, []);
 
@@ -74,7 +74,7 @@ export default function MathComponent({
     if (!mathfield) return;
     // highlight when range selected
     const active = isSelected && $isRangeSelection(selection);
-    mathfield.classList.toggle("selection-active", active);
+    mathfield.classList.toggle('selection-active', active);
   }, [ref, isSelected, selection]);
 
   useEffect(() => {
@@ -99,7 +99,7 @@ export default function MathComponent({
           : anchorNode.isBefore(mathNode);
         focus(mathfield);
         mathfield.executeCommand(
-          isBefore ? "moveToMathfieldStart" : "moveToMathfieldEnd",
+          isBefore ? 'moveToMathfieldStart' : 'moveToMathfieldEnd'
         );
       });
     }
@@ -109,7 +109,7 @@ export default function MathComponent({
     const mathfield = ref.current;
     if (!mathfield) return;
 
-    mathfield.mathModeSpace = "\\,";
+    mathfield.mathModeSpace = '\\,';
 
     // focus newly created mathfield
     if (isSelected && !mathfield.hasFocus()) {
@@ -117,8 +117,8 @@ export default function MathComponent({
     }
 
     mathfield.addEventListener(
-      "input",
-      (e) => {
+      'input',
+      e => {
         const event = e as InputEvent;
         const value = mathfield.getValue();
         editor.update(() => {
@@ -127,7 +127,7 @@ export default function MathComponent({
           if (!$isMathNode(node)) return;
           node.setValue(value);
         });
-        if (event.inputType === "insertLineBreak") {
+        if (event.inputType === 'insertLineBreak') {
           event.stopPropagation();
           if (value.trim().length === 0) return;
           editor.update(() => {
@@ -138,12 +138,12 @@ export default function MathComponent({
           });
         }
       },
-      false,
+      false
     );
 
     mathfield.addEventListener(
-      "change",
-      (e) => {
+      'change',
+      e => {
         editor.update(() => {
           const value = mathfield.getValue();
           if (value.trim().length) return;
@@ -156,34 +156,34 @@ export default function MathComponent({
           }
         });
       },
-      false,
+      false
     );
 
-    mathfield.addEventListener("click", (event) => {
+    mathfield.addEventListener('click', event => {
       clearSelection();
       setSelected(true);
       focus(mathfield);
-      if (mathfield.selectionIsCollapsed)
-        mathfield.setCaretPoint(event.clientX, event.clientY);
+      // if (mathfield.selectionIsCollapsed)
+      // mathfield.setCaretPoint(event.clientX, event.clientY);
     });
 
-    mathfield.addEventListener("keydown", (event) => {
+    mathfield.addEventListener('keydown', event => {
       event.stopPropagation();
     });
 
-    mathfield.addEventListener("move-out", (event) => {
+    mathfield.addEventListener('move-out', event => {
       const direction = event.detail.direction;
       var range = document.createRange();
       var selection = window.getSelection();
       const span = mathfield.parentElement!;
 
       switch (direction) {
-        case "backward":
-        case "upward":
+        case 'backward':
+        case 'upward':
           range.setStartBefore(span);
           break;
-        case "forward":
-        case "downward":
+        case 'forward':
+        case 'downward':
           range.setStartAfter(span);
           break;
       }
@@ -218,9 +218,9 @@ export default function MathComponent({
     const container = mathVirtualKeyboard.container;
     if (!container) return;
     container.addEventListener(
-      "transitionend",
-      () => mathfield.executeCommand("scrollIntoView"),
-      { once: true },
+      'transitionend',
+      () => mathfield.executeCommand('scrollIntoView'),
+      { once: true }
     );
   }, []);
 
