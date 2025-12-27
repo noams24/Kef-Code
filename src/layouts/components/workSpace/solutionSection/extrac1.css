@@ -1,0 +1,46 @@
+.crayon-tabs-list-container,
+.crayon-tabs-content-inner {
+  direction: rtl;
+}
+
+.c1-table-cell {
+  text-align: right !important;
+}
+
+.crayon-card {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.crayon-markdown-renderer ol,
+.crayon-markdown-renderer ul {
+  padding-right: 20px;
+}
+
+[theme='dark'] .crayon-markdown-renderer-code {
+  background-color: #282c34;
+  color: #ffab70;
+}
+
+.crayon-markdown-renderer,
+.crayon-markdown-renderer h1,
+.crayon-markdown-renderer h2,
+.crayon-markdown-renderer p,
+.crayon-markdown-renderer li,
+.crayon-markdown-renderer span:not(.crayon-code-block-syntax-highlighter *),
+.crayon-tabs-trigger-text,
+.crayon-header-top-left,
+.crayon-header-top-right,
+.crayon-header-bottom,
+.c1-table-head-content,
+.crayon-accordion-trigger-content,
+.c1-section-header-title .crayon-tag-text,
+.crayon-callout-content-description,
+.c1-section-v2-header-trigger,
+.crayon-markdown-renderer li::marker {
+  font-family: __birzia_1084c5 !important;
+}
+
+.crayon-markdown-renderer strong {
+  font-family: __birzia_1084c5 !important;
+  font-weight: 700;
+}

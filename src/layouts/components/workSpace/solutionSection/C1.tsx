@@ -5,6 +5,7 @@ import { C1Component, ThemeProvider } from '@thesysai/genui-sdk';
 import { themePresets } from '@crayonai/react-ui';
 import { useTheme } from '@mui/material/styles';
 import '@crayonai/react-ui/styles/index.css';
+import './extrac1.css';
 
 interface WrapperProps {
   content: string;
