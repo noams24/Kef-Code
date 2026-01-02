@@ -37,10 +37,41 @@
 .crayon-callout-content-description,
 .c1-section-v2-header-trigger,
 .crayon-markdown-renderer li::marker {
-  font-family: __birzia_1084c5 !important;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .crayon-markdown-renderer strong {
-  font-family: __birzia_1084c5 !important;
+  font-family: Arial, Helvetica, sans-serif;
   font-weight: 700;
+}
+
+.math-content ol {
+  list-style-type: decimal;
+  padding-right: 20px;
+  margin-bottom: 20px;
+  font: var(--crayon-font-body);
+  letter-spacing: var(--crayon-font-body-letter-spacing);
+  color: var(--crayon-primary-text);
+}
+
+.math-content ul {
+  list-style-type: disc;
+  padding-right: 20px;
+  margin-bottom: 20px;
+  font: var(--crayon-font-body);
+  letter-spacing: var(--crayon-font-body-letter-spacing);
+  color: var(--crayon-primary-text);
+}
+
+.math-content li {
+  margin-bottom: 8px;
+  font: var(--crayon-font-body);
+  letter-spacing: var(--crayon-font-body-letter-spacing);
+}
+.math-content li::marker {
+  color: var(--crayon-primary-text);
+}
+
+.katex .katex-html {
+  direction: ltr;
 }
